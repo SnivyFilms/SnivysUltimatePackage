@@ -90,7 +90,7 @@ namespace VVUP.CustomItems.Items.Other
                 else
                 {
                     Log.Debug($"VVUP Custom Items: Additional Health 207, displaying use fail broadcast to {ev.Player.Nickname}");
-                    ev.Player.Broadcast(new Exiled.API.Features.Broadcast(TextToShowToPlayerOnFailHpLimit, TextDisplayDuration));
+                    ev.Player.Broadcast(TextDisplayDuration, TextToShowToPlayerOnFailCola);
                 }
                 ev.IsAllowed = false;
                 return;
@@ -111,7 +111,7 @@ namespace VVUP.CustomItems.Items.Other
                 else
                 {
                     Log.Debug($"VVUP Custom Items: Additional Health 207, displaying use fail broadcast to {ev.Player.Nickname}");
-                    ev.Player.Broadcast(new Exiled.API.Features.Broadcast(TextToShowToPlayerOnFailHpLimit, TextDisplayDuration));
+                    ev.Player.Broadcast(TextDisplayDuration, TextToShowToPlayerOnFailHpLimit);
                 }
                 ev.IsAllowed = false;
                 return;

@@ -47,7 +47,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 if (UseHints)
                     ev.Player.ShowHint(EscapeTextBoth, EscapeTextTime);
                 else
-                    ev.Player.Broadcast(new Exiled.API.Features.Broadcast(EscapeTextBoth, (ushort)EscapeTextTime));
+                    ev.Player.Broadcast((ushort)EscapeTextTime, EscapeTextBoth);
             }
             else if (PlayersWithRestrictedEscapeEffect.Contains(ev.Player) && !AllowedCuffedEscape && ev.Player.IsCuffed)
             {
@@ -56,7 +56,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 if (UseHints)
                     ev.Player.ShowHint(EscapeTextCuffed, EscapeTextTime);
                 else
-                    ev.Player.Broadcast(new Exiled.API.Features.Broadcast(EscapeTextCuffed, (ushort)EscapeTextTime));
+                    ev.Player.Broadcast((ushort)EscapeTextTime, EscapeTextCuffed);
             }
             else if (PlayersWithRestrictedEscapeEffect.Contains(ev.Player) && !AllowedUncuffedEscape && !ev.Player.IsCuffed)
             {
@@ -65,7 +65,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 if (UseHints)
                     ev.Player.ShowHint(EscapeTextUncuffed, EscapeTextTime);
                 else
-                    ev.Player.Broadcast(new Exiled.API.Features.Broadcast(EscapeTextUncuffed, (ushort)EscapeTextTime));
+                    ev.Player.Broadcast((ushort)EscapeTextTime, EscapeTextUncuffed);
             }
         }
     }

@@ -136,7 +136,7 @@ namespace VVUP.CustomItems.Items.Firearms
                 else
                 {
                     Log.Debug($"VVUP Custom Items: Explosive Round Revolver, showing Restricted Attachment Changing Message Broadcast to {ev.Player.Nickname} for {RestrictedAttachmentChangeMessageTimeDuration} seconds");
-                    ev.Player.Broadcast(new Exiled.API.Features.Broadcast(RestrictedAttachmentChangingMessage, (ushort)RestrictedAttachmentChangeMessageTimeDuration));
+                    ev.Player.Broadcast((ushort)RestrictedAttachmentChangeMessageTimeDuration, RestrictedAttachmentChangingMessage);
                 }
             }
         }

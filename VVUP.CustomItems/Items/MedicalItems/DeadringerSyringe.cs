@@ -26,9 +26,11 @@ namespace VVUP.CustomItems.Items.MedicalItems
         public override string Description { get; set; } = "When injected. You become light headed, which will eventually cause other effects";
         public override float Weight { get; set; } = 1.15f;
         public String OnUseMessage { get; set; } = "You become incredibly light headed";
+        public float OnUseMessageTimeDuration { get; set; } = 5f;
         public String RagdollDeathReason { get; set; } = "Totally A Intentional Fatal Injection";
         public bool UsableAfterNuke { get; set; } = false;
         public bool TeleportToLightAfterDecom { get; set; } = false;
+        public bool UseHints { get; set; } = true;
         [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
@@ -87,7 +89,10 @@ namespace VVUP.CustomItems.Items.MedicalItems
             if (!UsableAfterNuke && Warhead.IsDetonated)
                 return;
             Log.Debug("VVUP Custom Items: Deadringer Syring, Running methods");
-            ev.Player.Broadcast(new Exiled.API.Features.Broadcast(OnUseMessage, 3));
+            if (UseHints)
+                ev.Player.ShowHint(OnUseMessage, OnUseMessageTimeDuration);
+            else
+                ev.Player.Broadcast((ushort)OnUseMessageTimeDuration, OnUseMessage);            
             ev.Player.EnableEffect(EffectType.Blinded, 15f, true);
             Timing.CallDelayed(3, () =>
             {

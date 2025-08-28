@@ -26,21 +26,11 @@ namespace VVUP.CustomItems.Items.Firearms
         public override string Description { get; set; } = "A compact PDW that does damage based on range to target";
         public override float Weight { get; set; } = 1.75f;
 
-        [Description(
-            "Dont use Damage, instead use DamageShortRange, DamageMediumRange, and DamageLongRange to determine the damage")]
+        [YamlIgnore]
         public override float Damage { get; set; } = 0;
-
-        public float DamageShortRange { get; set; } = 10;
-        public float DamageMediumRange { get; set; } = 5;
-        public float DamageLongRange { get; set; } = 2;
-
-        [Description(
-            "The range between the attacker and target, if its below the Medium Range Threshold it will do Short Range Damage")]
-        public float MediumRangeThreshold { get; set; } = 5;
-
-        [Description(
-            "The range between the attacker and target, if its above the Medium Range Threshold but below the Long Range Threshold it will do Medium Range Damage")]
-        public float LongRangeThreshold { get; set; } = 15;
+        
+        [Description("Due to damage being multiplicative, the damage can get really high really quick, so this divider keeps the damage (mostly) in check. Adjust this to your needs")]
+        public int DamageDivider { get; set; } = 20;
 
         public override byte ClipSize { get; set; } = 10;
         public bool AllowAttachmentChanging { get; set; } = false;
@@ -144,7 +134,7 @@ namespace VVUP.CustomItems.Items.Firearms
                 else
                 {
                     Log.Debug($"VVUP Custom Items: ViperPDW, showing Restricted Attachment Changing Message Broadcast to {ev.Player.Nickname} for {RestrictedAttachmentChangeMessageTimeDuration} seconds");
-                    ev.Player.Broadcast(new Exiled.API.Features.Broadcast(RestrictedAttachmentChangingMessage, (ushort)RestrictedAttachmentChangeMessageTimeDuration));
+                    ev.Player.Broadcast((ushort)RestrictedAttachmentChangeMessageTimeDuration, RestrictedAttachmentChangingMessage);
                 }
             }
         }
@@ -155,32 +145,9 @@ namespace VVUP.CustomItems.Items.Firearms
                 return;
 
             float distance = Vector3.Distance(ev.Player.Position, ev.Attacker.Position);
-            float damageToApply;
-
-            if (distance < MediumRangeThreshold)
-            {
-                Log.Debug($"VVUP Custom Items: ViperPDW, {ev.Attacker.Nickname} is in short range of {ev.Player.Nickname}, dealing short range damage. Distance: {distance}");
-                damageToApply = DamageShortRange;
-            }
-            else if (distance >= MediumRangeThreshold && distance < LongRangeThreshold)
-            {
-                Log.Debug($"VVUP Custom Items: ViperPDW, {ev.Attacker.Nickname} is in medium range of {ev.Player.Nickname}, dealing medium range damage. Distance: {distance}");
-                damageToApply = DamageMediumRange;
-            }
-            else
-            {
-                Log.Debug($"VVUP Custom Items: ViperPDW, {ev.Attacker.Nickname} is in long range of {ev.Player.Nickname}, dealing long range damage. Distance: {distance}");
-                damageToApply = DamageLongRange;
-            }
-
-            if (ev.Player.HasItem(ItemType.ArmorLight))
-                damageToApply *= 0.6f;
-            else if (ev.Player.HasItem(ItemType.ArmorCombat))
-                damageToApply *= 0.4f;
-            else if (ev.Player.HasItem(ItemType.ArmorHeavy))
-                damageToApply *= 0.2f;
-
+            float damageToApply = ev.Amount * distance / DamageDivider;
             ev.Amount = damageToApply;
+            Log.Debug($"VVUP Custom Items: ViperPDW, {ev.Attacker.Nickname} attacked {ev.Player.Nickname} at distance {distance}, changing damage to {damageToApply}");
         }
     }
 }
