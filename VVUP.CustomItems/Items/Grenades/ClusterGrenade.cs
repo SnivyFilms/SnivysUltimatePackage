@@ -100,9 +100,9 @@ namespace VVUP.CustomItems.Items.Grenades
 
         private Vector3 GrenadeOffset(Vector3 position)
         {
-            float x = position.x - 1 + (float)Base.GetRandomNumber.GetRandomDouble() * Base.GetRandomNumber.GetRandomInt(0, 3);
+            float x = position.x - 1 + Base.GetRandomNumber.GetRandomFloat(3);
             float y = position.y;
-            float z = position.z - 1 + (float)Base.GetRandomNumber.GetRandomDouble() * Base.GetRandomNumber.GetRandomInt(0, 3);
+            float z = position.z - 1 + Base.GetRandomNumber.GetRandomFloat(3);
             return new Vector3(x, y, z);
         }
     }

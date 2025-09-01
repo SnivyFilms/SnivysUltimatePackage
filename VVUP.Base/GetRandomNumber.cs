@@ -1,25 +1,32 @@
-﻿using System;
+﻿using UnityEngine;
 
 namespace VVUP.Base
 {
-    public class GetRandomNumber
+    public static class GetRandomNumber
     {
-        static Random _random = new();
         public static int GetRandomInt()
         {
-            return _random.Next();
+            return Random.Range(0, int.MaxValue);
         }
         public static int GetRandomInt(int max)
         {
-            return _random.Next(max);
+            return Random.Range(0, max);
         }
         public static int GetRandomInt(int min, int max)
         {
-            return _random.Next(min, max);
+            return Random.Range(min, max);
         }
-        public static double GetRandomDouble()
+        public static float GetRandomFloat()
         {
-            return _random.NextDouble();
+            return Random.Range(0, float.MaxValue);
+        }
+        public static float GetRandomFloat(float max)
+        {
+            return Random.Range(0, max);
+        }
+        public static float GetRandomFloat(float min, float max)
+        {
+            return Random.Range(min, max);
         }
     }
 }

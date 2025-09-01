@@ -43,7 +43,7 @@ namespace VVUP.HuskInfection
         {
             if (ev.Attacker == null || ev.Player == null)
                 return;
-            if (PlayersWithApplyHuskInfectionOnHit.Contains(ev.Attacker) && Base.GetRandomNumber.GetRandomInt(0, 100) < InfectionChance)
+            if (PlayersWithApplyHuskInfectionOnHit.Contains(ev.Attacker) && Base.GetRandomNumber.GetRandomInt(0, 101) < InfectionChance)
             {
                 Log.Debug($"VVUP Custom Abilities: ApplyHuskInfection, {ev.Attacker.Nickname} hit {ev.Player.Nickname}, applying Husk Infection.");
                 HuskInfectionEventHandlers huskInfection = new HuskInfectionEventHandlers(ev.Player, InfectionStageOneDelay, InfectionStageTwoDelay, 
