@@ -44,13 +44,13 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                     {
                         Log.Debug("VVUP Server Events, Variable Lights: Different lights per room is enabled, changing brightness");
                         foreach (Room room in Room.List)
-                            room.Color = new Color(1, 1, 1, Base.GetRandomNumber.GetRandomFloat());
+                            room.Color = new Color(1, 1, 1, Base.GetRandomNumber.GetRandomFloat(1));
                     }
                     else
                     {
                         Log.Debug(
                             "VVUP Server Events, Variable Lights: Different lights per room is disabled, setting brightness to be the same across rooms");
-                        float aRandomNumber = Base.GetRandomNumber.GetRandomFloat();
+                        float aRandomNumber = Base.GetRandomNumber.GetRandomFloat(1);
                         foreach (Room room in Room.List)
                             room.Color = new Color(1, 1, 1, aRandomNumber);
                     }
