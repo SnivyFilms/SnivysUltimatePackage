@@ -14,8 +14,6 @@ namespace VVUP.RoundStart
 
         public void OnRoundStarted()
         {
-            if (Plugin.Instance.EventHandlers == null || !Plugin.Instance.Config.IsEnabled)
-                return;
             if (Plugin.Instance.Config.EscapeDoorOpen)
             {
                 Timing.CallDelayed(1.5f, () =>

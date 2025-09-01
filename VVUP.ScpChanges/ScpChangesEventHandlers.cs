@@ -17,8 +17,6 @@ namespace VVUP.ScpChanges
 
         public void OnChangingRole(ChangingRoleEventArgs ev)
         {
-            if (Plugin.Instance.ScpChangesEventHandlers == null)
-                return;
             if (ev.Player == null)
                 return;
             if (ev.NewRole == RoleTypeId.Scp106 && Plugin.Instance.Config.OldScp106Behavior)
