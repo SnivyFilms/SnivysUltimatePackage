@@ -89,39 +89,7 @@ namespace VVUP.WeaponEvaporate
             }
         }
         
-        private DamageType GetDamageTypeFromItem(ItemType itemType)
-        {
-            switch (itemType)
-            {
-                case ItemType.GunCOM15:
-                    return DamageType.Com15;
-                case ItemType.GunCOM18:
-                    return DamageType.Com18;
-                case ItemType.GunCom45:
-                    return DamageType.Com45;
-                case ItemType.GunE11SR:
-                    return DamageType.E11Sr;
-                case ItemType.GunCrossvec:
-                    return DamageType.Crossvec;
-                case ItemType.GunFSP9:
-                    return DamageType.Fsp9;
-                case ItemType.GunFRMG0:
-                    return DamageType.Frmg0;
-                case ItemType.GunRevolver:
-                    return DamageType.Revolver;
-                case ItemType.GunAK:
-                    return DamageType.AK;
-                case ItemType.GunLogicer:
-                    return DamageType.Logicer;
-                case ItemType.GunShotgun:
-                    return DamageType.Shotgun;
-                case ItemType.GunA7:
-                    return DamageType.A7;
-                case ItemType.GunSCP127:
-                    return DamageType.Scp127;
-                default:
-                    return DamageType.Unknown;
-            }
-        }
+        private DamageType GetDamageTypeFromItem(ItemType itemType) =>
+            DamageTypeExtensions.ItemConversion.TryGetValue(itemType, out var damageType) ? damageType : DamageType.Unknown;
     }
 }
