@@ -542,14 +542,14 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                 player.Broadcast((ushort)_config.BroadcastDisplayTime, _config.GrenadeFeetText);
                             }
 
-                            yield return Timing.WaitForSeconds(Base.GetRandomNumber.GetRandomInt(1, 50));
+                            yield return Timing.WaitForSeconds(Base.GetRandomNumber.GetRandomFloat(1, 50));
 
                             foreach (PlayerAPI player in PlayerAPI.List)
                             {
                                 Log.Debug($"VVUP Server Events, Chaotic: Spawning a grenade on {player.Nickname}");
                                 ExplosiveGrenade grenade = (ExplosiveGrenade)Item.Create(ItemType.GrenadeHE);
                                 if (_config.GrenadeFeetRandomFuse)
-                                    grenade.FuseTime = Base.GetRandomNumber.GetRandomInt(1, 50);
+                                    grenade.FuseTime = Base.GetRandomNumber.GetRandomFloat(1, 50);
                                 else
                                     grenade.FuseTime = _config.GrenadeFeetFuse;
                                 grenade.SpawnActive(player.Position);
@@ -583,7 +583,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                             }
 
                             if (_config.UnsafeMedicalItemsUseRandomTime)
-                                yield return Timing.WaitForSeconds(Base.GetRandomNumber.GetRandomInt(1, 50));
+                                yield return Timing.WaitForSeconds(Base.GetRandomNumber.GetRandomFloat(1, 50));
                             else
                                 yield return Timing.WaitForSeconds(_config.UnsafeMedicalItemsFixedTime);
                             Log.Debug("VVUP Server Events, Chaotic: Disabling Event Handlers for on using medical item events");
@@ -628,7 +628,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                         if (_config.FakeoutRespawnAnnouncementsEvent)
                         {
                             Log.Debug("VVUP Server Events, Chaotic: Fakeout Respawn Announcements active, running code");
-                            float fakeoutRespawnRandom = Base.GetRandomNumber.GetRandomInt(1, 5);
+                            int fakeoutRespawnRandom = Base.GetRandomNumber.GetRandomInt(1, 5);
                             string cassieMessage = string.Empty;
                             string cassieText = string.Empty;
                             int scpCount = 0;
@@ -648,18 +648,16 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                             if (player.Role.Team == Team.SCPs)
                                                 scpCount++;
                                         }
-
+                                        int randomNatoLetter = Base.GetRandomNumber.GetRandomInt(1, 27);
+                                        int randomNatoNumber = Base.GetRandomNumber.GetRandomInt(2, 21);
                                         if (scpCount == 0)
                                         {
                                             cassieMessage = _config.FakeoutRespawnAnnouncementsUIUSCPSDeadCassie;
                                             cassieText = _config.FakeoutRespawnAnnouncementsUIUSCPSDeadCassieText;
-                                            int randomNatoLetter = Base.GetRandomNumber.GetRandomInt(1, 26);
-                                            int randomNatoNumber = Base.GetRandomNumber.GetRandomInt(2, 20);
                                             cassieMessage = cassieMessage.Replace("{designation}",
                                                 $"nato_{GetNatoLetter(randomNatoLetter)} {randomNatoNumber}");
                                             cassieText = cassieText.Replace("{designation}",
-                                                GetNatoName(randomNatoLetter) + " " + Base.GetRandomNumber.GetRandomInt(randomNatoNumber));
-                                            Cassie.MessageTranslated(cassieMessage, cassieText);
+                                                GetNatoName(randomNatoLetter) + " " + randomNatoNumber);
                                         }
                                         else
                                         {
@@ -679,15 +677,12 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                                 cassieMessage = cassieMessage.Replace("scpsubject", "scpsubjects");
                                                 cassieText = cassieText.Replace("SCP subject", "SCP subjects");
                                             }
-
-                                            int randomNatoLetter = Base.GetRandomNumber.GetRandomInt(1, 26);
-                                            int randomNatoNumber = Base.GetRandomNumber.GetRandomInt(2, 20);
                                             cassieMessage = cassieMessage.Replace("{designation}",
                                                 $"nato_{GetNatoLetter(randomNatoLetter)} {randomNatoNumber}");
                                             cassieText = cassieText.Replace("{designation}",
-                                                GetNatoName(randomNatoLetter) + " " + Base.GetRandomNumber.GetRandomInt(randomNatoNumber));
-                                            Cassie.MessageTranslated(cassieMessage, cassieText);
+                                                GetNatoName(randomNatoLetter) + " " + randomNatoNumber);
                                         }
+                                        Cassie.MessageTranslated(cassieMessage, cassieText);
                                     }
                                     else if (_config.FakeoutRespawnAnnouncementsMTFFallback)
                                         MtfFakeoutCassie(cassieMessage, cassieText, scpCount);
@@ -1332,8 +1327,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                     cassieMessage = cassieMessage.Replace("{designation}",
                         $"nato_{GetNatoLetter(randomNatoLetter)} {randomNatoNumber}");
                     cassieText = cassieText.Replace("{designation}",
-                        GetNatoName(randomNatoLetter) + " " + Base.GetRandomNumber.GetRandomInt(randomNatoNumber));
-                    Cassie.MessageTranslated(cassieMessage, cassieText);
+                        GetNatoName(randomNatoLetter) + " " + randomNatoNumber);
                 }
 
                 else
@@ -1354,14 +1348,14 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                         cassieText = cassieText.Replace("SCP subject", "SCP subjects");
                     }
 
-                    int randomNatoLetter = Base.GetRandomNumber.GetRandomInt(1,  26);
-                    int randomNatoNumber = Base.GetRandomNumber.GetRandomInt(2, 20);
+                    int randomNatoLetter = Base.GetRandomNumber.GetRandomInt(1,  27);
+                    int randomNatoNumber = Base.GetRandomNumber.GetRandomInt(2, 21);
                     cassieMessage = cassieMessage.Replace("{designation}",
                         $"nato_{GetNatoLetter(randomNatoLetter)} {randomNatoNumber}");
                     cassieText = cassieText.Replace("{designation}",
-                        GetNatoName(randomNatoLetter) + " " + Base.GetRandomNumber.GetRandomInt(randomNatoNumber));
-                    Cassie.MessageTranslated(cassieMessage, cassieText);
+                        GetNatoName(randomNatoLetter) + " " + randomNatoNumber);
                 }
+                Cassie.MessageTranslated(cassieMessage, cassieText);
             }
         }
 

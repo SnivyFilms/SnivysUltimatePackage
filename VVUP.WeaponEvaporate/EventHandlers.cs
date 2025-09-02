@@ -20,10 +20,6 @@ namespace VVUP.WeaponEvaporate
 
         public void OnShot(ShotEventArgs ev)
         {
-            if (Plugin.Instance.EventHandlers == null)
-                return;
-            if (!Plugin.Instance.Config.IsEnabled)
-                return;
             if (ev.Target == null || ev.Player == null)
                 return;
             if (ev.Hitbox == null || ev.Player.CurrentItem == null)

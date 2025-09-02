@@ -44,7 +44,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
         }
         private static IEnumerator<float> AfterHoursTiming()
         {
-            AhTeslaAllowed = Base.GetRandomNumber.GetRandomInt(100) <= _config.TeslaActivationChance;
+            AhTeslaAllowed = Base.GetRandomNumber.GetRandomInt(101) <= _config.TeslaActivationChance;
             yield return Timing.WaitForSeconds(_config.TeslaActivationChanceCycle);
         }
         
