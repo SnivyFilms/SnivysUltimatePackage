@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Exiled.API.Features;
@@ -21,8 +20,7 @@ namespace VVUP.Base
 
             // Select a random spectator
             Log.Debug("VVUP: Selecting a random spectator");
-            Random random = new();
-            int index = random.Next(spectators.Count);
+            int index = GetRandomNumber.GetRandomInt(spectators.Count);
             return spectators[index];
         }
     }
