@@ -38,3 +38,6 @@ Adds a simple (and questionably coded) Server Specifics Setting System.
 # [Commands](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Commands-List)
 
 # [Credits](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Credits)
+
+# Support
+Support should be sent to the Exiled Discord Server, [this link is the most applicable place to ask](https://discord.com/channels/656673194693885975/1325152635233374259/1325152635233374259), but the support channel is also valid. [Click this for an invite to the Exiled Discord Server](https://discord.gg/PyUkWTg)
