@@ -140,5 +140,15 @@ namespace VVUP.CustomRoles
         {
             new Replicant()
         };
+        
+        public List<Dwarf> Dwarfs { get; set; } = new()
+        {
+            new Dwarf()
+        };
+        
+        public List<PaperMan> PaperMen { get; set; } = new()
+        {
+            new PaperMan()
+        };
     }
 }

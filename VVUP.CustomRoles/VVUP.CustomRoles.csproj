@@ -114,6 +114,7 @@
     <Compile Include="Roles\Chaos\TelepathicChaos.cs" />
     <Compile Include="Roles\ClassD\ClassDAnalyst.cs" />
     <Compile Include="Roles\ClassD\ClassDTank.cs" />
+    <Compile Include="Roles\ClassD\Dwarf.cs" />
     <Compile Include="Roles\ClassD\LockpickingClassD.cs" />
     <Compile Include="Roles\Foundation\ContainmentGuard.cs" />
     <Compile Include="Roles\Foundation\Demolitionist.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Roles\Foundation\Vanguard.cs" />
     <Compile Include="Roles\Other\BorderPatrol.cs" />
     <Compile Include="Roles\Other\Flipped.cs" />
+    <Compile Include="Roles\Other\PaperMan.cs" />
     <Compile Include="Roles\Scientist\Biochemist.cs" />
     <Compile Include="Roles\Scientist\ContainmentScientist.cs" />
     <Compile Include="Roles\Scientist\TheoreticalPhysicistScientist.cs" />

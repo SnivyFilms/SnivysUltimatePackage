@@ -10,7 +10,6 @@ using YamlDotNet.Serialization;
 using UnityEngine;
 using MEC;
 using System.ComponentModel;
-using Exiled.API.Features.Items;
 
 namespace VVUP.CustomItems.Items.Other
 {
@@ -32,6 +31,23 @@ namespace VVUP.CustomItems.Items.Other
 
         [Description("Maximum number of times the item can be used before breaking")]
         public int MaxUses { get; set; } = 3;
+
+        [Description("Maximum distance for teleportation (0 for unlimited)")]
+        public float MaxTeleportRange { get; set; } = 0;
+
+        [Description("List of rooms where position saving is not allowed")]
+        public List<RoomType> RestrictedSaveRooms { get; set; } = new List<RoomType>
+        {
+            RoomType.EzCollapsedTunnel,
+            RoomType.Pocket
+        };
+
+        [Description("List of rooms where teleporting from is not allowed")]
+        public List<RoomType> RestrictedTeleportFromRooms { get; set; } = new List<RoomType>
+        {
+            RoomType.EzCollapsedTunnel,
+            RoomType.Pocket
+        };
 
         [Description("Spawn Location:")]
         public override SpawnProperties SpawnProperties { get; set; } = new()
@@ -58,6 +74,9 @@ namespace VVUP.CustomItems.Items.Other
         public string AfterDecontamination { get; set; } = "<color=#FF5554>Cannot teleport to Light Containment - zone is decontaminated!</color>";
         public string ToPocketDimension { get; set; } = "<color=#FF5554>Cannot teleport to Pocket Dimension!</color>";
         public string TelewandBroken { get; set; } = "<color=#0096FF>TeleWand</color> has broken!";
+        public string RestrictedSaveRoom { get; set; } = "<color=#FF5554>Cannot save position in this room!</color>";
+        public string RestrictedTeleportFromRoom { get; set; } = "<color=#FF5554>Cannot teleport from this room!</color>";
+        public string OutOfRange { get; set; } = "<color=#FF5554>Destination is out of range!</color>";
 
 
         private readonly Dictionary<Player, Vector3> savedPositions = new();
@@ -86,6 +105,12 @@ namespace VVUP.CustomItems.Items.Other
             {
                 ev.IsAllowed = false;
 
+                if (RestrictedSaveRooms.Contains(ev.Player.CurrentRoom.Type))
+                {
+                    ev.Player.ShowHint(RestrictedSaveRoom, 2f);
+                    return;
+                }
+
                 savedPositions[ev.Player] = ev.Player.Position;
                 ev.Player.ShowHint(PosSaved, 2f);
             }
@@ -96,6 +121,12 @@ namespace VVUP.CustomItems.Items.Other
             if (Check(ev.Player.CurrentItem))
             {
                 ev.IsAllowed = false;
+
+                if (RestrictedTeleportFromRooms.Contains(ev.Player.CurrentRoom.Type))
+                {
+                    ev.Player.ShowHint(RestrictedTeleportFromRoom, 2f);
+                    return;
+                }
 
                 ushort serial = ev.Item.Serial;
 
@@ -115,6 +146,16 @@ namespace VVUP.CustomItems.Items.Other
                 if (activeCountdowns.ContainsKey(serial))
                     return;
 
+                if (MaxTeleportRange > 0 && savedPositions.TryGetValue(ev.Player, out Vector3 savedPos))
+                {
+                    float distance = Vector3.Distance(ev.Player.Position, savedPos);
+                    if (distance > MaxTeleportRange)
+                    {
+                        ev.Player.ShowHint(OutOfRange, 2f);
+                        return;
+                    }
+                }
+
                 CoroutineHandle handle = Timing.RunCoroutine(TeleportCountdown(ev.Player, serial));
                 activeCountdowns[serial] = handle;
 
@@ -132,7 +173,7 @@ namespace VVUP.CustomItems.Items.Other
             while (Time.realtimeSinceStartup < end)
             {
                 float left = end - Time.realtimeSinceStartup;
-                string hint = TpCooldown.Replace("{remaining}", left.ToString("F1"));
+                string hint = TpInProgress.Replace("{remaining}", left.ToString("F1"));
 
                 player.ShowHint(hint, 0.2f);
                 yield return 0.1f;
@@ -199,7 +240,7 @@ namespace VVUP.CustomItems.Items.Other
 
                 player.Position = dest;
                 player.ShowHint(TpSucceeded, 2f);
-                
+
                 useCounts[serial] = useCounts.TryGetValue(serial, out int count) ? count + 1 : 1;
                 lastUseTimes[serial] = Time.realtimeSinceStartup;
 

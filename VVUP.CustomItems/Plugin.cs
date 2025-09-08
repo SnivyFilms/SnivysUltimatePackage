@@ -16,7 +16,7 @@ namespace VVUP.CustomItems
         public override string Name { get; } = "VVUP: Custom Items";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.CI";
-        public override Version Version { get; } = new Version(3, 0, 4);
+        public override Version Version { get; } = new Version(3, 1, 0);
         public override Version RequiredExiledVersion { get; } = new Version(9, 8, 1);
         public SsssEventHandlers SsssEventHandlers;
 
