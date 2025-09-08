@@ -53,6 +53,8 @@ namespace VVUP.CustomRoles
                 Vanguard.Get(typeof(Vanguard)),
                 SoundBreaker173.Get(typeof(SoundBreaker173)),
                 Replicant.Get(typeof(Replicant)),
+                Dwarf.Get(typeof(Dwarf)),
+                PaperMan.Get(typeof(PaperMan)),
             };
                 
             foreach (var role in customRoles)
