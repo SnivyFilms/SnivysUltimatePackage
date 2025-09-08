@@ -14,7 +14,7 @@ Snivy's Ultimate Package contains all of the plugins I have made into one mega p
 
 [Free Custom Roles](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Custom-Roles#free-custom-roles)
 
-# [Snivy's Custom Roles Abilities](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Custom-Abilities)
+[Custom Abilities](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Custom-Roles#custom-abilities)
 
 # [Snivy's Custom Items](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Custom-Items)
 
