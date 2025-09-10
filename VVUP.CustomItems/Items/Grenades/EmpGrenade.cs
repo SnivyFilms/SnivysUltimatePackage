@@ -51,7 +51,6 @@ namespace VVUP.CustomItems.Items.Grenades
             DoorType.Scp079Second,
         };
         
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 5,

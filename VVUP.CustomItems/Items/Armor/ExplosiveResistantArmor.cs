@@ -28,7 +28,6 @@ namespace VVUP.CustomItems.Items.Armor
         [Description("This is a multiplicative, so 0.5 = half damage")]
         public float ExplosiveDamageReduction { get; set; } = 0.5f;
         private List<PlayerAPI> _playersWithArmorOn = new List<PlayerAPI>();
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,

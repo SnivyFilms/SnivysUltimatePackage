@@ -75,7 +75,6 @@ namespace VVUP.CustomItems.Items.Firearms
         private Dictionary<PlayerAPI, float> _tranquilizedPlayers = new();
         private List<PlayerAPI> _activeTranquilizedPlayers = new();
         
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,
@@ -210,7 +209,7 @@ namespace VVUP.CustomItems.Items.Firearms
                     Log.Debug($"VVUP Custom Items: Tranquilizer, Drop Items are true, checking {player.Nickname}'s inventory for items");
                     if (player.Items.Count > 0)
                     {
-                        foreach (Exiled.API.Features.Items.Item item in player.Items.ToList())
+                        foreach (Item item in player.Items.ToList())
                         {
                             if (TryGet(item, out CustomItem? customItem))
                             {

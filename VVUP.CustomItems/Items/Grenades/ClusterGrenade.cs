@@ -90,20 +90,16 @@ namespace VVUP.CustomItems.Items.Grenades
                     Log.Debug(
                         $"VVUP Custom Items: Cluster Grenade, spawning {ClusterGrenadeCount - i} more grenades at {ev.Position}");
                     grenade.ChangeItemOwner(null, ev.Player);
-                    if (ClusterGrenadeRandomSpread)
-                        grenade.SpawnActive(GrenadeOffset(ev.Position), owner: ev.Player);
-                    else
-                        grenade.SpawnActive(ev.Position, owner: ev.Player);
+                    grenade.SpawnActive(ClusterGrenadeRandomSpread ? 
+                            GrenadeOffset(ev.Position) : ev.Position, owner: ev.Player);
                 }
             });
         }
 
-        private Vector3 GrenadeOffset(Vector3 position)
+        private static Vector3 GrenadeOffset(Vector3 position)
         {
-            float x = position.x - 1 + Base.GetRandomNumber.GetRandomFloat(3);
-            float y = position.y;
-            float z = position.z - 1 + Base.GetRandomNumber.GetRandomFloat(3);
-            return new Vector3(x, y, z);
+            return new Vector3(position.x - 1 + Base.GetRandomNumber.GetRandomFloat(3), 
+                position.y, position.z - 1 + Base.GetRandomNumber.GetRandomFloat(3));
         }
     }
 }

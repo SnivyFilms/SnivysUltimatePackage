@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Exiled.API.Features;
-using UnityEngine;
+﻿using Exiled.API.Features;
 using VVUP.ServerEvents.ServerEventsConfigs;
 using PlayerLab = LabApi.Features.Wrappers.Player;
 

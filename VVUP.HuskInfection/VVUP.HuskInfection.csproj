@@ -74,7 +74,6 @@
         <Compile Include="HuskInfectionEventHandlers.cs" />
         <Compile Include="HuskZombie.cs" />
         <Compile Include="Plugin.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs"/>
         <Compile Include="Ssss.cs" />
         <Compile Include="SsssEventHandlers.cs" />
     </ItemGroup>

@@ -33,7 +33,6 @@ namespace VVUP.CustomItems.Items.Grenades
         private Vector3 grenadePosition;
         private Pickup pickup;
         private CoroutineHandle nerveAgentHandle;
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 2,

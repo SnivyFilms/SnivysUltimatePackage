@@ -14,7 +14,6 @@ namespace VVUP.CustomRoles.Abilities.Passive
 
         public override string Description { get; set; } =
             "Prevents players from escaping regularly (can still escape while detained)";
-        public List<Player> PlayersWithRestrictedEscapeEffect = new List<Player>();
 
         [Description("The text that is shown if the player is uncuffed, and needs to be cuffed to escape")]
         public string EscapeTextUncuffed { get; set; } = "You're unable to escape unless you're detained";
@@ -29,18 +28,16 @@ namespace VVUP.CustomRoles.Abilities.Passive
         
         protected override void AbilityAdded(Player player)
         {
-            PlayersWithRestrictedEscapeEffect.Add(player);
             Exiled.Events.Handlers.Player.Escaping += OnEscaping;
         }
         protected override void AbilityRemoved(Player player)
         {
-            PlayersWithRestrictedEscapeEffect.Remove(player);
             Exiled.Events.Handlers.Player.Escaping -= OnEscaping;
         }
 
         private void OnEscaping(EscapingEventArgs ev)
         {
-            if (PlayersWithRestrictedEscapeEffect.Contains(ev.Player) && !AllowedCuffedEscape && !AllowedUncuffedEscape)
+            if (!AllowedCuffedEscape && !AllowedUncuffedEscape)
             {
                 ev.IsAllowed = false;
                 Log.Debug($"VVUP Custom Abilities: Restricting Escape of {ev.Player.Nickname}");
@@ -49,7 +46,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 else
                     ev.Player.Broadcast((ushort)EscapeTextTime, EscapeTextBoth);
             }
-            else if (PlayersWithRestrictedEscapeEffect.Contains(ev.Player) && !AllowedCuffedEscape && ev.Player.IsCuffed)
+            else if (!AllowedCuffedEscape && ev.Player.IsCuffed)
             {
                 ev.IsAllowed = false;
                 Log.Debug($"VVUP Custom Abilities: Restricting Escape of {ev.Player.Nickname} while cuffed");
@@ -58,7 +55,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 else
                     ev.Player.Broadcast((ushort)EscapeTextTime, EscapeTextCuffed);
             }
-            else if (PlayersWithRestrictedEscapeEffect.Contains(ev.Player) && !AllowedUncuffedEscape && !ev.Player.IsCuffed)
+            else if (!AllowedUncuffedEscape && !ev.Player.IsCuffed)
             {
                 ev.IsAllowed = false;
                 Log.Debug($"VVUP Custom Abilities: Restricting Escape of {ev.Player.Nickname} while uncuffed");

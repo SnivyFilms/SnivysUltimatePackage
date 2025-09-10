@@ -28,7 +28,6 @@ namespace VVUP.CustomItems.Items.Other
         public float EffectDuration { get; set; } = 150f;
         private List<PlayerAPI> _playersWithEffect = new List<PlayerAPI>();
         private CoroutineHandle phantomLanternCoroutine;
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,
@@ -79,7 +78,6 @@ namespace VVUP.CustomItems.Items.Other
             PlayerEvent.Died += OnDied;
             PlayerEvent.Left += OnDisconnect;
             PlayerEvent.ChangingItem += OnChangingItem;
-            Server.WaitingForPlayers += OnWaitingForPlayers;
             base.SubscribeEvents();
         }
         protected override void UnsubscribeEvents()
@@ -92,7 +90,6 @@ namespace VVUP.CustomItems.Items.Other
             PlayerEvent.Died -= OnDied;
             PlayerEvent.Left -= OnDisconnect;
             PlayerEvent.ChangingItem -= OnChangingItem;
-            Server.WaitingForPlayers -= OnWaitingForPlayers;
             base.UnsubscribeEvents();
         }
 
@@ -170,7 +167,7 @@ namespace VVUP.CustomItems.Items.Other
             }
         }
 
-        public void OnWaitingForPlayers()
+        protected override void OnWaitingForPlayers()
         {
             Timing.KillCoroutines(phantomLanternCoroutine);
             _playersWithEffect.Clear();

@@ -26,8 +26,7 @@ namespace VVUP.CustomItems.Items.Grenades
             "When detonates, it shows lines to all players in the area.";
 
         public override float Weight { get; set; } = 1.75f;
-
-        [CanBeNull]
+        
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,

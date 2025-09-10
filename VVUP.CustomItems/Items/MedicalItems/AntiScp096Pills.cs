@@ -23,7 +23,6 @@ namespace VVUP.CustomItems.Items.MedicalItems
         public override string Description { get; set; } = "When consumed, it makes you no longer a target of SCP-096";
         public override float Weight { get; set; } = 1f;
 
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,

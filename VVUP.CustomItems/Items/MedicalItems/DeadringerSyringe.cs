@@ -31,7 +31,6 @@ namespace VVUP.CustomItems.Items.MedicalItems
         public bool UsableAfterNuke { get; set; } = false;
         public bool TeleportToLightAfterDecom { get; set; } = false;
         public bool UseHints { get; set; } = true;
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,
@@ -54,7 +53,7 @@ namespace VVUP.CustomItems.Items.MedicalItems
             },
             LockerSpawnPoints = new()
             {
-                new LockerSpawnPoint()
+                new()
                 {
                     Chance = 25,
                     Type = LockerType.Misc,
@@ -88,7 +87,7 @@ namespace VVUP.CustomItems.Items.MedicalItems
                 return;
             if (!UsableAfterNuke && Warhead.IsDetonated)
                 return;
-            Log.Debug("VVUP Custom Items: Deadringer Syring, Running methods");
+            Log.Debug("VVUP Custom Items: Deadringer Syringe, Running methods");
             if (UseHints)
                 ev.Player.ShowHint(OnUseMessage, OnUseMessageTimeDuration);
             else

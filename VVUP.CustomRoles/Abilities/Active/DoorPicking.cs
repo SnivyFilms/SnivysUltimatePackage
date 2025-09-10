@@ -26,12 +26,10 @@ namespace VVUP.CustomRoles.Abilities.Active
             {EffectType.Ensnared, 1},
             {EffectType.Slowness, 255},
         };
-        public List<Player> PlayersWithPickingDoorAbility = new List<Player>();
         
         protected override void AbilityUsed(Player player)
         {
             player.ShowHint(BeforePickingDoorText, 5f);
-            PlayersWithPickingDoorAbility.Add(player);
         }
 
         protected override void SubscribeEvents()
@@ -48,9 +46,6 @@ namespace VVUP.CustomRoles.Abilities.Active
 
         private void OnInteractingDoor(InteractingDoorEventArgs ev)
         {
-            if (!PlayersWithPickingDoorAbility.Contains(ev.Player))
-                return;
-            
             if (ev.Door.IsOpen)
                 return;
 
@@ -70,7 +65,6 @@ namespace VVUP.CustomRoles.Abilities.Active
             {
                 Log.Debug($"VVUP Custom Abilities: Opening {ev.Door.Name}");
                 ev.Door.IsOpen = true;
-                PlayersWithPickingDoorAbility.Remove(ev.Player);
                 Timing.CallDelayed(TimeForDoorToBeOpen, () =>
                 {
                     ev.Door.IsOpen = false;

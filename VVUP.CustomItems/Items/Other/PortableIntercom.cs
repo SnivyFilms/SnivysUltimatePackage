@@ -30,7 +30,6 @@ namespace VVUP.CustomItems.Items.Other
             "A portable intercom that can be used to communicate to the entire facility.";
 
         public override float Weight { get; set; } = 1;
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,

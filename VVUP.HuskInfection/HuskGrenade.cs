@@ -23,7 +23,6 @@ namespace VVUP.HuskInfection
         public override string Name { get; set; } = "<color=#FF0000>Husk Grenade</color>";
         public override string Description { get; set; } = "A throwable grenade that contains a Husk Infection Virus. When it explodes, it infects all nearby players with the Husk Infection.";
         public override float Weight { get; set; } = 0.75f;
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 5,

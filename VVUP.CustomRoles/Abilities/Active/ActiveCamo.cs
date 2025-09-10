@@ -22,14 +22,14 @@ namespace VVUP.CustomRoles.Abilities.Active
         public override float Cooldown { get; set; } = 120f;
 
         protected override void SubscribeEvents()
-            {
-                Exiled.Events.Handlers.Player.Shooting += OnShooting;
-                Exiled.Events.Handlers.Player.Interacted += OnInteracted;
-                Exiled.Events.Handlers.Player.InteractingDoor += OnInteractingDoor;
-                Exiled.Events.Handlers.Player.InteractingElevator += OnInteractingElevator;
-                Exiled.Events.Handlers.Player.InteractingLocker += OnInteractingLocker;
-                base.SubscribeEvents();
-            }
+        {
+            Exiled.Events.Handlers.Player.Shooting += OnShooting;
+            Exiled.Events.Handlers.Player.Interacted += OnInteracted;
+            Exiled.Events.Handlers.Player.InteractingDoor += OnInteractingDoor;
+            Exiled.Events.Handlers.Player.InteractingElevator += OnInteractingElevator;
+            Exiled.Events.Handlers.Player.InteractingLocker += OnInteractingLocker;
+            base.SubscribeEvents();
+        }
 
         protected override void AbilityUsed(Player player)
         {

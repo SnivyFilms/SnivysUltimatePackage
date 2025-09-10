@@ -24,7 +24,6 @@ namespace VVUP.CustomItems.Items.Grenades
             "When this flash goes off, it spawns other flashes";
 
         public override float Weight { get; set; } = 1.75f;
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 2,

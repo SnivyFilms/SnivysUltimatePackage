@@ -51,8 +51,6 @@ namespace VVUP.CustomItems.Items.Firearms
         [Description("Should revived players be given a loadout?")]
         public bool GrantLoadoutOnRevive { get; set; } = false;
         
-
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,
