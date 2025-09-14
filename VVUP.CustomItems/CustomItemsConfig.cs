@@ -138,9 +138,9 @@ namespace VVUP.CustomItems
         };
 
         [Description("An unsupported item, there's going to be a lot of issues that I wont fix.")]
-        public List<GrenadeLauncherImpact> GrenadeLaunchersImpacts { get; private set; } = new()
+        public List<GrenadeLauncher> GrenadeLaunchersImpacts { get; private set; } = new()
         {
-            new GrenadeLauncherImpact()
+            new GrenadeLauncher()
         };
 
         public List<PortableIntercom> PortableIntercoms { get; private set; } = new()
@@ -163,5 +163,11 @@ namespace VVUP.CustomItems
         public string SsssC4DetonatorNeeded { get; set; } = "You need to have your detonator equipped";
         public string SsssC4TooFarAway { get; set; } = "You are far away from your C4, consider getting closer";
         public string SsssDetonateC4ActivationMessage { get; set; } = "Detonating C4";
+        public int GrenadeLauncherForceModeId { get; set; } = 10011;
+        public string GrenadeLauncherForceModeSsssText { get; set; } = "Toggle ADATS Force";
+        public string GrenadeLauncherForceModeHint { get; set; } = "Toggle between full and half force for ADATS";
+        public int GrenadeLauncherLaunchModeId { get; set; } = 10012;
+        public string GrenadeLauncherLaunchModeSsssText { get; set; } = "Toggle ADATS Impact/Roller";
+        public string GrenadeLauncherLaunchModeHint { get; set; } = "Toggle between impact and roller modes for ADATS";
     }
 }

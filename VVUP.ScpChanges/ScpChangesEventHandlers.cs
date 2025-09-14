@@ -38,11 +38,25 @@ namespace VVUP.ScpChanges
                 if (!Plugin.Instance.Config.ResistanceWithHume && ev.Player.HumeShield > 0)
                 {
                     Log.Debug("VVUP SCP Changes: Old SCP 106 Behavior is enabled, but Hume Shield is active, not applying damage resistance");
-                    return;
+                    //Return won't work here since the OneShot possibility is outside of this if statement
+                    //Technically I could invert the if statement with ResistanceWithHume being true, but I want the debug statements just incase things go wrong
                 }
-                Log.Debug("VVUP SCP Changes: Old SCP 106 Behavior is enabled, setting damage resistance");
-                ev.Amount *= Plugin.Instance.Config.Scp106DamageResistance;
-                Log.Debug($"VVUP SCP Changes: Reduced damage to {ev.Amount}");
+                else
+                {
+                    Log.Debug("VVUP SCP Changes: Old SCP 106 Behavior is enabled, setting damage resistance");
+                    ev.Amount *= Plugin.Instance.Config.Scp106DamageResistance;
+                    Log.Debug($"VVUP SCP Changes: Reduced damage to {ev.Amount}");
+                }
+            }
+            if (ev.Attacker.Role == RoleTypeId.Scp106 && Plugin.Instance.Config.Scp106OneShot)
+            {
+                Log.Debug($"VVUP SCP Changes: SCP 106 One Shot is enabled, teleporting {ev.Player.Nickname} to pocket dimension");
+                ev.Player.EnableEffect(EffectType.PocketCorroding);
+            }
+            if (ev.Attacker.Role == RoleTypeId.Scp049 && Plugin.Instance.Config.Scp049OneShot)
+            {
+                Log.Debug($"VVUP SCP Changes: SCP 049 One Shot is enabled, killing {ev.Player.Nickname}");
+                ev.Player.Kill(DamageType.CardiacArrest);
             }
         }
         public void OnUsingItem(UsedItemEventArgs ev)

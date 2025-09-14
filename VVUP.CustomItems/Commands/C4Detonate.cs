@@ -4,7 +4,7 @@ using CommandSystem;
 using Exiled.API.Features;
 using UnityEngine;
 
-namespace VVUP.CustomItems
+namespace VVUP.CustomItems.Commands
 {
     [CommandHandler(typeof(ClientCommandHandler))]
     public class C4Detonate : ICommand

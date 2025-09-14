@@ -45,6 +45,7 @@ namespace VVUP.CustomItems
                 LaserGun.Get(typeof(LaserGun)),
                 MultiFlash.Get(typeof(MultiFlash)),
                 ProxyBang.Get(typeof(ProxyBang)),
+                GrenadeLauncher.Get(typeof(GrenadeLauncher)),
                 PortableIntercom.Get(typeof(PortableIntercom)),
                 Telewand.Get(typeof(Telewand)),
             };
@@ -66,6 +67,12 @@ namespace VVUP.CustomItems
             
             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.DetonateC4Id, Plugin.Instance.Config.DetonateC4SsssText,
                 KeyCode.J, true, false, Plugin.Instance.Config.DetonateC4Hint));
+            
+            settings.Add(new SSKeybindSetting(Plugin.Instance.Config.GrenadeLauncherForceModeId,Plugin.Instance.Config.GrenadeLauncherForceModeSsssText,
+                KeyCode.K, true, false, Plugin.Instance.Config.GrenadeLauncherForceModeHint));
+    
+            settings.Add(new SSKeybindSetting(Plugin.Instance.Config.GrenadeLauncherLaunchModeId,Plugin.Instance.Config.GrenadeLauncherLaunchModeSsssText,
+                KeyCode.K, true, false, Plugin.Instance.Config.GrenadeLauncherLaunchModeHint));
             return settings.ToArray();
         }
         public static void SafeAppendSsssSettings()

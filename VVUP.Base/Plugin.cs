@@ -1,7 +1,6 @@
 ﻿using System;
 using Exiled.API.Enums;
 using Exiled.API.Features;
-using Config = VVUP.Base.Config;
 
 namespace VVUP.Base
 {
@@ -12,7 +11,7 @@ namespace VVUP.Base
         public override string Name { get; } = "VVUP: Base";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.Base";
-        public override Version Version { get; } = new Version(3, 1, 1);
+        public override Version Version { get; } = new Version(3, 2, 0);
         public override Version RequiredExiledVersion { get; } = new Version(9, 8, 1);
 
         public bool VvupCi = false; // Custom Items

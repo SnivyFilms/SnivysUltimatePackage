@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Exiled.API.Features;
+using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using UnityEngine;
 using UserSettings.ServerSpecific;
+using VVUP.CustomItems.Items.Firearms;
 using PlayerAPI = Exiled.API.Features.Player;
 
 namespace VVUP.CustomItems
@@ -28,7 +28,7 @@ namespace VVUP.CustomItems
         {
             if (!PlayerAPI.TryGet(hub, out PlayerAPI player) || hub == null || player == null)
                 return;
-            if (settingBase is SSKeybindSetting ssKeybindSetting && ssKeybindSetting.SyncIsPressed)
+            if (settingBase is SSKeybindSetting { SyncIsPressed: true } ssKeybindSetting)
             {
                 if (ssKeybindSetting.SettingId == Plugin.Instance.Config.DetonateC4Id)
                 {
@@ -71,7 +71,20 @@ namespace VVUP.CustomItems
                     }
 
                     player.ShowHint(Plugin.Instance.Config.SsssDetonateC4ActivationMessage);
-                    //string response = i == 1 ? $"\n<color=green>{i} C4 charge has been detonated!</color>" : $"\n<color=green>{i} C4 charges have been detonated!</color>"; player.SendConsoleMessage(response, "green");
+                }
+                else if (ssKeybindSetting.SettingId == Plugin.Instance.Config.GrenadeLauncherForceModeId)
+                {
+                    if (CustomItem.TryGet(player.CurrentItem, out var customItem) &&
+                        customItem is GrenadeLauncher grenadeLauncher)
+                        grenadeLauncher.ToggleForceMode(player);
+                }
+                else if (ssKeybindSetting.SettingId == Plugin.Instance.Config.GrenadeLauncherLaunchModeId) 
+                {
+                    if (CustomItem.TryGet(player.CurrentItem, out var customItem) &&
+                        customItem is GrenadeLauncher grenadeLauncher)
+                    {
+                        grenadeLauncher.ToggleLaunchTypeMode(player);
+                    }
                 }
             }
         }

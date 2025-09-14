@@ -14,7 +14,7 @@ namespace VVUP.ScpChanges
         public override string Name { get; } = "VVUP: SCP Changes";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.SC";
-        public override Version Version { get; } = new Version(3, 1, 1);
+        public override Version Version { get; } = new Version(3, 2, 0);
         public override Version RequiredExiledVersion { get; } = new Version(9, 8, 1);
         public ScpChangesEventHandlers ScpChangesEventHandlers;
         

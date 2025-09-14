@@ -19,13 +19,13 @@ using Firearm = Exiled.API.Features.Items.Firearm;
 namespace VVUP.CustomItems.Items.Firearms
 {
     [CustomItem(ItemType.GunLogicer)]
-    public class GrenadeLauncherImpact : CustomWeapon
+    public class GrenadeLauncher : CustomWeapon
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.GunLogicer;
         public override uint Id { get; set; } = 46;
-        public override string Name { get; set; } = "<color=#FF0000>ADATS-I</color>";
-        public override string Description { get; set; } = "A grenade launcher that explodes on impact.";
+        public override string Name { get; set; } = "<color=#FF0000>ADATS</color>";
+        public override string Description { get; set; } = "A grenade launcher";
         public override float Weight { get; set; } = 3;
 
         public override SpawnProperties SpawnProperties { get; set; } = new()
@@ -59,13 +59,25 @@ namespace VVUP.CustomItems.Items.Firearms
 
         [Description(
             "If UseGrenadesToReload is true, this message will be shown to the player to be told to dry fire it")]
-        public string ReloadMessageDryfire { get; set; } = "You need a grenade, and to dry fire ADATS-I to reload it";
-
-        public bool UseHints { get; set; } = true;
+        public string ReloadMessageDryfire { get; set; } = "You need a grenade, and to dry fire ADATS to reload it";
         
+        public string FullForceSetMessage { get; set; } = "The ADATS is set to full force mode";
+        public string HalfForceSetMessage { get; set; } = "The ADATS is set to half force mode";
+        public string LaunchTypeImpactSetMessage { get; set; } = "The ADATS is set to impact detonation mode";
+        public string LaunchTypeRollerSetMessage { get; set; } = "The ADATS is set to roller detonation mode";
+        [Description("If true, the player will get a hint when a message is displayed, otherwise it will be a broadcast")]
+        public bool UseHints { get; set; } = true;
+        [Description("How long the hint/broadcast will be shown for")]
+        public float MessageDuration { get; set; } = 3f;
+        [Description("Sometimes you're able to get more than what ClipSize is set to when reloading, if this is set to true, it will check and correct the ammo count")]
+        public bool FixOverClipSizeBug { get; set; } = true;
         private ProjectileType GrenadeType { get; set; } = ProjectileType.FragGrenade;
         [CanBeNull] 
-        private CustomGrenade loadedCustomGrenade;
+        private CustomGrenade _loadedCustomGrenade;
+        [YamlIgnore]
+        private Dictionary<Player, bool> FullForceMode { get; set; } = new();
+        [YamlIgnore]
+        private Dictionary<Player, bool> LaunchTypeMode { get; set; } = new();
 
         protected override void SubscribeEvents()
         {
@@ -79,28 +91,74 @@ namespace VVUP.CustomItems.Items.Firearms
             base.UnsubscribeEvents();
         }
 
+        protected override void OnWaitingForPlayers()
+        {
+            FullForceMode.Clear();
+            LaunchTypeMode.Clear();
+            base.OnWaitingForPlayers();
+        }
+
+        protected override void OnAcquired(Player player, Item item, bool displayMessage)
+        {
+            if (!FullForceMode.ContainsKey(player))
+                FullForceMode.Add(player, true);
+            if (!LaunchTypeMode.ContainsKey(player))
+                LaunchTypeMode.Add(player, true);
+            base.OnAcquired(player, item, displayMessage);
+        }
+        public void ToggleForceMode(Player player)
+        {
+            if (!FullForceMode.ContainsKey(player))
+                FullForceMode.Add(player, true);
+            
+            FullForceMode[player] = !FullForceMode[player];
+            Log.Debug($"VVUP Custom Items: Grenade Launcher: {player.Nickname} toggled force mode to {(FullForceMode[player]? "Full Force" : "Half Force")}");
+            if (UseHints)
+                player.ShowHint(FullForceMode[player]? FullForceSetMessage : HalfForceSetMessage, MessageDuration);
+            else
+                player.Broadcast((ushort)MessageDuration, FullForceMode[player]? FullForceSetMessage : HalfForceSetMessage);
+        }
+        public void ToggleLaunchTypeMode(Player player)
+        {
+            if (!LaunchTypeMode.ContainsKey(player))
+                LaunchTypeMode.Add(player, true);
+            
+            LaunchTypeMode[player] = !LaunchTypeMode[player];
+            Log.Debug($"VVUP Custom Items: Grenade Launcher: {player.Nickname} toggled launch type mode to {(LaunchTypeMode[player]? "Impact" : "Roller")}");
+            if (UseHints)
+                player.ShowHint(LaunchTypeMode[player]? LaunchTypeImpactSetMessage : LaunchTypeRollerSetMessage, MessageDuration);
+            else
+                player.Broadcast((ushort)MessageDuration, LaunchTypeMode[player]? LaunchTypeImpactSetMessage : LaunchTypeRollerSetMessage);
+        }
         protected override void OnShooting(ShootingEventArgs ev)
         {
             ev.IsAllowed = false;
 
             if (ev.Player.CurrentItem is Firearm firearm)
             {
+                if (firearm.MagazineAmmo > ClipSize && FixOverClipSizeBug)
+                {
+                    Log.Debug("VVUP Custom Items: Grenade Launcher Impact: Fixing ammo count due to over clip size bug");
+                    firearm.MagazineAmmo = ClipSize;
+                }
                 firearm.MagazineAmmo -= 1;
             }
-            Projectile projectile;
-            Log.Debug($"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} fired, firing a {GrenadeType}");
-            projectile = GrenadeType switch
+            Log.Debug($"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} fired, firing a {GrenadeType}, Is Full Force: {FullForceMode[ev.Player]}, Is Impact: {LaunchTypeMode[ev.Player]}");
+            Projectile projectile = GrenadeType switch
             {
-                ProjectileType.FragGrenade => ev.Player.ThrowGrenade(GrenadeType).Projectile,
-                ProjectileType.Flashbang => ev.Player.ThrowGrenade(GrenadeType).Projectile,
-                ProjectileType.Scp018 => ev.Player.ThrowGrenade(GrenadeType).Projectile,
-                ProjectileType.Scp2176 => ev.Player.ThrowGrenade(GrenadeType).Projectile,
-                ProjectileType.Coal => ev.Player.ThrowGrenade(GrenadeType).Projectile,
-                ProjectileType.SpecialCoal => ev.Player.ThrowGrenade(GrenadeType).Projectile,
-                ProjectileType.Snowball => ev.Player.ThrowGrenade(GrenadeType).Projectile,
+                ProjectileType.FragGrenade => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
+                ProjectileType.Flashbang => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
+                ProjectileType.Scp018 => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
+                ProjectileType.Scp2176 => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
+                ProjectileType.Coal => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
+                ProjectileType.SpecialCoal => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
+                ProjectileType.Snowball => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
             };
-
-            projectile.GameObject.AddComponent<CollisionHandler>().Init(ev.Player.GameObject, projectile.Base);
+            
+            if (LaunchTypeMode[ev.Player])
+            {
+                projectile.GameObject.AddComponent<CollisionHandler>().Init(ev.Player.GameObject, projectile.Base);
+            }
         }
 
         protected override void OnReloading(ReloadingWeaponEventArgs ev)
@@ -145,9 +203,9 @@ namespace VVUP.CustomItems.Items.Firearms
 
                         if (customItem is CustomGrenade customGrenade)
                         {
-                            loadedCustomGrenade = customGrenade;
+                            _loadedCustomGrenade = customGrenade;
                             Log.Debug(
-                                $"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} has a {item.Type}, it's a custom grenade, setting it to {loadedCustomGrenade.Name}");
+                                $"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} has a {item.Type}, it's a custom grenade, setting it to {_loadedCustomGrenade.Name}");
                         }
                     }
 
@@ -189,7 +247,7 @@ namespace VVUP.CustomItems.Items.Firearms
         }
         protected override void OnReloaded(ReloadedWeaponEventArgs ev)
         {
-            Log.Debug($"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} reloaded the Grenade Launcher Impact setting Magazing Ammo to {ClipSize}.");
+            Log.Debug($"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} reloaded the Grenade Launcher Impact setting Magazine Ammo to {ClipSize}.");
             ev.Firearm.MagazineAmmo = ClipSize;
         }
     }

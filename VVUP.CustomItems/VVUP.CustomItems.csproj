@@ -64,12 +64,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="C4Detonate.cs" />
+    <Compile Include="Commands\C4Detonate.cs" />
+    <Compile Include="Commands\GrenadeLauncherCollider.cs" />
+    <Compile Include="Commands\GrenadeLauncherForce.cs" />
     <Compile Include="CustomItemsConfig.cs" />
     <Compile Include="Items\Armor\ExplosiveResistantArmor.cs" />
     <Compile Include="Items\Armor\LowGravityArmor.cs" />
     <Compile Include="Items\Firearms\ExplosiveRoundRevolver.cs" />
-    <Compile Include="Items\Firearms\GrenadeLauncherImpact.cs" />
+    <Compile Include="Items\Firearms\GrenadeLauncher.cs" />
     <Compile Include="Items\Firearms\LaserGun.cs" />
     <Compile Include="Items\Firearms\MediGun.cs" />
     <Compile Include="Items\Firearms\Pathfinder.cs" />

@@ -43,7 +43,11 @@ namespace VVUP.ScpChanges
         public int Scp106Health { get; set; } = 600;
         [Description("0.1 = 90% resistance, 0.2 = 80% resistance, etc.")]
         public float Scp106DamageResistance { get; set; } = 0.1f;
-
+        [Description("If SCP-106 has a damage resistance, should its Hume Shield be affected by the resistance as well")]
         public bool ResistanceWithHume { get; set; } = false;
+        [Description("Can SCP-106 one shot people to the pocket dimension? This is separate from the old behavior setting.")]
+        public bool Scp106OneShot { get; set; } = true;
+        [Description("Can SCP-049 one shot people?")]
+        public bool Scp049OneShot { get; set; } = true;
     }
 }
