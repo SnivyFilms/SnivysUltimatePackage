@@ -9,6 +9,7 @@ using Exiled.CustomItems.API.Features;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
 using JetBrains.Annotations;
+using MEC;
 using PlayerRoles;
 
 namespace VVUP.CustomItems.Items.Firearms
@@ -50,6 +51,8 @@ namespace VVUP.CustomItems.Items.Firearms
 
         [Description("Should revived players be given a loadout?")]
         public bool GrantLoadoutOnRevive { get; set; } = false;
+        [Description("Determines if the medigun can be used to damage hostiles")]
+        public bool AllowDamage { get; set; } = false;
         
 
         [CanBeNull]
@@ -76,54 +79,53 @@ namespace VVUP.CustomItems.Items.Firearms
             }
         };
 
-        protected override void OnShot(ShotEventArgs ev)
+        protected override void OnHurting(HurtingEventArgs ev)
         {
-            if (ev.Target == null)
+            if (ev.Attacker == null)
                 return;
-            if (ev.Player == ev.Target)
+            if (ev.Player == ev.Attacker)
                 return;
-            if (ev.Player.Role.Team == ev.Target.Role.Team)
+            if (ev.Player.Role.Team == ev.Attacker.Role.Team)
             {
-                float amount;
-                if (Server.FriendlyFire)
-                    amount = (ev.Damage * 2) * HealingModifer;
-                else
-                    amount = ev.Damage * HealingModifer;
-                ev.Target.Heal(amount);
-                Log.Debug($"VVUP Custom Items: Medigun healing {ev.Target.Nickname} for {amount}");
-                if (ev.Target.Health >= ev.Target.MaxHealth && ev.Target.ArtificialHealth < MaxAhpAmount)
+                float amount = ev.Amount * HealingModifer;
+                ev.Player.Heal(amount);
+                Log.Debug($"VVUP Custom Items: Medigun healing {ev.Player.Nickname} for {amount}");
+                if (ev.Player.Health >= ev.Player.MaxHealth && ev.Player.ArtificialHealth < MaxAhpAmount)
                 {
                     float decay = !AhpDecay ? 0f : 1.2f;
-                    ev.Target.AddAhp(amount, MaxAhpAmount, decay);
-                    Log.Debug($"VVUP Custom Items: Medigun adding {amount} AHP to {ev.Target.Nickname}");
+                    ev.Player.AddAhp(amount, MaxAhpAmount, decay);
+                    Log.Debug($"VVUP Custom Items: Medigun adding {amount} AHP to {ev.Player.Nickname}");
                 }
                 ev.Player.ShowHitMarker();
             }
-            else if (ev.Target.Role == RoleTypeId.Scp0492 && HealZombies)
+            else if (ev.Player.Role == RoleTypeId.Scp0492 && HealZombies)
             {
-                if (!ev.Target.ActiveArtificialHealthProcesses.Any())
-                    ev.Target.AddAhp(0, AhpRequiredForZombieHeal, persistant: true);
-                ev.Target.ArtificialHealth += ev.Damage;
-                if (ev.Target.ArtificialHealth >= AhpRequiredForZombieHeal)
+                if (!ev.Player.ActiveArtificialHealthProcesses.Any())
+                    ev.Player.AddAhp(0, AhpRequiredForZombieHeal, persistant: true);
+                ev.Player.ArtificialHealth += ev.Amount;
+                if (ev.Player.ArtificialHealth >= AhpRequiredForZombieHeal)
                 {
-                    switch (ev.Player.Role.Side)
+                    switch (ev.Attacker.Role.Side)
                     {
                         case Side.Mtf:
-                            ev.Target.Role.Set(RoleTypeId.NtfPrivate, SpawnReason.ForceClass,
+                            ev.Player.Role.Set(RoleTypeId.NtfPrivate, SpawnReason.ForceClass,
                                 GrantLoadoutOnRevive ? RoleSpawnFlags.AssignInventory : RoleSpawnFlags.None);
                             break;
                         case Side.ChaosInsurgency:
-                            ev.Target.Role.Set(RoleTypeId.ChaosConscript, SpawnReason.ForceClass,
+                            ev.Player.Role.Set(RoleTypeId.ChaosConscript, SpawnReason.ForceClass,
                                 GrantLoadoutOnRevive ? RoleSpawnFlags.AssignInventory : RoleSpawnFlags.None);
                             break;
                         case Side.Tutorial when ZombieHealingBySerpents:
-                            CustomRole.Get(SerpentsHandCustomRoleId)?.AddRole(ev.Target);
+                            CustomRole.Get(SerpentsHandCustomRoleId)?.AddRole(ev.Player);
+                            if (!GrantLoadoutOnRevive)
+                                Timing.CallDelayed(0.5f, () => ev.Player.ClearInventory());
                             break;
                     }
                 }
 
-                ev.CanHurt = false;
-                ev.Player.ShowHitMarker();
+                if (!AllowDamage)
+                    ev.Amount = 0;
+                ev.Attacker.ShowHitMarker();
             }
         }
     }

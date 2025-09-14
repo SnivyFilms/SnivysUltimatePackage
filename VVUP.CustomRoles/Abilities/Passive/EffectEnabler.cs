@@ -23,7 +23,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 foreach (var effect in EffectsToApply)
                 {
                     Log.Debug($"VVUP Custom Abilities: Activating {effect.Key} to {player.Nickname}");
-                    player.EnableEffect(effect.Key, effect.Value, 0);
+                    player.EnableEffect(effect.Key, effect.Value);
                 }
             });
         }

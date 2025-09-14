@@ -89,22 +89,16 @@ namespace VVUP.CustomItems.Items.Firearms
             }
             Projectile projectile;
             Log.Debug($"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} fired, firing a {GrenadeType}");
-            switch (GrenadeType)
+            projectile = GrenadeType switch
             {
-                case ProjectileType.Flashbang:
-                    projectile = ev.Player.ThrowGrenade(GrenadeType).Projectile;
-                    break;
-                case ProjectileType.Scp018:
-                    projectile = ev.Player.ThrowGrenade(GrenadeType).Projectile;
-                    break;
-                case ProjectileType.Scp2176:
-                    projectile = ev.Player.ThrowGrenade(GrenadeType).Projectile;
-                    break;
-                // Remind me to put in the Snowball and Coals during the winter event, would be funny.
-                default:
-                    projectile = ev.Player.ThrowGrenade(GrenadeType).Projectile;
-                    break;
-            }
+                ProjectileType.FragGrenade => ev.Player.ThrowGrenade(GrenadeType).Projectile,
+                ProjectileType.Flashbang => ev.Player.ThrowGrenade(GrenadeType).Projectile,
+                ProjectileType.Scp018 => ev.Player.ThrowGrenade(GrenadeType).Projectile,
+                ProjectileType.Scp2176 => ev.Player.ThrowGrenade(GrenadeType).Projectile,
+                ProjectileType.Coal => ev.Player.ThrowGrenade(GrenadeType).Projectile,
+                ProjectileType.SpecialCoal => ev.Player.ThrowGrenade(GrenadeType).Projectile,
+                ProjectileType.Snowball => ev.Player.ThrowGrenade(GrenadeType).Projectile,
+            };
 
             projectile.GameObject.AddComponent<CollisionHandler>().Init(ev.Player.GameObject, projectile.Base);
         }
@@ -160,11 +154,13 @@ namespace VVUP.CustomItems.Items.Firearms
                     ev.Player.DisableEffect(EffectType.Invisible);
                     GrenadeType = item.Type switch
                     {
+                        ItemType.GrenadeHE => ProjectileType.FragGrenade,
                         ItemType.GrenadeFlash => ProjectileType.Flashbang,
                         ItemType.SCP018 => ProjectileType.Scp018,
                         ItemType.SCP2176 => ProjectileType.Scp2176,
-                        // Remind me to put in the Snowball and Coals during the winter event, would be funny.
-                        _ => ProjectileType.FragGrenade
+                        ItemType.Coal => ProjectileType.Coal,
+                        ItemType.SpecialCoal => ProjectileType.SpecialCoal,
+                        ItemType.Snowball => ProjectileType.Snowball
                     };
                     ev.Player.RemoveItem(item);
                     ushort ammo762Amount = ev.Player.GetAmmo(AmmoType.Nato762);
