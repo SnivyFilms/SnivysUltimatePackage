@@ -39,7 +39,6 @@ namespace VVUP.CustomItems.Items.Firearms
         public bool UseHints { get; set; } = false;
         public float RestrictedAttachmentChangeMessageTimeDuration { get; set; } = 5f;
         
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,

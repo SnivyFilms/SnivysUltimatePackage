@@ -20,7 +20,6 @@ namespace VVUP.CustomRoles.Abilities.Passive
 
         public override string Description { get; set; } =
             "Handles if you are a custom role, if you escape are you given another custom role";
-        public List<Player> PlayersWithCustomRoleEscape = new List<Player>();
         public bool EscapeToRegularRole { get; set; } = false;
         public RoleTypeId RegularRole { get; set; } = RoleTypeId.Tutorial;
         public String UncuffedEscapeCustomRole { get; set; } = String.Empty;
@@ -39,22 +38,18 @@ namespace VVUP.CustomRoles.Abilities.Passive
         protected override void AbilityAdded(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: Custom Role Escape, Adding Custom Role Escape Ability to {player.Nickname}");
-            PlayersWithCustomRoleEscape.Add(player);
             Exiled.Events.Handlers.Player.Escaping += OnEscaping;
             Exiled.Events.Handlers.Player.ChangingRole += OnRoleChange;
         }
         protected override void AbilityRemoved(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: Custom Role Escape, Removing Custom Role Escape Ability from {player.Nickname}");
-            PlayersWithCustomRoleEscape.Remove(player);
             Exiled.Events.Handlers.Player.Escaping -= OnEscaping;
             Exiled.Events.Handlers.Player.ChangingRole -= OnRoleChange;
         }
 
         private void OnEscaping(EscapingEventArgs ev)
         {
-            if (!PlayersWithCustomRoleEscape.Contains(ev.Player))
-                return;
             Log.Debug($"VVUP Custom Abilities: Processing {ev.Player.Nickname} custom escape");
             storedInventory = ev.Player.Items.ToList();
             
@@ -104,12 +99,11 @@ namespace VVUP.CustomRoles.Abilities.Passive
             {
                 Log.Debug($"VVUP Custom Abilities: {ev.Player.Nickname} did not escape with a custom role, continuing normal escape.");
             }
-            PlayersWithCustomRoleEscape.Remove(ev.Player);
         }
 
         private void OnRoleChange(ChangingRoleEventArgs ev)
         {
-            if (ev.NewRole == RoleTypeId.Spectator && !PlayersWithCustomRoleEscape.Contains(ev.Player))
+            if (ev.NewRole is RoleTypeId.Spectator or RoleTypeId.None or RoleTypeId.Overwatch)
                 return;
             Log.Debug($"VVUP Custom Abilities: Processing {ev.Player.Nickname} custom escape");
             if (UseOnSpawnUncuffedEscape && ev.Reason == SpawnReason.Escaped && UncuffedEscapeCustomRole != String.Empty)
@@ -155,7 +149,6 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 else
                     storedInventory.Clear();
             }
-            PlayersWithCustomRoleEscape.Remove(ev.Player);
         }
     }
 }

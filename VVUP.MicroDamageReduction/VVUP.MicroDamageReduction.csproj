@@ -68,7 +68,6 @@
         <Compile Include="MicroDamageReductionConfig.cs" />
         <Compile Include="MicroDamageReductionEventHandler.cs" />
         <Compile Include="Plugin.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\VVUP.Base\VVUP.Base.csproj">

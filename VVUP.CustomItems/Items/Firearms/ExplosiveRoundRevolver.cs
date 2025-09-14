@@ -25,7 +25,6 @@ namespace VVUP.CustomItems.Items.Firearms
         public override string Name { get; set; } = "<color=#FF0000>Explosive Round Revolver</color>";
         public override string Description { get; set; } = "This revolver fires explosive rounds.";
         public override float Weight { get; set; } = 1f;
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,
@@ -79,7 +78,6 @@ namespace VVUP.CustomItems.Items.Firearms
 
         protected override void SubscribeEvents()
         {
-            Player.Shot += OnShot;
             //Player.ReloadingWeapon += OnReloading;
             Exiled.Events.Handlers.Item.ChangingAttachments += OnChangingAttachments;
             Exiled.Events.Handlers.Server.RoundEnded += OnRoundEnd;
@@ -88,7 +86,6 @@ namespace VVUP.CustomItems.Items.Firearms
 
         protected override void UnsubscribeEvents()
         {
-            Player.Shot -= OnShot;
             //Player.ReloadingWeapon -= OnReloading;
             Exiled.Events.Handlers.Item.ChangingAttachments -= OnChangingAttachments;
             Exiled.Events.Handlers.Server.RoundEnded -= OnRoundEnd;
@@ -150,18 +147,24 @@ namespace VVUP.CustomItems.Items.Firearms
                 ev.Firearm.MagazineAmmo = ClipSize;
             });
         }*/
-       private void OnShot(ShotEventArgs ev)
+       protected override void OnShot(ShotEventArgs ev)
        {
            if (!Check(ev.Player.CurrentItem))
                return;
            Log.Debug($"VVUP Custom Items: Explosive Round Revolver, spawning grenade at {ev.Position}");
            ev.CanHurt = false;
             
-           ExplosiveGrenade grenade = (ExplosiveGrenade)Item.Create(ItemType.GrenadeHE);
-           grenade.FuseTime = FuseTime;
-           grenade.ScpDamageMultiplier = ScpGrenadeDamageMultiplier;
-           grenade.ChangeItemOwner(Server.Host, ev.Player);
-           grenade.SpawnActive(ev.Position, owner: ev.Player);
+           try
+           {
+               ExplosiveGrenade grenade = (ExplosiveGrenade)Item.Create(ItemType.GrenadeHE);
+               grenade.FuseTime = FuseTime;
+               grenade.ScpDamageMultiplier = ScpGrenadeDamageMultiplier;
+               grenade.SpawnActive(ev.Position, owner: ev.Player);
+           }
+           catch (System.Exception ex)
+           {
+               Log.Error($"VVUP Custom Items: Error spawning explosive round: {ex.Message}");
+           }
        }
     }
 }

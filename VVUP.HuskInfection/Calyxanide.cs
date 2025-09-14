@@ -23,7 +23,6 @@ namespace VVUP.HuskInfection
         public string CalyxanideUseText { get; set; } = "<color=green><size=30>You feel a strange sensation in your throat, but it quickly passes.</size></color>";
         public bool UseHints { get; set; } = false;
         public float TextDisplayTime { get; set; } = 10f;
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 2,

@@ -17,7 +17,7 @@ namespace VVUP.CustomItems.Items.MedicalItems
         public override string Description { get; set; } = "This pill bottle seems endless\nUnfortunately it seems to be out of date and wont heal you";
         public override float Weight { get; set; } = 0.5f;
         [YamlIgnore]
-        public ItemType ItemType { get; set; } = ItemType.Painkillers;
+        public override ItemType Type { get; set; } = ItemType.Painkillers;
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 3,

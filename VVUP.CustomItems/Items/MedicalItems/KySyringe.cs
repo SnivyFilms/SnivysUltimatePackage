@@ -25,7 +25,6 @@ namespace VVUP.CustomItems.Items.MedicalItems
         public override float Weight { get; set; } = 1.15f;
         [Description("Removes the Syringe on use, otherwise it just drops on the floor after the player dies (it's really funny ngl)")]
         public bool RemoveSyringeOnUse { get; set; } = true;
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new SpawnProperties()
         {
             Limit = 1,

@@ -54,8 +54,6 @@ namespace VVUP.CustomItems.Items.Firearms
         [Description("Determines if the medigun can be used to damage hostiles")]
         public bool AllowDamage { get; set; } = false;
         
-
-        [CanBeNull]
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,

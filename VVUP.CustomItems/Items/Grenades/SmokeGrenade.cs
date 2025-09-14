@@ -32,8 +32,7 @@ namespace VVUP.CustomItems.Items.Grenades
         public bool RemoveSmoke { get; set; } = true;
         [Description("If RemoveSmoke is true, how long does it take before the smoke will be removed")]
         public float FogTime { get; set; } = 10;
-
-        [CanBeNull]
+        
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 5,

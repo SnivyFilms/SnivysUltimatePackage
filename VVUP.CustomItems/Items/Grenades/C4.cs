@@ -32,7 +32,7 @@ namespace VVUP.CustomItems.Items.Grenades
         public override uint Id { get; set; } = 32;
         public override string Name { get; set; } = "<color=#FF0000>C4</color>";
         public override float Weight { get; set; } = 0.75f;
-        public override SpawnProperties? SpawnProperties { get; set; } = new()
+        public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 5,
             DynamicSpawnPoints = new List<DynamicSpawnPoint>

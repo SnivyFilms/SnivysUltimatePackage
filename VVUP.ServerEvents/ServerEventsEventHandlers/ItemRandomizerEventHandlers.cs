@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Exiled.API.Features;
-using Exiled.API.Features.Pickups;
-using Exiled.CustomItems.API.Features;
-using Exiled.Events.EventArgs.Player;
-using PlayerAPI = Exiled.API.Features.Player;
+﻿using Exiled.API.Features;
 using PlayerEvent = Exiled.Events.Handlers.Player;
 
 namespace VVUP.ServerEvents.ServerEventsEventHandlers
