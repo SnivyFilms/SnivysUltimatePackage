@@ -148,7 +148,7 @@ namespace VVUP.CustomItems.Items.Firearms
             {
                 ProjectileType.FragGrenade => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
                 ProjectileType.Flashbang => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
-                ProjectileType.Scp018 => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
+                //ProjectileType.Scp018 => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
                 ProjectileType.Scp2176 => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
                 ProjectileType.Coal => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
                 ProjectileType.SpecialCoal => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
@@ -166,9 +166,9 @@ namespace VVUP.CustomItems.Items.Firearms
             if (UseGrenadesToReload)
             {
                 if (UseHints)
-                    ev.Player.ShowHint(ReloadMessageDryfire, 5f);
+                    ev.Player.ShowHint(ReloadMessageDryfire, MessageDuration);
                 else
-                    ev.Player.Broadcast(5, ReloadMessageDryfire);
+                    ev.Player.Broadcast((ushort)MessageDuration, ReloadMessageDryfire);
                 return;
             }
 
@@ -185,7 +185,8 @@ namespace VVUP.CustomItems.Items.Firearms
                 {
                     Log.Debug($"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} has {item.Type}");
                     if (item.Type != ItemType.GrenadeHE && item.Type != ItemType.GrenadeFlash &&
-                        item.Type != ItemType.SCP018 && item.Type != ItemType.SCP2176)
+                        /*item.Type != ItemType.SCP018 &&*/ item.Type != ItemType.SCP2176
+                        && item.Type != ItemType.Coal && item.Type != ItemType.SpecialCoal && item.Type != ItemType.Snowball)
                     {
                         Log.Debug(
                             $"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} has a {item.Type}, not a grenade, skipping.");
@@ -214,7 +215,7 @@ namespace VVUP.CustomItems.Items.Firearms
                     {
                         ItemType.GrenadeHE => ProjectileType.FragGrenade,
                         ItemType.GrenadeFlash => ProjectileType.Flashbang,
-                        ItemType.SCP018 => ProjectileType.Scp018,
+                        //ItemType.SCP018 => ProjectileType.Scp018,
                         ItemType.SCP2176 => ProjectileType.Scp2176,
                         ItemType.Coal => ProjectileType.Coal,
                         ItemType.SpecialCoal => ProjectileType.SpecialCoal,
