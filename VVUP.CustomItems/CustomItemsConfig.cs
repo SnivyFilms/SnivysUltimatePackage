@@ -136,9 +136,8 @@ namespace VVUP.CustomItems
         {
             new ProxyBang()
         };
-
-        [Description("An unsupported item, there's going to be a lot of issues that I wont fix.")]
-        public List<GrenadeLauncher> GrenadeLaunchersImpacts { get; private set; } = new()
+        
+        public List<GrenadeLauncher> GrenadeLaunchers { get; private set; } = new()
         {
             new GrenadeLauncher()
         };
