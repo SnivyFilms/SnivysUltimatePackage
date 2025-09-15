@@ -156,9 +156,7 @@ namespace VVUP.CustomItems.Items.Firearms
             };
             
             if (LaunchTypeMode[ev.Player])
-            {
                 projectile.GameObject.AddComponent<CollisionHandler>().Init(ev.Player.GameObject, projectile.Base);
-            }
         }
 
         protected override void OnReloading(ReloadingWeaponEventArgs ev)
