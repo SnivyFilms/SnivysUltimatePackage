@@ -47,14 +47,7 @@ namespace VVUP.WeaponEvaporate
         }
         public void OnDying(DyingEventArgs ev)
         {
-            if (Plugin.Instance.EventHandlers == null)
-                return;
-            if (!Plugin.Instance.Config.IsEnabled)
-                return;
-            Log.Debug("VVUP Weapon Evaporate: Weapon Evaporate is enabled, checking damage type");
-
             DamageType damageType = ev.DamageHandler.Type;
-           
             if (Plugin.Instance.Config.WeaponHitToEvaporate.TryGetValue(damageType, out HitBoxEnums requiredHitbox))
             {
                 if (_recentHits.TryGetValue(ev.Player.Id, out var hitInfo) && hitInfo.DamageType == damageType)

@@ -168,6 +168,7 @@ namespace VVUP.CustomItems.Items.Firearms
                     ev.Player.ShowHint(ReloadMessageDryfire, MessageDuration);
                 else
                     ev.Player.Broadcast((ushort)MessageDuration, ReloadMessageDryfire);
+                ev.IsAllowed = false;
                 return;
             }
 

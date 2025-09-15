@@ -8,13 +8,13 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.EventArgs;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
-using JetBrains.Annotations;
 using MEC;
 using PlayerRoles;
 using PlayerRoles.Voice;
 using UnityEngine;
 using YamlDotNet.Serialization;
-using Intercom = Exiled.API.Features.Intercom;
+using IntercomBase = PlayerRoles.Voice.Intercom;
+using IntercomExiled = Exiled.API.Features.Intercom;
 
 namespace VVUP.CustomItems.Items.Other
 {
@@ -83,7 +83,7 @@ namespace VVUP.CustomItems.Items.Other
 
         public string IntercomRoomPortableIntercomInUseText { get; set; } =
             "The intercom is currently in use in a remote location.";
-        private bool isPortableIntercomActive = false;
+        private bool _isPortableIntercomActive = false;
         private static CoroutineHandle _portableIntercomCoroutine;
         private List<Player> _playerWithPortableIntercom = new List<Player>();
 
@@ -100,7 +100,7 @@ namespace VVUP.CustomItems.Items.Other
 
         protected override void OnChanging(ChangingItemEventArgs ev)
         {
-            if (_playerWithPortableIntercom.Contains(ev.Player) && isPortableIntercomActive)
+            if (_playerWithPortableIntercom.Contains(ev.Player) && _isPortableIntercomActive)
             {
                 Log.Debug($"VVUP Custom Items, Portable Intercom: {ev.Player.Nickname} is changing item while using the portable intercom, removing them from the list.");
                 _playerWithPortableIntercom.Remove(ev.Player);
@@ -109,7 +109,7 @@ namespace VVUP.CustomItems.Items.Other
         }
         protected override void OnDroppingItem(DroppingItemEventArgs ev)
         {
-            if (_playerWithPortableIntercom.Contains(ev.Player) && isPortableIntercomActive)
+            if (_playerWithPortableIntercom.Contains(ev.Player) && _isPortableIntercomActive)
             {
                 Log.Debug($"VVUP Custom Items, Portable Intercom: {ev.Player.Nickname} is dropping item while using the portable intercom, removing them from the list.");
                 _playerWithPortableIntercom.Remove(ev.Player);
@@ -119,7 +119,7 @@ namespace VVUP.CustomItems.Items.Other
 
         protected override void OnOwnerChangingRole(OwnerChangingRoleEventArgs ev)
         {
-            if (_playerWithPortableIntercom.Contains(ev.Player) && isPortableIntercomActive &&
+            if (_playerWithPortableIntercom.Contains(ev.Player) && _isPortableIntercomActive &&
                 Check(ev.Player.CurrentItem))
             {
                 Log.Debug($"VVUP Custom Items, Portable Intercom: {ev.Player.Nickname} is changing role while using the portable intercom, removing them from the list.");
@@ -132,7 +132,7 @@ namespace VVUP.CustomItems.Items.Other
         {
             Log.Debug("VVUP Custom Items, Portable Intercom: At Waiting for players, clearing portable intercom data.");
             _playerWithPortableIntercom.Clear();
-            isPortableIntercomActive = false;
+            _isPortableIntercomActive = false;
             if (_portableIntercomCoroutine.IsRunning)
                 Timing.KillCoroutines(_portableIntercomCoroutine);
             base.OnWaitingForPlayers();
@@ -142,18 +142,18 @@ namespace VVUP.CustomItems.Items.Other
         {
             if (!Check(ev.Player.CurrentItem))
                 return;
-            if (isPortableIntercomActive && EndIntercomOnSecondInteraction && _playerWithPortableIntercom.Contains(ev.Player))
+            if (_isPortableIntercomActive && EndIntercomOnSecondInteraction && _playerWithPortableIntercom.Contains(ev.Player))
             {
                 Log.Debug($"VVUP Custom Items, Portable Intercom: {ev.Player.Nickname} is toggling the portable intercom while it is active, ending the intercom.");
                 _playerWithPortableIntercom.Remove(ev.Player);
             }
-            else if (isPortableIntercomActive && _playerWithPortableIntercom.Contains(ev.Player))
+            else if (_isPortableIntercomActive && _playerWithPortableIntercom.Contains(ev.Player))
             {
                 Log.Debug($"VVUP Custom Items, Portable Intercom: {ev.Player.Nickname} is toggling the portable intercom while it is active, but EndIntercomOnSecondInteraction is false, ignoring.");
                 return;
             }
 
-            if (FollowActualIntercomParameters && Intercom.State != IntercomState.Ready)
+            if (FollowActualIntercomParameters && IntercomExiled.State != IntercomState.Ready)
             {
                 if (UseHints)
                     ev.Player.ShowHint(PortableIntercomFailDueToIntercomCooldownText, 5);
@@ -163,14 +163,14 @@ namespace VVUP.CustomItems.Items.Other
                 return;
             }
             Log.Debug($"VVUP Custom Items, Portable Intercom: {ev.Player.Nickname} is toggling the portable intercom, starting the intercom, adding to list, setting Intercom State, setting Intercom Display, setting {ev.Player.Nickname} voice channel, Starting Coroutine");
-            isPortableIntercomActive = true;
+            _isPortableIntercomActive = true;
             ev.IsAllowed = false;
             ev.Radio.IsEnabled = true;
             _playerWithPortableIntercom.Add(ev.Player);
-            Intercom.PlaySound(true);
-            Intercom.State = IntercomState.Cooldown;
-            Intercom.DisplayText = IntercomRoomPortableIntercomInUseText;
-            Timing.CallDelayed(1.5f, () => Server.ExecuteCommand($"/icom {ev.Player.Id} 1"));
+            IntercomExiled.PlaySound(true);
+            IntercomExiled.State = IntercomState.Cooldown;
+            IntercomExiled.DisplayText = IntercomRoomPortableIntercomInUseText;
+            Timing.CallDelayed(1.5f, () => IntercomBase.TrySetOverride(ev.Player.ReferenceHub, true));
             _portableIntercomCoroutine = Timing.RunCoroutine(PortableIntercomTiming(ev.Player));
         }
         private IEnumerator<float> PortableIntercomTiming(Player player)
@@ -181,11 +181,11 @@ namespace VVUP.CustomItems.Items.Other
                 if (!_playerWithPortableIntercom.Contains(player))
                 {
                     Log.Debug($"VVUP Custom Items, Portable Intercom: {player.Nickname} is no longer in the list of players with the portable intercom, ending the intercom.");
-                    isPortableIntercomActive = false;
-                    Intercom.PlaySound(false);
-                    Intercom.DisplayText = string.Empty;
-                    Intercom.State = IntercomState.Cooldown;
-                    Server.ExecuteCommand($"/icom {player.Id} 0");
+                    _isPortableIntercomActive = false;
+                    IntercomExiled.PlaySound(false);
+                    IntercomExiled.DisplayText = string.Empty;
+                    IntercomExiled.State = IntercomState.Cooldown;
+                    IntercomBase.TrySetOverride(player.ReferenceHub, false);
                     yield break;
                 }
                 yield return Timing.WaitForSeconds(1f);
@@ -198,10 +198,10 @@ namespace VVUP.CustomItems.Items.Other
                     player.Broadcast(1, message, shouldClearPrevious:true);
             }
             Log.Debug($"VVUP Custom Items, Portable Intercom: {player.Nickname} portable intercom has ended, removing from list and ending the intercom.");
-            isPortableIntercomActive = false;
-            Intercom.PlaySound(false);
+            _isPortableIntercomActive = false;
+            IntercomExiled.PlaySound(false);
             _playerWithPortableIntercom.Remove(player);
-            Server.ExecuteCommand($"/icom {player.Id} 0");
+            IntercomBase.TrySetOverride(player.ReferenceHub, false);
             yield break;
         }
         private string ProcessStringVaribles(string text, float time)
