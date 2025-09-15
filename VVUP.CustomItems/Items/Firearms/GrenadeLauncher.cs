@@ -146,6 +146,7 @@ namespace VVUP.CustomItems.Items.Firearms
             Log.Debug($"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} fired, firing a {GrenadeType}, Is Full Force: {FullForceMode[ev.Player]}, Is Impact: {LaunchTypeMode[ev.Player]}");
             Projectile projectile = GrenadeType switch
             {
+                ProjectileType.None => ev.Player.ThrowGrenade(ProjectileType.FragGrenade, FullForceMode[ev.Player]).Projectile,
                 ProjectileType.FragGrenade => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
                 ProjectileType.Flashbang => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
                 //ProjectileType.Scp018 => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
