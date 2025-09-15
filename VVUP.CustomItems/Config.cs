@@ -1,13 +1,15 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using Exiled.API.Interfaces;
 
-namespace VVUP.CustomRoles
+namespace VVUP.CustomItems
 {
     public class Config : IConfig
     {
+        [Description("Enables Custom Items")]
         public bool IsEnabled { get; set; } = true;
+
         public bool Debug { get; set; } = false;
-        public CustomRolesConfig CustomRolesConfig { get; set; } = new();
+        public CustomItemsConfig CustomItemsConfig { get; set; } = new();
         public SsssConfig SsssConfig { get; set; } = new();
     }
 }

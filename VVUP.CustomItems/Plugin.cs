@@ -9,7 +9,7 @@ using Player = Exiled.Events.Handlers.Player;
 
 namespace VVUP.CustomItems
 {
-    public class Plugin : Plugin<CustomItemsConfig>
+    public class Plugin : Plugin<Config>
     {
         public override PluginPriority Priority { get; } = PluginPriority.Low;
         public static Plugin Instance;
@@ -29,7 +29,7 @@ namespace VVUP.CustomItems
                 base.OnDisabled();
                 return;
             }
-            CustomItem.RegisterItems(overrideClass: Instance.Config);
+            CustomItem.RegisterItems(overrideClass: Instance.Config.CustomItemsConfig);
             SsssEventHandlers = new SsssEventHandlers(this);
             Player.Verified += SsssEventHandlers.OnVerified;
             ServerSpecificSettingsSync.ServerOnSettingValueReceived += SsssEventHandlers.OnSettingValueReceived;

@@ -137,6 +137,7 @@
     <Compile Include="Roles\Scps\SpeedsterZombie.cs" />
     <Compile Include="Roles\Scps\TeleportZombie.cs" />
     <Compile Include="Ssss.cs" />
+    <Compile Include="SsssConfig.cs" />
     <Compile Include="SsssEventHandlers.cs" />
   </ItemGroup>
   <ItemGroup>

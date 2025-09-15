@@ -13,6 +13,8 @@ namespace VVUP.HuskInfection
         {
             if (Plugin.Instance.SsssEventHandlers == null)
                 return;
+            if (!Plugin.Instance.Config.SsssEnabled)
+                return;
 
             Log.Debug($"VVUP: Adding SSSS functions to {ev.Player.Nickname}");
             SsssHelper.SafeAppendSsssSettings();

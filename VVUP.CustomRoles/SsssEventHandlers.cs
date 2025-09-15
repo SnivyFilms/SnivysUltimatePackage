@@ -20,6 +20,8 @@ namespace VVUP.CustomRoles
         {
             if (Plugin.Instance.SsssEventHandlers == null)
                 return;
+            if (!Plugin.Instance.Config.SsssConfig.SsssEnabled)
+                return;
             
             Log.Debug($"VVUP: Adding SSSS functions to {ev.Player.Nickname}");
             SsssHelper.SafeAppendSsssSettings();
@@ -30,169 +32,42 @@ namespace VVUP.CustomRoles
         {
             if (!PlayerAPI.TryGet(hub, out PlayerAPI player) || hub == null || player == null)
                 return;
-            if (settingBase is SSKeybindSetting ssKeybindSetting && ssKeybindSetting.SyncIsPressed)
+            if (settingBase is SSKeybindSetting { SyncIsPressed: true } ssKeybindSetting)
             {
-                if ((ssKeybindSetting.SettingId == Plugin.Instance.Config.ActiveCamoId
-                     || ssKeybindSetting.SettingId == Plugin.Instance.Config.ChargeId
-                     || ssKeybindSetting.SettingId == Plugin.Instance.Config.DetectId
-                     || ssKeybindSetting.SettingId == Plugin.Instance.Config.DoorPickingId
-                     || ssKeybindSetting.SettingId == Plugin.Instance.Config.HealingMistId
-                     || ssKeybindSetting.SettingId == Plugin.Instance.Config.RemoveDisguiseId
-                     || ssKeybindSetting.SettingId == Plugin.Instance.Config.ReviveMistId
-                     || ssKeybindSetting.SettingId == Plugin.Instance.Config.TeleportId
-                     || ssKeybindSetting.SettingId == Plugin.Instance.Config.SoundBreakerId
-                     || ssKeybindSetting.SettingId == Plugin.Instance.Config.ReplicatorId)
-
-                    && ActiveAbility.AllActiveAbilities.TryGetValue(player, out var abilities))
+                var abilityMap = new Dictionary<int, (Type abilityType, string successMessage)>
                 {
-                    string response = String.Empty;
-                    if (ssKeybindSetting.SettingId == Plugin.Instance.Config.ActiveCamoId)
+                    { Plugin.Instance.Config.SsssConfig.ActiveCamoId, (typeof(ActiveCamo), Plugin.Instance.Config.SsssConfig.SsssActiveCamoActivationMessage) },
+                    { Plugin.Instance.Config.SsssConfig.ChargeId, (typeof(ChargeAbility), Plugin.Instance.Config.SsssConfig.SsssChargeActivationMessage) },
+                    { Plugin.Instance.Config.SsssConfig.DetectId, (typeof(Detect), null) },
+                    { Plugin.Instance.Config.SsssConfig.DoorPickingId, (typeof(DoorPicking), Plugin.Instance.Config.SsssConfig.SsssDoorPickingActivationMessage) },
+                    { Plugin.Instance.Config.SsssConfig.HealingMistId, (typeof(HealingMist), Plugin.Instance.Config.SsssConfig.SsssHealingMistActivationMessage) },
+                    { Plugin.Instance.Config.SsssConfig.RemoveDisguiseId, (typeof(RemoveDisguise), Plugin.Instance.Config.SsssConfig.SsssRemoveDisguiseActivationMessage) },
+                    // { Plugin.Instance.Config.SsssConfig.ReviveMistId, (typeof(RevivingMist), Plugin.Instance.Config.SsssConfig.SsssReviveMistActivationMessage) },
+                    { Plugin.Instance.Config.SsssConfig.TeleportId, (typeof(Teleport), Plugin.Instance.Config.SsssConfig.SsssTeleportActivationMessage) },
+                    { Plugin.Instance.Config.SsssConfig.SoundBreakerId, (typeof(SoundBreaker), Plugin.Instance.Config.SsssConfig.SsssSoundBreakerActivationMessage) },
+                    { Plugin.Instance.Config.SsssConfig.ReplicatorId, (typeof(Replicator), Plugin.Instance.Config.SsssConfig.SsssReplicatorActivationMessage) }
+                };
+
+                if (abilityMap.TryGetValue(ssKeybindSetting.SettingId, out var abilityInfo) && 
+                    ActiveAbility.AllActiveAbilities.TryGetValue(player, out var abilities))
+                {
+                    string response = string.Empty;
+                    var ability = abilities.FirstOrDefault(a => a.GetType() == abilityInfo.abilityType);
+        
+                    if (ability != null && ability.CanUseAbility(player, out response))
                     {
-                        var activeCamoAbility =
-                            abilities.FirstOrDefault(abilities => abilities.GetType() == typeof(ActiveCamo));
-                        if (activeCamoAbility != null && activeCamoAbility.CanUseAbility(player, out response))
-                        {
-                            activeCamoAbility.SelectAbility(player);
-                            activeCamoAbility.UseAbility(player);
-                            player.ShowHint(Plugin.Instance.Config.SsssActiveCamoActivationMessage);
-                        }
-                        else
-                        {
+                        ability.SelectAbility(player);
+                        ability.UseAbility(player);
+            
+                        if (abilityInfo.abilityType == typeof(HealingMist))
                             player.ShowHint(response);
-                        }
+                
+                        if (abilityInfo.successMessage != null)
+                            player.ShowHint(abilityInfo.successMessage);
                     }
-                    else if (ssKeybindSetting.SettingId == Plugin.Instance.Config.ChargeId)
+                    else
                     {
-                        var chargeAbility =
-                            abilities.FirstOrDefault(abilities => abilities.GetType() == typeof(ChargeAbility));
-                        if (chargeAbility != null && chargeAbility.CanUseAbility(player, out response))
-                        {
-                            chargeAbility.SelectAbility(player);
-                            chargeAbility.UseAbility(player);
-                            player.ShowHint(Plugin.Instance.Config.SsssChargeActivationMessage);
-                        }
-                        else
-                        {
-                            player.ShowHint(response);
-                        }
-                    }
-                    else if (ssKeybindSetting.SettingId == Plugin.Instance.Config.DetectId)
-                    {
-                        var detectAbility =
-                            abilities.FirstOrDefault(abilities => abilities.GetType() == typeof(Detect));
-                        if (detectAbility != null && detectAbility.CanUseAbility(player, out response))
-                        {
-                            detectAbility.SelectAbility(player);
-                            detectAbility.UseAbility(player);
-                        }
-                        else
-                        {
-                            player.ShowHint(response);
-                        }
-                    }
-                    else if (ssKeybindSetting.SettingId == Plugin.Instance.Config.DoorPickingId)
-                    {
-                        var doorPickingAbility =
-                            abilities.FirstOrDefault(abilities => abilities.GetType() == typeof(DoorPicking));
-                        if (doorPickingAbility != null && doorPickingAbility.CanUseAbility(player, out response))
-                        {
-                            doorPickingAbility.SelectAbility(player);
-                            doorPickingAbility.UseAbility(player);
-                            player.ShowHint(Plugin.Instance.Config.SsssDoorPickingActivationMessage);
-                        }
-                        else
-                        {
-                            player.ShowHint(response);
-                        }
-                    }
-                    else if (ssKeybindSetting.SettingId == Plugin.Instance.Config.HealingMistId)
-                    {
-                        var healingMistAbility =
-                            abilities.FirstOrDefault(abilities => abilities.GetType() == typeof(HealingMist));
-                        if (healingMistAbility != null && healingMistAbility.CanUseAbility(player, out response))
-                        {
-                            healingMistAbility.SelectAbility(player);
-                            healingMistAbility.UseAbility(player);
-                            player.ShowHint(response);
-                            player.ShowHint(Plugin.Instance.Config.SsssHealingMistActivationMessage);
-                        }
-                        else
-                        {
-                            player.ShowHint(response);
-                        }
-                    }
-                    else if (ssKeybindSetting.SettingId == Plugin.Instance.Config.RemoveDisguiseId)
-                    {
-                        var removeDisguiseAbility =
-                            abilities.FirstOrDefault(abilities => abilities.GetType() == typeof(RemoveDisguise));
-                        if (removeDisguiseAbility != null && removeDisguiseAbility.CanUseAbility(player, out response))
-                        {
-                            removeDisguiseAbility.SelectAbility(player);
-                            removeDisguiseAbility.UseAbility(player);
-                            player.ShowHint(Plugin.Instance.Config.SsssRemoveDisguiseActivationMessage);
-                        }
-                        else
-                        {
-                            player.ShowHint(response);
-                        }
-                    }
-                    /*else if (ssKeybindSetting.SettingId == Plugin.Instance.Config.ReviveMistId)
-                    {
-                        var revivingMistAbility =
-                            abilities.FirstOrDefault(abilities => abilities.GetType() == typeof(RevivingMist));
-                        if (revivingMistAbility != null && revivingMistAbility.CanUseAbility(player, out response))
-                        {
-                            revivingMistAbility.SelectAbility(player);
-                            revivingMistAbility.UseAbility(player);
-                            player.ShowHint(Plugin.Instance.Config.SsssReviveMistActivationMessage);
-                        }
-                        else
-                        {
-                            player.ShowHint(response);
-                        }
-                    }*/
-                    else if (ssKeybindSetting.SettingId == Plugin.Instance.Config.TeleportId)
-                    {
-                        var teleportAbility =
-                            abilities.FirstOrDefault(abilities => abilities.GetType() == typeof(Teleport));
-                        if (teleportAbility != null && teleportAbility.CanUseAbility(player, out response))
-                        {
-                            teleportAbility.SelectAbility(player);
-                            teleportAbility.UseAbility(player);
-                            player.ShowHint(Plugin.Instance.Config.SsssTeleportActivationMessage);
-                        }
-                        else
-                        {
-                            player.ShowHint(response);
-                        }
-                    }
-                    else if (ssKeybindSetting.SettingId == Plugin.Instance.Config.SoundBreakerId)
-                    {
-                        var soundBreakerAbility = abilities.FirstOrDefault(abilities => abilities.GetType() == typeof(SoundBreaker));
-                        if (soundBreakerAbility != null && soundBreakerAbility.CanUseAbility(player, out response))
-                        {
-                            soundBreakerAbility.SelectAbility(player);
-                            soundBreakerAbility.UseAbility(player);
-                            player.ShowHint(Plugin.Instance.Config.SsssSoundBreakerActivationMessage);
-                        }
-                        else
-                        {
-                            player.ShowHint(response);
-                        }
-                    }
-                    else if (ssKeybindSetting.SettingId == Plugin.Instance.Config.ReplicatorId)
-                    {
-                        var replicatorAbility = abilities.FirstOrDefault(abilities => abilities.GetType() == typeof(Replicator));
-                        if (replicatorAbility != null && replicatorAbility.CanUseAbility(player, out response))
-                        {
-                            replicatorAbility.SelectAbility(player);
-                            replicatorAbility.UseAbility(player);
-                            player.ShowHint(Plugin.Instance.Config.SsssReplicatorActivationMessage);
-                        }
-                        else
-                        {
-                            player.ShowHint(response);
-                        }
+                        player.ShowHint(response);
                     }
                 }
             }

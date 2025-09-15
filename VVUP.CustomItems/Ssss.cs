@@ -61,18 +61,18 @@ namespace VVUP.CustomItems
                 }
                     
             }
-            settings.Add(new SSTextArea(Plugin.Instance.Config.CustomItemTextId, StringBuilderPool.Shared.ToStringReturn(stringBuilder),
+            settings.Add(new SSTextArea(Plugin.Instance.Config.SsssConfig.CustomItemTextId, StringBuilderPool.Shared.ToStringReturn(stringBuilder),
                 SSTextArea.FoldoutMode.CollapsedByDefault));
             stringBuilder.Clear();
             
-            settings.Add(new SSKeybindSetting(Plugin.Instance.Config.DetonateC4Id, Plugin.Instance.Config.DetonateC4SsssText,
-                KeyCode.J, true, false, Plugin.Instance.Config.DetonateC4Hint));
+            settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.DetonateC4Id, Plugin.Instance.Config.SsssConfig.DetonateC4SsssText,
+                KeyCode.J, true, false, Plugin.Instance.Config.SsssConfig.DetonateC4Hint));
             
-            settings.Add(new SSKeybindSetting(Plugin.Instance.Config.GrenadeLauncherForceModeId,Plugin.Instance.Config.GrenadeLauncherForceModeSsssText,
-                KeyCode.K, true, false, Plugin.Instance.Config.GrenadeLauncherForceModeHint));
+            settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.GrenadeLauncherForceModeId,Plugin.Instance.Config.SsssConfig.GrenadeLauncherForceModeSsssText,
+                KeyCode.K, true, false, Plugin.Instance.Config.SsssConfig.GrenadeLauncherForceModeHint));
     
-            settings.Add(new SSKeybindSetting(Plugin.Instance.Config.GrenadeLauncherLaunchModeId,Plugin.Instance.Config.GrenadeLauncherLaunchModeSsssText,
-                KeyCode.K, true, false, Plugin.Instance.Config.GrenadeLauncherLaunchModeHint));
+            settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.GrenadeLauncherLaunchModeId,Plugin.Instance.Config.SsssConfig.GrenadeLauncherLaunchModeSsssText,
+                KeyCode.K, true, false, Plugin.Instance.Config.SsssConfig.GrenadeLauncherLaunchModeHint));
             return settings.ToArray();
         }
         public static void SafeAppendSsssSettings()
@@ -90,9 +90,9 @@ namespace VVUP.CustomItems
             }
             if (needToAddSettings)
             {
-                if (!current.Any(s => s is SSGroupHeader header && header.Label == Plugin.Instance.Config.Header))
+                if (!current.Any(s => s is SSGroupHeader header && header.Label == Plugin.Instance.Config.SsssConfig.Header))
                 {
-                    current.Add(new SSGroupHeader(Plugin.Instance.Config.Header));
+                    current.Add(new SSGroupHeader(Plugin.Instance.Config.SsssConfig.Header));
                 }
                 foreach (var setting in mySettings)
                 {

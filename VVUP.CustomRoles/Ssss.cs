@@ -68,20 +68,20 @@ namespace VVUP.CustomRoles
                     stringBuilder.AppendLine($"-- Ability: {ability.Name}, {ability.Description}");
                 }
             }
-            settings.Add(new SSTextArea(Plugin.Instance.Config.CustomRoleTextId, StringBuilderPool.Shared.ToStringReturn(stringBuilder),
+            settings.Add(new SSTextArea(Plugin.Instance.Config.SsssConfig.CustomRoleTextId, StringBuilderPool.Shared.ToStringReturn(stringBuilder),
                 SSTextArea.FoldoutMode.CollapsedByDefault));
             stringBuilder.Clear();
             
-             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.ActiveCamoId, Plugin.Instance.Config.ActiveCamoSsssText, KeyCode.B, true, false, Plugin.Instance.Config.ActiveCamoHint));
-             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.ChargeId, Plugin.Instance.Config.ChargeSsssText, KeyCode.B, true, false, Plugin.Instance.Config.ChargeHint));
-             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.DetectId, Plugin.Instance.Config.DetectSsssText, KeyCode.B, true, false, Plugin.Instance.Config.DetectHint));
-             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.DoorPickingId, Plugin.Instance.Config.DoorPickingSsssText, KeyCode.B, true, false, Plugin.Instance.Config.DoorPickingHint));
-             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.HealingMistId, Plugin.Instance.Config.HealingMistSsssText, KeyCode.B, true, false, Plugin.Instance.Config.HealingMistHint));
-             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.RemoveDisguiseId, Plugin.Instance.Config.RemoveDisguiseSsssText, KeyCode.B, true, false, Plugin.Instance.Config.RemoveDisguiseHint));
-             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.ReviveMistId, Plugin.Instance.Config.ReviveMistSsssText, KeyCode.B, true, false, Plugin.Instance.Config.ReviveMistHint));
-             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.TeleportId, Plugin.Instance.Config.TeleportSsssText, KeyCode.B, true, false, Plugin.Instance.Config.TeleportHint));
-             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SoundBreakerId, Plugin.Instance.Config.SoundBreakerSsssText,KeyCode.C, true, false, Plugin.Instance.Config.SoundBreakerHint));
-             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.ReplicatorId, Plugin.Instance.Config.ReplicatorSsssText,KeyCode.B, true, false, Plugin.Instance.Config.ReplicatorHint));
+             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.ActiveCamoId, Plugin.Instance.Config.SsssConfig.ActiveCamoSsssText, KeyCode.B, true, false, Plugin.Instance.Config.SsssConfig.ActiveCamoHint));
+             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.ChargeId, Plugin.Instance.Config.SsssConfig.ChargeSsssText, KeyCode.B, true, false, Plugin.Instance.Config.SsssConfig.ChargeHint));
+             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.DetectId, Plugin.Instance.Config.SsssConfig.DetectSsssText, KeyCode.B, true, false, Plugin.Instance.Config.SsssConfig.DetectHint));
+             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.DoorPickingId, Plugin.Instance.Config.SsssConfig.DoorPickingSsssText, KeyCode.B, true, false, Plugin.Instance.Config.SsssConfig.DoorPickingHint));
+             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.HealingMistId, Plugin.Instance.Config.SsssConfig.HealingMistSsssText, KeyCode.B, true, false, Plugin.Instance.Config.SsssConfig.HealingMistHint));
+             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.RemoveDisguiseId, Plugin.Instance.Config.SsssConfig.RemoveDisguiseSsssText, KeyCode.B, true, false, Plugin.Instance.Config.SsssConfig.RemoveDisguiseHint));
+             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.ReviveMistId, Plugin.Instance.Config.SsssConfig.ReviveMistSsssText, KeyCode.B, true, false, Plugin.Instance.Config.SsssConfig.ReviveMistHint));
+             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.TeleportId, Plugin.Instance.Config.SsssConfig.TeleportSsssText, KeyCode.B, true, false, Plugin.Instance.Config.SsssConfig.TeleportHint));
+             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.SoundBreakerId, Plugin.Instance.Config.SsssConfig.SoundBreakerSsssText,KeyCode.C, true, false, Plugin.Instance.Config.SsssConfig.SoundBreakerHint));
+             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.ReplicatorId, Plugin.Instance.Config.SsssConfig.ReplicatorSsssText,KeyCode.B, true, false, Plugin.Instance.Config.SsssConfig.ReplicatorHint));
             return settings.ToArray();
         }
         public static void SafeAppendSsssSettings()
@@ -99,9 +99,9 @@ namespace VVUP.CustomRoles
             }
             if (needToAddSettings)
             {
-                if (!current.Any(s => s is SSGroupHeader header && header.Label == Plugin.Instance.Config.Header))
+                if (!current.Any(s => s is SSGroupHeader header && header.Label == Plugin.Instance.Config.SsssConfig.Header))
                 {
-                    current.Add(new SSGroupHeader(Plugin.Instance.Config.Header));
+                    current.Add(new SSGroupHeader(Plugin.Instance.Config.SsssConfig.Header));
                 }
                 foreach (var setting in mySettings)
                 {
