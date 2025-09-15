@@ -153,7 +153,7 @@ namespace VVUP.CustomItems
         };
 
         [Description("SSSS Stuff")]
-        public string Header { get; set; } = "VVUP Custom Items.";
+        public string Header { get; set; } = "Vicious Vikki's Custom Items.";
         public int DetonateC4Id { get; set; } = 10006;
         public int CustomItemTextId { get; set; } = 1;
         public string DetonateC4Hint { get; set; } = "Press the keybind to activate Detonate C4, you will be able to detonate your C4 (Custom Item).";
