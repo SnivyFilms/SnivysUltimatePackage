@@ -22,7 +22,7 @@ namespace VVUP.HuskInfection
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.HK";
         public override Version Version { get; } = new Version(3, 2, 0);
-        public override Version RequiredExiledVersion { get; } = new Version(9, 8, 1);
+        public override Version RequiredExiledVersion { get; } = new Version(9, 9, 1);
 
         public HuskInfectionEventHandlers HuskInfectionEventHandlers;
         public SsssEventHandlers SsssEventHandlers;
@@ -49,7 +49,7 @@ namespace VVUP.HuskInfection
                 base.OnDisabled();
                 return;
             }
-            CustomAbility.RegisterAbilities();
+            CustomAbility.RegisterAbilities(false, null);
             Config.CustomRoleConfig.HuskZombies.Register();
             foreach (CustomRole role in CustomRole.Registered)
             {

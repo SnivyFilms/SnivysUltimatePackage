@@ -15,7 +15,7 @@ namespace VVUP.CreditTags
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.CT";
         public override Version Version { get; } = new Version(3, 2, 0);
-        public override Version RequiredExiledVersion { get; } = new Version(9, 8, 1);
+        public override Version RequiredExiledVersion { get; } = new Version(9, 9, 1);
         public EventHandlers EventHandlers;
 
         public override void OnEnabled()
