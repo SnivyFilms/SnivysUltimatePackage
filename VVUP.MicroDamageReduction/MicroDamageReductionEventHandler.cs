@@ -13,8 +13,6 @@ namespace VVUP.MicroDamageReduction
         {
             if (ev.Player == null)
                 return;
-            if (Plugin.Instance.Config.ScpDamageReduction == null)
-                return;
             if (ev.DamageHandler.Type != DamageType.MicroHid)
                 return;
             
