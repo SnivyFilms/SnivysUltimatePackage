@@ -80,5 +80,11 @@ namespace VVUP.CustomItems.Items.Grenades
                 }
             }
         }
+
+        protected override void OnWaitingForPlayers()
+        {
+            _effectedPlayers.Clear();
+            base.OnWaitingForPlayers();
+        }
     }
 }
