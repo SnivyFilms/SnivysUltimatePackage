@@ -151,5 +151,10 @@ namespace VVUP.CustomItems
         {
             new Telewand()
         };
+        
+        public List<LowGravityGrenade> LowGravityGrenades { get; private set; } = new()
+        {
+            new LowGravityGrenade()
+        };
     }
 }

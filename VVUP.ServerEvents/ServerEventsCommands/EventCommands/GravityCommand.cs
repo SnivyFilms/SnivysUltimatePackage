@@ -12,15 +12,8 @@ namespace VVUP.ServerEvents.ServerEventsCommands.EventCommands
         public string Command { get; set; } = "LowGravity";
         public string[] Aliases { get; set; } = { "Moon", "LG" };
         public string Description { get; set; } = "Starts the Low Gravity Event";
-        private static ServerEventsMasterConfig _config = new();
         public bool Execute(ArraySegment<string> args, ICommandSender sender, out string response)
         {
-            if (!_config.IsEnabled)
-            {
-                response = "The custom events part of this plugin is disabled.";
-                return false;
-            }
-            
             if (!sender.CheckPermission("vvevents.runn"))
             {
                 response = "You do not have the required permission to use this command";

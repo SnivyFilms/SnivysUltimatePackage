@@ -73,6 +73,7 @@
         <Compile Include="ServerEventsCommands\EventCommands\GravityCommand.cs" />
         <Compile Include="ServerEventsCommands\EventCommands\ItemRandomizerCommand.cs" />
         <Compile Include="ServerEventsCommands\EventCommands\NameRedactedCommand.cs" />
+        <Compile Include="ServerEventsCommands\EventCommands\NoSpectatingPlayersCommand.cs" />
         <Compile Include="ServerEventsCommands\EventCommands\PeanutHyrdraCommand.cs" />
         <Compile Include="ServerEventsCommands\EventCommands\PeanutInfectionCommand.cs" />
         <Compile Include="ServerEventsCommands\EventCommands\ShortCommand.cs" />
@@ -87,6 +88,7 @@
         <Compile Include="ServerEventsConfigs\GravityConfig.cs" />
         <Compile Include="ServerEventsConfigs\ItemRandomizerConfig.cs" />
         <Compile Include="ServerEventsConfigs\NameRedactedConfig.cs" />
+        <Compile Include="ServerEventsConfigs\NoSpectatingPlayersConfig.cs" />
         <Compile Include="ServerEventsConfigs\PeanutHydraConfig.cs" />
         <Compile Include="ServerEventsConfigs\PeanutInfectionConfig.cs" />
         <Compile Include="ServerEventsConfigs\ServerEventsMasterConfig.cs" />
@@ -100,6 +102,7 @@
         <Compile Include="ServerEventsEventHandlers\GravityEventHandlers.cs" />
         <Compile Include="ServerEventsEventHandlers\ItemRandomizerEventHandlers.cs" />
         <Compile Include="ServerEventsEventHandlers\NameRedactedEventHandlers.cs" />
+        <Compile Include="ServerEventsEventHandlers\NoSpectatingPlayersEventHandlers.cs" />
         <Compile Include="ServerEventsEventHandlers\PeanutHydraEventHandlers.cs" />
         <Compile Include="ServerEventsEventHandlers\PeanutInfectionEventHandlers.cs" />
         <Compile Include="ServerEventsEventHandlers\ServerEventsMainEventHandler.cs" />
@@ -114,7 +117,7 @@
       </ProjectReference>
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="ExMod.Exiled" Version="9.9.1" />
+      <PackageReference Include="ExMod.Exiled" Version="9.9.2" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

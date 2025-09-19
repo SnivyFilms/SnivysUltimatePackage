@@ -18,7 +18,7 @@ namespace VVUP.ServerEvents.ServerEventsConfigs
         public int RandomEventStartingChance { get; set; } = 0;
 
         [Description(
-            "The list of events that can randomly start, Valid options: Blackout, 173Infection, 173Hydra, Chaotic, Short, FreezingTemps, NameRedacted, VariableLights, LowGravity")]
+            "The list of events that can randomly start, Valid options: Blackout, 173Infection, 173Hydra, Chaotic, Short, FreezingTemps, NameRedacted, VariableLights, LowGravity, ItemRandomizer, AfterHours, NoSpectatingPlayers")]
         public List<string> RandomEventsAllowedToStart { get; set; } = new List<string>
         {
             "Blackout",
@@ -30,6 +30,9 @@ namespace VVUP.ServerEvents.ServerEventsConfigs
             "NameRedacted",
             "VariableLights",
             "LowGravity",
+            "AfterHours",
+            "ItemRandomizer",
+            "NoSpectatingPlayers"
         };
         
         
@@ -45,6 +48,6 @@ namespace VVUP.ServerEvents.ServerEventsConfigs
         public AfterHoursConfig AfterHoursConfig { get; set; } = new();
         //public SnowballsVsScpsConfig SnowballsVsScpsConfig { get; set; } = new();
         public GravityConfig GravityConfig { get; set; } = new();
-        
+        public NoSpectatingPlayersConfig NoSpectatingPlayersConfig { get; set; } = new();
     }
 }

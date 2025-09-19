@@ -94,6 +94,7 @@
     <Compile Include="Abilities\Passive\ScaleAbility.cs" />
     <Compile Include="Abilities\Passive\SpeedOnKill.cs" />
     <Compile Include="Abilities\Passive\TeamConvertOnKill.cs" />
+    <Compile Include="Abilities\Passive\Unspectatable.cs" />
     <Compile Include="API\ExternalTeams\CustomTeamAPI.cs" />
     <Compile Include="API\ExternalTeams\ExternalTeamChecker.cs" />
     <Compile Include="API\ExternalTeams\SerpentsHandCheck.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Roles\Other\PaperMan.cs" />
     <Compile Include="Roles\Scientist\Biochemist.cs" />
     <Compile Include="Roles\Scientist\ContainmentScientist.cs" />
+    <Compile Include="Roles\Scientist\QuantumGravityResearcher.cs" />
     <Compile Include="Roles\Scientist\TheoreticalPhysicistScientist.cs" />
     <Compile Include="Roles\Scps\DwarfZombie.cs" />
     <Compile Include="Roles\Scps\ExplosiveZombie.cs" />
@@ -147,7 +149,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ExMod.Exiled" Version="9.9.1" />
+    <PackageReference Include="ExMod.Exiled" Version="9.9.2" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

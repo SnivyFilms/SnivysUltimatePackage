@@ -82,6 +82,7 @@
     <Compile Include="Items\Grenades\C4.cs" />
     <Compile Include="Items\Grenades\ClusterGrenade.cs" />
     <Compile Include="Items\Grenades\EmpGrenade.cs" />
+    <Compile Include="Items\Grenades\LowGravityGrenade.cs" />
     <Compile Include="Items\Grenades\MultiFlash.cs" />
     <Compile Include="Items\Grenades\NerveAgent.cs" />
     <Compile Include="Items\Grenades\ProxyBang.cs" />
@@ -108,7 +109,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ExMod.Exiled" Version="9.9.1" />
+    <PackageReference Include="ExMod.Exiled" Version="9.9.2" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

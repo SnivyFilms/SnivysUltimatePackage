@@ -10,6 +10,7 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
 using UnityEngine;
+using UserSettings.ServerSpecific;
 
 namespace VVUP.CustomItems.Items.Firearms
 {
@@ -77,7 +78,7 @@ namespace VVUP.CustomItems.Items.Firearms
         protected override void OnShot(ShotEventArgs ev)
         {
             Log.Debug($"VVUP Custom Items: Laser Gun, spawning laser going from {ev.Player.Position} to {ev.Position}");
-            var color = GetRandomLaserColor();
+            var color = GetLaserColor(ev.Player);
             var laserColor = new Color(color.Red, color.Green, color.Blue);
             var direction = ev.Position - ev.Player.Position;
             var distance = direction.magnitude;
@@ -89,11 +90,51 @@ namespace VVUP.CustomItems.Items.Firearms
                 scale, true, laserColor);
             Timing.CallDelayed(LaserVisibleTime, laser.Destroy);
         }
-        private (float Red, float Green, float Blue) GetRandomLaserColor()
+        private (float Red, float Green, float Blue) GetLaserColor(Player player)
         {
-            return (Base.GetRandomNumber.GetRandomInt(LaserColorRed.Count), 
-                Base.GetRandomNumber.GetRandomInt(LaserColorGreen.Count), 
-                Base.GetRandomNumber.GetRandomInt(LaserColorBlue.Count));
+            Log.Debug($"VVUP Custom Items: Getting laser color for {player.Nickname} from SSSS settings if they have one defined");
+            float red, green, blue;
+            if (ServerSpecificSettingsSync.TryGetSettingOfUser<SSPlaintextSetting>(
+                    player.ReferenceHub, Plugin.Instance.Config.SsssConfig.LaserGunRedId, out var redSetting) 
+                && int.TryParse(redSetting.SyncInputText, out int r) && r is > 0 and < 255)
+            {
+                red = r / 255f;
+                Log.Debug($"VVUP Custom Items: Using SSSS red value: {r}");
+            }
+            else
+            {
+                red = LaserColorRed[Base.GetRandomNumber.GetRandomInt(LaserColorRed.Count)];
+                Log.Debug($"VVUP Custom Items: Using random red value: {red}");
+            }
+            
+            if (ServerSpecificSettingsSync.TryGetSettingOfUser<SSPlaintextSetting>(
+                    player.ReferenceHub, Plugin.Instance.Config.SsssConfig.LaserGunGreenId, out var greenSetting)
+                && int.TryParse(greenSetting.SyncInputText, out int g) && g is > 0 and < 255)
+            {
+                green = g / 255f;
+                Log.Debug($"VVUP Custom Items: Using SSSS green value: {g}");
+            }
+            else
+            {
+                green = LaserColorGreen[Base.GetRandomNumber.GetRandomInt(LaserColorGreen.Count)];
+                Log.Debug($"VVUP Custom Items: Using random green value: {green}");
+            }
+            
+            if (ServerSpecificSettingsSync.TryGetSettingOfUser<SSPlaintextSetting>(
+                    player.ReferenceHub, Plugin.Instance.Config.SsssConfig.LaserGunBlueId, out var blueSetting) 
+                && int.TryParse(blueSetting.SyncInputText, out int b) && b is > 0 and < 255)
+            {
+                blue = b / 255f;
+                Log.Debug($"VVUP Custom Items: Using SSSS blue value: {b}");
+            }
+            else
+            {
+                blue = LaserColorBlue[Base.GetRandomNumber.GetRandomInt(LaserColorBlue.Count)];
+                Log.Debug($"VVUP Custom Items: Using random blue value: {blue}");
+            }
+    
+            Log.Debug($"VVUP Custom Items: Final RGB values for {player.Nickname}: R:{red}, G:{green}, B:{blue}");
+            return (red, green, blue);
         }
     }
 }

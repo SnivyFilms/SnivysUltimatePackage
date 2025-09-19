@@ -71,6 +71,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             //SnowballsVsScpsEventHandlers.EndEvent();
             GravityEventHandlers.EndEvent();
             ItemRandomizerEventHandlers.EndEvent();
+            NoSpectatingPlayersEventHandlers.EndEvent();
             Plugin.ActiveEvent = 0;
         }
 
@@ -131,9 +132,21 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                         Log.Debug("VVUP Server Events: Activating Low Gravity Event");
                         var gravityEventHandlers = new GravityEventHandlers();
                         break;
+                    case "ItemRandomizer":
+                        Log.Debug("VVUP Server Events: Activating No Spectating Players Event");
+                        var itemRandomizerEventHandlers = new ItemRandomizerEventHandlers();
+                        break;
+                    //case "SnowballsVsScps":
+                        //Log.Debug("VVUP Server Events: Activating Snowballs Vs Scps Event");
+                        // var snowballsVsScpsEventHandlers = new SnowballsVsScpsEventHandlers();
+                        //break;
+                    case "NoSpectatingPlayers":
+                        Log.Debug("VVUP Server Events: Activating No Spectating Players Event");
+                        var noSpectatingPlayersEventHandlers = new NoSpectatingPlayersEventHandlers();
+                        break;
                     default:
                         Log.Warn($"VVUP Server Events: Unknown event: {selectedEvent}");
-                        Log.Warn("VVUP Server Events: Valid Events: Valid options: Blackout, 173Infection, 173Hydra, Chaotic, Short, FreezingTemps, NameRedacted, VariableLights, Gravity");
+                        Log.Warn("VVUP Server Events: Valid Events: Valid options: Blackout, 173Infection, 173Hydra, Chaotic, Short, FreezingTemps, NameRedacted, VariableLights, LowGravity, ItemRandomizer, NoSpectatingPlayers");
                         Log.Warn("VVUP Server Events: If this error randomly appears and you are sure you put in a valid event, please let the developer know as soon as possible");
                         break;
                 }

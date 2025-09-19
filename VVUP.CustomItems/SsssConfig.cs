@@ -18,5 +18,13 @@ namespace VVUP.CustomItems
         public int GrenadeLauncherLaunchModeId { get; set; } = 10012;
         public string GrenadeLauncherLaunchModeSsssText { get; set; } = "Toggle ADATS Impact/Roller";
         public string GrenadeLauncherLaunchModeHint { get; set; } = "Toggle between impact and roller modes for ADATS";
+        public int LaserGunRedId { get; set; } = 10020;
+        public int LaserGunGreenId { get; set; } = 10021;
+        public int LaserGunBlueId { get; set; } = 10022;
+        public string LaserGunColorText { get; set; } = "Helios Beam Color";
+        public string LaserGunColorTextRed { get; set; } = "(Red)";
+        public string LaserGunColorTextGreen { get; set; } = "(Green)";
+        public string LaserGunColorTextBlue { get; set; } = "(Blue)";
+        public string LaserGunColorHint { get; set; } = "Enter a value between 0 and 255. Any negative number or any number above 255 will be random";
     }
 }

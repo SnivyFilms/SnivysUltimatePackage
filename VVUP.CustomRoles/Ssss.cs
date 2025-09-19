@@ -55,6 +55,7 @@ namespace VVUP.CustomRoles
                 Replicant.Get(typeof(Replicant)),
                 Dwarf.Get(typeof(Dwarf)),
                 PaperMan.Get(typeof(PaperMan)),
+                QuantumGravityResearcher.Get(typeof(QuantumGravityResearcher)),
             };
                 
             foreach (var role in customRoles)

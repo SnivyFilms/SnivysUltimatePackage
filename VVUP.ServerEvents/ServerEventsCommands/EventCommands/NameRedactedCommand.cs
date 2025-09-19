@@ -15,12 +15,6 @@ namespace VVUP.ServerEvents.ServerEventsCommands.EventCommands
         private static ServerEventsMasterConfig _config = new();
         public bool Execute(ArraySegment<string> args, ICommandSender sender, out string response)
         {
-            if (!_config.IsEnabled)
-            {
-                response = "The custom events part of this plugin is disabled.";
-                return false;
-            }
-            
             if (!sender.CheckPermission("vvevents.runn"))
             {
                 response = "You do not have the required permission to use this command";

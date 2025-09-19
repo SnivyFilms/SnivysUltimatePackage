@@ -150,5 +150,10 @@ namespace VVUP.CustomRoles
         {
             new PaperMan()
         };
+        
+        public List<QuantumGravityResearcher> QuantumGravityResearchers { get; set; } = new()
+        {
+            new QuantumGravityResearcher()
+        };
     }
 }

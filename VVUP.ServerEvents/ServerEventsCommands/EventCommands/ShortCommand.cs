@@ -12,15 +12,8 @@ namespace VVUP.ServerEvents.ServerEventsCommands.EventCommands
         public string Command { get; set; } = "ShortPeople";
         public string[] Aliases { get; set; } = { "Dwarf", "Tiny" };
         public string Description { get; set; } = "Starts the Short People Event";
-        private static ServerEventsMasterConfig _config = new();
         public bool Execute(ArraySegment<string> args, ICommandSender sender, out string response)
         {
-            if (!_config.IsEnabled)
-            {
-                response = "The custom events part of this plugin is disabled.";
-                return false;
-            }
-            
             if (!sender.CheckPermission("vvevents.rund"))
             {
                 response = "You do not have the required permission to use this command";

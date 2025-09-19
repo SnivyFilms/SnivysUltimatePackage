@@ -4,6 +4,7 @@ using System.Text;
 using Exiled.API.Features;
 using Exiled.CustomItems.API.Features;
 using NorthwoodLib.Pools;
+using TMPro;
 using UnityEngine;
 using UserSettings.ServerSpecific;
 using VVUP.CustomItems.Items.Armor;
@@ -48,6 +49,7 @@ namespace VVUP.CustomItems
                 GrenadeLauncher.Get(typeof(GrenadeLauncher)),
                 PortableIntercom.Get(typeof(PortableIntercom)),
                 Telewand.Get(typeof(Telewand)),
+                LowGravityGrenade.Get(typeof(LowGravityGrenade)),
             };
 
             foreach (var itemCollection in customItems)
@@ -72,7 +74,31 @@ namespace VVUP.CustomItems
                 KeyCode.K, true, false, Plugin.Instance.Config.SsssConfig.GrenadeLauncherForceModeHint));
     
             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.GrenadeLauncherLaunchModeId,Plugin.Instance.Config.SsssConfig.GrenadeLauncherLaunchModeSsssText,
-                KeyCode.K, true, false, Plugin.Instance.Config.SsssConfig.GrenadeLauncherLaunchModeHint));
+                KeyCode.L, true, false, Plugin.Instance.Config.SsssConfig.GrenadeLauncherLaunchModeHint));
+            
+            settings.Add(new SSPlaintextSetting(
+                Plugin.Instance.Config.SsssConfig.LaserGunRedId,
+                $"{Plugin.Instance.Config.SsssConfig.LaserGunColorText} {Plugin.Instance.Config.SsssConfig.LaserGunColorTextRed}",
+                "-1",
+                3,
+                TMP_InputField.ContentType.IntegerNumber,
+                Plugin.Instance.Config.SsssConfig.LaserGunColorHint));
+
+            settings.Add(new SSPlaintextSetting(
+                Plugin.Instance.Config.SsssConfig.LaserGunGreenId,
+                $"{Plugin.Instance.Config.SsssConfig.LaserGunColorText} {Plugin.Instance.Config.SsssConfig.LaserGunColorTextGreen}",
+                "-1",
+                3,
+                TMP_InputField.ContentType.IntegerNumber,
+                Plugin.Instance.Config.SsssConfig.LaserGunColorHint));
+
+            settings.Add(new SSPlaintextSetting(
+                Plugin.Instance.Config.SsssConfig.LaserGunBlueId,
+                $"{Plugin.Instance.Config.SsssConfig.LaserGunColorText} {Plugin.Instance.Config.SsssConfig.LaserGunColorTextBlue}",
+                "-1",
+                3,
+                TMP_InputField.ContentType.IntegerNumber,
+                Plugin.Instance.Config.SsssConfig.LaserGunColorHint));
             return settings.ToArray();
         }
         public static void SafeAppendSsssSettings()

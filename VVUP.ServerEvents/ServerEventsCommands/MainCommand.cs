@@ -29,6 +29,7 @@ namespace VVUP.ServerEvents.ServerEventsCommands
                                 RegisterCommand(new StopCommand());
                                 RegisterCommand(new SnowballsVsScpsCommand());
                                 RegisterCommand(new GravityCommand());
+                                RegisterCommand(new NoSpectatingPlayersCommand());
                         }
                         catch (Exception e)
                         {

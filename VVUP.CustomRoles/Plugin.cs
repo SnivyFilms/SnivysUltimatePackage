@@ -23,7 +23,7 @@ namespace VVUP.CustomRoles
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.CR";
         public override Version Version { get; } = new Version(3, 2, 0);
-        public override Version RequiredExiledVersion { get; } = new Version(9, 9, 1);
+        public override Version RequiredExiledVersion { get; } = new Version(9, 9, 2);
         
         public Dictionary<StartTeam, List<ICustomRole>> Roles { get; } = new();
         public CustomRoleEventHandler CustomRoleEventHandler;
@@ -73,6 +73,7 @@ namespace VVUP.CustomRoles
             Config.CustomRolesConfig.Replicant.Register();
             Config.CustomRolesConfig.Dwarfs.Register();
             Config.CustomRolesConfig.PaperMen.Register();
+            Config.CustomRolesConfig.QuantumGravityResearchers.Register();
 
             foreach (CustomRole role in CustomRole.Registered)
             {
