@@ -16,7 +16,7 @@ namespace VVUP.ServerEvents
         public override string Name { get; } = "VVUP: Server Events";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.SE";
-        public override Version Version { get; } = new Version(3, 2, 1);
+        public override Version Version { get; } = new Version(3, 2, 2);
         public override Version RequiredExiledVersion { get; } = new Version(9, 9, 2);
 
         public static int ActiveEvent = 0;
