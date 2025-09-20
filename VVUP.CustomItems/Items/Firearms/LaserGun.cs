@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using AdminToys;
+﻿using AdminToys;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
@@ -8,7 +6,10 @@ using Exiled.API.Features.Spawn;
 using Exiled.API.Features.Toys;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
+using InventorySystem.Items.Firearms.Extensions;
 using MEC;
+using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UserSettings.ServerSpecific;
 
@@ -39,16 +40,28 @@ namespace VVUP.CustomItems.Items.Firearms
                 },
             },
         };
+
+        [Description("How long does the laser stay on the screen")]
+        public float LaserVisibleTime { get; set; } = 0.03f;
+
+
+        [Description("How bright is the laser?")]
+        public float LaserBrightness { get; set; } = 300f;
+
+        [Description("How big is the laser")]
+        public Vector3 LaserScale { get; set; } = new Vector3(0.04f, 0, 0.04f);
+
         [Description("The red color of the laser, values must be between 0 and 1")]
         public List<float> LaserColorRed { get; set; } = new List<float>()
         {
-            0.86f, 
-            1, 
+            0.86f,
+            1,
             0,
             0.55f,
             0.97f,
         };
         [Description("The green color of the laser, values must be between 0 and 1")]
+
         public List<float> LaserColorGreen { get; set; } = new List<float>()
         {
             0.08f,
@@ -60,6 +73,7 @@ namespace VVUP.CustomItems.Items.Firearms
             0,
             0.97f,
         };
+
         [Description("The blue color of the laser, values must be between 0 and 1")]
         public List<float> LaserColorBlue { get; set; } = new List<float>()
         {
@@ -70,71 +84,98 @@ namespace VVUP.CustomItems.Items.Firearms
             0.96f,
         };
 
-
-        [Description("How long does the laser stay on the screen")]
-        public float LaserVisibleTime { get; set; } = 0.5f;
-        [Description("How big is the laser")]
-        public Vector3 LaserScale { get; set; } = new Vector3(0.2f, 0.2f, 0.2f);
         protected override void OnShot(ShotEventArgs ev)
         {
-            Log.Debug($"VVUP Custom Items: Laser Gun, spawning laser going from {ev.Player.Position} to {ev.Position}");
-            var color = GetLaserColor(ev.Player);
-            var laserColor = new Color(color.Red, color.Green, color.Blue);
-            var direction = ev.Position - ev.Player.Position;
-            var distance = direction.magnitude;
-            var scale = new Vector3(LaserScale.x, distance * 0.5f, LaserScale.z);
-            var laserPos = ev.Player.Position + direction * 0.5f;
-            var rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(90, 0, 0);
-            Log.Debug($"VVUP Custom Items: Laser Gun, Laser Info: Position: {laserPos}, Rotation: {rotation.eulerAngles}, Color: {laserColor}");
-            var laser = Primitive.Create(PrimitiveType.Cylinder, PrimitiveFlags.Visible, laserPos, rotation.eulerAngles,
-                scale, true, laserColor);
-            Timing.CallDelayed(LaserVisibleTime, laser.Destroy);
+            Vector3 origin;
+            if (BarrelTipExtension.TryFindWorldmodelBarrelTip(ev.Player.CurrentItem.Serial, out BarrelTipExtension ext))
+                origin = ext.WorldspacePosition;
+            else
+                origin = ev.Player.CameraTransform.position;
+
+            Vector3 forward = ev.Position - origin;
+            Vector3 laserSize = new Vector3(LaserScale.x, forward.magnitude * 0.5f, LaserScale.z);
+            Vector3 laserPosition = origin + forward * 0.5f;
+
+            Quaternion quaternion = Quaternion.LookRotation(forward) * Quaternion.Euler(90f, 0.0f, 0.0f);
+            Color color = GetLaserColor(ev.Player);
+            Primitive laser = Primitive.Create(
+                PrimitiveType.Cylinder,
+                (PrimitiveFlags)2,
+                new Vector3?(laserPosition),
+                new Vector3?(quaternion.eulerAngles),
+                new Vector3?(laserSize),
+                true,
+                new Color?(color)
+            );
+
+            Timing.RunCoroutine(LaserFade(laser));
         }
-        private (float Red, float Green, float Blue) GetLaserColor(Player player)
+
+        private Color GetLaserColor(Player player)
         {
+            Color color = new Color();
             Log.Debug($"VVUP Custom Items: Getting laser color for {player.Nickname} from SSSS settings if they have one defined");
-            float red, green, blue;
             if (ServerSpecificSettingsSync.TryGetSettingOfUser<SSPlaintextSetting>(
                     player.ReferenceHub, Plugin.Instance.Config.SsssConfig.LaserGunRedId, out var redSetting) 
                 && int.TryParse(redSetting.SyncInputText, out int r) && r is > 0 and < 255)
             {
-                red = r / 255f;
+                color.r = r / 255f;
                 Log.Debug($"VVUP Custom Items: Using SSSS red value: {r}");
             }
             else
             {
-                red = LaserColorRed[Base.GetRandomNumber.GetRandomInt(LaserColorRed.Count)];
-                Log.Debug($"VVUP Custom Items: Using random red value: {red}");
+                color.r = LaserColorRed[Base.GetRandomNumber.GetRandomInt(LaserColorRed.Count)];
+                Log.Debug($"VVUP Custom Items: Using random red value: {color.r}");
             }
             
             if (ServerSpecificSettingsSync.TryGetSettingOfUser<SSPlaintextSetting>(
                     player.ReferenceHub, Plugin.Instance.Config.SsssConfig.LaserGunGreenId, out var greenSetting)
                 && int.TryParse(greenSetting.SyncInputText, out int g) && g is > 0 and < 255)
             {
-                green = g / 255f;
+                color.g = g / 255f;
                 Log.Debug($"VVUP Custom Items: Using SSSS green value: {g}");
             }
             else
             {
-                green = LaserColorGreen[Base.GetRandomNumber.GetRandomInt(LaserColorGreen.Count)];
-                Log.Debug($"VVUP Custom Items: Using random green value: {green}");
+                color.g = LaserColorGreen[Base.GetRandomNumber.GetRandomInt(LaserColorGreen.Count)];
+                Log.Debug($"VVUP Custom Items: Using random green value: {color.g}");
             }
             
             if (ServerSpecificSettingsSync.TryGetSettingOfUser<SSPlaintextSetting>(
                     player.ReferenceHub, Plugin.Instance.Config.SsssConfig.LaserGunBlueId, out var blueSetting) 
                 && int.TryParse(blueSetting.SyncInputText, out int b) && b is > 0 and < 255)
             {
-                blue = b / 255f;
+                color.b = b / 255f;
                 Log.Debug($"VVUP Custom Items: Using SSSS blue value: {b}");
             }
             else
             {
-                blue = LaserColorBlue[Base.GetRandomNumber.GetRandomInt(LaserColorBlue.Count)];
-                Log.Debug($"VVUP Custom Items: Using random blue value: {blue}");
+                color.b = LaserColorBlue[Base.GetRandomNumber.GetRandomInt(LaserColorBlue.Count)];
+                Log.Debug($"VVUP Custom Items: Using random blue value: {color.b}");
             }
-    
-            Log.Debug($"VVUP Custom Items: Final RGB values for {player.Nickname}: R:{red}, G:{green}, B:{blue}");
-            return (red, green, blue);
+            
+            Color.RGBToHSV(color, out float h, out float s, out float v);
+            Color finalColor = Color.HSVToRGB(h, 1f, 1f);
+
+            Log.Debug($"VVUP Custom Items: Final RGB values for {player.Nickname}: R:{finalColor.r}, G:{finalColor.g}, B:{finalColor.b}");
+
+            return finalColor;
+        }
+        IEnumerator<float> LaserFade(Primitive Laser)
+        {
+            Color color = new Color(Laser.Color.r, Laser.Color.g, Laser.Color.b, 1f);
+
+            for (int i = 20; i > 0; i--)
+            {
+                float brightness = (LaserBrightness * (i / 20f));
+                Color newColor = new Color(color.r * brightness, color.g * brightness, color.b * brightness, 1f);
+
+                Laser.Color = newColor;
+
+                yield return Timing.WaitForSeconds(0.05f / 20f);
+            }
+
+            Laser.Destroy();
         }
     }
 }
