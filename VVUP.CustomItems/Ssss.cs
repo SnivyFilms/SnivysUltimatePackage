@@ -79,7 +79,7 @@ namespace VVUP.CustomItems
             settings.Add(new SSPlaintextSetting(
                 Plugin.Instance.Config.SsssConfig.LaserGunRedId,
                 $"{Plugin.Instance.Config.SsssConfig.LaserGunColorText} {Plugin.Instance.Config.SsssConfig.LaserGunColorTextRed}",
-                "-1",
+                "-2",
                 3,
                 TMP_InputField.ContentType.IntegerNumber,
                 Plugin.Instance.Config.SsssConfig.LaserGunColorHint));
@@ -87,7 +87,7 @@ namespace VVUP.CustomItems
             settings.Add(new SSPlaintextSetting(
                 Plugin.Instance.Config.SsssConfig.LaserGunGreenId,
                 $"{Plugin.Instance.Config.SsssConfig.LaserGunColorText} {Plugin.Instance.Config.SsssConfig.LaserGunColorTextGreen}",
-                "-1",
+                "-2",
                 3,
                 TMP_InputField.ContentType.IntegerNumber,
                 Plugin.Instance.Config.SsssConfig.LaserGunColorHint));
@@ -95,7 +95,7 @@ namespace VVUP.CustomItems
             settings.Add(new SSPlaintextSetting(
                 Plugin.Instance.Config.SsssConfig.LaserGunBlueId,
                 $"{Plugin.Instance.Config.SsssConfig.LaserGunColorText} {Plugin.Instance.Config.SsssConfig.LaserGunColorTextBlue}",
-                "-1",
+                "-2",
                 3,
                 TMP_InputField.ContentType.IntegerNumber,
                 Plugin.Instance.Config.SsssConfig.LaserGunColorHint));

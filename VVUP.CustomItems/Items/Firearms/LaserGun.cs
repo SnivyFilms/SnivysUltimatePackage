@@ -96,7 +96,7 @@ namespace VVUP.CustomItems.Items.Firearms
             float red, green, blue;
             if (ServerSpecificSettingsSync.TryGetSettingOfUser<SSPlaintextSetting>(
                     player.ReferenceHub, Plugin.Instance.Config.SsssConfig.LaserGunRedId, out var redSetting) 
-                && int.TryParse(redSetting.SyncInputText, out int r) && r is > 0 and < 255)
+                && int.TryParse(redSetting.SyncInputText, out int r) && r is > -1 and < 256)
             {
                 red = r / 255f;
                 Log.Debug($"VVUP Custom Items: Using SSSS red value: {r}");
@@ -109,7 +109,7 @@ namespace VVUP.CustomItems.Items.Firearms
             
             if (ServerSpecificSettingsSync.TryGetSettingOfUser<SSPlaintextSetting>(
                     player.ReferenceHub, Plugin.Instance.Config.SsssConfig.LaserGunGreenId, out var greenSetting)
-                && int.TryParse(greenSetting.SyncInputText, out int g) && g is > 0 and < 255)
+                && int.TryParse(greenSetting.SyncInputText, out int g) && g is > -1 and < 256)
             {
                 green = g / 255f;
                 Log.Debug($"VVUP Custom Items: Using SSSS green value: {g}");
@@ -122,7 +122,7 @@ namespace VVUP.CustomItems.Items.Firearms
             
             if (ServerSpecificSettingsSync.TryGetSettingOfUser<SSPlaintextSetting>(
                     player.ReferenceHub, Plugin.Instance.Config.SsssConfig.LaserGunBlueId, out var blueSetting) 
-                && int.TryParse(blueSetting.SyncInputText, out int b) && b is > 0 and < 255)
+                && int.TryParse(blueSetting.SyncInputText, out int b) && b is > -1 and < 256)
             {
                 blue = b / 255f;
                 Log.Debug($"VVUP Custom Items: Using SSSS blue value: {b}");
