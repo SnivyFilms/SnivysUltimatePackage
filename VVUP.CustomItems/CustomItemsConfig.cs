@@ -12,11 +12,6 @@ namespace VVUP.CustomItems
 {
     public class CustomItemsConfig
     {
-        [Description("Enables Custom Items")]
-        public bool IsEnabled { get; set; } = true;
-
-        public bool Debug { get; set; } = false;
-
         public List<SmokeGrenade> SmokeGrenades { get; private set; } = new()
         {
             new SmokeGrenade()
