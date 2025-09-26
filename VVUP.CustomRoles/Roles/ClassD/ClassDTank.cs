@@ -4,6 +4,7 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
 using UnityEngine;
+using VVUP.Base;
 using VVUP.CustomRoles.Abilities.Passive;
 using VVUP.CustomRoles.API;
 
@@ -25,9 +26,13 @@ namespace VVUP.CustomRoles.Roles.ClassD
             {
                 Name = "Move Speed Reduction [Passive]",
                 Description = "Slows you down",
-                EffectsToApply = new Dictionary<EffectType, byte>()
+                EffectsToApply = new List<ApplyEffects>
                 {
-                    {EffectType.Slowness, 30},
+                    new ApplyEffects()
+                    {
+                        EffectType = EffectType.Slowness,
+                        Intensity = 30,
+                    }
                 },
             },
             new ScaleAbility

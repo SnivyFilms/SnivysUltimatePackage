@@ -9,6 +9,7 @@ using JetBrains.Annotations;
 using MEC;
 using PlayerRoles;
 using UnityEngine;
+using VVUP.Base;
 using YamlDotNet.Serialization;
 using PlayerAPI = Exiled.API.Features.Player;
 using PlayerEvent = Exiled.Events.Handlers.Player;
@@ -28,6 +29,41 @@ namespace VVUP.CustomItems.Items.Other
         public float EffectDuration { get; set; } = 150f;
         private List<PlayerAPI> _playersWithEffect = new List<PlayerAPI>();
         private CoroutineHandle phantomLanternCoroutine;
+        public List<ApplyEffects> Effects = new List<ApplyEffects>()
+        {
+            new()
+            {
+                EffectType = EffectType.Ghostly,
+                Duration = 150,
+                AddDurationIfActive = false
+            },
+            new()
+            {
+                EffectType = EffectType.Invisible,
+                Duration = 150,
+                AddDurationIfActive = false
+            },
+            new()
+            {
+                EffectType = EffectType.FogControl,
+                Intensity = 5,
+                Duration = 150,
+                AddDurationIfActive = false
+            },
+            new()
+            {
+                EffectType = EffectType.Slowness,
+                Intensity = 50,
+                Duration = 150,
+                AddDurationIfActive = false
+            },
+            new()
+            {
+                EffectType = EffectType.AmnesiaItems,
+                Duration = 150,
+                AddDurationIfActive = false
+            },
+        };
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,
@@ -105,11 +141,7 @@ namespace VVUP.CustomItems.Items.Other
                 return;
             Log.Debug("VVUP Custom Items: Activating Phantom Lantern Effects");
             _playersWithEffect.Add(ev.Player);
-            ev.Player.EnableEffect(EffectType.Ghostly, EffectDuration);
-            ev.Player.EnableEffect(EffectType.Invisible, EffectDuration);
-            ev.Player.EnableEffect(EffectType.FogControl, 5, EffectDuration);
-            ev.Player.EnableEffect(EffectType.Slowness, 50, EffectDuration);
-            ev.Player.EnableEffect(EffectType.AmnesiaItems, EffectDuration);
+            
             phantomLanternCoroutine = Timing.RunCoroutine(PhantomLanternCoroutine(ev.Player));
         }
 
@@ -121,7 +153,11 @@ namespace VVUP.CustomItems.Items.Other
                 return;
             Timing.CallDelayed(.5f, () =>
             {
-                ev.Player.EnableEffect(EffectType.Invisible);
+                foreach (var effect in Effects)
+                {
+                    ev.Player.DisableEffect(effect.EffectType);
+                    ev.Player.EnableEffect(effect.EffectType, effect.Intensity, effect.Duration, effect.AddDurationIfActive);
+                }
             });
         }
 
@@ -193,11 +229,10 @@ namespace VVUP.CustomItems.Items.Other
             if (player == null) 
                 return;
             Log.Debug("VVUP Custom Items: Ending Phantom Lantern's Effects");
-            player.DisableEffect(EffectType.Ghostly);
-            player.DisableEffect(EffectType.Invisible);
-            player.DisableEffect(EffectType.Slowness);
-            player.DisableEffect(EffectType.FogControl);
-            player.DisableEffect(EffectType.AmnesiaItems);
+            foreach (var effect in Effects)
+            {
+                player.DisableEffect(effect.EffectType);
+            }
             player.CurrentItem?.Destroy();
             if (_playersWithEffect.Contains(player))
                 _playersWithEffect.Remove(player);

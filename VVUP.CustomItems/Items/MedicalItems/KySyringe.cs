@@ -7,8 +7,10 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using JetBrains.Annotations;
+using VVUP.Base;
 using YamlDotNet.Serialization;
-using Player = Exiled.Events.Handlers.Player;
+using PlayerAPI = Exiled.API.Features.Player;
+using PlayerEvents = Exiled.Events.Handlers.Player;
 
 namespace VVUP.CustomItems.Items.MedicalItems
 {
@@ -25,6 +27,17 @@ namespace VVUP.CustomItems.Items.MedicalItems
         public override float Weight { get; set; } = 1.15f;
         [Description("Removes the Syringe on use, otherwise it just drops on the floor after the player dies (it's really funny ngl)")]
         public bool RemoveSyringeOnUse { get; set; } = true;
+
+        public List<ApplyEffects> Effects { get; set; } = new()
+        {
+            new()
+            {
+                EffectType = EffectType.Corroding,
+                Intensity = 1,
+                Duration = 300,
+                AddDurationIfActive = false
+            }
+        };
         public override SpawnProperties SpawnProperties { get; set; } = new SpawnProperties()
         {
             Limit = 1,
@@ -45,9 +58,9 @@ namespace VVUP.CustomItems.Items.MedicalItems
         protected override void SubscribeEvents()
         {
             if (KillAfterAnimation)
-                Player.UsingItemCompleted += OnUsingLJAnimation;
+                PlayerEvents.UsingItemCompleted += OnUsingLJAnimation;
             else
-                Player.UsingItem += OnUsingLJ;
+                PlayerEvents.UsingItem += OnUsingLJ;
 
             base.SubscribeEvents();
         }
@@ -55,9 +68,9 @@ namespace VVUP.CustomItems.Items.MedicalItems
         protected override void UnsubscribeEvents()
         {
             if (KillAfterAnimation)
-                Player.UsingItemCompleted -= OnUsingLJAnimation;
+                PlayerEvents.UsingItemCompleted -= OnUsingLJAnimation;
             else
-                Player.UsingItem -= OnUsingLJ;
+                PlayerEvents.UsingItem -= OnUsingLJ;
 
             base.UnsubscribeEvents();
         }
@@ -68,10 +81,7 @@ namespace VVUP.CustomItems.Items.MedicalItems
             Log.Debug($"VVUP Custom Items: KY Syringe, Killing {ev.Player.Nickname}");
             if (RemoveSyringeOnUse)
                 ev.Player.RemoveItem(ev.Item);
-            ev.Player.Kill(KillReason);
-            ev.Player.Health = 1f;
-            ev.Player.EnableEffect(EffectType.Bleeding, 500f);
-            ev.Player.EnableEffect(EffectType.Corroding, 500f);
+            KillPlayer(ev.Player);
         }
 
         private void OnUsingLJAnimation(UsingItemCompletedEventArgs ev)
@@ -81,10 +91,17 @@ namespace VVUP.CustomItems.Items.MedicalItems
             Log.Debug($"VVUP Custom Items: KY Syringe, Killing {ev.Player.Nickname}");
             if (RemoveSyringeOnUse)
                 ev.Player.RemoveItem(ev.Item);
-            ev.Player.Kill(KillReason);
-            ev.Player.Health = 1f;
-            ev.Player.EnableEffect(EffectType.Bleeding, 500f);
-            ev.Player.EnableEffect(EffectType.Corroding, 500f);
+            KillPlayer(ev.Player);
+        }
+
+        private void KillPlayer(Player player)
+        {
+            player.Kill(KillReason);
+            player.Health = 1;
+            foreach (var effects in Effects)
+            {
+                player.EnableEffect(effects.EffectType, effects.Intensity, effects.Duration, effects.AddDurationIfActive);
+            }
         }
     }
 }

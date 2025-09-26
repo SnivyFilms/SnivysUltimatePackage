@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Extensions;
@@ -11,6 +12,7 @@ using Exiled.Events.EventArgs.Player;
 using JetBrains.Annotations;
 using MEC;
 using UnityEngine;
+using VVUP.Base;
 using YamlDotNet.Serialization;
 using Player = Exiled.Events.Handlers.Player;
 
@@ -31,6 +33,72 @@ namespace VVUP.CustomItems.Items.MedicalItems
         public bool UsableAfterNuke { get; set; } = false;
         public bool TeleportToLightAfterDecom { get; set; } = false;
         public bool UseHints { get; set; } = true;
+        [Description("The delay in seconds before the main effects are applied")]
+        public float Delay { get; set; } = 3f;
+        [Description("The effects that are applied as soon at the item is used")]
+        public List<ApplyEffects> SideEffectsFirst { get; set; } = new()
+        {
+            new()
+            {
+                EffectType = EffectType.Blinded,
+                Intensity = 1,
+                Duration = 15f,
+                AddDurationIfActive = true
+            }
+        };
+        [Description("The effects that are applied after the delay")]
+        public List<ApplyEffects> SideEffectsSecond { get; set; } = new()
+        {
+            new()
+            {
+                EffectType = EffectType.Flashed,
+                Intensity = 1,
+                Duration = 5f,
+                AddDurationIfActive = true
+            },
+            new()
+            {
+                EffectType = EffectType.Invisible,
+                Intensity = 1,
+                Duration = 5f,
+                AddDurationIfActive = true
+            },
+            new()
+            {
+                EffectType = EffectType.Ensnared,
+                Intensity = 1,
+                Duration = 5f,
+                AddDurationIfActive = true
+            },
+            new()
+            {
+                EffectType = EffectType.Disabled,
+                Intensity = 1,
+                Duration = 60f,
+                AddDurationIfActive = true
+            },
+            new()
+            {
+                EffectType = EffectType.Exhausted,
+                Intensity = 1,
+                Duration = 15f,
+                AddDurationIfActive = true
+            },
+            new()
+            {
+                EffectType = EffectType.AmnesiaItems,
+                Intensity = 1,
+                Duration = 30f,
+                AddDurationIfActive = true
+            },
+            new()
+            {
+                EffectType = EffectType.AmnesiaVision,
+                Intensity = 1,
+                Duration = 30f,
+                AddDurationIfActive = true
+            },
+        };
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,
@@ -91,17 +159,21 @@ namespace VVUP.CustomItems.Items.MedicalItems
             if (UseHints)
                 ev.Player.ShowHint(OnUseMessage, OnUseMessageTimeDuration);
             else
-                ev.Player.Broadcast((ushort)OnUseMessageTimeDuration, OnUseMessage);            
-            ev.Player.EnableEffect(EffectType.Blinded, 15f, true);
-            Timing.CallDelayed(3, () =>
+                ev.Player.Broadcast((ushort)OnUseMessageTimeDuration, OnUseMessage);
+            foreach (var effect in SideEffectsFirst)
             {
-                ev.Player.EnableEffect(EffectType.Flashed, 5f, true);
-                ev.Player.EnableEffect(EffectType.Invisible, 5f, true);
-                ev.Player.EnableEffect(EffectType.Ensnared, 5f, true);
-                ev.Player.EnableEffect(EffectType.Disabled, 60f, true);
-                ev.Player.EnableEffect(EffectType.Exhausted, 15f, true);
-                ev.Player.EnableEffect(EffectType.AmnesiaItems, 30f, true);
-                ev.Player.EnableEffect(EffectType.AmnesiaVision, 30f, true);
+                Log.Debug(
+                    $"VVUP Custom Items: Deadringer Syringe, applying {effect.EffectType} with intensity {effect.Intensity} and duration {effect.Duration} to {ev.Player.Nickname}");
+                ev.Player.EnableEffect(effect.EffectType, effect.Intensity, effect.Duration, effect.AddDurationIfActive);
+            }
+            Timing.CallDelayed(Delay, () =>
+            {
+                foreach (var effect in SideEffectsSecond)
+                {
+                    Log.Debug(
+                        $"VVUP Custom Items: Deadringer Syringe, applying {effect.EffectType} with intensity {effect.Intensity} and duration {effect.Duration} to {ev.Player.Nickname}");
+                    ev.Player.EnableEffect(effect.EffectType, effect.Intensity, effect.Duration, effect.AddDurationIfActive);
+                }
                 Ragdoll ragdoll = Ragdoll.CreateAndSpawn(ev.Player.Role, ev.Player.Nickname, RagdollDeathReason, ev.Player.Position, ev.Player.ReferenceHub.PlayerCameraReference.rotation);
                 List<Room> rooms = Room.List.Where(room => !ExcludedRooms.Contains(room.Type)).ToList();
                 if (rooms.Count > 0)

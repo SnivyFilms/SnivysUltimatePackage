@@ -151,5 +151,10 @@ namespace VVUP.CustomItems
         {
             new LowGravityGrenade()
         };
+        
+        public List<CognitohazardCharm> CognitohazardCharms { get; private set; } = new()
+        {
+            new CognitohazardCharm()
+        };
     }
 }

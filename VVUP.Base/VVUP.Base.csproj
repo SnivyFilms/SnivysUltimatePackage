@@ -45,6 +45,7 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="ApplyEffects.cs" />
         <Compile Include="Config.cs" />
         <Compile Include="ActiveModulesCommand.cs" />
         <Compile Include="GetRandomNumber.cs" />

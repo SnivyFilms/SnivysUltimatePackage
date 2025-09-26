@@ -3,6 +3,7 @@ using Exiled.API.Enums;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
+using VVUP.Base;
 using VVUP.CustomRoles.Abilities.Passive;
 using VVUP.CustomRoles.API;
 
@@ -26,9 +27,13 @@ namespace VVUP.CustomRoles.Roles.Scps
             {
                 Name = "Speed Boost [Passive]",
                 Description = "Increases your movement speed",
-                EffectsToApply = new Dictionary<EffectType, byte>()
+                EffectsToApply = new List<ApplyEffects>()
                 {
-                    { EffectType.MovementBoost, 20 },
+                    new()
+                    {
+                        EffectType = EffectType.MovementBoost,
+                        Intensity = 20,
+                    }
                 },
             }
         };

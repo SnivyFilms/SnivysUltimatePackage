@@ -9,6 +9,7 @@ using Exiled.Events.EventArgs.Player;
 using JetBrains.Annotations;
 using MEC;
 using PlayerRoles;
+using VVUP.Base;
 using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.MedicalItems
@@ -22,7 +23,15 @@ namespace VVUP.CustomItems.Items.MedicalItems
         public override string Name { get; set; } = "<color=#6600CC>Amnesioflux</color>";
         public override string Description { get; set; } = "When consumed, it makes you no longer a target of SCP-096";
         public override float Weight { get; set; } = 1f;
-
+        public List<ApplyEffects> Effects { get; set; } = new()
+        {
+            new ApplyEffects()
+            {
+                EffectType = EffectType.AmnesiaVision,
+                Duration = 10,
+                AddDurationIfActive = true,
+            },
+        };
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,
@@ -67,7 +76,11 @@ namespace VVUP.CustomItems.Items.MedicalItems
                     }
                 }
 
-                ev.Player.EnableEffect(EffectType.AmnesiaVision, 10f, true);
+                foreach (var effects in Effects)
+                {
+                    ev.Player.EnableEffect(effects.EffectType, effects.Intensity, effects.Duration,
+                        effects.AddDurationIfActive);
+                }
             });
         }
     }

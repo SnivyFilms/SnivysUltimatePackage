@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
+using VVUP.Base;
 
 namespace VVUP.CustomRoles.Abilities.Active
 {
@@ -21,10 +23,21 @@ namespace VVUP.CustomRoles.Abilities.Active
         public float TimeForDoorToBeOpen { get; set; } = 5f;
         public string BeforePickingDoorText { get; set; } = "Interact with a door to start to pick it";
         public string PickingDoorText { get; set; } = "Picking door...";
-        public Dictionary<EffectType, byte> EffectsToApply { get; set; } = new Dictionary<EffectType, byte>()
+        [Description("Duration is unused here, it's based on the time it takes to pick the door")]
+        public List<ApplyEffects> EffectsToApply { get; set; } = new List<ApplyEffects>
         {
-            {EffectType.Ensnared, 1},
-            {EffectType.Slowness, 255},
+            new()
+            {
+                EffectType = EffectType.Ensnared,
+                Intensity = 1,
+                Duration = 0,
+            },
+            new()
+            {
+                EffectType = EffectType.Slowness,
+                Intensity = 255,
+                Duration = 0,
+            },
         };
         
         protected override void AbilityUsed(Player player)
@@ -58,7 +71,7 @@ namespace VVUP.CustomRoles.Abilities.Active
             ev.Player.ShowHint(PickingDoorText, randomTime);
             foreach (var effect in EffectsToApply)
             {
-                ev.Player.EnableEffect(effect.Key, effect.Value, randomTime);
+                ev.Player.EnableEffect(effect.EffectType, effect.Intensity, randomTime);
             }
 
             Timing.CallDelayed(randomTime, () =>

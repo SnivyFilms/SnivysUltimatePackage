@@ -4,6 +4,7 @@ using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
+using VVUP.Base;
 using VVUP.CustomRoles.Abilities.Passive;
 using VVUP.CustomRoles.API;
 
@@ -80,11 +81,22 @@ namespace VVUP.CustomRoles.Roles.Foundation
             {
                 Name = "Wisp [Passive]",
                 Description = "Enables walking through doors, Fog Control, Reduced Sprint",
-                EffectsToApply = new Dictionary<EffectType, byte>()
+                EffectsToApply = new List<ApplyEffects>()
                 {
-                    {EffectType.Exhausted, 1},
-                    {EffectType.Ghostly, 1},
-                    {EffectType.FogControl, 5},
+                    new ApplyEffects()
+                    {
+                        EffectType = EffectType.Exhausted
+                    },
+                    new ApplyEffects()
+                    {
+                        EffectType = EffectType.Ghostly,
+                        Intensity = 1,
+                    },
+                    new ApplyEffects()
+                    {
+                        EffectType = EffectType.FogControl,
+                        Intensity = 5,
+                    }
                 },
             },
         };

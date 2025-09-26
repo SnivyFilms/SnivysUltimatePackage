@@ -4,6 +4,7 @@ using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
+using VVUP.Base;
 
 namespace VVUP.CustomRoles.Abilities.Passive
 {
@@ -13,10 +14,14 @@ namespace VVUP.CustomRoles.Abilities.Passive
         public override string Description { get; set; } = "Enables Effects to whoever you hit";
         
         public List<Player> PlayersWithApplyEffectOnHit = new List<Player>();
-        [Description("First is the effect type, then the intensity, then the duration in seconds.")]
-        public Dictionary<EffectType, Dictionary<byte, float>> EffectsToApply { get; set; } = new Dictionary<EffectType, Dictionary<byte, float>>()
+        public List<ApplyEffects> EffectsToApply = new List<ApplyEffects>
         {
-            {EffectType.Invigorated, new Dictionary<byte, float> {{1, 5f}}},
+            new()
+            {
+                EffectType = EffectType.Invigorated,
+                Intensity = 1,
+                Duration = 5,
+            }
         };
         
         protected override void AbilityAdded(Player player)
@@ -41,12 +46,9 @@ namespace VVUP.CustomRoles.Abilities.Passive
             {
                 foreach (var effect in EffectsToApply)
                 {
-                    foreach (var intensityDuration in effect.Value)
-                    {
-                        Log.Debug(
-                            $"VVUP Custom Abilities: ApplyEffectOnHit, {effect.Key} with intensity {intensityDuration.Key} and duration {intensityDuration.Value} to {ev.Player.Nickname} from {ev.Attacker.Nickname}");
-                        ev.Player.EnableEffect(effect.Key, intensityDuration.Key, intensityDuration.Value);
-                    }
+                    Log.Debug(
+                        $"VVUP Custom Abilities: ApplyEffectOnHit, applying {effect.EffectType} with intensity {effect.Intensity} and duration {effect.Duration} to {ev.Player.Nickname} from {ev.Attacker.Nickname}");
+                    ev.Player.EnableEffect(effect.EffectType, effect.Intensity, effect.Duration, effect.AddDurationIfActive);
                 }
             }
         }

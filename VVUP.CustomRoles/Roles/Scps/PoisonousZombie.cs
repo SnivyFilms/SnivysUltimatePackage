@@ -3,6 +3,7 @@ using Exiled.API.Enums;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
+using VVUP.Base;
 using VVUP.CustomRoles.Abilities.Passive;
 using VVUP.CustomRoles.API;
 
@@ -26,9 +27,15 @@ namespace VVUP.CustomRoles.Roles.Scps
             {
                 Name = "Poisonous Touch [Passive]",
                 Description = "When you hit a player, they will be poisoned.",
-                EffectsToApply = new Dictionary<EffectType, Dictionary<byte, float>>
+                EffectsToApply = new ()
                 {
-                    {EffectType.Poisoned, new Dictionary<byte, float> { { 1, 10f } } },
+                    new ApplyEffects()
+                    {
+                        EffectType = EffectType.Poisoned,
+                        Intensity = 1,
+                        Duration = 10f,
+                        AddDurationIfActive = true,
+                    },
                 },
             },
         };

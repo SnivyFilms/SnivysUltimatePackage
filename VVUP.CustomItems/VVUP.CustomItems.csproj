@@ -93,6 +93,8 @@
     <Compile Include="Items\MedicalItems\InfinitePills.cs" />
     <Compile Include="Items\MedicalItems\KySyringe.cs" />
     <Compile Include="Items\Other\AdditionalHealth207.cs" />
+    <Compile Include="Items\Other\BottleOfRum.cs" />
+    <Compile Include="Items\Other\CognitohazardCharm.cs" />
     <Compile Include="Items\Other\PhantomLantern.cs" />
     <Compile Include="Items\Other\PortableIntercom.cs" />
     <Compile Include="Items\Other\Scp1499.cs" />
