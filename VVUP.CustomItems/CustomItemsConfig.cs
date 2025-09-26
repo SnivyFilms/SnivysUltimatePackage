@@ -156,5 +156,10 @@ namespace VVUP.CustomItems
         {
             new CognitohazardCharm()
         };
+        
+        public List<BottleOfRum> BottleOfRums { get; private set; } = new()
+        {
+            new BottleOfRum()
+        };
     }
 }

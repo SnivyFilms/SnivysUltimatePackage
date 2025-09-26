@@ -50,6 +50,8 @@ namespace VVUP.CustomItems
                 PortableIntercom.Get(typeof(PortableIntercom)),
                 Telewand.Get(typeof(Telewand)),
                 LowGravityGrenade.Get(typeof(LowGravityGrenade)),
+                CognitohazardCharm.Get(typeof(CognitohazardCharm)),
+                BottleOfRum.Get(typeof(BottleOfRum)),
             };
 
             foreach (var itemCollection in customItems)
