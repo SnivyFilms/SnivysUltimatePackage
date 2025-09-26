@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Text;
 using Exiled.API.Features;
-using Exiled.CustomItems.API.Features;
 using Exiled.CustomRoles.API.Features;
 using NorthwoodLib.Pools;
 using UnityEngine;
