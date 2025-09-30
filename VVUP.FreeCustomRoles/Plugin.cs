@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Features;
@@ -36,7 +37,7 @@ namespace VVUP.FreeCustomRoles
                 base.OnDisabled();
                 return;
             }
-            
+            HashSet<CustomRole> existingRoles = new HashSet<CustomRole>(CustomRole.Registered);
             Config.FreeCustomRoles1.Register();
             Config.FreeCustomRoles2.Register();
             Config.FreeCustomRoles3.Register();
@@ -60,7 +61,7 @@ namespace VVUP.FreeCustomRoles
             
             foreach (CustomRole role in CustomRole.Registered)
             {
-                if (role is ICustomRole custom)
+                if (!existingRoles.Contains(role) && role is ICustomRole custom)
                 {
                     Log.Debug($"Adding {role.Name} to dictionary..");
                     StartTeam team;
@@ -88,6 +89,7 @@ namespace VVUP.FreeCustomRoles
                 }
             }
             Base.Plugin.Instance.VvupFcr = true;
+            existingRoles.Clear();
             SsssEventHandlers = new SsssEventHandlers(this);
             Player.Verified += SsssEventHandlers.OnVerified;
             base.OnEnabled();

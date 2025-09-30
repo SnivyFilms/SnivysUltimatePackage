@@ -38,7 +38,8 @@ namespace VVUP.CustomRoles
                 base.OnDisabled();
                 return;
             }
-
+            
+            HashSet<CustomRole> existingRoles = new HashSet<CustomRole>(CustomRole.Registered);
             CustomAbility.RegisterAbilities(false, null);
             
             CustomRoleEventHandler = new CustomRoleEventHandler(this);
@@ -77,7 +78,7 @@ namespace VVUP.CustomRoles
 
             foreach (CustomRole role in CustomRole.Registered)
             {
-                if (role is ICustomRole custom)
+                if (!existingRoles.Contains(role) && role is ICustomRole custom)
                 {
                     Log.Debug($"Adding {role.Name} to dictionary..");
                     StartTeam team;
@@ -104,7 +105,7 @@ namespace VVUP.CustomRoles
                     Log.Debug($"Roles {team} now has {Roles[team].Count} elements.");
                 }
             }
-            
+            existingRoles.Clear();
             Server.RoundStarted += CustomRoleEventHandler.OnRoundStarted;
             Server.RespawningTeam += CustomRoleEventHandler.OnRespawningTeam;
             Scp049Events.FinishingRecall += CustomRoleEventHandler.FinishingRecall;

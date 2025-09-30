@@ -12,7 +12,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
         public override string Name { get; set; } = "Effect Enabler";
         public override string Description { get; set; } = "Enables Effects to the player";
         
-        public List<ApplyEffects> EffectsToApply = new List<ApplyEffects>
+        public List<ApplyEffects> EffectsToApply { get; set; } = new List<ApplyEffects>
         {
             new()
             {
