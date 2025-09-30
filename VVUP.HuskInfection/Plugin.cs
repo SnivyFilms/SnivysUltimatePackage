@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Features;
@@ -48,10 +49,11 @@ namespace VVUP.HuskInfection
                 return;
             }
             CustomAbility.RegisterAbilities(false, null);
+            HashSet<CustomRole> existingRoles = new HashSet<CustomRole>(CustomRole.Registered);
             Config.CustomRoleConfig.HuskZombies.Register();
             foreach (CustomRole role in CustomRole.Registered)
             {
-                if (role is ICustomRole custom)
+                if (!existingRoles.Contains(role) && role is ICustomRole custom)
                 {
                     Log.Debug($"Adding {role.Name} to dictionary..");
                     StartTeam team;
@@ -78,7 +80,7 @@ namespace VVUP.HuskInfection
                     Log.Debug($"Roles {team} now has {CustomRoles.Plugin.Instance.Roles[team].Count} elements.");
                 }
             }
-
+            existingRoles.Clear();
             CustomItem.RegisterItems(overrideClass: Instance.Config.CustomItemConfig);
             HuskInfectionEventHandlers = new HuskInfectionEventHandlers(this);
             Server.WaitingForPlayers += HuskInfectionEventHandlers.OnWaitingForPlayers;
