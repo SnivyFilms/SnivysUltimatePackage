@@ -26,8 +26,8 @@ namespace VVUP.CustomItems.Items.Firearms
         [Description("Whether or not the weapon should despawn itself after it's been used.")]
         public bool DespawnAfterUse { get; set; } = true;
 
-        public string DeathReasonUser { get; set; } = "Vaporized by becoming a bullet";
-        public string DeathReasonTarget { get; set; } = "Vaporized by a human bullet";
+        public string DeathReasonUser { get; set; } = "Vaporized by becoming a bullet.";
+        public string DeathReasonTarget { get; set; } = "Vaporized by a human bullet.";
 
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
@@ -49,10 +49,10 @@ namespace VVUP.CustomItems.Items.Firearms
 
         protected override void OnShot(ShotEventArgs ev)
         {
+            bool miss = false;
             if (ev.Target == null)
             {
-                Log.Debug($"VVUP Custom Items: SCP-2818, {ev.Player.Nickname} fired and missed a target, teleporting them to bullet impact location ({ev.Position}");
-                ev.Player.Position = ev.Position;
+                miss = true;
             }
             else
             {
@@ -71,16 +71,38 @@ namespace VVUP.CustomItems.Items.Firearms
                 }
             }
 
-            if (DespawnAfterUse)
-            {
-                Log.Debug($"VVUP Custom Items: SCP-2818, Despawn After Use is true, removing SCP-2818 from {ev.Player.Nickname}'s inventory");
-                ev.Player.RemoveItem(ev.Item);
-            }
+
 
             Timing.CallDelayed(0.1f, () =>
             {
-                Log.Debug($"VVUP Custom Items: SCP-2818, Killing {ev.Player.Nickname}");
-                ev.Player.Kill(DeathReasonUser);
+                if (miss)
+                {
+                    Log.Debug($"VVUP Custom Items: SCP-2818, {ev.Player.Nickname} fired and missed a target, teleporting them to bullet impact location ({ev.RaycastHit.point}");
+
+                    ev.Player.DropHeldItem();
+                    ev.CanSpawnImpactEffects = false;
+
+                    if (ev.RaycastHit.normal == new UnityEngine.Vector3(0, 1, 0))
+                    {
+                        ev.Player.Position = ev.RaycastHit.point + new UnityEngine.Vector3(0, 1, 0);
+                    }
+
+                    Timing.CallDelayed(0.1f, () =>
+                    {
+                        ev.Player.Hurt(ev.Distance, "Body is badly mutilated.");
+                    });
+                }
+                else
+                {
+                    if (DespawnAfterUse)
+                    {
+                        Log.Debug($"VVUP Custom Items: SCP-2818, Despawn After Use is true, removing SCP-2818 from {ev.Player.Nickname}'s inventory");
+                        ev.Player.RemoveItem(ev.Item);
+                    }
+
+                    Log.Debug($"VVUP Custom Items: SCP-2818, Killing {ev.Player.Nickname}");
+                    ev.Player.Kill(DeathReasonUser);
+                }
             });
         }
     }
