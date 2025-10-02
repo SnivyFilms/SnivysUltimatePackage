@@ -13,6 +13,7 @@ using Exiled.Events.EventArgs.Player;
 using Exiled.Events.EventArgs.Server;
 using InventorySystem.Items.ThrowableProjectiles;
 using UnityEngine;
+//using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerEvent = Exiled.Events.Handlers.Player;
 
@@ -93,6 +94,8 @@ namespace VVUP.CustomItems.Items.Grenades
         
         [Description("Will C4 explosion be associated with the player who deployed it or the server")]
         public bool AssociateC4WithServer { get; set; } = false;
+        //[Description("Determines if the C4 will stick to surfaces or it rolls on the ground.")]
+        //public bool Sticky { get; set; } = true;
         
         [YamlIgnore]
         public override bool ExplodeOnCollision { get; set; } = false;
@@ -169,6 +172,9 @@ namespace VVUP.CustomItems.Items.Grenades
         {
             if (!PlacedCharges.ContainsKey(ev.Projectile))
                 PlacedCharges.Add(ev.Projectile, ev.Player);
+            //if (Sticky)
+            //    ev.Projectile.GameObject.AddComponent<StickyGrenadeHandler>().Init(ev.Player.GameObject, ev.Projectile.Base);
+
             base.OnThrownProjectile(ev);
         }
 

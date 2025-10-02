@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\StickyGrenadeHandler.cs" />
     <Compile Include="Commands\C4Detonate.cs" />
     <Compile Include="Commands\GrenadeLauncherCollider.cs" />
     <Compile Include="Commands\GrenadeLauncherForce.cs" />
