@@ -23,8 +23,14 @@ namespace VVUP.CustomItems.Items.Firearms
         public override float Damage { get; set; } = 1000;
         public override byte ClipSize { get; set; } = 1;
 
-        [Description("Whether or not the weapon should despawn itself after it's been used.")]
+        [Description("Whether or not the weapon should despawn itself after it was shot and did not miss.")]
         public bool DespawnAfterUse { get; set; } = true;
+        [Description("Whether or not the weapon should despawn itself after it was shot and missed.")]
+        public bool DespawnAfterMiss { get; set; } = true;
+        [Description("Should the player instantly die after missing a shot with this weapon?")]
+        public bool KillAfterMiss { get; set; } = true;
+        [Description("Should it check if wherever the player shot was the floor? Note: Disabling this will allow players to get into spots they shouldn't be able to be in.")]
+        public bool UseRaycastPosition { get; set; } = true;
 
         public string DeathReasonUser { get; set; } = "Vaporized by becoming a bullet.";
         public string DeathReasonTarget { get; set; } = "Vaporized by a human bullet.";
@@ -79,17 +85,36 @@ namespace VVUP.CustomItems.Items.Firearms
                 {
                     Log.Debug($"VVUP Custom Items: SCP-2818, {ev.Player.Nickname} fired and missed a target, teleporting them to bullet impact location ({ev.RaycastHit.point}");
 
-                    ev.Player.DropHeldItem();
+                    if (DespawnAfterMiss)
+                    {
+                        ev.Player.RemoveHeldItem();
+                    } else
+                    {
+                        ev.Player.DropHeldItem();
+                    }
+
                     ev.CanSpawnImpactEffects = false;
 
-                    if (ev.RaycastHit.normal == new UnityEngine.Vector3(0, 1, 0))
+                    if (UseRaycastPosition)
                     {
-                        ev.Player.Position = ev.RaycastHit.point + new UnityEngine.Vector3(0, 1, 0);
+                        if (ev.RaycastHit.normal == new UnityEngine.Vector3(0, 1, 0))
+                        {
+                            ev.Player.Position = ev.RaycastHit.point + new UnityEngine.Vector3(0, 1, 0);
+                        }
+                    } else
+                    {
+                        ev.Player.Position = ev.Position;
                     }
 
                     Timing.CallDelayed(0.1f, () =>
                     {
-                        ev.Player.Hurt(ev.Distance, "Body is badly mutilated.");
+                        if (KillAfterMiss)
+                        {
+                            ev.Player.Kill(DeathReasonUser);
+                        } else
+                        {
+                            ev.Player.Hurt(ev.Distance, "Body is badly mutilated.");
+                        }
                     });
                 }
                 else
