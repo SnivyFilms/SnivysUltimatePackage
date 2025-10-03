@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
+using Exiled.API.Features.DamageHandlers;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Item;
@@ -143,9 +145,16 @@ namespace VVUP.CustomItems.Items.Firearms
             if (ev.Player == ev.Attacker)
                 return;
 
+            ev.IsAllowed = false;
+
             float distance = Vector3.Distance(ev.Player.Position, ev.Attacker.Position);
             float damageToApply = ev.Amount * distance / DamageDivider;
-            ev.Amount = damageToApply;
+
+            ev.Attacker.ShowHitMarker(Mathf.Clamp(damageToApply / DamageDivider, 0.05f, 8f));
+            ev.DamageHandler.Damage = damageToApply;
+            ev.DamageHandler.ApplyDamage(ev.Player);
+            ev.Player.Hurt(ev.DamageHandler.Damage);
+
             Log.Debug($"VVUP Custom Items: ViperPDW, {ev.Attacker.Nickname} attacked {ev.Player.Nickname} at distance {distance}, changing damage to {damageToApply}");
         }
     }
