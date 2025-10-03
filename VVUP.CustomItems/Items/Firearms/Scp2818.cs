@@ -101,7 +101,8 @@ namespace VVUP.CustomItems.Items.Firearms
                         {
                             ev.Player.Position = ev.RaycastHit.point + new UnityEngine.Vector3(0, 1, 0);
                         }
-                    } else
+                    } 
+                    else
                     {
                         ev.Player.Position = ev.Position;
                     }
@@ -111,7 +112,8 @@ namespace VVUP.CustomItems.Items.Firearms
                         if (KillAfterMiss)
                         {
                             ev.Player.Kill(DeathReasonUser);
-                        } else
+                        } 
+                        else
                         {
                             ev.Player.Hurt(ev.Distance, "Body is badly mutilated.");
                         }
