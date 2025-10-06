@@ -52,6 +52,7 @@ namespace VVUP.CustomItems
                 LowGravityGrenade.Get(typeof(LowGravityGrenade)),
                 CognitohazardCharm.Get(typeof(CognitohazardCharm)),
                 BottleOfRum.Get(typeof(BottleOfRum)),
+                F4.Get(typeof(F4)),
             };
 
             foreach (var itemCollection in customItems)

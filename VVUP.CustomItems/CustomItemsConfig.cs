@@ -161,5 +161,10 @@ namespace VVUP.CustomItems
         {
             new BottleOfRum()
         };
+        
+        public List<F4> F4s { get; private set; } = new()
+        {
+            new F4()
+        };
     }
 }

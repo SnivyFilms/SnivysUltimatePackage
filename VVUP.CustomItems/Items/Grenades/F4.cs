@@ -19,19 +19,19 @@ using PlayerEvent = Exiled.Events.Handlers.Player;
 
 namespace VVUP.CustomItems.Items.Grenades
 {
-    [CustomItem(ItemType.GrenadeHE)]
-    public class C4 : CustomGrenade
+    [CustomItem(ItemType.GrenadeFlash)]
+    public class F4 : CustomGrenade
     {
-        public enum C4RemoveMethod
+        public enum F4RemoveMethod
         {
             Remove = 0,
             Detonate = 1,
             Drop = 2,
         }
-        public static C4 Instance { get; private set; } = null!;
+        public static F4 Instance { get; private set; } = null!;
         public static Dictionary<Pickup, Player> PlacedCharges { get; } = new();
-        public override uint Id { get; set; } = 32;
-        public override string Name { get; set; } = "<color=#FF0000>C4</color>";
+        public override uint Id { get; set; } = 54;
+        public override string Name { get; set; } = "<color=#FF0000>F4</color>";
         public override float Weight { get; set; } = 0.75f;
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
@@ -69,39 +69,39 @@ namespace VVUP.CustomItems.Items.Grenades
                 },
             },
         };
-        public override string Description { get; set; } = "Explosive charge that can be remotely detonated.";
+        public override string Description { get; set; } = "Flashbang that can be remotely detonated.";
         
-        [Description("Should C4 require a specific item to be detonated.")]
+        [Description("Should F4 require a specific item to be detonated.")]
         public bool RequireDetonator { get; set; } = true;
         
-        [Description("The Detonator Item that will be used to detonate C4 Charges")]
+        [Description("The Detonator Item that will be used to detonate F4 Charges")]
         public ItemType DetonatorItem { get; set; } = ItemType.Radio;
         
         [Description(
-            "What happens with C4 charges placed by player, when he dies/leaves the game. (Remove / Detonate / Drop)")]
-        public C4RemoveMethod MethodOnDeath { get; set; } = C4RemoveMethod.Drop;
-        [Description("Should shooting at C4 charges do something.")]
+            "What happens with F4 charges placed by player, when he dies/leaves the game. (Remove / Detonate / Drop)")]
+        public F4RemoveMethod MethodOnDeath { get; set; } = F4RemoveMethod.Drop;
+        [Description("Should shooting at F4 charges do something.")]
         public bool AllowShoot { get; set; } = true;
         
-        [Description("What happens with C4 charges after they are shot. (Remove / Detonate / Drop)")]
-        public C4RemoveMethod ShotMethod { get; set; } = C4RemoveMethod.Remove;
+        [Description("What happens with F4 charges after they are shot. (Remove / Detonate / Drop)")]
+        public F4RemoveMethod ShotMethod { get; set; } = F4RemoveMethod.Remove;
         
-        [Description("Maximum distance between C4 Charge and player to detonate.")]
+        [Description("Maximum distance between F4 Charge and player to detonate.")]
         public float MaxDistance { get; set; } = 100f;
         
-        [Description("Time after which the C4 charge will automatically detonate.")]
+        [Description("Time after which the F4 charge will automatically detonate.")]
         public override float FuseTime { get; set; } = 9999f;
         
-        [Description("Will C4 explosion be associated with the player who deployed it or the server")]
-        public bool AssociateC4WithServer { get; set; } = false;
-        //[Description("Determines if the C4 will stick to surfaces or it rolls on the ground.")]
+        [Description("Will F4 explosion be associated with the player who deployed it or the server")]
+        public bool AssociateF4WithServer { get; set; } = false;
+        //[Description("Determines if the F4 will stick to surfaces or it rolls on the ground.")]
         //public bool Sticky { get; set; } = true;
         
         [YamlIgnore]
         public override bool ExplodeOnCollision { get; set; } = false;
         [YamlIgnore]
-        public override ItemType Type { get; set; } = ItemType.GrenadeHE;
-        public void C4Handler(Pickup? charge, C4RemoveMethod removeMethod = C4RemoveMethod.Detonate, Player? player = null)
+        public override ItemType Type { get; set; } = ItemType.GrenadeFlash;
+        public void F4Handler(Pickup? charge, F4RemoveMethod removeMethod = F4RemoveMethod.Detonate, Player? player = null)
         {
             if (charge?.Base?.gameObject == null)
                 return;
@@ -113,20 +113,20 @@ namespace VVUP.CustomItems.Items.Grenades
 
             switch (removeMethod)
             {
-                case C4RemoveMethod.Remove:
+                case F4RemoveMethod.Remove:
                 {
                     break;
                 }
 
-                case C4RemoveMethod.Detonate:
+                case F4RemoveMethod.Detonate:
                 {
-                    ExplosiveGrenade grenade = (ExplosiveGrenade)Item.Create(Type);
+                    FlashGrenade grenade = (FlashGrenade)Item.Create(Type);
                     grenade.FuseTime = 0.1f;
-                    grenade.SpawnActive(charge.Position, owner: AssociateC4WithServer ? Server.Host : player);
+                    grenade.SpawnActive(charge.Position, owner: AssociateF4WithServer ? Server.Host : player);
                     break;
                 }
 
-                case C4RemoveMethod.Drop:
+                case F4RemoveMethod.Drop:
                 {
                     TrySpawn(Id, charge.Position, out _);
                     break;
@@ -177,7 +177,7 @@ namespace VVUP.CustomItems.Items.Grenades
 
         protected override void OnExploding(ExplodingGrenadeEventArgs ev)
         {
-            if (!AssociateC4WithServer)
+            if (!AssociateF4WithServer)
                 ev.Projectile.PreviousOwner = ev.Player;
             PlacedCharges.Remove(Pickup.Get(ev.Projectile.Base));
         }
@@ -188,7 +188,7 @@ namespace VVUP.CustomItems.Items.Grenades
             {
                 if (charge.Value == ev.Player)
                 {
-                    C4Handler(charge.Key, C4RemoveMethod.Remove, ev.Player);
+                    F4Handler(charge.Key, F4RemoveMethod.Remove, ev.Player);
                 }
             }
         }
@@ -202,7 +202,7 @@ namespace VVUP.CustomItems.Items.Grenades
             {
                 if (charge.Value == ev.Player)
                 {
-                    C4Handler(charge.Key, MethodOnDeath, ev.Player);
+                    F4Handler(charge.Key, MethodOnDeath, ev.Player);
                 }
             }
         }
@@ -223,7 +223,7 @@ namespace VVUP.CustomItems.Items.Grenades
 
                 if (PlacedCharges.ContainsKey(Pickup.Get(grenade)))
                 {
-                    C4Handler(Pickup.Get(grenade), ShotMethod, ev.Player);
+                    F4Handler(Pickup.Get(grenade), ShotMethod, ev.Player);
                 }
             }
         }

@@ -35,29 +35,35 @@ namespace VVUP.CustomItems
 
             if (ssKeybindSetting.SettingId == Plugin.Instance.Config.SsssConfig.DetonateC4Id)
             {
-                if (!Items.Grenades.C4.PlacedCharges.ContainsValue(player))
+                bool hasC4Charges = Items.Grenades.C4.PlacedCharges.ContainsValue(player);
+                bool hasF4Charges = Items.Grenades.F4.PlacedCharges.ContainsValue(player);
+
+                if (!hasC4Charges && !hasF4Charges)
                 {
                     player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssC4NoC4Deployed);
-                    player.SendConsoleMessage("\n<color=red>You've haven't placed any C4 charges!</color>", "red");
                     return;
                 }
 
-                if (Items.Grenades.C4.Instance.RequireDetonator &&
-                    (player.CurrentItem is null || player.CurrentItem.Type != Items.Grenades.C4.Instance.DetonatorItem))
+                bool needsC4Detonator = Items.Grenades.C4.Instance.RequireDetonator && hasC4Charges;
+                bool needsF4Detonator = Items.Grenades.F4.Instance.RequireDetonator && hasF4Charges;
+
+                if ((needsC4Detonator || needsF4Detonator) &&
+                    (player.CurrentItem is null ||
+                     (needsC4Detonator && player.CurrentItem.Type != Items.Grenades.C4.Instance.DetonatorItem) ||
+                     (needsF4Detonator && player.CurrentItem.Type != Items.Grenades.F4.Instance.DetonatorItem)))
                 {
                     player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssC4DetonatorNeeded);
-                    player.SendConsoleMessage(
-                        $"\n<color=red>You need to have a Remote Detonator ({Items.Grenades.C4.Instance.DetonatorItem}) in your hand to detonate C4!</color>",
-                        "red");
                     return;
                 }
-
+                
                 bool anyChargeDetonated = false;
+
+                // C4
                 foreach (var charge in Items.Grenades.C4.PlacedCharges.ToList())
                 {
                     if (charge.Value != player)
                         continue;
-            
+
                     float distance = Vector3.Distance(charge.Key.Position, player.Position);
                     if (distance < Items.Grenades.C4.Instance.MaxDistance)
                     {
@@ -65,24 +71,35 @@ namespace VVUP.CustomItems
                         anyChargeDetonated = true;
                     }
                     else
-                    {
                         player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssC4TooFarAway);
-                        player.SendConsoleMessage(
-                            $"One of your charges is out of range. You need to get closer by {Mathf.Round(distance - Items.Grenades.C4.Instance.MaxDistance)} meters.",
-                            "yellow");
+                }
+
+                // F4
+                foreach (var charge in Items.Grenades.F4.PlacedCharges.ToList())
+                {
+                    if (charge.Value != player)
+                        continue;
+
+                    float distance = Vector3.Distance(charge.Key.Position, player.Position);
+                    if (distance < Items.Grenades.F4.Instance.MaxDistance)
+                    {
+                        Items.Grenades.F4.Instance.F4Handler(charge.Key);
+                        anyChargeDetonated = true;
                     }
+                    else 
+                        player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssC4TooFarAway);
                 }
 
                 if (anyChargeDetonated)
                     player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssDetonateC4ActivationMessage);
             }
-            else if (ssKeybindSetting.SettingId == Plugin.Instance.Config.SsssConfig.GrenadeLauncherForceModeId || 
+            else if (ssKeybindSetting.SettingId == Plugin.Instance.Config.SsssConfig.GrenadeLauncherForceModeId ||
                      ssKeybindSetting.SettingId == Plugin.Instance.Config.SsssConfig.GrenadeLauncherLaunchModeId)
             {
-                if (!CustomItem.TryGet(player.CurrentItem, out var customItem) || 
+                if (!CustomItem.TryGet(player.CurrentItem, out var customItem) ||
                     customItem is not GrenadeLauncher grenadeLauncher)
                     return;
-        
+
                 if (ssKeybindSetting.SettingId == Plugin.Instance.Config.SsssConfig.GrenadeLauncherForceModeId)
                     grenadeLauncher.ToggleForceMode(player);
                 else

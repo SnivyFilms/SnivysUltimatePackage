@@ -83,6 +83,8 @@
     <Compile Include="Items\Grenades\C4.cs" />
     <Compile Include="Items\Grenades\ClusterGrenade.cs" />
     <Compile Include="Items\Grenades\EmpGrenade.cs" />
+    <Compile Include="Items\Grenades\F4.cs" />
+    <Compile Include="Items\Grenades\GuardianGrenade.cs" />
     <Compile Include="Items\Grenades\LowGravityGrenade.cs" />
     <Compile Include="Items\Grenades\MultiFlash.cs" />
     <Compile Include="Items\Grenades\NerveAgent.cs" />
