@@ -84,6 +84,18 @@ namespace VVUP.CustomItems.Items.Firearms
             0.96f,
         };
 
+        [Description("Radius of the spiral effect")]
+        public float SpiralRadius { get; set; } = 0.15f;
+
+        [Description("Number of complete spiral rotations along the beam")]
+        public float SpiralTurns { get; set; } = 3f;
+
+        [Description("Size of spiral line segments (length along beam)")]
+        public float SpiralParticleSize { get; set; } = 0.15f;
+
+        [Description("Density of spiral particles (higher = more particles)")]
+        public float SpiralDensity { get; set; } = 10f;
+
         protected override void OnShot(ShotEventArgs ev)
         {
             Vector3 origin;
@@ -93,13 +105,17 @@ namespace VVUP.CustomItems.Items.Firearms
                 origin = ev.Player.CameraTransform.position;
 
             Vector3 forward = ev.Position - origin;
-            Vector3 laserSize = new Vector3(LaserScale.x, forward.magnitude * 0.5f, LaserScale.z);
-            Vector3 laserPosition = origin + forward * 0.5f;
+            float distance = forward.magnitude;
+            Vector3 direction = forward.normalized;
 
-            Quaternion quaternion = Quaternion.LookRotation(forward) * Quaternion.Euler(90f, 0.0f, 0.0f);
             Color color = GetLaserColor(ev.Player);
-            Primitive laser = Primitive.Create(
-                PrimitiveType.Cylinder,
+
+            Vector3 laserSize = new Vector3(0.05f, 0.05f, distance);
+            Vector3 laserPosition = origin + forward * 0.5f;
+            Quaternion quaternion = Quaternion.LookRotation(direction);
+
+            Primitive centerBeam = Primitive.Create(
+                PrimitiveType.Cube,
                 (PrimitiveFlags)2,
                 new Vector3?(laserPosition),
                 new Vector3?(quaternion.eulerAngles),
@@ -108,7 +124,73 @@ namespace VVUP.CustomItems.Items.Firearms
                 new Color?(color)
             );
 
-            Timing.RunCoroutine(LaserFade(laser));
+            Timing.RunCoroutine(LaserFade(centerBeam));
+
+            int minSegments = Mathf.CeilToInt(SpiralTurns * 16);
+            int distanceBasedSegments = Mathf.CeilToInt(distance * SpiralDensity);
+            int spiralSegments = Mathf.Max(minSegments, distanceBasedSegments);
+
+            Vector3 right = Vector3.Cross(direction, Vector3.up).normalized;
+
+            if (right == Vector3.zero)
+                right = Vector3.Cross(direction, Vector3.forward).normalized;
+
+            Vector3 up = Vector3.Cross(direction, right).normalized;
+
+            for (int i = 0; i < spiralSegments; i++)
+            {
+                float t = i / (float)spiralSegments;
+                float nextT = (i + 1) / (float)spiralSegments;
+
+                float angle = t * SpiralTurns * Mathf.PI * 2f;
+                float nextAngle = nextT * SpiralTurns * Mathf.PI * 2f;
+
+                Vector3 pointOnBeam = origin + direction * (distance * t);
+                Vector3 nextPointOnBeam = origin + direction * (distance * nextT);
+
+                Vector3 spiralOffset = (right * Mathf.Cos(angle) + up * Mathf.Sin(angle)) * SpiralRadius;
+                Vector3 nextSpiralOffset = (right * Mathf.Cos(nextAngle) + up * Mathf.Sin(nextAngle)) * SpiralRadius;
+
+                Vector3 spiralPosition = pointOnBeam + spiralOffset;
+                Vector3 nextSpiralPosition = nextPointOnBeam + nextSpiralOffset;
+
+                Vector3 segmentDirection = (nextSpiralPosition - spiralPosition).normalized;
+                float segmentLength = Vector3.Distance(spiralPosition, nextSpiralPosition);
+                Vector3 segmentCenter = (spiralPosition + nextSpiralPosition) * 0.5f;
+
+                Quaternion spiralRotation = Quaternion.LookRotation(segmentDirection);
+
+                Vector3 cubeScale = new Vector3(SpiralParticleSize * 0.2f, SpiralParticleSize * 0.2f, segmentLength);
+
+                Primitive spiralSegment = Primitive.Create(
+                    PrimitiveType.Cube,
+                    (PrimitiveFlags)2,
+                    new Vector3?(segmentCenter),
+                    new Vector3?(spiralRotation.eulerAngles),
+                    new Vector3?(cubeScale),
+                    true,
+                    new Color?(color)
+                );
+
+                Timing.RunCoroutine(LaserFade(spiralSegment));
+            }
+        }
+
+        [Description("If true the burned effect will be applied to the target")]
+        public bool GiveBurnEffect { get; set; } = true;
+
+        [Description("Intensity of the Burned effect")]
+        public byte BurnEffectIntensity { get; set; } = 1;
+
+        [Description("Duration of the given Burned effect")]
+        public float BurnEffectDuration { get; set; } = 3f;
+
+        protected override void OnHurting(HurtingEventArgs ev)
+        {
+            if (GiveBurnEffect)
+                ev.Player.EnableEffect(EffectType.Burned, BurnEffectIntensity, BurnEffectDuration);
+
+            base.OnHurting(ev);
         }
 
         private Color GetLaserColor(Player player)
