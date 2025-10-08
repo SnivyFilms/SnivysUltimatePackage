@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UserSettings.ServerSpecific;
+using VVUP.Base;
 
 namespace VVUP.CustomItems.Items.Firearms
 {
@@ -95,6 +96,17 @@ namespace VVUP.CustomItems.Items.Firearms
 
         [Description("Density of spiral particles (higher = more particles)")]
         public float SpiralDensity { get; set; } = 10f;
+        
+        [Description("If it contains effects, it will apply effects on hit")]
+        public List<ApplyEffects> EffectsToApply { get; set; }= new List<ApplyEffects>
+        {
+            new()
+            {
+                EffectType = EffectType.Burned,
+                Intensity = 1,
+                Duration = 3,
+            }
+        };
 
         protected override void OnShot(ShotEventArgs ev)
         {
@@ -175,20 +187,17 @@ namespace VVUP.CustomItems.Items.Firearms
                 Timing.RunCoroutine(LaserFade(spiralSegment));
             }
         }
-
-        [Description("If true the burned effect will be applied to the target")]
-        public bool GiveBurnEffect { get; set; } = true;
-
-        [Description("Intensity of the Burned effect")]
-        public byte BurnEffectIntensity { get; set; } = 1;
-
-        [Description("Duration of the given Burned effect")]
-        public float BurnEffectDuration { get; set; } = 3f;
-
         protected override void OnHurting(HurtingEventArgs ev)
         {
-            if (GiveBurnEffect)
-                ev.Player.EnableEffect(EffectType.Burned, BurnEffectIntensity, BurnEffectDuration);
+            if (!EffectsToApply.IsEmpty())
+            {
+                foreach (var effect in EffectsToApply)
+                {
+                    Log.Debug(
+                        $"VVUP Custom Items: Laser Gun, applying {effect.EffectType} with intensity {effect.Intensity} and duration {effect.Duration} to {ev.Player.Nickname}");
+                    ev.Player.EnableEffect(effect.EffectType, effect.Intensity, effect.Duration);
+                }
+            }
 
             base.OnHurting(ev);
         }
@@ -206,7 +215,7 @@ namespace VVUP.CustomItems.Items.Firearms
             }
             else
             {
-                color.r = LaserColorRed[Base.GetRandomNumber.GetRandomInt(LaserColorRed.Count)];
+                color.r = LaserColorRed[GetRandomNumber.GetRandomInt(LaserColorRed.Count)];
                 Log.Debug($"VVUP Custom Items: Using random red value: {color.r}");
             }
             
@@ -219,7 +228,7 @@ namespace VVUP.CustomItems.Items.Firearms
             }
             else
             {
-                color.g = LaserColorGreen[Base.GetRandomNumber.GetRandomInt(LaserColorGreen.Count)];
+                color.g = LaserColorGreen[GetRandomNumber.GetRandomInt(LaserColorGreen.Count)];
                 Log.Debug($"VVUP Custom Items: Using random green value: {color.g}");
             }
             
@@ -232,7 +241,7 @@ namespace VVUP.CustomItems.Items.Firearms
             }
             else
             {
-                color.b = LaserColorBlue[Base.GetRandomNumber.GetRandomInt(LaserColorBlue.Count)];
+                color.b = LaserColorBlue[GetRandomNumber.GetRandomInt(LaserColorBlue.Count)];
                 Log.Debug($"VVUP Custom Items: Using random blue value: {color.b}");
             }
             

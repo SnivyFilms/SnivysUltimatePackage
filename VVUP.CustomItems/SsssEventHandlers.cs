@@ -33,6 +33,7 @@ namespace VVUP.CustomItems
             if (settingBase is not SSKeybindSetting { SyncIsPressed: true } ssKeybindSetting)
                 return;
 
+            // Detonate C4/F4
             if (ssKeybindSetting.SettingId == Plugin.Instance.Config.SsssConfig.DetonateC4Id)
             {
                 bool hasC4Charges = Items.Grenades.C4.PlacedCharges.ContainsValue(player);
@@ -40,7 +41,10 @@ namespace VVUP.CustomItems
 
                 if (!hasC4Charges && !hasF4Charges)
                 {
-                    player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssC4NoC4Deployed);
+                    if (Plugin.Instance.Config.SsssConfig.UseHints)
+                        player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssNoDeployed, Plugin.Instance.Config.SsssConfig.TextDisplayDuration);
+                    else
+                        player.Broadcast((ushort)Plugin.Instance.Config.SsssConfig.TextDisplayDuration, Plugin.Instance.Config.SsssConfig.SsssNoDeployed);
                     return;
                 }
 
@@ -52,7 +56,10 @@ namespace VVUP.CustomItems
                      (needsC4Detonator && player.CurrentItem.Type != Items.Grenades.C4.Instance.DetonatorItem) ||
                      (needsF4Detonator && player.CurrentItem.Type != Items.Grenades.F4.Instance.DetonatorItem)))
                 {
-                    player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssC4DetonatorNeeded);
+                    if (Plugin.Instance.Config.SsssConfig.UseHints) 
+                        player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssDetonatorNeeded, Plugin.Instance.Config.SsssConfig.TextDisplayDuration);
+                    else
+                        player.Broadcast((ushort)Plugin.Instance.Config.SsssConfig.TextDisplayDuration, Plugin.Instance.Config.SsssConfig.SsssDetonatorNeeded);
                     return;
                 }
                 
@@ -71,7 +78,10 @@ namespace VVUP.CustomItems
                         anyChargeDetonated = true;
                     }
                     else
-                        player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssC4TooFarAway);
+                        if (Plugin.Instance.Config.SsssConfig.UseHints)
+                            player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssTooFarAway, Plugin.Instance.Config.SsssConfig.TextDisplayDuration);
+                        else
+                            player.Broadcast((ushort)Plugin.Instance.Config.SsssConfig.TextDisplayDuration, Plugin.Instance.Config.SsssConfig.SsssTooFarAway);
                 }
 
                 // F4
@@ -86,13 +96,20 @@ namespace VVUP.CustomItems
                         Items.Grenades.F4.Instance.F4Handler(charge.Key);
                         anyChargeDetonated = true;
                     }
-                    else 
-                        player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssC4TooFarAway);
+                    else
+                        if (Plugin.Instance.Config.SsssConfig.UseHints)
+                            player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssTooFarAway, Plugin.Instance.Config.SsssConfig.TextDisplayDuration);
+                        else
+                            player.Broadcast((ushort)Plugin.Instance.Config.SsssConfig.TextDisplayDuration, Plugin.Instance.Config.SsssConfig.SsssTooFarAway);
                 }
 
                 if (anyChargeDetonated)
-                    player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssDetonateC4ActivationMessage);
+                    if (Plugin.Instance.Config.SsssConfig.UseHints) 
+                        player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssDetonateActivationMessage, Plugin.Instance.Config.SsssConfig.TextDisplayDuration);
+                    else
+                        player.Broadcast((ushort)Plugin.Instance.Config.SsssConfig.TextDisplayDuration, Plugin.Instance.Config.SsssConfig.SsssDetonateActivationMessage);
             }
+            // Grenade Launcher
             else if (ssKeybindSetting.SettingId == Plugin.Instance.Config.SsssConfig.GrenadeLauncherForceModeId ||
                      ssKeybindSetting.SettingId == Plugin.Instance.Config.SsssConfig.GrenadeLauncherLaunchModeId)
             {

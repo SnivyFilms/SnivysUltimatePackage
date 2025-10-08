@@ -70,8 +70,8 @@ namespace VVUP.CustomItems
                 SSTextArea.FoldoutMode.CollapsedByDefault));
             stringBuilder.Clear();
             
-            settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.DetonateC4Id, Plugin.Instance.Config.SsssConfig.DetonateC4SsssText,
-                KeyCode.J, true, false, Plugin.Instance.Config.SsssConfig.DetonateC4Hint));
+            settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.DetonateC4Id, Plugin.Instance.Config.SsssConfig.DetonateSsssText,
+                KeyCode.J, true, false, Plugin.Instance.Config.SsssConfig.DetonateHint));
             
             settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.GrenadeLauncherForceModeId,Plugin.Instance.Config.SsssConfig.GrenadeLauncherForceModeSsssText,
                 KeyCode.K, true, false, Plugin.Instance.Config.SsssConfig.GrenadeLauncherForceModeHint));

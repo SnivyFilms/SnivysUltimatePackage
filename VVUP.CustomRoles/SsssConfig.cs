@@ -44,5 +44,13 @@ namespace VVUP.CustomRoles
         public string SsssTeleportActivationMessage { get; set; } = "Activated Teleport";
         public string SsssSoundBreakerActivationMessage { get; set; } = "Activated Sound Breaker";
         public string SsssReplicatorActivationMessage { get; set; } = "Activated Replicator";
+        public int RoundStartRolesId { get; set; } = 10011;
+        public int RespawnWaveRolesId { get; set; } = 10012;
+        public int Scp049ReviveRolesId { get; set; } = 10013;
+        public string RoundStartRolesSsssText { get; set; } = "Enable getting Custom Roles on Round Start";
+        public string RespawnWaveRolesSsssText { get; set; } = "Enable getting Custom Roles on Respawn Waves";
+        public string Scp049ReviveRolesSsssText { get; set; } = "Enable getting Custom Roles on SCP-049-2 Revivals";
+        public string CustomRoleRecievingEnabledText { get; set; } = "True";
+        public string CustomRoleRecievingDisabledText { get; set; } = "False";
     }
 }

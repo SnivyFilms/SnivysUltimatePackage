@@ -82,6 +82,9 @@ namespace VVUP.CustomRoles
              settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.TeleportId, Plugin.Instance.Config.SsssConfig.TeleportSsssText, KeyCode.B, true, false, Plugin.Instance.Config.SsssConfig.TeleportHint));
              settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.SoundBreakerId, Plugin.Instance.Config.SsssConfig.SoundBreakerSsssText,KeyCode.C, true, false, Plugin.Instance.Config.SsssConfig.SoundBreakerHint));
              settings.Add(new SSKeybindSetting(Plugin.Instance.Config.SsssConfig.ReplicatorId, Plugin.Instance.Config.SsssConfig.ReplicatorSsssText,KeyCode.B, true, false, Plugin.Instance.Config.SsssConfig.ReplicatorHint));
+             settings.Add(new SSTwoButtonsSetting(Plugin.Instance.Config.SsssConfig.RoundStartRolesId, Plugin.Instance.Config.SsssConfig.RoundStartRolesSsssText, Plugin.Instance.Config.SsssConfig.CustomRoleRecievingEnabledText, Plugin.Instance.Config.SsssConfig.CustomRoleRecievingDisabledText));
+             settings.Add(new SSTwoButtonsSetting(Plugin.Instance.Config.SsssConfig.RespawnWaveRolesId, Plugin.Instance.Config.SsssConfig.RespawnWaveRolesSsssText, Plugin.Instance.Config.SsssConfig.CustomRoleRecievingEnabledText, Plugin.Instance.Config.SsssConfig.CustomRoleRecievingDisabledText));
+             settings.Add(new SSTwoButtonsSetting(Plugin.Instance.Config.SsssConfig.Scp049ReviveRolesId, Plugin.Instance.Config.SsssConfig.Scp049ReviveRolesSsssText, Plugin.Instance.Config.SsssConfig.CustomRoleRecievingEnabledText, Plugin.Instance.Config.SsssConfig.CustomRoleRecievingDisabledText));
             return settings.ToArray();
         }
         public static void SafeAppendSsssSettings()

@@ -19,10 +19,11 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 EffectType = EffectType.Invigorated
             }
         };
+        public float DelayBeforeApplyingEffects { get; set; } = 5f;
         
         protected override void AbilityAdded(Player player)
         {
-            Timing.CallDelayed(5f, () =>
+            Timing.CallDelayed(DelayBeforeApplyingEffects, () =>
             {
                 foreach (var effect in EffectsToApply)
                 {

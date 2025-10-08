@@ -42,10 +42,11 @@ namespace VVUP.CreditTags
 
         private static readonly Dictionary<string, int> ContributorIds = new Dictionary<string, int>()
         {
-            { "76561198050637807@steam", 0 },
-            { "76561198836489233@steam", 1 }, 
-            { "76561198987608062@steam", 2 },
-            { "76561197971457827@steam", 1},
+            { "76561198050637807@steam", 0 }, //Snivy
+            { "76561198836489233@steam", 1 }, //Vretu
+            { "76561198987608062@steam", 2 }, //Yourfate420
+            { "76561197971457827@steam", 1}, //PJ
+            { "76561199150506472@steam", 1}, //Mr. Baguetter
             
         };
         public static bool HasCreditTag(string userId) => ContributorIds.ContainsKey(userId);

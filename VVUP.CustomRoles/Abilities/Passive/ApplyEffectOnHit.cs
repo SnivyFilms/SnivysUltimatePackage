@@ -14,7 +14,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
         public override string Description { get; set; } = "Enables Effects to whoever you hit";
         
         public List<Player> PlayersWithApplyEffectOnHit = new List<Player>();
-        public List<ApplyEffects> EffectsToApply = new List<ApplyEffects>
+        public List<ApplyEffects> EffectsToApply { get; set; } = new List<ApplyEffects>
         {
             new()
             {
@@ -44,11 +44,14 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 return;
             if (PlayersWithApplyEffectOnHit.Contains(ev.Attacker))
             {
+                if (EffectsToApply.IsEmpty()) 
+                    return;
                 foreach (var effect in EffectsToApply)
                 {
                     Log.Debug(
                         $"VVUP Custom Abilities: ApplyEffectOnHit, applying {effect.EffectType} with intensity {effect.Intensity} and duration {effect.Duration} to {ev.Player.Nickname} from {ev.Attacker.Nickname}");
-                    ev.Player.EnableEffect(effect.EffectType, effect.Intensity, effect.Duration, effect.AddDurationIfActive);
+                    ev.Player.EnableEffect(effect.EffectType, effect.Intensity, effect.Duration,
+                        effect.AddDurationIfActive);
                 }
             }
         }

@@ -6,6 +6,7 @@ using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Scp049;
 using Exiled.Events.EventArgs.Server;
 using PlayerRoles;
+using UserSettings.ServerSpecific;
 using VVUP.CustomRoles.API;
 
 namespace VVUP.CustomRoles.EventHandlers
@@ -114,7 +115,11 @@ namespace VVUP.CustomRoles.EventHandlers
                 }
 
                 if (player.GetCustomRoles().Count == 0)
-                    role?.AddRole(player);
+                    if (Plugin.Instance.Config.SsssConfig.SsssEnabled &&
+                        ServerSpecificSettingsSync.TryGetSettingOfUser<SSTwoButtonsSetting>(player.ReferenceHub,
+                            Plugin.Instance.Config.SsssConfig.RoundStartRolesId, out var setting) && 
+                        setting.SyncIsA || !Plugin.Instance.Config.SsssConfig.SsssEnabled)
+                        role?.AddRole(player);
             }
 
             guardRoles.Dispose();
@@ -167,7 +172,11 @@ namespace VVUP.CustomRoles.EventHandlers
                 CustomRole? role = CustomRoleMethods.GetCustomRole(ref roles);
 
                 if (player.GetCustomRoles().Count == 0)
-                    role?.AddRole(player);
+                    if (Plugin.Instance.Config.SsssConfig.SsssEnabled &&
+                        ServerSpecificSettingsSync.TryGetSettingOfUser<SSTwoButtonsSetting>(player.ReferenceHub,
+                            Plugin.Instance.Config.SsssConfig.RespawnWaveRolesId, out var setting) && 
+                        setting.SyncIsA || !Plugin.Instance.Config.SsssConfig.SsssEnabled)
+                        role?.AddRole(player);
             }
 
             roles.Dispose();
@@ -192,7 +201,11 @@ namespace VVUP.CustomRoles.EventHandlers
                     if (activeRoleCount < role.SpawnProperties.Limit)
                     {
                         if (ev.Target.GetCustomRoles().Count == 0)
-                            role.AddRole(ev.Target);
+                            if (Plugin.Instance.Config.SsssConfig.SsssEnabled &&
+                                ServerSpecificSettingsSync.TryGetSettingOfUser<SSTwoButtonsSetting>(ev.Target.ReferenceHub,
+                                    Plugin.Instance.Config.SsssConfig.Scp049ReviveRolesId, out var setting) && 
+                                setting.SyncIsA || !Plugin.Instance.Config.SsssConfig.SsssEnabled)
+                                role?.AddRole(ev.Target);
                     }
                     else
                     {
