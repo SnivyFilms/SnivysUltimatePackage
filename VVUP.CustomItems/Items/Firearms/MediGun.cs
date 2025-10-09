@@ -8,7 +8,6 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
-using JetBrains.Annotations;
 using MEC;
 using PlayerRoles;
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using CommandSystem;
-using VVUP.ServerEvents.ServerEventsConfigs;
 
 namespace VVUP.ServerEvents.ServerEventsCommands.EventCommands
 {
@@ -13,12 +12,7 @@ namespace VVUP.ServerEvents.ServerEventsCommands.EventCommands
         {
             response = "I am sorry, the snowballs has been removed from the game, this event cannot run";
             return false;
-            /*if (!_config.IsEnabled)
-            {
-                response = "The custom events part of this plugin is disabled.";
-                return false;
-            }
-            
+            /*
             if (!sender.CheckPermission("vvevents.run"))
             {
                 response = "You do not have the required permission to use this command";

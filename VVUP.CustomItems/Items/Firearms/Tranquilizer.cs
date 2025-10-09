@@ -13,7 +13,6 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Interfaces;
 using Exiled.Events.EventArgs.Player;
 using Exiled.Events.Handlers;
-using JetBrains.Annotations;
 using MEC;
 using Mirror;
 using PlayerRoles;

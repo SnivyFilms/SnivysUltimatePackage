@@ -4,6 +4,7 @@ using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.CustomItems.API.Features;
 using Exiled.Loader;
+using HarmonyLib;
 using UserSettings.ServerSpecific;
 using Player = Exiled.Events.Handlers.Player;
 
@@ -19,6 +20,7 @@ namespace VVUP.CustomItems
         public override Version Version { get; } = new Version(3, 3, 0);
         public override Version RequiredExiledVersion { get; } = new Version(9, 9, 2);
         public SsssEventHandlers SsssEventHandlers;
+        private Harmony _harmony;
 
         public override void OnEnabled()
         {
@@ -29,6 +31,8 @@ namespace VVUP.CustomItems
                 base.OnDisabled();
                 return;
             }
+            _harmony = new Harmony("vvup.customitems");
+            _harmony.PatchAll();
             CustomItem.RegisterItems(overrideClass: Instance.Config.CustomItemsConfig);
             SsssEventHandlers = new SsssEventHandlers(this);
             Player.Verified += SsssEventHandlers.OnVerified;
@@ -39,6 +43,7 @@ namespace VVUP.CustomItems
 
         public override void OnDisabled()
         {
+            _harmony.UnpatchAll("vvup.customitems");
             CustomItem.UnregisterItems();
             Player.Verified -= SsssEventHandlers.OnVerified;
             ServerSpecificSettingsSync.ServerOnSettingValueReceived -= SsssEventHandlers.OnSettingValueReceived;

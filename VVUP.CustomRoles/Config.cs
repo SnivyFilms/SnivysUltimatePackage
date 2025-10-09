@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Exiled.API.Interfaces;
+﻿using Exiled.API.Interfaces;
 
 namespace VVUP.CustomRoles
 {

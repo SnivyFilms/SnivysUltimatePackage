@@ -6,10 +6,8 @@ using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
-using JetBrains.Annotations;
 using VVUP.Base;
 using YamlDotNet.Serialization;
-using PlayerAPI = Exiled.API.Features.Player;
 using PlayerEvents = Exiled.Events.Handlers.Player;
 
 namespace VVUP.CustomItems.Items.MedicalItems

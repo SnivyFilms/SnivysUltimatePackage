@@ -13,7 +13,7 @@ using Exiled.Events.EventArgs.Player;
 using Exiled.Events.EventArgs.Server;
 using InventorySystem.Items.ThrowableProjectiles;
 using UnityEngine;
-//using VVUP.CustomItems.API;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerEvent = Exiled.Events.Handlers.Player;
 
@@ -94,8 +94,8 @@ namespace VVUP.CustomItems.Items.Grenades
         
         [Description("Will C4 explosion be associated with the player who deployed it or the server")]
         public bool AssociateC4WithServer { get; set; } = false;
-        //[Description("Determines if the C4 will stick to surfaces or it rolls on the ground.")]
-        //public bool Sticky { get; set; } = true;
+        [Description("Determines if the C4 will stick to surfaces or it rolls on the ground.")]
+        public bool Sticky { get; set; } = true;
         
         [YamlIgnore]
         public override bool ExplodeOnCollision { get; set; } = false;
@@ -141,6 +141,8 @@ namespace VVUP.CustomItems.Items.Grenades
         {
             Instance = this;
 
+            StickyGrenadeApi.RegisterStickyGrenade("C4", pickup => Sticky && PlacedCharges.ContainsKey(pickup));
+            
             PlayerEvent.Destroying += OnDestroying;
             PlayerEvent.Died += OnDied;
             PlayerEvent.Shooting += OnShooting;
@@ -151,6 +153,7 @@ namespace VVUP.CustomItems.Items.Grenades
         
         protected override void UnsubscribeEvents()
         {
+            StickyGrenadeApi.UnregisterStickyGrenade("C4");
             PlayerEvent.Destroying -= OnDestroying;
             PlayerEvent.Died -= OnDied;
             PlayerEvent.Shooting -= OnShooting;
@@ -169,8 +172,6 @@ namespace VVUP.CustomItems.Items.Grenades
         {
             if (!PlacedCharges.ContainsKey(ev.Projectile))
                 PlacedCharges.Add(ev.Projectile, ev.Player);
-            //if (Sticky)
-            //    ev.Projectile.GameObject.AddComponent<StickyGrenadeHandler>().Init(ev.Player.GameObject, ev.Projectile.Base);
 
             base.OnThrownProjectile(ev);
         }
@@ -179,7 +180,8 @@ namespace VVUP.CustomItems.Items.Grenades
         {
             if (!AssociateC4WithServer)
                 ev.Projectile.PreviousOwner = ev.Player;
-            PlacedCharges.Remove(Pickup.Get(ev.Projectile.Base));
+            Pickup pickup = Pickup.Get(ev.Projectile.Base);
+            PlacedCharges.Remove(pickup);
         }
 
         private void OnDestroying(DestroyingEventArgs ev)
@@ -231,6 +233,7 @@ namespace VVUP.CustomItems.Items.Grenades
         private void OnRoundEnded(RoundEndedEventArgs ev)
         {
             PlacedCharges.Clear();
+            StickyGrenadeApi.ClearTrackedGrenades();
         }
     }
 }

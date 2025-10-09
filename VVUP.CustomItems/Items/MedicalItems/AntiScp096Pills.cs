@@ -6,7 +6,6 @@ using Exiled.API.Features.Roles;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
-using JetBrains.Annotations;
 using MEC;
 using PlayerRoles;
 using VVUP.Base;

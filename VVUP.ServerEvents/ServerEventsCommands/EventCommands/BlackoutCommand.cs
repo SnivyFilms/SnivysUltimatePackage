@@ -2,7 +2,6 @@
 using CommandSystem;
 using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
-using VVUP.ServerEvents.ServerEventsConfigs;
 using VVUP.ServerEvents.ServerEventsEventHandlers;
 
 namespace VVUP.ServerEvents.ServerEventsCommands.EventCommands

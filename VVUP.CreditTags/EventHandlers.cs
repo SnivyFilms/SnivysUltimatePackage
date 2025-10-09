@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Exiled.API.Features;
-using Exiled.CreditTags.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
 

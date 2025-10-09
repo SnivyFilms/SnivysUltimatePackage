@@ -4,7 +4,6 @@ using System.Linq;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
-using UnityEngine;
 using UserSettings.ServerSpecific;
 using VVUP.CustomRoles.Abilities.Active;
 using PlayerAPI = Exiled.API.Features.Player;

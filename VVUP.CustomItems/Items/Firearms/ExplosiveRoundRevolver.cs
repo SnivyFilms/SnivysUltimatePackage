@@ -9,10 +9,8 @@ using Exiled.Events.EventArgs.Item;
 using Exiled.Events.EventArgs.Player;
 using Exiled.Events.EventArgs.Server;
 using InventorySystem.Items.Firearms.Attachments;
-using JetBrains.Annotations;
 using MEC;
 using YamlDotNet.Serialization;
-using Player = Exiled.Events.Handlers.Player;
 
 namespace VVUP.CustomItems.Items.Firearms
 {

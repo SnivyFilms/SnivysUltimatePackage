@@ -7,7 +7,6 @@ using Exiled.API.Features.Spawn;
 using Exiled.API.Features.Toys;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
-using JetBrains.Annotations;
 using MEC;
 using UnityEngine;
 using YamlDotNet.Serialization;

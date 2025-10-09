@@ -2,7 +2,6 @@
 using Exiled.API.Features;
 using LabApi.Features.Wrappers;
 using MEC;
-using PlayerRoles;
 using Door = Exiled.API.Features.Doors.Door;
 
 namespace VVUP.RoundStart

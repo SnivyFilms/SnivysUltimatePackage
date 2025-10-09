@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
-using Exiled.API.Interfaces;
 using VVUP.CustomItems.Items.Armor;
 using VVUP.CustomItems.Items.Firearms;
 using VVUP.CustomItems.Items.Grenades;
@@ -152,10 +150,10 @@ namespace VVUP.CustomItems
             new LowGravityGrenade()
         };
         
-        public List<CognitohazardCharm> CognitohazardCharms { get; private set; } = new()
+        /*public List<CognitohazardCharm> CognitohazardCharms { get; private set; } = new()
         {
             new CognitohazardCharm()
-        };
+        };*/
         
         public List<BottleOfRum> BottleOfRums { get; private set; } = new()
         {

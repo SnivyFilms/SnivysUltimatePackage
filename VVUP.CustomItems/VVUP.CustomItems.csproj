@@ -64,7 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\StickyGrenadeHandler.cs" />
+    <Compile Include="API\StickyGrenadeApi.cs" />
     <Compile Include="Commands\C4Detonate.cs" />
     <Compile Include="Commands\GrenadeLauncherCollider.cs" />
     <Compile Include="Commands\GrenadeLauncherForce.cs" />
@@ -102,6 +102,7 @@
     <Compile Include="Items\Other\PortableIntercom.cs" />
     <Compile Include="Items\Other\Scp1499.cs" />
     <Compile Include="Items\Other\Telewand.cs" />
+    <Compile Include="Patches\StickyGrenade.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Ssss.cs" />
     <Compile Include="SsssConfig.cs" />
@@ -115,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ExMod.Exiled" Version="9.9.2" />
+    <PackageReference Include="Lib.Harmony" Version="2.4.1" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

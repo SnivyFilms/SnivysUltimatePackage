@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
-using Exiled.Loader;
 using VVUP.CustomRoles.API;
 
 namespace VVUP.CustomRoles.EventHandlers

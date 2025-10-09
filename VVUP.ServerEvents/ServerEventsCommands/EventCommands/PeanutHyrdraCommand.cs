@@ -2,7 +2,6 @@
 using CommandSystem;
 using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
-using VVUP.ServerEvents.ServerEventsConfigs;
 using VVUP.ServerEvents.ServerEventsEventHandlers;
 
 namespace VVUP.ServerEvents.ServerEventsCommands.EventCommands
@@ -12,7 +11,6 @@ namespace VVUP.ServerEvents.ServerEventsCommands.EventCommands
         public string Command { get; set; } = "173Hydra";
         public string[] Aliases { get; set; } = { "PeanutHydra", "Hydra" };
         public string Description { get; set; } = "Starts the 173 Hydra";
-        private static ServerEventsMasterConfig _config = new();
         public bool Execute(ArraySegment<string> args, ICommandSender sender, out string response)
         {
             if (!sender.CheckPermission("vvevents.rund"))

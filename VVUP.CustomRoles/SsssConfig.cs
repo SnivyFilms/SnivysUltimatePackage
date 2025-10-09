@@ -10,7 +10,7 @@ namespace VVUP.CustomRoles
         public int DoorPickingId { get; set; } = 10003;
         public int HealingMistId { get; set; } = 10004;
         public int RemoveDisguiseId { get; set; } = 10005;
-        public int ReviveMistId { get; set; } = 10007;
+        //public int ReviveMistId { get; set; } = 10007;
         public int TeleportId { get; set; } = 10008;
         public int SoundBreakerId { get; set; } = 10009;
         public int ReplicatorId { get; set; } = 10010;
@@ -21,7 +21,7 @@ namespace VVUP.CustomRoles
         public string DoorPickingHint { get; set; } = "Press the keybind to activate Door Picking, you will be able to pick doors (Custom Ability).";
         public string HealingMistHint { get; set; } = "Press the keybind to activate Healing Mist, you will be able to heal yourself and nearby players (Custom Ability).";
         public string RemoveDisguiseHint { get; set; } = "Press the keybind to activate Remove Disguise, you will be able to remove your disguise (Custom Ability).";
-        public string ReviveMistHint { get; set; } = "Press the keybind to activate Revive Mist, you will be able to revive nearby players (Custom Ability).";
+        //public string ReviveMistHint { get; set; } = "Press the keybind to activate Revive Mist, you will be able to revive nearby players (Custom Ability).";
         public string TeleportHint { get; set; } = "Press the keybind to activate Teleport, you will be able to teleport to a target location (Custom Ability).";
         public string SoundBreakerHint { get; set; } = "Press the keybind to reset Blink cooldown and reduce the next blink interval and distance (Custom Ability).";
         public string ReplicatorHint { get; set; } = "Press the keybind to create Decoy and make safe Recon (Custom Ability).";
@@ -31,7 +31,7 @@ namespace VVUP.CustomRoles
         public string DoorPickingSsssText { get; set; } = "Door Picking";
         public string HealingMistSsssText { get; set; } = "Healing Mist";
         public string RemoveDisguiseSsssText { get; set; } = "Remove Disguise";
-        public string ReviveMistSsssText { get; set; } = "Reviving Mist";
+        //public string ReviveMistSsssText { get; set; } = "Reviving Mist";
         public string TeleportSsssText { get; set; } = "Teleport";
         public string SoundBreakerSsssText { get; set; } = "Sound Breaker";
         public string ReplicatorSsssText { get; set; } = "Replicator";
@@ -44,13 +44,13 @@ namespace VVUP.CustomRoles
         public string SsssTeleportActivationMessage { get; set; } = "Activated Teleport";
         public string SsssSoundBreakerActivationMessage { get; set; } = "Activated Sound Breaker";
         public string SsssReplicatorActivationMessage { get; set; } = "Activated Replicator";
-        public int RoundStartRolesId { get; set; } = 10011;
-        public int RespawnWaveRolesId { get; set; } = 10012;
-        public int Scp049ReviveRolesId { get; set; } = 10013;
+        public int RoundStartRolesId { get; set; } = 10023;
+        public int RespawnWaveRolesId { get; set; } = 10024;
+        public int Scp049ReviveRolesId { get; set; } = 10025;
         public string RoundStartRolesSsssText { get; set; } = "Enable getting Custom Roles on Round Start";
         public string RespawnWaveRolesSsssText { get; set; } = "Enable getting Custom Roles on Respawn Waves";
         public string Scp049ReviveRolesSsssText { get; set; } = "Enable getting Custom Roles on SCP-049-2 Revivals";
-        public string CustomRoleRecievingEnabledText { get; set; } = "True";
-        public string CustomRoleRecievingDisabledText { get; set; } = "False";
+        public string CustomRoleReceivingEnabledText { get; set; } = "True";
+        public string CustomRoleReceivingDisabledText { get; set; } = "False";
     }
 }

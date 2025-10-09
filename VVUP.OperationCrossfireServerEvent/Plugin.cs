@@ -4,7 +4,6 @@ using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.CustomItems.API.Features;
 using Exiled.Loader;
-using VVUP.ServerEvents.ServerEventsEventHandlers;
 
 namespace VVUP.OperationCrossfireServerEvent
 {
