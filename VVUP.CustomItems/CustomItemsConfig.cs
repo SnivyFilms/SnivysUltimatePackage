@@ -164,5 +164,10 @@ namespace VVUP.CustomItems
         {
             new F4()
         };
+        
+        public List<GuardianGrenade> GuardianGrenades { get; private set; } = new()
+        {
+            new GuardianGrenade()
+        };
     }
 }
