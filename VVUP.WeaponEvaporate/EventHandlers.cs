@@ -48,33 +48,24 @@ namespace VVUP.WeaponEvaporate
         public void OnDying(DyingEventArgs ev)
         {
             DamageType damageType = ev.DamageHandler.Type;
-            if (Plugin.Instance.Config.WeaponHitToEvaporate.TryGetValue(damageType, out HitBoxEnums requiredHitbox))
+            if (Plugin.Instance.Config.WeaponHitToEvaporate.TryGetValue(damageType, out HitBoxEnums requiredHitbox) && 
+                _recentHits.TryGetValue(ev.Player.Id, out var hitInfo) && hitInfo.DamageType == damageType) 
             {
-                if (_recentHits.TryGetValue(ev.Player.Id, out var hitInfo) && hitInfo.DamageType == damageType)
+                bool shouldEvaporate = requiredHitbox switch
                 {
-                    bool shouldEvaporate = false;
+                    HitBoxEnums.Body => hitInfo.HitboxType == HitboxType.Body,
+                    HitBoxEnums.Headshot => hitInfo.HitboxType == HitboxType.Headshot,
+                    HitBoxEnums.Limb => hitInfo.HitboxType == HitboxType.Limb,
+                    _ => false
+                };
 
-                    switch (requiredHitbox)
-                    {
-                        case HitBoxEnums.Body:
-                            shouldEvaporate = hitInfo.HitboxType == HitboxType.Body;
-                            break;
-                        case HitBoxEnums.Headshot:
-                            shouldEvaporate = hitInfo.HitboxType == HitboxType.Headshot;
-                            break;
-                        case HitBoxEnums.Limb:
-                            shouldEvaporate = hitInfo.HitboxType == HitboxType.Limb;
-                            break;
-                    }
-                    
-                    if (shouldEvaporate)
-                    {
-                        Log.Debug($"VVUP Weapon Evaporate: {ev.Player.Nickname} killed with {damageType} to {hitInfo.HitboxType}, evaporating");
-                        ev.Player.Vaporize();
-                    }
-                    
-                    _recentHits.Remove(ev.Player.Id);
+                if (shouldEvaporate)
+                {
+                    Log.Debug($"VVUP Weapon Evaporate: {ev.Player.Nickname} killed with {damageType} to {hitInfo.HitboxType}, evaporating");
+                    ev.Player.Vaporize();
                 }
+                    
+                _recentHits.Remove(ev.Player.Id);
             }
         }
         

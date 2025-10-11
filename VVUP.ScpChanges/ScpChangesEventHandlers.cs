@@ -78,13 +78,10 @@ namespace VVUP.ScpChanges
             float timeBeforeSpawn = float.MaxValue;
             bool foundActiveWave = false;
     
-            foreach (TimeBasedWave wave in WaveManager.Waves)
+            foreach (var wave in WaveManager.Waves.Cast<TimeBasedWave>().Where(wave => wave.Timer.TimeLeft > 0 && wave.Timer.TimeLeft < timeBeforeSpawn))
             {
-                if (wave.Timer.TimeLeft > 0 && wave.Timer.TimeLeft < timeBeforeSpawn)
-                {
-                    timeBeforeSpawn = wave.Timer.TimeLeft;
-                    foundActiveWave = true;
-                }
+                timeBeforeSpawn = wave.Timer.TimeLeft;
+                foundActiveWave = true;
             }
             if (!foundActiveWave)
                 timeBeforeSpawn = 0;
@@ -101,36 +98,17 @@ namespace VVUP.ScpChanges
         
         private string GetCustomRolesText()
         {
-            string customRolesText = string.Empty;
-            foreach (var role in Plugin.Instance.Config.Scp1576CustomRolesAlive)
-            {
-                CustomRole customRole = CustomRole.Get(role.Key);
-                if (customRole != null && Player.List.Any(p => customRole.TrackedPlayers.Contains(p)))
-                    customRolesText += role.Value + "\n";
-            }
-            return customRolesText;
+            return (from role in Plugin.Instance.Config.Scp1576CustomRolesAlive let customRole = CustomRole.Get(role.Key) where customRole != null && Player.List.Any(p => customRole.TrackedPlayers.Contains(p)) select role).Aggregate(string.Empty, (current, role) => current + (role.Value + "\n"));
         }
 
         private string GetRolesText()
         {
-            string rolesText = string.Empty;
-            foreach (var role in Plugin.Instance.Config.AliveRoles)
-            {
-                if (Player.List.Any(p => p.Role.Type == role.Key))
-                    rolesText += role.Value + "\n";
-            }
-            return rolesText;
+            return Plugin.Instance.Config.AliveRoles.Where(role => Player.List.Any(p => p.Role.Type == role.Key)).Aggregate(string.Empty, (current, role) => current + (role.Value + "\n"));
         }
 
         private string GetTeamsText()
         {
-            string teamsText = string.Empty;
-            foreach (var team in Plugin.Instance.Config.AliveTeams)
-            {
-                if (Player.List.Any(p => p.Role.Team == team.Key))
-                    teamsText += team.Value + "\n";
-            }
-            return teamsText;
+            return Plugin.Instance.Config.AliveTeams.Where(team => Player.List.Any(p => p.Role.Team == team.Key)).Aggregate(string.Empty, (current, team) => current + (team.Value + "\n"));
         }
     }
 }

@@ -39,10 +39,8 @@ namespace VVUP.FreeCustomRoles
                 FreeCustomRole20.Get(typeof(FreeCustomRole20)),
             };
                 
-            foreach (var role in customRoles)
+            foreach (var role in customRoles.Where(role => role?.CustomAbilities != null))
             {
-                if (role == null || role.CustomAbilities == null) continue;
-
                 stringBuilder.AppendLine($"Role: {role.Name}");
                 stringBuilder.AppendLine($"- Description: {role.Description}");
                 foreach (var ability in role.CustomAbilities)
@@ -59,15 +57,7 @@ namespace VVUP.FreeCustomRoles
         {
             var mySettings = GetSettings();
             var current = ServerSpecificSettingsSync.DefinedSettings?.ToList() ?? new List<ServerSpecificSettingBase>();
-            bool needToAddSettings = false;
-            foreach (var setting in mySettings)
-            {
-                if (current.All(s => s.SettingId != setting.SettingId))
-                {
-                    needToAddSettings = true;
-                    break;
-                }
-            }
+            bool needToAddSettings = mySettings.Any(setting => current.All(s => s.SettingId != setting.SettingId));
             if (needToAddSettings)
             {
                 if (!current.Any(s => s is SSGroupHeader header && header.Label == Plugin.Instance.Config.Header))

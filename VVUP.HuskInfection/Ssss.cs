@@ -20,10 +20,8 @@ namespace VVUP.HuskInfection
                 HuskZombie.Get(typeof(HuskZombie)),
             };
                 
-            foreach (var role in customRoles)
+            foreach (var role in customRoles.Where(role => role is { CustomAbilities: not null }))
             {
-                if (role == null || role.CustomAbilities == null) continue;
-
                 stringBuilder.AppendLine($"Role: {role.Name}");
                 stringBuilder.AppendLine($"- Description: {role.Description}");
                 foreach (var ability in role.CustomAbilities)
@@ -37,16 +35,10 @@ namespace VVUP.HuskInfection
                 Calyxanide.Get(typeof(Calyxanide)),
             };
 
-            foreach (var itemCollection in customItems)
+            foreach (var items in customItems.Where(itemCollection => itemCollection != null).SelectMany(itemCollection => itemCollection))
             {
-                if (itemCollection == null) continue;
-
-                foreach (var items in itemCollection)
-                {
-                    stringBuilder.AppendLine($"Item: {items.Name}");
-                    stringBuilder.AppendLine($"- Description: {items.Description}");
-                }
-                    
+                stringBuilder.AppendLine($"Item: {items.Name}");
+                stringBuilder.AppendLine($"- Description: {items.Description}");
             }
             settings.Add(new SSTextArea(Plugin.Instance.Config.HuskInfectionTextId, StringBuilderPool.Shared.ToStringReturn(stringBuilder),
                 SSTextArea.FoldoutMode.CollapsedByDefault));
@@ -57,15 +49,7 @@ namespace VVUP.HuskInfection
         {
             var mySettings = GetSettings();
             var current = ServerSpecificSettingsSync.DefinedSettings?.ToList() ?? new List<ServerSpecificSettingBase>();
-            bool needToAddSettings = false;
-            foreach (var setting in mySettings)
-            {
-                if (current.All(s => s.SettingId != setting.SettingId))
-                {
-                    needToAddSettings = true;
-                    break;
-                }
-            }
+            bool needToAddSettings = mySettings.Any(setting => current.All(s => s.SettingId != setting.SettingId));
             if (needToAddSettings)
             {
                 if (!current.Any(s => s is SSGroupHeader header && header.Label == Plugin.Instance.Config.Header))

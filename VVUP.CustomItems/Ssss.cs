@@ -56,16 +56,10 @@ namespace VVUP.CustomItems
                 GuardianGrenade.Get(typeof(GuardianGrenade)),
             };
 
-            foreach (var itemCollection in customItems)
+            foreach (var items in customItems.Where(itemCollection => itemCollection != null).SelectMany(itemCollection => itemCollection))
             {
-                if (itemCollection == null) continue;
-
-                foreach (var items in itemCollection)
-                {
-                    stringBuilder.AppendLine($"Item: {items.Name}");
-                    stringBuilder.AppendLine($"- Description: {items.Description}");
-                }
-                    
+                stringBuilder.AppendLine($"Item: {items.Name}");
+                stringBuilder.AppendLine($"- Description: {items.Description}");
             }
             settings.Add(new SSTextArea(Plugin.Instance.Config.SsssConfig.CustomItemTextId, StringBuilderPool.Shared.ToStringReturn(stringBuilder),
                 SSTextArea.FoldoutMode.CollapsedByDefault));
@@ -109,15 +103,7 @@ namespace VVUP.CustomItems
         {
             var mySettings = GetSettings();
             var current = ServerSpecificSettingsSync.DefinedSettings?.ToList() ?? new List<ServerSpecificSettingBase>();
-            bool needToAddSettings = false;
-            foreach (var setting in mySettings)
-            {
-                if (current.All(s => s.SettingId != setting.SettingId))
-                {
-                    needToAddSettings = true;
-                    break;
-                }
-            }
+            bool needToAddSettings = mySettings.Any(setting => current.All(s => s.SettingId != setting.SettingId));
             if (needToAddSettings)
             {
                 if (!current.Any(s => s is SSGroupHeader header && header.Label == Plugin.Instance.Config.SsssConfig.Header))
