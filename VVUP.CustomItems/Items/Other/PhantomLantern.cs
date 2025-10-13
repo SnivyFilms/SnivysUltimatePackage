@@ -139,7 +139,11 @@ namespace VVUP.CustomItems.Items.Other
                 return;
             Log.Debug("VVUP Custom Items: Activating Phantom Lantern Effects");
             _playersWithEffect.Add(ev.Player);
-            
+            foreach (var effect in Effects)
+            {
+                ev.Player.DisableEffect(effect.EffectType);
+                ev.Player.EnableEffect(effect.EffectType, effect.Intensity, effect.Duration, effect.AddDurationIfActive);
+            }
             phantomLanternCoroutine = Timing.RunCoroutine(PhantomLanternCoroutine(ev.Player));
         }
 
