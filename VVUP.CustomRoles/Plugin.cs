@@ -40,7 +40,6 @@ namespace VVUP.CustomRoles
             }
             
             HashSet<CustomRole> existingRoles = new HashSet<CustomRole>(CustomRole.Registered);
-            CustomAbility.RegisterAbilities(false, null);
             
             CustomRoleEventHandler = new CustomRoleEventHandler(this);
             Config.CustomRolesConfig.ContainmentScientists.Register();
@@ -78,6 +77,15 @@ namespace VVUP.CustomRoles
 
             foreach (CustomRole role in CustomRole.Registered)
             {
+                if (role.CustomAbilities is not null)
+                {
+                    foreach (CustomAbility ability in role.CustomAbilities)
+                    {
+                        Log.Warn($"VVUP CR: Registering ability {ability.Name}");
+                        ability.Register();
+                    }
+                }
+                
                 if (!existingRoles.Contains(role) && role is ICustomRole custom)
                 {
                     Log.Debug($"Adding {role.Name} to dictionary..");

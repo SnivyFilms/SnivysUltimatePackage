@@ -53,6 +53,14 @@ namespace VVUP.HuskInfection
             Config.CustomRoleConfig.HuskZombies.Register();
             foreach (CustomRole role in CustomRole.Registered)
             {
+                if (role.CustomAbilities is not null)
+                {
+                    foreach (CustomAbility ability in role.CustomAbilities)
+                    {
+                        ability.Register();
+                    }
+                }
+                
                 if (!existingRoles.Contains(role) && role is ICustomRole custom)
                 {
                     Log.Debug($"Adding {role.Name} to dictionary..");
