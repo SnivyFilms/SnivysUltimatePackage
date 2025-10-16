@@ -3,6 +3,7 @@ using CommandSystem;
 
 namespace VVUP.Base
 {
+    [CommandHandler(typeof(ClientCommandHandler))]
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     [CommandHandler(typeof(GameConsoleCommandHandler))]
     public class ActiveModulesCommand : ICommand
