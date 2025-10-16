@@ -22,7 +22,7 @@ namespace VVUP.CustomRoles
         public override string Name { get; } = "VVUP: Custom Roles";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.CR";
-        public override Version Version { get; } = new Version(3, 3, 0);
+        public override Version Version { get; } = new Version(3, 3, 1);
         public override Version RequiredExiledVersion { get; } = new Version(9, 9, 2);
         
         public Dictionary<StartTeam, List<ICustomRole>> Roles { get; } = new();
@@ -40,7 +40,6 @@ namespace VVUP.CustomRoles
             }
             
             HashSet<CustomRole> existingRoles = new HashSet<CustomRole>(CustomRole.Registered);
-            CustomAbility.RegisterAbilities(false, null);
             
             CustomRoleEventHandler = new CustomRoleEventHandler(this);
             Config.CustomRolesConfig.ContainmentScientists.Register();
@@ -78,6 +77,15 @@ namespace VVUP.CustomRoles
 
             foreach (CustomRole role in CustomRole.Registered)
             {
+                if (role.CustomAbilities is not null)
+                {
+                    foreach (CustomAbility ability in role.CustomAbilities)
+                    {
+                        Log.Warn($"VVUP CR: Registering ability {ability.Name}");
+                        ability.Register();
+                    }
+                }
+                
                 if (!existingRoles.Contains(role) && role is ICustomRole custom)
                 {
                     Log.Debug($"Adding {role.Name} to dictionary..");

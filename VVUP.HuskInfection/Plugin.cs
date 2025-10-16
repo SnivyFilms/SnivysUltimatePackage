@@ -20,7 +20,7 @@ namespace VVUP.HuskInfection
         public override string Name { get; } = "VVUP: Husk Infection";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.HK";
-        public override Version Version { get; } = new Version(3, 3, 0);
+        public override Version Version { get; } = new Version(3, 3, 1);
         public override Version RequiredExiledVersion { get; } = new Version(9, 9, 2);
 
         public HuskInfectionEventHandlers HuskInfectionEventHandlers;
@@ -53,6 +53,14 @@ namespace VVUP.HuskInfection
             Config.CustomRoleConfig.HuskZombies.Register();
             foreach (CustomRole role in CustomRole.Registered)
             {
+                if (role.CustomAbilities is not null)
+                {
+                    foreach (CustomAbility ability in role.CustomAbilities)
+                    {
+                        ability.Register();
+                    }
+                }
+                
                 if (!existingRoles.Contains(role) && role is ICustomRole custom)
                 {
                     Log.Debug($"Adding {role.Name} to dictionary..");
