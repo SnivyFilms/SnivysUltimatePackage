@@ -38,34 +38,40 @@ namespace VVUP.CustomRoles.Abilities.Active
                 Duration = 0,
             },
         };
-        
+        private bool pickingDoor = false;
         private List<Player> playerWithDoorPicking = new List<Player>();
         protected override void AbilityUsed(Player player)
         {
             player.ShowHint(BeforePickingDoorText, 5f);
+            pickingDoor = true;
         }
 
         protected override void AbilityAdded(Player player)
         {
             Exiled.Events.Handlers.Player.InteractingDoor += OnInteractingDoor;
             playerWithDoorPicking.Add(player);
+            
         }
 
         protected override void AbilityRemoved(Player player)
         {
             Exiled.Events.Handlers.Player.InteractingDoor -= OnInteractingDoor;
             playerWithDoorPicking.Remove(player);
+            pickingDoor = false;
         }
 
         private void OnInteractingDoor(InteractingDoorEventArgs ev)
         {
+            if (!playerWithDoorPicking.Contains(ev.Player))
+                return;
+            
             if (ev.Door.IsOpen)
                 return;
 
             if (ev.Player.CurrentItem != null)
                 return;
             
-            if (!playerWithDoorPicking.Contains(ev.Player))
+            if (!pickingDoor)
                 return;
             
             Log.Debug("VVUP Custom Abilities: Door Picking Ability, processing methods");
@@ -81,6 +87,7 @@ namespace VVUP.CustomRoles.Abilities.Active
             {
                 Log.Debug($"VVUP Custom Abilities: Opening {ev.Door.Name}");
                 ev.Door.IsOpen = true;
+                pickingDoor = false;
                 Timing.CallDelayed(TimeForDoorToBeOpen, () =>
                 {
                     ev.Door.IsOpen = false;

@@ -7,13 +7,14 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
 using MEC;
 using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerLab = LabApi.Features.Wrappers.Player;
 
 namespace VVUP.CustomItems.Items.Grenades
 {
     [CustomItem(ItemType.GrenadeHE)]
-    public class LowGravityGrenade : CustomGrenade
+    public class LowGravityGrenade : CustomGrenade, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.GrenadeHE;
@@ -60,6 +61,9 @@ namespace VVUP.CustomItems.Items.Grenades
         public float Duration { get; set; } = 15f;
         public float Range { get; set; } = 15f;
         private Dictionary<Player, Vector3> _effectedPlayers = new();
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 191);
 
         protected override void OnExploding(ExplodingGrenadeEventArgs ev)
         {

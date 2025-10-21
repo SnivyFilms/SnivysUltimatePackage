@@ -7,12 +7,14 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
 using MEC;
+using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.Grenades
 {
     [CustomItem(ItemType.GrenadeFlash)]
-    public class MultiFlash : CustomGrenade
+    public class MultiFlash : CustomGrenade, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.GrenadeFlash;
@@ -61,6 +63,9 @@ namespace VVUP.CustomItems.Items.Grenades
         public override bool ExplodeOnCollision { get; set; } = false;
         public override float FuseTime { get; set; } = 2.5f;
         public int FlashGrenadeCount { get; set; } = 5;
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 191);
 
         protected override void OnExploding(ExplodingGrenadeEventArgs ev)
         {

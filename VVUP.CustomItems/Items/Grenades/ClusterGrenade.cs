@@ -10,12 +10,13 @@ using Exiled.Events.EventArgs.Map;
 using JetBrains.Annotations;
 using MEC;
 using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.Grenades
 {
     [CustomItem(ItemType.GrenadeHE)]
-    public class ClusterGrenade : CustomGrenade
+    public class ClusterGrenade : CustomGrenade, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.GrenadeHE;
@@ -69,6 +70,8 @@ namespace VVUP.CustomItems.Items.Grenades
         public int ClusterGrenadeCount { get; set; } = 5;
         [Description("Enables a random spread of the cluster grenades, if its off it will spawn all of them on top of the detonation point")]
         public bool ClusterGrenadeRandomSpread { get; set; } = true;
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
 
         protected override void OnExploding(ExplodingGrenadeEventArgs ev)
         {

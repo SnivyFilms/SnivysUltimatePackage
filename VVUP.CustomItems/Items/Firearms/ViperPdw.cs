@@ -11,12 +11,13 @@ using Exiled.Events.EventArgs.Server;
 using InventorySystem.Items.Firearms.Attachments;
 using MEC;
 using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.Firearms
 {
     [CustomItem(ItemType.GunCrossvec)]
-    public class ViperPdw : CustomWeapon
+    public class ViperPdw : CustomWeapon, ICustomItemGlow
     {
         [YamlIgnore] 
         public override ItemType Type { get; set; } = ItemType.GunCrossvec;
@@ -154,5 +155,8 @@ namespace VVUP.CustomItems.Items.Firearms
 
             Log.Debug($"VVUP Custom Items: ViperPDW, {ev.Attacker.Nickname} attacked {ev.Player.Nickname} at distance {distance}, changing damage to {damageToApply}");
         }
+
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
     }
 }

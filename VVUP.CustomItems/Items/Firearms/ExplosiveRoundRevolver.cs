@@ -10,12 +10,14 @@ using Exiled.Events.EventArgs.Player;
 using Exiled.Events.EventArgs.Server;
 using InventorySystem.Items.Firearms.Attachments;
 using MEC;
+using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.Firearms
 {
     [CustomItem(ItemType.GunRevolver)]
-    public class ExplosiveRoundRevolver : CustomWeapon
+    public class ExplosiveRoundRevolver : CustomWeapon, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.GunRevolver;
@@ -72,6 +74,10 @@ namespace VVUP.CustomItems.Items.Firearms
             "You're not allowed to swap attachments on the Explosive Round Revolver";
         public bool UseHints { get; set; } = false;
         public float RestrictedAttachmentChangeMessageTimeDuration { get; set; } = 5f;
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
+        
         private List<ushort> droppedRevolvers = new List<ushort>();
 
         protected override void SubscribeEvents()

@@ -9,13 +9,14 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
 using MEC;
 using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerAPI = Exiled.API.Features.Player;
 
 namespace VVUP.CustomItems.Items.Grenades
 {
     [CustomItem(ItemType.GrenadeFlash)]
-    public class ProxyBang : CustomGrenade
+    public class ProxyBang : CustomGrenade, ICustomItemGlow
     {
         [YamlIgnore] public override ItemType Type { get; set; } = ItemType.GrenadeFlash;
         public override uint Id { get; set; } = 43;
@@ -41,8 +42,11 @@ namespace VVUP.CustomItems.Items.Grenades
 
         public override bool ExplodeOnCollision { get; set; } = false;
         public override float FuseTime { get; set; } = 10;
-        public float Range { get; set; } = 10;
+        public float Range { get; set; } = 30;
         public float LineVisibleTime { get; set; } = 5;
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 191);
 
         protected override void OnExploding(ExplodingGrenadeEventArgs ev)
         {

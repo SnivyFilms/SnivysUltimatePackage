@@ -8,6 +8,7 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerLab = LabApi.Features.Wrappers.Player;
 using PlayerAPI = Exiled.API.Features.Player;
@@ -16,7 +17,7 @@ using PlayerEvent = Exiled.Events.Handlers.Player;
 namespace VVUP.CustomItems.Items.Armor
 {
     [CustomItem(ItemType.ArmorLight)]
-    public class LowGravityArmor : CustomArmor
+    public class LowGravityArmor : CustomArmor, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.ArmorLight;
@@ -75,6 +76,9 @@ namespace VVUP.CustomItems.Items.Armor
                 },
             },
         };
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 191);
         
         protected override void SubscribeEvents()
         {

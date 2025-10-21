@@ -6,7 +6,10 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Loader;
 using HarmonyLib;
 using UserSettings.ServerSpecific;
+using VVUP.CustomItems.EventHandlers;
+using Map = Exiled.Events.Handlers.Map;
 using Player = Exiled.Events.Handlers.Player;
+using Server = Exiled.Events.Handlers.Server;
 
 namespace VVUP.CustomItems
 {
@@ -17,8 +20,9 @@ namespace VVUP.CustomItems
         public override string Name { get; } = "VVUP: Custom Items";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.CI";
-        public override Version Version { get; } = new Version(3, 3, 3);
+        public override Version Version { get; } = new Version(3, 4, 0);
         public override Version RequiredExiledVersion { get; } = new Version(9, 9, 2);
+        public CustomItemEventHandlers CustomItemEventHandlers;
         public SsssEventHandlers SsssEventHandlers;
         private Harmony _harmony;
 
@@ -37,6 +41,11 @@ namespace VVUP.CustomItems
             SsssEventHandlers = new SsssEventHandlers(this);
             Player.Verified += SsssEventHandlers.OnVerified;
             ServerSpecificSettingsSync.ServerOnSettingValueReceived += SsssEventHandlers.OnSettingValueReceived;
+            CustomItemEventHandlers = new CustomItemEventHandlers(this);
+            Server.RoundStarted += CustomItemEventHandlers.OnRoundStarted;
+            Server.WaitingForPlayers += CustomItemEventHandlers.OnWaitingForPlayers;
+            Map.PickupAdded += CustomItemEventHandlers.AddGlow;
+            Map.PickupDestroyed += CustomItemEventHandlers.RemoveGlow;
             Base.Plugin.Instance.VvupCi = true;
             base.OnEnabled();
         }
@@ -47,7 +56,12 @@ namespace VVUP.CustomItems
             CustomItem.UnregisterItems();
             Player.Verified -= SsssEventHandlers.OnVerified;
             ServerSpecificSettingsSync.ServerOnSettingValueReceived -= SsssEventHandlers.OnSettingValueReceived;
+            Server.RoundStarted -= CustomItemEventHandlers.OnRoundStarted;
+            Server.WaitingForPlayers -= CustomItemEventHandlers.OnWaitingForPlayers;
+            Map.PickupAdded -= CustomItemEventHandlers.AddGlow;
+            Map.PickupDestroyed -= CustomItemEventHandlers.RemoveGlow;
             SsssEventHandlers = null;
+            CustomItemEventHandlers = null;
             Base.Plugin.Instance.VvupCi = false;
             Instance = null;
             base.OnDisabled();

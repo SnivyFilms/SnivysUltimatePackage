@@ -24,7 +24,7 @@ namespace VVUP.CustomRoles.Roles.ClassD
             new ScaleAbility
             {
                 Name = "Dwarf [Passive]",
-                Description = "Makes you small as a dwarf zombie",
+                Description = "Makes you small as a dwarf",
                 ScaleForPlayers = new Vector3(0.75f, 0.75f, 0.75f),
             },
             new InfiniteStamina

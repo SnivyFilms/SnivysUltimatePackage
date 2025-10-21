@@ -6,14 +6,16 @@ using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
+using UnityEngine;
 using VVUP.Base;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerEvents = Exiled.Events.Handlers.Player;
 
 namespace VVUP.CustomItems.Items.MedicalItems
 {
     [CustomItem(ItemType.Adrenaline)]
-    public class KySyringe : CustomItem
+    public class KySyringe : CustomItem, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.Adrenaline;
@@ -53,6 +55,8 @@ namespace VVUP.CustomItems.Items.MedicalItems
                 },
             }
         };
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(0, 0, 204, 191);
         protected override void SubscribeEvents()
         {
             if (KillAfterAnimation)

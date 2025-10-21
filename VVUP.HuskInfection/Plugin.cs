@@ -20,7 +20,7 @@ namespace VVUP.HuskInfection
         public override string Name { get; } = "VVUP: Husk Infection";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.HK";
-        public override Version Version { get; } = new Version(3, 3, 3);
+        public override Version Version { get; } = new Version(3, 4, 0);
         public override Version RequiredExiledVersion { get; } = new Version(9, 9, 2);
 
         public HuskInfectionEventHandlers HuskInfectionEventHandlers;
@@ -49,17 +49,18 @@ namespace VVUP.HuskInfection
                 return;
             }
             HashSet<CustomRole> existingRoles = new HashSet<CustomRole>(CustomRole.Registered);
+            HashSet<CustomAbility> existingAbilities = new HashSet<CustomAbility>(CustomAbility.Registered);
             Config.CustomRoleConfig.HuskZombies.Register();
             foreach (CustomRole role in CustomRole.Registered)
             {
                 if (role.CustomAbilities is not null)
                 {
-                    foreach (CustomAbility ability in role.CustomAbilities)
+                    foreach (var ability in role.CustomAbilities.Where(ability => !existingAbilities.Contains(ability)))
                     {
+                        Log.Debug($"VVUP HK: Registering ability {ability.Name}");
                         ability.Register();
                     }
                 }
-                
                 if (!existingRoles.Contains(role) && role is ICustomRole custom)
                 {
                     Log.Debug($"Adding {role.Name} to dictionary..");
@@ -88,6 +89,7 @@ namespace VVUP.HuskInfection
                 }
             }
             existingRoles.Clear();
+            existingAbilities.Clear();
             CustomItem.RegisterItems(overrideClass: Instance.Config.CustomItemConfig);
             HuskInfectionEventHandlers = new HuskInfectionEventHandlers(this);
             Server.WaitingForPlayers += HuskInfectionEventHandlers.OnWaitingForPlayers;

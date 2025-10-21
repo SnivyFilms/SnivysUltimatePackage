@@ -6,6 +6,8 @@ using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
+using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerAPI = Exiled.API.Features.Player;
 using PlayerEvent = Exiled.Events.Handlers.Player;
@@ -13,7 +15,7 @@ using PlayerEvent = Exiled.Events.Handlers.Player;
 namespace VVUP.CustomItems.Items.Armor
 {
     [CustomItem(ItemType.ArmorHeavy)]
-    public class ExplosiveResistantArmor: CustomArmor
+    public class ExplosiveResistantArmor: CustomArmor, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.ArmorHeavy;
@@ -55,6 +57,9 @@ namespace VVUP.CustomItems.Items.Armor
         public override int HelmetEfficacy { get; set; } = 85;
         [Description("Must be between 0 and 100")]
         public override int VestEfficacy { get; set; } = 85;
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
         
         protected override void SubscribeEvents()
         {

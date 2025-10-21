@@ -17,6 +17,7 @@ using MEC;
 using Mirror;
 using PlayerRoles;
 using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using Item = Exiled.API.Features.Items.Item;
 using PlayerAPI = Exiled.API.Features.Player;
@@ -26,7 +27,7 @@ using Warhead = Exiled.API.Features.Warhead;
 namespace VVUP.CustomItems.Items.Firearms
 {
     [CustomItem(ItemType.GunCOM18)]
-    public class Tranquilizer : CustomWeapon
+    public class Tranquilizer : CustomWeapon, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.GunCOM18;
@@ -101,6 +102,9 @@ namespace VVUP.CustomItems.Items.Firearms
                 },
             }
         };
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(0, 150, 255, 191);
 
         protected override void SubscribeEvents()
         {

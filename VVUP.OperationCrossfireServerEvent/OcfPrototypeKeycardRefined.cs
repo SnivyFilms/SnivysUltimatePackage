@@ -11,12 +11,13 @@ using Interactables.Interobjects.DoorUtils;
 using InventorySystem;
 using InventorySystem.Items.Keycards;
 using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
 namespace VVUP.OperationCrossfireServerEvent
 {
     [CustomItem(ItemType.KeycardCustomManagement)]
-    public class OcfPrototypeKeycardRefined : CustomItem
+    public class OcfPrototypeKeycardRefined : CustomItem, ICustomItemGlow
     {
         [YamlIgnore] 
         public override ItemType Type { get; set; } = ItemType.KeycardCustomManagement;
@@ -71,6 +72,8 @@ namespace VVUP.OperationCrossfireServerEvent
         public byte KeycardPermissionColorAlpha { get; set; } = 255;
         [YamlIgnore]
         public Color32 KeycardPermissionsColor => new Color32(KeycardPermissionColorRed, KeycardPermissionColorGreen, KeycardPermissionColorBlue, KeycardPermissionColorAlpha);
+        public bool HasCustomItemGlow { get; set; } = false;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 255, 255, 255);
 
         protected override void SubscribeEvents()
         {

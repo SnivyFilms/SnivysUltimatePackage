@@ -95,7 +95,7 @@ namespace VVUP.CustomRoles.Roles.Foundation
                     new ApplyEffects()
                     {
                         EffectType = EffectType.FogControl,
-                        Intensity = 5,
+                        Intensity = 1,
                     }
                 },
             },

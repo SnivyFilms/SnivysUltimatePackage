@@ -7,11 +7,13 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
+using UnityEngine;
+using VVUP.CustomItems.API;
 
 namespace VVUP.CustomItems.Items.Firearms
 {
     [CustomItem(ItemType.GunE11SR)]
-    public class Scp2818 : CustomWeapon
+    public class Scp2818 : CustomWeapon, ICustomItemGlow
     {
         public override uint Id { get; set; } = 33;
         public override string Name { get; set; } = "<color=#FF0000>SCP-2818</color>";
@@ -52,6 +54,9 @@ namespace VVUP.CustomItems.Items.Firearms
                 },
             },
         };
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
 
         protected override void OnShot(ShotEventArgs ev)
         {

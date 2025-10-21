@@ -12,13 +12,14 @@ using Exiled.Events.EventArgs.Player;
 using MEC;
 using UnityEngine;
 using VVUP.Base;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using Player = Exiled.Events.Handlers.Player;
 
 namespace VVUP.CustomItems.Items.MedicalItems
 {
     [CustomItem(ItemType.Adrenaline)]
-    public class DeadringerSyringe : CustomItem
+    public class DeadringerSyringe : CustomItem, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.Adrenaline;
@@ -137,6 +138,8 @@ namespace VVUP.CustomItems.Items.MedicalItems
             RoomType.HczNuke,
             RoomType.EzCollapsedTunnel
         };
+        public bool HasCustomItemGlow { get; set; } = false;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 255, 255, 255);
         protected override void SubscribeEvents()
         {
             Player.UsingItem += OnUsingItem;

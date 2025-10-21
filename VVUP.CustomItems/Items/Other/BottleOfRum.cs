@@ -7,13 +7,14 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using UnityEngine;
 using VVUP.Base;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerEvent = Exiled.Events.Handlers.Player;
 
 namespace VVUP.CustomItems.Items.Other
 {
     [CustomItem(ItemType.SCP207)]
-    public class BottleOfRum : CustomItem
+    public class BottleOfRum : CustomItem, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.SCP207;
@@ -93,6 +94,9 @@ namespace VVUP.CustomItems.Items.Other
                 },
             },
         };
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 191);
 
         protected override void SubscribeEvents()
         {

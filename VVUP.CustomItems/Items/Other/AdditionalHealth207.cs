@@ -8,12 +8,14 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using PlayerRoles;
+using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.Other
 {
     [CustomItem(ItemType.AntiSCP207)]
-    public class AdditionalHealth207 : CustomItem
+    public class AdditionalHealth207 : CustomItem, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.AntiSCP207;
@@ -59,6 +61,8 @@ namespace VVUP.CustomItems.Items.Other
                 }
             },
         };
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 191);
         
         protected override void SubscribeEvents()
         {

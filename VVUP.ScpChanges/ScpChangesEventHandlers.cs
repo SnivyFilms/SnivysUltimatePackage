@@ -33,6 +33,8 @@ namespace VVUP.ScpChanges
                 return;
             if (ev.Player == null || ev.Attacker == null)
                 return;
+            if (ev.Player == ev.Attacker)
+                return;
             if (ev.Player.Role == RoleTypeId.Scp106 && Plugin.Instance.Config.OldScp106Behavior && ev.DamageHandler.Type == DamageType.Firearm)
             {
                 if (!Plugin.Instance.Config.ResistanceWithHume && ev.Player.HumeShield > 0)
@@ -56,7 +58,7 @@ namespace VVUP.ScpChanges
             if (ev.Attacker.Role == RoleTypeId.Scp049 && Plugin.Instance.Config.Scp049OneShot)
             {
                 Log.Debug($"VVUP SCP Changes: SCP 049 One Shot is enabled, killing {ev.Player.Nickname}");
-                ev.Player.Kill(DamageType.CardiacArrest);
+                ev.Player.Hurt(ev.Attacker, 1000, DamageType.Scp049);
             }
         }
         public void OnUsingItem(UsedItemEventArgs ev)

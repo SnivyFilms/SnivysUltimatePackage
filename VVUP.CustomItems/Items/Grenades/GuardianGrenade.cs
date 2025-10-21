@@ -8,6 +8,7 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
 using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using Item = Exiled.API.Features.Items.Item;
 using Server = Exiled.API.Features.Server;
@@ -15,7 +16,7 @@ using Server = Exiled.API.Features.Server;
 namespace VVUP.CustomItems.Items.Grenades
 {
     [CustomItem(ItemType.GrenadeHE)]
-    public class GuardianGrenade : CustomGrenade
+    public class GuardianGrenade : CustomGrenade, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.GrenadeHE;
@@ -35,6 +36,8 @@ namespace VVUP.CustomItems.Items.Grenades
 
         [Description("Delay after a player enters the radius")]
         public float DetonationDelay { get; set; } = 2.0f;
+        [Description("Fuse time of the grenade after a player enters the radius")]
+        public float DetonationTime { get; set; } = 2.0f;
 
         [Description("Should the grenade ignore the thrower's teammates? (This doesnt mean friendly fire on/off)")]
         public bool IgnoreTeammates { get; set; } = false;
@@ -60,6 +63,9 @@ namespace VVUP.CustomItems.Items.Grenades
                 }
             },
         };
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
         
         protected override void OnThrownProjectile(ThrownProjectileEventArgs ev)
         {
@@ -87,7 +93,7 @@ namespace VVUP.CustomItems.Items.Grenades
                         {
                             ev.Projectile.Destroy();
                             ExplosiveGrenade grenade = (ExplosiveGrenade)Item.Create(Type);
-                            grenade.FuseTime = DetonationDelay;
+                            grenade.FuseTime = DetonationTime;
                             grenade.SpawnActive(ev.Projectile.Position, owner: AssociateAsServer ? Server.Host : ev.Player);
                         }
 

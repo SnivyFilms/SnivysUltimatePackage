@@ -17,6 +17,8 @@ using Interactables.Interobjects.DoorUtils;
 using InventorySystem.Items.Firearms.Attachments;
 using JetBrains.Annotations;
 using MEC;
+using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using Attachment = InventorySystem.Items.Firearms.Attachments.Components.Attachment;
 using PlayerAPI = Exiled.API.Features.Player;
@@ -25,7 +27,7 @@ using PlayerEvent = Exiled.Events.Handlers.Player;
 namespace VVUP.CustomItems.Items.Grenades
 {
     [CustomItem(ItemType.GrenadeFlash)]
-    public class EmpGrenade : CustomGrenade
+    public class EmpGrenade : CustomGrenade, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.GrenadeFlash;
@@ -73,6 +75,8 @@ namespace VVUP.CustomItems.Items.Grenades
                 },
             },
         };
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 191);
         
         private static readonly List<Room> _lockedRooms079 = new();
 

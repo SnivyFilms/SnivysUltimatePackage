@@ -8,6 +8,7 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
 using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerAPI = Exiled.API.Features.Player;
 using PlayerEvent = Exiled.Events.Handlers.Player;
@@ -15,7 +16,7 @@ using PlayerEvent = Exiled.Events.Handlers.Player;
 namespace VVUP.CustomItems.Items.Other
 {
     [CustomItem(ItemType.SCP268)]
-    public class Scp1499 : CustomItem
+    public class Scp1499 : CustomItem, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.SCP268;
@@ -61,6 +62,9 @@ namespace VVUP.CustomItems.Items.Other
         
         [Description("Determines where to teleport the player, must be somewhere static (such as surface zone)")]
         public Vector3 TeleportLocation { get; set; } = new(38.464f, 314.112f, -32.689f);
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
         
         private readonly Dictionary<PlayerAPI, Vector3> _playersUsingScp1499 = new();
         

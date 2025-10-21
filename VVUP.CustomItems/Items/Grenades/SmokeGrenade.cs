@@ -9,12 +9,13 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
 using MEC;
 using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.Grenades
 {
     [CustomItem(ItemType.GrenadeFlash)]
-    public class SmokeGrenade : CustomGrenade
+    public class SmokeGrenade : CustomGrenade, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.GrenadeFlash;
@@ -59,6 +60,9 @@ namespace VVUP.CustomItems.Items.Grenades
                 },
             },
         };
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 191);
         
         protected override void OnExploding(ExplodingGrenadeEventArgs ev)
         {

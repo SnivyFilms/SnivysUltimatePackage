@@ -7,13 +7,15 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
+using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerAPI = Exiled.API.Features.Player;
 
 namespace VVUP.CustomItems.Items.Firearms
 {
     [CustomItem(ItemType.GunCOM18)]
-    public class Pathfinder : CustomWeapon
+    public class Pathfinder : CustomWeapon, ICustomItemGlow
     {
         [YamlIgnore] public override ItemType Type { get; set; } = ItemType.GunCOM18;
         public override uint Id { get; set; } = 40;
@@ -36,6 +38,9 @@ namespace VVUP.CustomItems.Items.Firearms
         
         private List<PlayerAPI> _activeMarkedPlayers = new();
         private List<PlayerAPI> _playersReloading = new();
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(0, 150, 255, 191);
         
         protected override void SubscribeEvents()
         {

@@ -84,6 +84,10 @@
         <Project>{fb453a80-47ea-499c-bd01-190bd82ed0b1}</Project>
         <Name>VVUP.Base</Name>
       </ProjectReference>
+      <ProjectReference Include="..\VVUP.CustomItems\VVUP.CustomItems.csproj">
+        <Project>{f94e6731-0190-4591-9110-e4257d793c58}</Project>
+        <Name>VVUP.CustomItems</Name>
+      </ProjectReference>
       <ProjectReference Include="..\VVUP.ServerEvents\VVUP.ServerEvents.csproj">
         <Project>{bc6074fc-8956-4c8f-9c4a-e8e2eabd1b3d}</Project>
         <Name>VVUP.ServerEvents</Name>

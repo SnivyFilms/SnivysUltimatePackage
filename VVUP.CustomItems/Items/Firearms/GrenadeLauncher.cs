@@ -13,13 +13,15 @@ using Exiled.Events.EventArgs.Player;
 using InventorySystem.Items.Firearms.Modules;
 using JetBrains.Annotations;
 using MEC;
+using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using Firearm = Exiled.API.Features.Items.Firearm;
 
 namespace VVUP.CustomItems.Items.Firearms
 {
     [CustomItem(ItemType.GunLogicer)]
-    public class GrenadeLauncher : CustomWeapon
+    public class GrenadeLauncher : CustomWeapon, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.GunLogicer;
@@ -72,6 +74,8 @@ namespace VVUP.CustomItems.Items.Firearms
         [Description("Sometimes you're able to get more than what ClipSize is set to when reloading, if this is set to true, it will check and correct the ammo count")]
         public bool FixOverClipSizeBug { get; set; } = true;
         private ProjectileType GrenadeType { get; set; } = ProjectileType.FragGrenade;
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
         [CanBeNull] 
         private CustomGrenade _loadedCustomGrenade;
         [YamlIgnore]

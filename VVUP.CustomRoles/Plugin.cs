@@ -22,7 +22,7 @@ namespace VVUP.CustomRoles
         public override string Name { get; } = "VVUP: Custom Roles";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.CR";
-        public override Version Version { get; } = new Version(3, 3, 3);
+        public override Version Version { get; } = new Version(3, 4, 0);
         public override Version RequiredExiledVersion { get; } = new Version(9, 9, 2);
         
         public Dictionary<StartTeam, List<ICustomRole>> Roles { get; } = new();
@@ -40,7 +40,7 @@ namespace VVUP.CustomRoles
             }
             
             HashSet<CustomRole> existingRoles = new HashSet<CustomRole>(CustomRole.Registered);
-            
+            HashSet<CustomAbility> existingAbilities = new HashSet<CustomAbility>(CustomAbility.Registered);
             CustomRoleEventHandler = new CustomRoleEventHandler(this);
             Config.CustomRolesConfig.ContainmentScientists.Register();
             Config.CustomRolesConfig.LightGuards.Register();
@@ -79,13 +79,12 @@ namespace VVUP.CustomRoles
             {
                 if (role.CustomAbilities is not null)
                 {
-                    foreach (CustomAbility ability in role.CustomAbilities)
+                    foreach (var ability in role.CustomAbilities.Where(ability => !existingAbilities.Contains(ability)))
                     {
                         Log.Debug($"VVUP CR: Registering ability {ability.Name}");
                         ability.Register();
                     }
                 }
-                
                 if (!existingRoles.Contains(role) && role is ICustomRole custom)
                 {
                     Log.Debug($"Adding {role.Name} to dictionary..");
@@ -114,6 +113,7 @@ namespace VVUP.CustomRoles
                 }
             }
             existingRoles.Clear();
+            existingAbilities.Clear();
             Server.RoundStarted += CustomRoleEventHandler.OnRoundStarted;
             Server.RespawningTeam += CustomRoleEventHandler.OnRespawningTeam;
             Scp049Events.FinishingRecall += CustomRoleEventHandler.FinishingRecall;

@@ -88,6 +88,10 @@
         <Project>{fb453a80-47ea-499c-bd01-190bd82ed0b1}</Project>
         <Name>VVUP.Base</Name>
       </ProjectReference>
+      <ProjectReference Include="..\VVUP.CustomItems\VVUP.CustomItems.csproj">
+        <Project>{f94e6731-0190-4591-9110-e4257d793c58}</Project>
+        <Name>VVUP.CustomItems</Name>
+      </ProjectReference>
       <ProjectReference Include="..\VVUP.CustomRoles\VVUP.CustomRoles.csproj">
         <Project>{cfd5b906-4ca0-4493-b81e-afb1421c6f14}</Project>
         <Name>VVUP.CustomRoles</Name>

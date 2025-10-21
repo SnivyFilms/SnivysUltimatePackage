@@ -5,12 +5,13 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.MedicalItems
 {
     [CustomItem(ItemType.Painkillers)]
-    public class InfinitePills : CustomItem
+    public class InfinitePills : CustomItem, ICustomItemGlow
     {
         public override uint Id { get; set; } = 34;
         public override string Name { get; set; } = "<color=#6600CC>Infinite Pills</color>";
@@ -49,7 +50,8 @@ namespace VVUP.CustomItems.Items.MedicalItems
                 },
             },
         };
-
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 191);
         protected override void SubscribeEvents()
         {
             Exiled.Events.Handlers.Player.UsingItemCompleted += OnUsingItemCompleted;

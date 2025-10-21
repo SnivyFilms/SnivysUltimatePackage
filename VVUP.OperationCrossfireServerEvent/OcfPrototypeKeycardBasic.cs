@@ -15,13 +15,14 @@ using Interactables.Interobjects.DoorUtils;
 using InventorySystem.Items.Keycards;
 using PlayerRoles;
 using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using LabKeycardItem = LabApi.Features.Wrappers.KeycardItem;
 
 namespace VVUP.OperationCrossfireServerEvent
 {
     [CustomItem(ItemType.KeycardCustomSite02)]
-    public class OcfPrototypeKeycardBasic : CustomItem
+    public class OcfPrototypeKeycardBasic : CustomItem, ICustomItemGlow
     {
         [YamlIgnore] 
         public override ItemType Type { get; set; } = ItemType.KeycardCustomSite02;
@@ -124,6 +125,10 @@ namespace VVUP.OperationCrossfireServerEvent
                 },
             }
         };
+
+        public bool HasCustomItemGlow { get; set; } = false;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 255, 255, 255);
+        
         protected override void SubscribeEvents()
         {
             base.SubscribeEvents();

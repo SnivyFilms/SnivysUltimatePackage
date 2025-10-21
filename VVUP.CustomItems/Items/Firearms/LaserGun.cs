@@ -13,11 +13,12 @@ using System.ComponentModel;
 using UnityEngine;
 using UserSettings.ServerSpecific;
 using VVUP.Base;
+using VVUP.CustomItems.API;
 
 namespace VVUP.CustomItems.Items.Firearms
 {
     [CustomItem(ItemType.GunE11SR)]
-    public class LaserGun : CustomWeapon
+    public class LaserGun : CustomWeapon, ICustomItemGlow
     {
         public override ItemType Type { get; set; } = ItemType.GunE11SR;
         public override uint Id { get; set; } = 41;
@@ -107,6 +108,9 @@ namespace VVUP.CustomItems.Items.Firearms
                 Duration = 3,
             }
         };
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
 
         protected override void OnShot(ShotEventArgs ev)
         {

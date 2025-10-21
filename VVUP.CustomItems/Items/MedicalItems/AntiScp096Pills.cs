@@ -8,13 +8,15 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
 using PlayerRoles;
+using UnityEngine;
 using VVUP.Base;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.MedicalItems
 {
     [CustomItem(ItemType.SCP500)]
-    public class AntiScp096Pills : CustomItem
+    public class AntiScp096Pills : CustomItem, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.SCP500;
@@ -43,7 +45,8 @@ namespace VVUP.CustomItems.Items.MedicalItems
                 },
             },
         };
-        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 191);
         protected override void SubscribeEvents()
         {
             Exiled.Events.Handlers.Player.UsingItem += OnUsingItem;

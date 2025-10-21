@@ -12,6 +12,7 @@ using MEC;
 using PlayerRoles;
 using PlayerRoles.Voice;
 using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using IntercomBase = PlayerRoles.Voice.Intercom;
 using IntercomExiled = Exiled.API.Features.Intercom;
@@ -19,7 +20,7 @@ using IntercomExiled = Exiled.API.Features.Intercom;
 namespace VVUP.CustomItems.Items.Other
 {
     [CustomItem(ItemType.Radio)]
-    public class PortableIntercom : CustomItem
+    public class PortableIntercom : CustomItem, ICustomItemGlow
     {
         [YamlIgnore] 
         public override ItemType Type { get; set; } = ItemType.Radio;
@@ -83,6 +84,10 @@ namespace VVUP.CustomItems.Items.Other
 
         public string IntercomRoomPortableIntercomInUseText { get; set; } =
             "The intercom is currently in use in a remote location.";
+        
+        public bool HasCustomItemGlow { get; set; } = false;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 255, 255, 255);
+        
         private bool _isPortableIntercomActive = false;
         private static CoroutineHandle _portableIntercomCoroutine;
         private List<Player> _playerWithPortableIntercom = new List<Player>();

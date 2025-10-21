@@ -10,11 +10,13 @@ using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
 using PlayerRoles;
+using UnityEngine;
+using VVUP.CustomItems.API;
 
 namespace VVUP.CustomItems.Items.Firearms
 {
     [CustomItem(ItemType.GunFSP9)]
-    public class MediGun : CustomWeapon
+    public class MediGun : CustomWeapon, ICustomItemGlow
     {
         public override ItemType Type { get; set; } = ItemType.GunFSP9;
         
@@ -75,6 +77,9 @@ namespace VVUP.CustomItems.Items.Firearms
                 },
             }
         };
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(0, 150, 255, 191);
 
         protected override void OnHurting(HurtingEventArgs ev)
         {

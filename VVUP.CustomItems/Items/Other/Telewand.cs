@@ -10,11 +10,12 @@ using YamlDotNet.Serialization;
 using UnityEngine;
 using MEC;
 using System.ComponentModel;
+using VVUP.CustomItems.API;
 
 namespace VVUP.CustomItems.Items.Other
 {
     [CustomItem(ItemType.Jailbird)]
-    public class Telewand : CustomItem
+    public class Telewand : CustomItem, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.Jailbird;
@@ -62,6 +63,9 @@ namespace VVUP.CustomItems.Items.Other
                 },
             },
         };
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(0, 150, 255, 191);
 
         [Description("Translations:")]
         public string PosSaved { get; set; } = "<color=#808080>Position Saved</color>";

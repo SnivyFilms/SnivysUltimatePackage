@@ -20,7 +20,7 @@ using PlayerEvent = Exiled.Events.Handlers.Player;
 namespace VVUP.CustomItems.Items.Grenades
 {
     [CustomItem(ItemType.GrenadeHE)]
-    public class C4 : CustomGrenade
+    public class C4 : CustomGrenade, ICustomItemGlow
     {
         public enum C4RemoveMethod
         {
@@ -96,6 +96,9 @@ namespace VVUP.CustomItems.Items.Grenades
         public bool AssociateC4WithServer { get; set; } = false;
         [Description("Determines if the C4 will stick to surfaces or it rolls on the ground.")]
         public bool Sticky { get; set; } = true;
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
         
         [YamlIgnore]
         public override bool ExplodeOnCollision { get; set; } = false;

@@ -8,13 +8,14 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
 using PlayerRoles;
 using UnityEngine;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerAPI = Exiled.API.Features.Player;
 
 namespace VVUP.HuskInfection
 {
     [CustomItem(ItemType.GrenadeFlash)]
-    public class HuskGrenade : CustomGrenade
+    public class HuskGrenade : CustomGrenade, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.GrenadeFlash;
@@ -68,6 +69,8 @@ namespace VVUP.HuskInfection
         public float TextDisplayTime { get; set; } = 10f;
         public uint HuskZombieCustomRoleId { get; set; } = 56;
         public string HuskTakeOverDeathReason { get; set; } = "You have been taken over by a Husk Infection.";
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
 
         protected override void OnExploding(ExplodingGrenadeEventArgs ev)
         {

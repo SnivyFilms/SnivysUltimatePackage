@@ -9,6 +9,7 @@ using MEC;
 using PlayerRoles;
 using UnityEngine;
 using VVUP.Base;
+using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerAPI = Exiled.API.Features.Player;
 using PlayerEvent = Exiled.Events.Handlers.Player;
@@ -16,7 +17,7 @@ using PlayerEvent = Exiled.Events.Handlers.Player;
 namespace VVUP.CustomItems.Items.Other
 {
     [CustomItem(ItemType.Lantern)]
-    public class PhantomLantern : CustomItem
+    public class PhantomLantern : CustomItem, ICustomItemGlow
     {
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.Lantern;
@@ -101,6 +102,9 @@ namespace VVUP.CustomItems.Items.Other
                 }
             }
         };
+        
+        public bool HasCustomItemGlow { get; set; } = true;
+        public Color CustomItemGlowColor { get; set; } = new Color32(0, 150, 255, 191);
 
         protected override void SubscribeEvents()
         {
