@@ -43,14 +43,12 @@ namespace VVUP.CustomRoles.Abilities.Passive
             Log.Debug($"VVUP Custom Abilities: Disguised, Adding Disguised Ability to {player.Nickname}");
             PlayersWithDisguisedEffect.Add(player, DisguisedTrueTeam);
             Exiled.Events.Handlers.Player.Hurting += OnHurting;
-            //Exiled.Events.Handlers.Player.Shot += OnShot;
         }
         protected override void AbilityRemoved(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: Disguised, Removing Disguised Ability from {player.Nickname}");
             PlayersWithDisguisedEffect.Remove(player);
             Exiled.Events.Handlers.Player.Hurting -= OnHurting;
-            //Exiled.Events.Handlers.Player.Shot -= OnShot;
         }
 
         private void OnHurting(HurtingEventArgs ev)
@@ -59,24 +57,6 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 return;
             if (!PlayersWithDisguisedEffect.ContainsKey(ev.Player)) 
                 return;
-            /*if (ev.Player.IsNTF && (ev.Attacker.IsCHI || ev.Attacker.Role.Type == RoleTypeId.ClassD))
-            {
-                Log.Debug("VVUP Custom Abilities: Preventing accidental friendly fire with disguised");
-                if (DisguisedHintDisplay)
-                    ev.Attacker.ShowHint(DisguisedCi, DisguisedTextDisplayTime);
-                else
-                    ev.Attacker.Broadcast(new Exiled.API.Features.Broadcast(DisguisedCi, (ushort)DisguisedTextDisplayTime));
-                ev.IsAllowed = false;
-            }
-            else if (ev.Player.IsCHI && (ev.Attacker.IsNTF || ev.Attacker.Role.Type == RoleTypeId.Scientist))
-            {
-                Log.Debug("VVUP Custom Abilities: Preventing accidental friendly fire with disguised");
-                if (DisguisedHintDisplay)
-                    ev.Attacker.ShowHint(DisguisedMtf, DisguisedTextDisplayTime);
-                else
-                    ev.Attacker.Broadcast(new Exiled.API.Features.Broadcast(DisguisedMtf, (ushort)DisguisedTextDisplayTime));
-                ev.IsAllowed = false;
-            }*/
             
             if ((PlayersWithDisguisedEffect[ev.Player] == TrueTeamEnum.Ntf || PlayersWithDisguisedEffect[ev.Player] == TrueTeamEnum.Mtf) && ev.Attacker.Role.Side == Side.Mtf || 
                 (PlayersWithDisguisedEffect[ev.Player] == TrueTeamEnum.Ci && ev.Attacker.Role.Side == Side.ChaosInsurgency) ||
@@ -90,23 +70,5 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 ev.IsAllowed = false;
             }
         }
-
-        /*private void OnShot(ShotEventArgs ev)
-        {
-            if (PlayersWithDisguisedEffect.ContainsKey(ev.Player))
-            {
-                Log.Debug("VVUP Custom Abilities: Preventing accidental friendly fire with disguised");
-                if (ev.Player.IsNTF)
-                {
-                    if (ev.Target != null && Check(ev.Player) && (ev.Target.Role == RoleTypeId.ClassD || ev.Target.IsCHI))
-                        ev.CanHurt = false;
-                }
-                else if (ev.Player.IsCHI)
-                {
-                    if (ev.Target != null && Check(ev.Player) && (ev.Target.Role == RoleTypeId.Scientist || ev.Target.IsNTF))
-                        ev.CanHurt = false;
-                }
-            }
-        }*/
     }
 }

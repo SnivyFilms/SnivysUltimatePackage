@@ -36,20 +36,18 @@ namespace VVUP.CustomRoles.Abilities.Passive
         [Description("Whether or not the heal over time effect is ended early if the player takes damage.")]
         public bool DamageInterruptsHot { get; set; } = true;
 
-        protected override void SubscribeEvents()
+        protected override void AbilityAdded(Player player)
         {
             Exiled.Events.Handlers.Player.Dying += OnDying;
             if (HealOverTime && DamageInterruptsHot)
                 Exiled.Events.Handlers.Player.Hurting += OnHurting;
-            base.SubscribeEvents(); 
         }
 
-        protected override void UnsubscribeEvents()
+        protected override void AbilityRemoved(Player player)
         {
             Exiled.Events.Handlers.Player.Dying -= OnDying;
             if (HealOverTime && DamageInterruptsHot) 
                 Exiled.Events.Handlers.Player.Hurting -= OnHurting;
-            base.UnsubscribeEvents();
         }
 
         private void OnDying(DyingEventArgs ev)

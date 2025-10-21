@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Items;
@@ -47,19 +48,6 @@ namespace VVUP.CustomRoles.Abilities.Active
 
             var ammoCount = player.Ammo.ToDictionary(ammo => ammo.Key, ammo => ammo.Value);
 
-
-            /*if (player.Role == RoleTypeId.ClassD || player.Role == RoleTypeId.ChaosConscript ||
-                player.Role == RoleTypeId.ChaosMarauder || player.Role == RoleTypeId.ChaosRepressor ||
-                player.Role == RoleTypeId.ChaosRifleman)
-            {
-                player.Role.Set(RoleTypeId.NtfSergeant,
-                    !RestorePreviousInventory ? RoleSpawnFlags.None : RoleSpawnFlags.AssignInventory);
-            }
-            else if (player.Role == RoleTypeId.Scientist || player.Role == RoleTypeId.FacilityGuard ||
-                     player.Role == RoleTypeId.NtfCaptain || player.Role == RoleTypeId.NtfPrivate ||
-                     player.Role == RoleTypeId.NtfSergeant || player.Role == RoleTypeId.NtfSpecialist)
-                player.Role.Set(RoleTypeId.ChaosRifleman, !RestorePreviousInventory ? RoleSpawnFlags.None : RoleSpawnFlags.AssignInventory);
-            */
             Vector3 savedPosition = player.Position;
             if (UseCustomRoles)
             {
@@ -98,7 +86,7 @@ namespace VVUP.CustomRoles.Abilities.Active
 
                     foreach (KeyValuePair<ItemType, ushort> ammo in ammoCount)
                     {
-                        player.AddAmmo(ammoCount);
+                        player.AddAmmo((AmmoType)ammo.Key, ammo.Value);
                     }
                 });
             }

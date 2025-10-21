@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
 using Exiled.CustomRoles.API.Features;
@@ -89,14 +90,11 @@ namespace VVUP.CustomRoles.Abilities.Active
 
         private void OnDummyDying(DyingEventArgs ev)
         {
-            foreach (var kvp in decoys)
+            foreach (var kvp in decoys.Where(kvp => kvp.Value != null && kvp.Value.ReferenceHub == ev.Player.ReferenceHub))
             {
-                if (kvp.Value != null && kvp.Value.ReferenceHub == ev.Player.ReferenceHub)
-                {
-                    kvp.Key.Kill(KilledDecoy);
-                    EndAbility(kvp.Key);
-                    break;
-                }
+                kvp.Key.Kill(KilledDecoy);
+                EndAbility(kvp.Key);
+                break;
             }
         }
     }
