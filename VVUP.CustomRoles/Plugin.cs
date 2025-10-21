@@ -22,7 +22,7 @@ namespace VVUP.CustomRoles
         public override string Name { get; } = "VVUP: Custom Roles";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.CR";
-        public override Version Version { get; } = new Version(3, 3, 2);
+        public override Version Version { get; } = new Version(3, 3, 3);
         public override Version RequiredExiledVersion { get; } = new Version(9, 9, 2);
         
         public Dictionary<StartTeam, List<ICustomRole>> Roles { get; } = new();
@@ -81,7 +81,7 @@ namespace VVUP.CustomRoles
                 {
                     foreach (CustomAbility ability in role.CustomAbilities)
                     {
-                        Log.Warn($"VVUP CR: Registering ability {ability.Name}");
+                        Log.Debug($"VVUP CR: Registering ability {ability.Name}");
                         ability.Register();
                     }
                 }
