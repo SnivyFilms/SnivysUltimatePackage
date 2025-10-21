@@ -48,7 +48,6 @@ namespace VVUP.HuskInfection
                 base.OnDisabled();
                 return;
             }
-            CustomAbility.RegisterAbilities(false, null);
             HashSet<CustomRole> existingRoles = new HashSet<CustomRole>(CustomRole.Registered);
             Config.CustomRoleConfig.HuskZombies.Register();
             foreach (CustomRole role in CustomRole.Registered)
