@@ -42,6 +42,7 @@
         <Reference Include="UnityEngine.CoreModule">
             <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
             <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\UnityEngine.CoreModule.dll</HintPath>
+            <Private>false</Private>
         </Reference>
     </ItemGroup>
     <ItemGroup>
@@ -53,7 +54,7 @@
         <Compile Include="Plugin.cs" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="ExMod.Exiled" Version="9.9.2" />
+        <PackageReference Include="ExMod.Exiled" Version="9.9.2" PrivateAssets="all" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -63,5 +64,7 @@
     <Target Name="AfterBuild">
     </Target>
     -->
-
+    <PropertyGroup>
+        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
 </Project>
