@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
 using Exiled.CustomRoles.API.Features;
@@ -24,18 +25,23 @@ namespace VVUP.CustomRoles.Abilities.Passive
         public bool UseHints { get; set; } = true;
         public bool AllowedUncuffedEscape { get; set; } = false;
         public bool AllowedCuffedEscape { get; set; } = false;
+        private List<Player> playersWithRestrictedEscape = new List<Player>();
         
         protected override void AbilityAdded(Player player)
         {
             Exiled.Events.Handlers.Player.Escaping += OnEscaping;
+            playersWithRestrictedEscape.Add(player);
         }
         protected override void AbilityRemoved(Player player)
         {
             Exiled.Events.Handlers.Player.Escaping -= OnEscaping;
+            playersWithRestrictedEscape.Remove(player);
         }
 
         private void OnEscaping(EscapingEventArgs ev)
         {
+            if (!playersWithRestrictedEscape.Contains(ev.Player))
+                return;
             if (!AllowedCuffedEscape && !AllowedUncuffedEscape)
             {
                 ev.IsAllowed = false;
