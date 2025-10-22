@@ -3,19 +3,15 @@ using Exiled.API.Extensions;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Items;
-using Exiled.API.Features.Pickups;
 using Exiled.API.Features.Roles;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
-using Exiled.Events.EventArgs.Map;
 using Exiled.Events.EventArgs.Player;
-using Mirror;
 using PlayerRoles;
 using System.Collections.Generic;
 using UnityEngine;
 using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
-using Light = Exiled.API.Features.Toys.Light;
 
 namespace VVUP.CustomItems.Items.MedicalItems
 {
