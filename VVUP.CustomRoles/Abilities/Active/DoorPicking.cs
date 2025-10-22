@@ -39,24 +39,21 @@ namespace VVUP.CustomRoles.Abilities.Active
             },
         };
         private bool pickingDoor = false;
-        private List<Player> playerWithDoorPicking = new List<Player>();
         protected override void AbilityUsed(Player player)
         {
             Exiled.Events.Handlers.Player.InteractingDoor += OnInteractingDoor;
             player.ShowHint(BeforePickingDoorText, 5f);
             pickingDoor = true;
-            playerWithDoorPicking.Add(player);
         }
 
         protected override void AbilityEnded(Player player)
         {
             Exiled.Events.Handlers.Player.InteractingDoor -= OnInteractingDoor;
-            playerWithDoorPicking.Remove(player);
         }
 
         private void OnInteractingDoor(InteractingDoorEventArgs ev)
         {
-            if (!playerWithDoorPicking.Contains(ev.Player))
+            if (!Check(ev.Player))
                 return;
             
             if (ev.Door.IsOpen)

@@ -11,6 +11,7 @@ using Exiled.Events.EventArgs.Server;
 using InventorySystem.Items.Firearms.Attachments;
 using MEC;
 using UnityEngine;
+using VVUP.Base.API;
 using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
@@ -54,17 +55,21 @@ namespace VVUP.CustomItems.Items.Firearms
                     Chance = 25,
                     Location = SpawnLocationType.Inside049Armory,
                 },
-                new()
-                {
-                    Chance = 25,
-                    Location = SpawnLocationType.Inside096,
-                },
                 new ()
                 {
                     Chance = 25,
                     Location = SpawnLocationType.Inside079Armory,
                 },
-            }
+            },
+            RoomSpawnPoints = new List<RoomSpawnPoint>
+            {
+                new()
+                {
+                    Chance = 25,
+                    Offset = new Vector3(-3.25f, 1, -0.78f),
+                    Room = RoomType.Hcz096,
+                }
+            },
         };
         
         public override AttachmentName[] Attachments { get; set; } = new[]

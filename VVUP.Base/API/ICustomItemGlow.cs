@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace VVUP.CustomItems.API
+namespace VVUP.Base.API
 {
     public interface ICustomItemGlow
     {

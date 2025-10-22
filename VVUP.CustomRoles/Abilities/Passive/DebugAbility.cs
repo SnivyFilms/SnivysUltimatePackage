@@ -41,6 +41,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
             for (;;)
             {
                 Log.Warn($"VVUP: {player.Position}");
+                Log.Warn($"VVUP: {player.CurrentRoom.LocalPosition(player.Position)}");
                 yield return Timing.WaitForSeconds(0.5f);
             }
         }

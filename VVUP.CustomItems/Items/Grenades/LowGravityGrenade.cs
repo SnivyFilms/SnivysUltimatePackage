@@ -7,6 +7,7 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
 using MEC;
 using UnityEngine;
+using VVUP.Base.API;
 using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerLab = LabApi.Features.Wrappers.Player;

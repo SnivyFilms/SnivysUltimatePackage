@@ -12,22 +12,18 @@ namespace VVUP.CustomRoles.Abilities.Passive
     {
         public override string Name { get; set; } = "Team Convert On Kill";
         public override string Description { get; set; } = "Enables Effects to whoever you hit";
-        
-        public List<Player> PlayersWithConvertOnKill = new List<Player>();
         [Description("What role should the player be converted to?")]
         public RoleTypeId ConvertToRole { get; set; } = RoleTypeId.Tutorial;
         
         protected override void AbilityAdded(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: TeamConvertOnKill, Adding TeamConvertOnKill Ability to {player.Nickname}");
-            PlayersWithConvertOnKill.Add(player);
             Exiled.Events.Handlers.Player.Dying += OnDying;
         }
 
         protected override void AbilityRemoved(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: TeamConvertOnKill, Removing TeamConvertOnKill Ability from {player.Nickname}");
-            PlayersWithConvertOnKill.Remove(player);
             Exiled.Events.Handlers.Player.Dying -= OnDying;
         }
 
@@ -35,7 +31,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
         {
             if (ev.Attacker == null || ev.Player == null)
                 return;
-            if (PlayersWithConvertOnKill.Contains(ev.Attacker))
+            if (Check(ev.Attacker))
             {
                 Timing.CallDelayed(0.5f, () =>
                 {

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Exiled.API.Features.Pickups;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
 using Mirror;
 using UnityEngine;
-using VVUP.CustomItems.API;
+using VVUP.Base.API;
 using Light = Exiled.API.Features.Toys.Light;
 
-namespace VVUP.CustomItems.EventHandlers
+namespace VVUP.Base.EventHandlers
 {
     public class CustomItemEventHandlers
     {
@@ -87,7 +86,7 @@ namespace VVUP.CustomItems.EventHandlers
                 }
                 catch
                 {
-                     // You know it would be really funny if I didn't do anything.
+                     // You know it would be extremely hilarious if I didn't do anything.
                 }
             }
             ActiveGlowEffects.Clear();

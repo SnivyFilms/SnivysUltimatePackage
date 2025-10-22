@@ -15,26 +15,23 @@ namespace VVUP.CustomRoles.Abilities.Passive
             "When dealing damage to a player, you are able to heal a set percentage of the damage dealt.";
         
         public float LifeStealPercentage { get; set; } = 0.1f;
-        private List<Player> playersWithLifeSteal = new List<Player>();
         
         protected override void AbilityAdded(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: LifeSteal, Adding LifeSteal Ability to {player.Nickname}");
             Exiled.Events.Handlers.Player.Hurting += OnHurting;
-            playersWithLifeSteal.Add(player);
         }
         protected override void AbilityRemoved(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: LifeSteal, Removing LifeSteal Ability from {player.Nickname}");
             Exiled.Events.Handlers.Player.Hurting -= OnHurting;
-            playersWithLifeSteal.Remove(player);
         }
         private void OnHurting(HurtingEventArgs ev)
         {
             if (ev.Attacker == null || ev.Player == null)
                 return;
             
-            if (ev.Attacker.IsAlive && ev.Player.IsAlive && ev.Attacker != ev.Player && playersWithLifeSteal.Contains(ev.Attacker))
+            if (ev.Attacker.IsAlive && ev.Player.IsAlive && ev.Attacker != ev.Player && Check(ev.Attacker))
             {
                 ev.Attacker.Heal(ev.Amount * LifeStealPercentage);
                 Log.Debug($"VVUP Custom Abilities: LifeSteal, {ev.Attacker.Nickname} healed for {ev.Amount * LifeStealPercentage} health from {ev.Player.Nickname}");

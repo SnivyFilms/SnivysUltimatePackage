@@ -13,6 +13,7 @@ using Exiled.Events.EventArgs.Player;
 using Exiled.Events.EventArgs.Server;
 using InventorySystem.Items.ThrowableProjectiles;
 using UnityEngine;
+using VVUP.Base.API;
 using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerEvent = Exiled.Events.Handlers.Player;

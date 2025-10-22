@@ -11,6 +11,7 @@ using Interactables.Interobjects.DoorUtils;
 using InventorySystem;
 using InventorySystem.Items.Keycards;
 using UnityEngine;
+using VVUP.Base.API;
 using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 

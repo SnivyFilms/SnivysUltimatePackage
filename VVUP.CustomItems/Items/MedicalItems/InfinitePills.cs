@@ -5,6 +5,7 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using UnityEngine;
+using VVUP.Base.API;
 using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 

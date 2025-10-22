@@ -8,6 +8,7 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
 using PlayerRoles;
 using UnityEngine;
+using VVUP.Base.API;
 using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerAPI = Exiled.API.Features.Player;
@@ -46,12 +47,16 @@ namespace VVUP.HuskInfection
                 new()
                 {
                     Chance = 10,
-                    Location = SpawnLocationType.Inside096,
+                    Location = SpawnLocationType.Inside079Armory,
                 },
+            },
+            RoomSpawnPoints = new List<RoomSpawnPoint>
+            {
                 new()
                 {
-                    Chance = 10,
-                    Location = SpawnLocationType.Inside079Armory,
+                    Chance = 100,
+                    Offset = new Vector3(-3.25f, 1, -0.78f),
+                    Room = RoomType.Hcz096,
                 },
             },
         };

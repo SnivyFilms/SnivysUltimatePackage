@@ -9,6 +9,7 @@ using MEC;
 using PlayerRoles;
 using UnityEngine;
 using VVUP.Base;
+using VVUP.Base.API;
 using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerAPI = Exiled.API.Features.Player;
@@ -76,11 +77,6 @@ namespace VVUP.CustomItems.Items.Other
                 new()
                 {
                     Chance = 10,
-                    Location = SpawnLocationType.Inside096,
-                },
-                new()
-                {
-                    Chance = 10,
                     Location = SpawnLocationType.InsideGr18,
                 },
             },
@@ -99,8 +95,14 @@ namespace VVUP.CustomItems.Items.Other
                     Chance = 10,
                     Room = RoomType.HczTestRoom,
                     Offset = new Vector3(0.885f, 0.749f, -4.874f)
+                },
+                new()
+                {
+                    Chance = 10,
+                    Offset = new Vector3(-3.25f, 1, -0.78f),
+                    Room = RoomType.Hcz096,
                 }
-            }
+            },
         };
         
         public bool HasCustomItemGlow { get; set; } = true;

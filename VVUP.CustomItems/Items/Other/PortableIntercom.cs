@@ -12,6 +12,7 @@ using MEC;
 using PlayerRoles;
 using PlayerRoles.Voice;
 using UnityEngine;
+using VVUP.Base.API;
 using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using IntercomBase = PlayerRoles.Voice.Intercom;
@@ -44,11 +45,6 @@ namespace VVUP.CustomItems.Items.Other
                 new()
                 {
                     Chance = 10,
-                    Location = SpawnLocationType.Inside096,
-                },
-                new()
-                {
-                    Chance = 10,
                     Location = SpawnLocationType.InsideGr18,
                 },
             },
@@ -67,8 +63,14 @@ namespace VVUP.CustomItems.Items.Other
                     Chance = 10,
                     Room = RoomType.HczTestRoom,
                     Offset = new Vector3(0.885f, 0.749f, -4.874f)
-                }
-            }
+                },
+                new()
+                {
+                    Chance = 100,
+                    Offset = new Vector3(-3.25f, 1, -0.78f),
+                    Room = RoomType.Hcz096,
+                },
+            },
         };
         public float PortableIntercomDuration { get; set; } = 20f;
         [Description("Use %intercomtimeremaining% to show how much time is remaining on the portable intercom.")]

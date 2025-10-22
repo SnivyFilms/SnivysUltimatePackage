@@ -39,6 +39,11 @@
         <Reference Include="System.Core"/>
         <Reference Include="System.Data"/>
         <Reference Include="System.Xml"/>
+        <Reference Include="Mirror">
+            <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\Mirror.dll</HintPath>
+            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\Mirror.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
         <Reference Include="UnityEngine.CoreModule">
             <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
             <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\UnityEngine.CoreModule.dll</HintPath>
@@ -46,9 +51,11 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="API\ICustomItemGlow.cs" />
         <Compile Include="ApplyEffects.cs" />
         <Compile Include="Config.cs" />
         <Compile Include="ActiveModulesCommand.cs" />
+        <Compile Include="EventHandlers\CustomItemEventHandlers.cs" />
         <Compile Include="GetRandomNumber.cs" />
         <Compile Include="GetRandomSpectator.cs" />
         <Compile Include="Plugin.cs" />

@@ -17,6 +17,7 @@ using MEC;
 using Mirror;
 using PlayerRoles;
 using UnityEngine;
+using VVUP.Base.API;
 using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using Item = Exiled.API.Features.Items.Item;
@@ -93,14 +94,18 @@ namespace VVUP.CustomItems.Items.Firearms
                 new()
                 {
                     Chance = 20,
-                    Location = SpawnLocationType.Inside096,
+                    Location = SpawnLocationType.InsideLczCafe,
                 },
+            },
+            RoomSpawnPoints = new List<RoomSpawnPoint>
+            {
                 new()
                 {
                     Chance = 20,
-                    Location = SpawnLocationType.InsideLczCafe,
+                    Offset = new Vector3(-3.25f, 1, -0.78f),
+                    Room = RoomType.Hcz096,
                 },
-            }
+            },
         };
         
         public bool HasCustomItemGlow { get; set; } = true;

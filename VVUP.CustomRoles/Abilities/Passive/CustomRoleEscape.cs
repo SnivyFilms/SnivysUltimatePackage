@@ -34,27 +34,22 @@ namespace VVUP.CustomRoles.Abilities.Passive
 
         private List<Item> storedInventory = new List<Item>();
         
-        private List<Player> playersWithCustomRoleEscape = new List<Player>();
-        
-        
         protected override void AbilityAdded(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: Custom Role Escape, Adding Custom Role Escape Ability to {player.Nickname}");
             Exiled.Events.Handlers.Player.Escaping += OnEscaping;
             Exiled.Events.Handlers.Player.ChangingRole += OnRoleChange;
-            playersWithCustomRoleEscape.Add(player);
         }
         protected override void AbilityRemoved(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: Custom Role Escape, Removing Custom Role Escape Ability from {player.Nickname}");
             Exiled.Events.Handlers.Player.Escaping -= OnEscaping;
             Exiled.Events.Handlers.Player.ChangingRole -= OnRoleChange;
-            playersWithCustomRoleEscape.Remove(player);
         }
 
         private void OnEscaping(EscapingEventArgs ev)
         {
-            if (!playersWithCustomRoleEscape.Contains(ev.Player))
+            if (!Check(ev.Player))
                 return;
             Log.Debug($"VVUP Custom Abilities: Processing {ev.Player.Nickname} custom escape");
             storedInventory = ev.Player.Items.ToList();
@@ -111,7 +106,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
         {
             if (ev.NewRole is RoleTypeId.Spectator or RoleTypeId.None or RoleTypeId.Overwatch)
                 return;
-            if (!playersWithCustomRoleEscape.Contains(ev.Player))
+            if (!Check(ev.Player))
                 return;
             Log.Debug($"VVUP Custom Abilities: Processing {ev.Player.Nickname} custom escape");
             if (UseOnSpawnUncuffedEscape && ev.Reason == SpawnReason.Escaped && UncuffedEscapeCustomRole != String.Empty)

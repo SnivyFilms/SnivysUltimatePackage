@@ -1,6 +1,9 @@
 ﻿using System;
 using Exiled.API.Enums;
 using Exiled.API.Features;
+using VVUP.Base.EventHandlers;
+using Map = Exiled.Events.Handlers.Map;
+using Server = Exiled.Events.Handlers.Server;
 
 namespace VVUP.Base
 {
@@ -26,10 +29,17 @@ namespace VVUP.Base
         public bool VvupHk = false; // Husk Infection
         public bool VvupVo = false; // Votes
         public bool VvupCt = false; // Credit Tags
+        
+        public CustomItemEventHandlers CustomItemEventHandlers;
 
         public override void OnEnabled()
         {
             Instance = this;
+            CustomItemEventHandlers = new CustomItemEventHandlers(this);
+            Server.RoundStarted += CustomItemEventHandlers.OnRoundStarted;
+            Server.WaitingForPlayers += CustomItemEventHandlers.OnWaitingForPlayers;
+            Map.PickupAdded += CustomItemEventHandlers.AddGlow;
+            Map.PickupDestroyed += CustomItemEventHandlers.RemoveGlow;
             base.OnEnabled();
         }
 
@@ -48,6 +58,11 @@ namespace VVUP.Base
             VvupVo = false;
             VvupCt = false;
             
+            Server.RoundStarted -= CustomItemEventHandlers.OnRoundStarted;
+            Server.WaitingForPlayers -= CustomItemEventHandlers.OnWaitingForPlayers;
+            Map.PickupAdded -= CustomItemEventHandlers.AddGlow;
+            Map.PickupDestroyed -= CustomItemEventHandlers.RemoveGlow;
+            CustomItemEventHandlers = null;
             Instance = null;
             base.OnDisabled();
         }

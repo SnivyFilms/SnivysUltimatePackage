@@ -8,6 +8,7 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using UnityEngine;
 using VVUP.Base;
+using VVUP.Base.API;
 using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerEvents = Exiled.Events.Handlers.Player;
@@ -45,15 +46,19 @@ namespace VVUP.CustomItems.Items.MedicalItems
             {
                 new DynamicSpawnPoint()
                 {
-                    Chance = 50,
-                    Location = SpawnLocationType.Inside096,
-                },
-                new DynamicSpawnPoint()
-                {
                     Chance = 100,
                     Location = SpawnLocationType.Inside939Cryo,
                 },
-            }
+            },
+            RoomSpawnPoints = new List<RoomSpawnPoint>
+            {
+                new()
+                {
+                    Chance = 50,
+                    Offset = new Vector3(-3.25f, 1, -0.78f),
+                    Room = RoomType.Hcz096,
+                }
+            },
         };
         public bool HasCustomItemGlow { get; set; } = true;
         public Color CustomItemGlowColor { get; set; } = new Color32(0, 0, 204, 191);

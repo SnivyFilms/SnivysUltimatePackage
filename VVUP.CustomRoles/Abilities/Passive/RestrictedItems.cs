@@ -13,14 +13,12 @@ namespace VVUP.CustomRoles.Abilities.Passive
         public override string Description { get; set; } = "Handles restricted items";
 
         public List<ItemType> RestrictedItemList { get; set; } = new List<ItemType>();
-        public List<Player> PlayersWithRestrictedItemsEffect = new List<Player>();
         public bool RestrictUsingItems { get; set; } = true;
         public bool RestrictPickingUpItems { get; set; } = true;
         public bool RestrictDroppingItems { get; set; } = true;
 
         protected override void AbilityAdded(Player player)
         {
-            PlayersWithRestrictedItemsEffect.Add(player);
             Exiled.Events.Handlers.Player.UsingItem += OnUsingItem;
             Exiled.Events.Handlers.Player.PickingUpItem += OnPickingUpItem;
             Exiled.Events.Handlers.Player.DroppingItem += OnDroppingItem;
@@ -28,7 +26,6 @@ namespace VVUP.CustomRoles.Abilities.Passive
 
         protected override void AbilityRemoved(Player player)
         {
-            PlayersWithRestrictedItemsEffect.Remove(player);
             Exiled.Events.Handlers.Player.UsingItem -= OnUsingItem;
             Exiled.Events.Handlers.Player.PickingUpItem -= OnPickingUpItem;
             Exiled.Events.Handlers.Player.DroppingItem -= OnDroppingItem;
@@ -38,7 +35,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
         {
             if (!RestrictUsingItems)
                 return;
-            if (PlayersWithRestrictedItemsEffect.Contains(ev.Player) && RestrictedItemList != null &&
+            if (Check(ev.Player) && RestrictedItemList != null &&
                 RestrictedItemList.Contains(ev.Item.Type))
             {
                 Log.Debug($"VVUP Custom Abilities: Restricting {ev.Player.Nickname} from using up {ev.Item}");
@@ -50,7 +47,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
         {
             if (!RestrictPickingUpItems)
                 return;
-            if (PlayersWithRestrictedItemsEffect.Contains(ev.Player) && RestrictedItemList != null &&
+            if (Check(ev.Player) && RestrictedItemList != null &&
                 RestrictedItemList.Contains(ev.Pickup.Type))
             {
                 Log.Debug($"VVUP Custom Abilities: Restricting {ev.Player.Nickname} from picking up {ev.Pickup}");
@@ -61,7 +58,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
         {
             if (!RestrictDroppingItems)
                 return;
-            if (PlayersWithRestrictedItemsEffect.Contains(ev.Player) && RestrictedItemList != null &&
+            if (Check(ev.Player) && RestrictedItemList != null &&
                 RestrictedItemList.Contains(ev.Item.Type))
             {
                 Log.Debug($"VVUP Custom Abilities: Restricting {ev.Player.Nickname} from dropping {ev.Item}");

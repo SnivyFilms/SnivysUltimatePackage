@@ -70,14 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\ICustomItemGlow.cs" />
     <Compile Include="API\StickyGrenadeApi.cs" />
     <Compile Include="Commands\C4Detonate.cs" />
     <Compile Include="Commands\GrenadeLauncherCollider.cs" />
     <Compile Include="Commands\GrenadeLauncherForce.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="CustomItemsConfig.cs" />
-    <Compile Include="EventHandlers\CustomItemEventHandlers.cs" />
     <Compile Include="Items\Armor\ExplosiveResistantArmor.cs" />
     <Compile Include="Items\Armor\LowGravityArmor.cs" />
     <Compile Include="Items\Firearms\ExplosiveRoundRevolver.cs" />

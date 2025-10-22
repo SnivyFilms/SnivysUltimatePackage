@@ -18,6 +18,7 @@ using InventorySystem.Items.Firearms.Attachments;
 using JetBrains.Annotations;
 using MEC;
 using UnityEngine;
+using VVUP.Base.API;
 using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using Attachment = InventorySystem.Items.Firearms.Attachments.Components.Attachment;
@@ -61,11 +62,6 @@ namespace VVUP.CustomItems.Items.Grenades
                 new()
                 {
                     Chance = 50,
-                    Location = SpawnLocationType.Inside096,
-                },
-                new()
-                {
-                    Chance = 50,
                     Location = SpawnLocationType.InsideHczArmory,
                 },
                 new()
@@ -73,6 +69,15 @@ namespace VVUP.CustomItems.Items.Grenades
                     Chance = 50,
                     Location = SpawnLocationType.InsideSurfaceNuke,
                 },
+            },
+            RoomSpawnPoints = new List<RoomSpawnPoint>
+            {
+                new()
+                {
+                    Chance = 50,
+                    Offset = new Vector3(-3.25f, 1, -0.78f),
+                    Room = RoomType.Hcz096,
+                }
             },
         };
         public bool HasCustomItemGlow { get; set; } = true;

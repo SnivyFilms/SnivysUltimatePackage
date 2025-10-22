@@ -10,6 +10,7 @@ using MEC;
 using PlayerRoles;
 using UnityEngine;
 using VVUP.Base;
+using VVUP.Base.API;
 using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
@@ -36,13 +37,14 @@ namespace VVUP.CustomItems.Items.MedicalItems
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,
-            DynamicSpawnPoints = new List<DynamicSpawnPoint>
+            RoomSpawnPoints = new List<RoomSpawnPoint>
             {
                 new()
                 {
                     Chance = 100,
-                    Location = SpawnLocationType.Inside096,
-                },
+                    Offset = new Vector3(-3.25f, 1, -0.78f),
+                    Room = RoomType.Hcz096,
+                }
             },
         };
         public bool HasCustomItemGlow { get; set; } = true;
