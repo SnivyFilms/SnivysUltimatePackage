@@ -169,5 +169,10 @@ namespace VVUP.CustomItems
         {
             new GuardianGrenade()
         };
+
+        public List<AED> AEDs { get; private set; } = new()
+        {
+            new AED()
+        };
     }
 }
