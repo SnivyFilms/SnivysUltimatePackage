@@ -10,7 +10,7 @@ using Exiled.Events.EventArgs.Player;
 using PlayerRoles;
 using System.Collections.Generic;
 using UnityEngine;
-using VVUP.CustomItems.API;
+using VVUP.Base.API;
 using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.MedicalItems
@@ -24,7 +24,7 @@ namespace VVUP.CustomItems.Items.MedicalItems
 
         [YamlIgnore]
         public override ItemType Type { get; set; } = ItemType.Medkit;
-        public override uint Id { get; set; } = 55;
+        public override uint Id { get; set; } = 56;
         public override string Name { get; set; } = "<color=red>AED</color>";
         public override string Description { get; set; } = "<color=red>A</color>utomated <color=red>E</color>xternal <color=red>D</color>efibrillator";
         public override float Weight { get; set; } = 1f;
