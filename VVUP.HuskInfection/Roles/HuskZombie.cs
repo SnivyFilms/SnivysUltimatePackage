@@ -3,8 +3,9 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
 using VVUP.CustomRoles.API;
+using VVUP.HuskInfection.Abilities;
 
-namespace VVUP.HuskInfection
+namespace VVUP.HuskInfection.Roles
 {
     public class HuskZombie : CustomRole, ICustomRole
     {

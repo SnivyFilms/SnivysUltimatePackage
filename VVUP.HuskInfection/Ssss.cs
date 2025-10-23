@@ -6,6 +6,8 @@ using Exiled.CustomItems.API.Features;
 using Exiled.CustomRoles.API.Features;
 using NorthwoodLib.Pools;
 using UserSettings.ServerSpecific;
+using VVUP.HuskInfection.Items;
+using VVUP.HuskInfection.Roles;
 
 namespace VVUP.HuskInfection
 {

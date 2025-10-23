@@ -71,17 +71,17 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="ApplyHuskInfection.cs" />
-        <Compile Include="Calyxanide.cs" />
-        <Compile Include="Config.cs" />
-        <Compile Include="CustomItemConfig.cs" />
-        <Compile Include="CustomRoleConfig.cs" />
-        <Compile Include="HuskGrenade.cs" />
-        <Compile Include="HuskInfectionEventHandlers.cs" />
-        <Compile Include="HuskZombie.cs" />
+        <Compile Include="Abilities\ApplyHuskInfection.cs" />
+        <Compile Include="Configs\Config.cs" />
+        <Compile Include="Configs\CustomItemConfig.cs" />
+        <Compile Include="Configs\CustomRoleConfig.cs" />
+        <Compile Include="EventHandlers\HuskInfectionEventHandlers.cs" />
+        <Compile Include="EventHandlers\SsssEventHandlers.cs" />
+        <Compile Include="Items\Calyxanide.cs" />
+        <Compile Include="Items\HuskGrenade.cs" />
         <Compile Include="Plugin.cs" />
+        <Compile Include="Roles\HuskZombie.cs" />
         <Compile Include="Ssss.cs" />
-        <Compile Include="SsssEventHandlers.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\VVUP.Base\VVUP.Base.csproj">
@@ -98,7 +98,7 @@
       </ProjectReference>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="ExMod.Exiled" Version="9.9.2" PrivateAssets="all" />
+        <PackageReference Include="ExMod.Exiled" Version="9.10.0-rc.1" PrivateAssets="all" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

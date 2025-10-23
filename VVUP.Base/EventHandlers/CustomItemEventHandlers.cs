@@ -14,49 +14,67 @@ namespace VVUP.Base.EventHandlers
     {
         private readonly Plugin Plugin;
         public CustomItemEventHandlers(Plugin plugin) => Plugin = plugin;
-        
+
         private static readonly Dictionary<Pickup, Light> ActiveGlowEffects = new Dictionary<Pickup, Light>();
-        
+
         public void OnRoundStarted()
         {
             foreach (Pickup pickup in Pickup.List)
             {
-                CustomItem.TryGet(pickup, out CustomItem ci);
-                if (ci is ICustomItemGlow { HasCustomItemGlow: true } glowableItem)
-                {
-                    ApplyGlowEffect(pickup, glowableItem.CustomItemGlowColor);
-                }
+                HandleGlowEffect(pickup);
             }
         }
-        
+
         public void AddGlow(PickupAddedEventArgs ev)
         {
-            CustomItem.TryGet(ev.Pickup, out CustomItem ci);
-            if (ci is ICustomItemGlow { HasCustomItemGlow: true } glowableItem)
-            {
-                ApplyGlowEffect(ev.Pickup, glowableItem.CustomItemGlowColor);
-            }
+            HandleGlowEffect(ev.Pickup);
         }
-        
+
         public void RemoveGlow(PickupDestroyedEventArgs ev)
         {
             if (ev.Pickup == null || ev.Pickup?.Base?.gameObject == null)
                 return;
-            if (!ActiveGlowEffects.ContainsKey(ev.Pickup)) 
-                return;
-            if (CustomItem.TryGet(ev.Pickup.Serial, out CustomItem ci) && ci is ICustomItemGlow { HasCustomItemGlow: true })
-            {
+                
+            if (ActiveGlowEffects.ContainsKey(ev.Pickup))
                 RemoveGlowEffect(ev.Pickup);
-            }
         }
-        
+
         public void OnWaitingForPlayers()
         {
             ClearAllGlowEffects();
         }
 
-        private void ApplyGlowEffect(Pickup pickup, Color32 glowColor)
+        private void HandleGlowEffect(Pickup pickup)
         {
+            if (pickup == null)
+                return;
+            
+            if (CustomItem.TryGet(pickup, out CustomItem ci))
+            {
+                if (ci is ICustomItemGlow { HasCustomItemGlow: true } glowableItem)
+                {
+                    ApplyGlowEffect(pickup, glowableItem.CustomItemGlowColor);
+                }
+                
+                else if (Plugin.Config.EnableCompatibilityGlow)
+                {
+                    
+                    var configGlow = Plugin.Config.CustomItemGlow.FirstOrDefault(g => g.CustomItemId == ci.Id);
+                    if (configGlow != null)
+                    {
+                        ApplyGlowEffect(pickup, configGlow.GetColor());
+                    }
+                }
+            }
+        }
+
+        private void ApplyGlowEffect(Pickup pickup, Color glowColor)
+        {
+            if (ActiveGlowEffects.ContainsKey(pickup))
+            {
+                RemoveGlowEffect(pickup);
+            }
+            
             var light = Light.Create(pickup.Position);
             light.Color = glowColor;
             light.Range = 0.25f;

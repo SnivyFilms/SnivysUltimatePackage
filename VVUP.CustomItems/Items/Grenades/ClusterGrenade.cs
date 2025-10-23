@@ -11,7 +11,6 @@ using JetBrains.Annotations;
 using MEC;
 using UnityEngine;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.Grenades

@@ -1,4 +1,4 @@
-namespace VVUP.CustomItems
+namespace VVUP.CustomItems.Configs
 {
     public class SsssConfig
     {

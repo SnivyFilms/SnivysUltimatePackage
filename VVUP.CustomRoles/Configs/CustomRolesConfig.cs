@@ -6,7 +6,7 @@ using VVUP.CustomRoles.Roles.Other;
 using VVUP.CustomRoles.Roles.Scientist;
 using VVUP.CustomRoles.Roles.Scps;
 
-namespace VVUP.CustomRoles
+namespace VVUP.CustomRoles.Configs
 {
     public class CustomRolesConfig
     {

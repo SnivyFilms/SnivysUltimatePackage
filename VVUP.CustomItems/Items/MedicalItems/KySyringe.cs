@@ -9,7 +9,6 @@ using Exiled.Events.EventArgs.Player;
 using UnityEngine;
 using VVUP.Base;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerEvents = Exiled.Events.Handlers.Player;
 

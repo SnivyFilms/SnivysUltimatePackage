@@ -9,7 +9,6 @@ using Exiled.Events.EventArgs.Player;
 using MEC;
 using UnityEngine;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using Item = Exiled.API.Features.Items.Item;
 using Server = Exiled.API.Features.Server;

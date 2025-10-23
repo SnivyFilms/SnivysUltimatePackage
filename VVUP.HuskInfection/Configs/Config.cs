@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using Exiled.API.Interfaces;
 
-namespace VVUP.HuskInfection
+namespace VVUP.HuskInfection.Configs
 {
     public class Config : IConfig
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using CommandSystem;
 
-namespace VVUP.OperationCrossfireServerEvent
+namespace VVUP.OperationCrossfireServerEvent.Commands
 {
     public class OperationCrossfireStopCommand : ICommand
     {

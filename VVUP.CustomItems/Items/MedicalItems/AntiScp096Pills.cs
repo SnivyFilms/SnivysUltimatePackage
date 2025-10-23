@@ -11,7 +11,6 @@ using PlayerRoles;
 using UnityEngine;
 using VVUP.Base;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.MedicalItems

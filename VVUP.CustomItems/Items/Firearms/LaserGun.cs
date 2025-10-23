@@ -14,7 +14,6 @@ using UnityEngine;
 using UserSettings.ServerSpecific;
 using VVUP.Base;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 
 namespace VVUP.CustomItems.Items.Firearms
 {

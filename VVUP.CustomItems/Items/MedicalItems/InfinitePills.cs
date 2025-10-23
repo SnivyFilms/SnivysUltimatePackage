@@ -6,7 +6,6 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using UnityEngine;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.MedicalItems

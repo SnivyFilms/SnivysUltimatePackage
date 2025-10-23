@@ -107,10 +107,13 @@
     <Compile Include="API\ExternalTeams\UiuCheck.cs" />
     <Compile Include="API\ICustomRole.cs" />
     <Compile Include="API\StartTeam.cs" />
-    <Compile Include="Config.cs" />
-    <Compile Include="CustomRolesConfig.cs" />
+    <Compile Include="Configs\Config.cs" />
+    <Compile Include="Configs\CustomRolesConfig.cs" />
+    <Compile Include="Configs\CustomRoleWrapperConfig.cs" />
+    <Compile Include="Configs\SsssConfig.cs" />
     <Compile Include="EventHandlers\CustomRoleEventHandler.cs" />
     <Compile Include="EventHandlers\CustomRoleMethods.cs" />
+    <Compile Include="EventHandlers\SsssEventHandlers.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Roles\Chaos\A7Chaos.cs" />
     <Compile Include="Roles\Chaos\CiPhantom.cs" />
@@ -145,8 +148,6 @@
     <Compile Include="Roles\Scps\SpeedsterZombie.cs" />
     <Compile Include="Roles\Scps\TeleportZombie.cs" />
     <Compile Include="Ssss.cs" />
-    <Compile Include="SsssConfig.cs" />
-    <Compile Include="SsssEventHandlers.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VVUP.Base\VVUP.Base.csproj">
@@ -155,7 +156,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-      <PackageReference Include="ExMod.Exiled" Version="9.9.2" PrivateAssets="all" />
+      <PackageReference Include="ExMod.Exiled" Version="9.10.0-rc.1" PrivateAssets="all" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

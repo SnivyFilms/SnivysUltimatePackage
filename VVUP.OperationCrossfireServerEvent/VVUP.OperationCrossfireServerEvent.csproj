@@ -71,12 +71,12 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
-      <Compile Include="OcfPrototypeKeycardBasic.cs" />
-      <Compile Include="OcfPrototypeKeycardRefined.cs" />
-      <Compile Include="OperationCrossfireCommand.cs" />
+      <Compile Include="Commands\OperationCrossfireCommand.cs" />
+      <Compile Include="Commands\OperationCrossfireStopCommand.cs" />
+      <Compile Include="Items\OcfPrototypeKeycardBasic.cs" />
+      <Compile Include="Items\OcfPrototypeKeycardRefined.cs" />
       <Compile Include="OperationCrossfireConfig.cs" />
       <Compile Include="OperationCrossfireEventHandlers.cs" />
-      <Compile Include="OperationCrossfireStopCommand.cs" />
       <Compile Include="Plugin.cs" />
     </ItemGroup>
     <ItemGroup>
@@ -94,7 +94,7 @@
       </ProjectReference>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="ExMod.Exiled" Version="9.9.2" PrivateAssets="all" />
+        <PackageReference Include="ExMod.Exiled" Version="9.10.0-rc.1" PrivateAssets="all" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

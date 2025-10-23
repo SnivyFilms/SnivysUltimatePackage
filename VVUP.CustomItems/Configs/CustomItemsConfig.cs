@@ -6,7 +6,7 @@ using VVUP.CustomItems.Items.Grenades;
 using VVUP.CustomItems.Items.MedicalItems;
 using VVUP.CustomItems.Items.Other;
 
-namespace VVUP.CustomItems
+namespace VVUP.CustomItems.Configs
 {
     public class CustomItemsConfig
     {

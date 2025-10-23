@@ -74,8 +74,9 @@
     <Compile Include="Commands\C4Detonate.cs" />
     <Compile Include="Commands\GrenadeLauncherCollider.cs" />
     <Compile Include="Commands\GrenadeLauncherForce.cs" />
-    <Compile Include="Config.cs" />
-    <Compile Include="CustomItemsConfig.cs" />
+    <Compile Include="Configs\Config.cs" />
+    <Compile Include="Configs\CustomItemsConfig.cs" />
+    <Compile Include="Configs\SsssConfig.cs" />
     <Compile Include="Items\Armor\ExplosiveResistantArmor.cs" />
     <Compile Include="Items\Armor\LowGravityArmor.cs" />
     <Compile Include="Items\Firearms\ExplosiveRoundRevolver.cs" />
@@ -112,7 +113,6 @@
     <Compile Include="Patches\StickyGrenade.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Ssss.cs" />
-    <Compile Include="SsssConfig.cs" />
     <Compile Include="SsssEventHandlers.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -122,7 +122,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ExMod.Exiled" Version="9.9.2" PrivateAssets="all" />
+    <PackageReference Include="ExMod.Exiled" Version="9.10.0-rc.1" PrivateAssets="all" />
     <PackageReference Include="Lib.Harmony" Version="2.4.1" PrivateAssets="all" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

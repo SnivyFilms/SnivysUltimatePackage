@@ -9,7 +9,6 @@ using Exiled.Events.EventArgs.Player;
 using MEC;
 using UnityEngine;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 
 namespace VVUP.CustomItems.Items.Firearms
 {

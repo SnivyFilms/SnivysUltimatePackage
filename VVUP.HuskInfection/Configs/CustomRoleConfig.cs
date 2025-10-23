@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using VVUP.HuskInfection.Roles;
 
-namespace VVUP.HuskInfection
+namespace VVUP.HuskInfection.Configs
 {
     public class CustomRoleConfig
     {

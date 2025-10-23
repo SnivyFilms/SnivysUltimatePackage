@@ -19,7 +19,7 @@ namespace VVUP.FreeCustomRoles
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.FCR";
         public override Version Version { get; } = new Version(3, 4, 0);
-        public override Version RequiredExiledVersion { get; } = new Version(9, 9, 2);
+        public override Version RequiredExiledVersion { get; } = new Version(9, 10, 0);
 
         public SsssEventHandlers SsssEventHandlers;
         public override void OnEnabled()
@@ -33,7 +33,7 @@ namespace VVUP.FreeCustomRoles
             }
             if (!Loader.Plugins.Any(plugin => plugin.Prefix == "VVUP.CR"))
             {
-                Log.Error("VVUP Custom Roles Module is not present, disabling module");
+                Log.Error("VVUP FCR: Custom Roles Module is not present, disabling module");
                 base.OnDisabled();
                 return;
             }
@@ -63,29 +63,31 @@ namespace VVUP.FreeCustomRoles
             {
                 if (!existingRoles.Contains(role) && role is ICustomRole custom)
                 {
-                    Log.Debug($"Adding {role.Name} to dictionary..");
-                    StartTeam team;
-                    if (custom.StartTeam.HasFlag(StartTeam.Chaos))
-                        team = StartTeam.Chaos;
-                    else if (custom.StartTeam.HasFlag(StartTeam.Guard))
-                        team = StartTeam.Guard;
-                    else if (custom.StartTeam.HasFlag(StartTeam.Ntf))
-                        team = StartTeam.Ntf;
-                    else if (custom.StartTeam.HasFlag(StartTeam.Scientist))
-                        team = StartTeam.Scientist;
-                    else if (custom.StartTeam.HasFlag(StartTeam.ClassD))
-                        team = StartTeam.ClassD;
-                    else if (custom.StartTeam.HasFlag(StartTeam.Scp))
-                        team = StartTeam.Scp;
-                    else
-                        team = StartTeam.Other;
+                    Log.Debug($"VVUP FCR: Adding {role.Name} to dictionary..");
+                    StartTeam team = custom.StartTeam switch
+                    {
+                        var t when t.HasFlag(StartTeam.Chaos) => StartTeam.Chaos,
+                        var t when t.HasFlag(StartTeam.Guard) => StartTeam.Guard,
+                        var t when t.HasFlag(StartTeam.Ntf) => StartTeam.Ntf,
+                        var t when t.HasFlag(StartTeam.Scientist) => StartTeam.Scientist,
+                        var t when t.HasFlag(StartTeam.ClassD) => StartTeam.ClassD,
+                        var t when t.HasFlag(StartTeam.Scp) => StartTeam.Scp,
+                        var t when t.HasFlag(StartTeam.Scp049) => StartTeam.Scp049,
+                        var t when t.HasFlag(StartTeam.Scp079) => StartTeam.Scp079,
+                        var t when t.HasFlag(StartTeam.Scp096) => StartTeam.Scp096,
+                        var t when t.HasFlag(StartTeam.Scp106) => StartTeam.Scp106,
+                        var t when t.HasFlag(StartTeam.Scp173) => StartTeam.Scp173,
+                        var t when t.HasFlag(StartTeam.Scp939) => StartTeam.Scp939,
+                        var t when t.HasFlag(StartTeam.Scp3114) => StartTeam.Scp3114,
+                        _ => StartTeam.Other
+                    };
 
                     if (!CustomRoles.Plugin.Instance.Roles.ContainsKey(team))
                         CustomRoles.Plugin.Instance.Roles.Add(team, new());
 
                     for (int i = 0; i < role.SpawnProperties.Limit; i++)
                         CustomRoles.Plugin.Instance.Roles[team].Add(custom);
-                    Log.Debug($"Roles {team} now has {CustomRoles.Plugin.Instance.Roles[team].Count} elements.");
+                    Log.Debug($"VVUP FCR: Roles {team} now has {CustomRoles.Plugin.Instance.Roles[team].Count} elements.");
                 }
             }
             Base.Plugin.Instance.VvupFcr = true;

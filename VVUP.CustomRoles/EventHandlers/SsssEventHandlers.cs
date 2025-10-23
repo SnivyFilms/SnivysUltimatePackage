@@ -8,7 +8,7 @@ using UserSettings.ServerSpecific;
 using VVUP.CustomRoles.Abilities.Active;
 using PlayerAPI = Exiled.API.Features.Player;
 
-namespace VVUP.CustomRoles
+namespace VVUP.CustomRoles.EventHandlers
 {
     public class SsssEventHandlers
     {

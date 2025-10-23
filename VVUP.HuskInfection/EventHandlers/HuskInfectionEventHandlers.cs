@@ -7,7 +7,7 @@ using MEC;
 using PlayerRoles;
 using UnityEngine;
 
-namespace VVUP.HuskInfection
+namespace VVUP.HuskInfection.EventHandlers
 {
     public class HuskInfectionEventHandlers
     {

@@ -8,7 +8,9 @@ using Exiled.CustomRoles.API.Features;
 using Exiled.Loader;
 using UserSettings.ServerSpecific;
 using VVUP.CustomRoles.API;
+using VVUP.CustomRoles.Configs;
 using VVUP.CustomRoles.EventHandlers;
+using Config = VVUP.CustomRoles.Configs.Config;
 using Server = Exiled.Events.Handlers.Server;
 using Scp049Events = Exiled.Events.Handlers.Scp049;
 using Player = Exiled.Events.Handlers.Player;
@@ -23,7 +25,7 @@ namespace VVUP.CustomRoles
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.CR";
         public override Version Version { get; } = new Version(3, 4, 0);
-        public override Version RequiredExiledVersion { get; } = new Version(9, 9, 2);
+        public override Version RequiredExiledVersion { get; } = new Version(9, 10, 0);
         
         public Dictionary<StartTeam, List<ICustomRole>> Roles { get; } = new();
         public CustomRoleEventHandler CustomRoleEventHandler;
@@ -87,31 +89,63 @@ namespace VVUP.CustomRoles
                 }
                 if (!existingRoles.Contains(role) && role is ICustomRole custom)
                 {
-                    Log.Debug($"Adding {role.Name} to dictionary..");
-                    StartTeam team;
-                    if (custom.StartTeam.HasFlag(StartTeam.Chaos))
-                        team = StartTeam.Chaos;
-                    else if (custom.StartTeam.HasFlag(StartTeam.Guard))
-                        team = StartTeam.Guard;
-                    else if (custom.StartTeam.HasFlag(StartTeam.Ntf))
-                        team = StartTeam.Ntf;
-                    else if (custom.StartTeam.HasFlag(StartTeam.Scientist))
-                        team = StartTeam.Scientist;
-                    else if (custom.StartTeam.HasFlag(StartTeam.ClassD))
-                        team = StartTeam.ClassD;
-                    else if (custom.StartTeam.HasFlag(StartTeam.Scp))
-                        team = StartTeam.Scp;
-                    else
-                        team = StartTeam.Other;
+                    Log.Debug($"VVUP CR: Adding {role.Name} to dictionary..");
+                    StartTeam team = custom.StartTeam switch
+                    {
+                        var t when t.HasFlag(StartTeam.Chaos) => StartTeam.Chaos,
+                        var t when t.HasFlag(StartTeam.Guard) => StartTeam.Guard,
+                        var t when t.HasFlag(StartTeam.Ntf) => StartTeam.Ntf,
+                        var t when t.HasFlag(StartTeam.Scientist) => StartTeam.Scientist,
+                        var t when t.HasFlag(StartTeam.ClassD) => StartTeam.ClassD,
+                        var t when t.HasFlag(StartTeam.Scp) => StartTeam.Scp,
+                        var t when t.HasFlag(StartTeam.Scp049) => StartTeam.Scp049,
+                        var t when t.HasFlag(StartTeam.Scp079) => StartTeam.Scp079,
+                        var t when t.HasFlag(StartTeam.Scp096) => StartTeam.Scp096,
+                        var t when t.HasFlag(StartTeam.Scp106) => StartTeam.Scp106,
+                        var t when t.HasFlag(StartTeam.Scp173) => StartTeam.Scp173,
+                        var t when t.HasFlag(StartTeam.Scp939) => StartTeam.Scp939,
+                        var t when t.HasFlag(StartTeam.Scp3114) => StartTeam.Scp3114,
+                        _ => StartTeam.Other
+                    };
 
                     if (!Roles.ContainsKey(team))
                         Roles.Add(team, new());
 
                     for (int i = 0; i < role.SpawnProperties.Limit; i++)
                         Roles[team].Add(custom);
-                    Log.Debug($"Roles {team} now has {Roles[team].Count} elements.");
+                    Log.Debug($"VVUP CR: Roles {team} now has {Roles[team].Count} elements.");
                 }
             }
+            // I was trying something with external custom roles, no cigar for now, maybe ill come back in the future to try it again
+            /*if (Config.CustomRoleWrapperConfig.EnableCustomRoleCompatibility)
+            {
+                Log.Debug("Registering custom roles from wrapper configuration...");
+
+                HashSet<uint> registeredRoleIds = new HashSet<uint>(
+                    CustomRole.Registered
+                        .Where(r => r is ICustomRole)
+                        .Select(r => r.Id));
+    
+                foreach (var wrapper in Config.CustomRoleWrapperConfig.CustomRoles)
+                {
+                    if (registeredRoleIds.Contains(wrapper.CustomRoleId))
+                        continue;
+    
+                    StartTeam team = wrapper.StartTeam;
+
+                    if (!Roles.ContainsKey(team))
+                        Roles.Add(team, new());
+
+                    var customRoleAdapter = new CustomRoleWrapperAdapter(wrapper);
+        
+                    for (int i = 0; i < wrapper.Limit; i++)
+                        Roles[team].Add(customRoleAdapter);
+        
+                    Log.Debug($"Registered external custom role ID {wrapper.CustomRoleId} with team {team} and chance {wrapper.Chance}");
+                    Log.Debug($"VVUP CR: Roles {team} now has {Roles[team].Count} elements.");
+                }
+            }*/
+
             existingRoles.Clear();
             existingAbilities.Clear();
             Server.RoundStarted += CustomRoleEventHandler.OnRoundStarted;

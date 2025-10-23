@@ -9,11 +9,11 @@ using Exiled.Events.EventArgs.Map;
 using PlayerRoles;
 using UnityEngine;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
+using VVUP.HuskInfection.EventHandlers;
 using YamlDotNet.Serialization;
 using PlayerAPI = Exiled.API.Features.Player;
 
-namespace VVUP.HuskInfection
+namespace VVUP.HuskInfection.Items
 {
     [CustomItem(ItemType.GrenadeFlash)]
     public class HuskGrenade : CustomGrenade, ICustomItemGlow

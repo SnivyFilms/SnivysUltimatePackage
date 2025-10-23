@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Exiled.API.Interfaces;
+using VVUP.OperationCrossfireServerEvent.Items;
 
 namespace VVUP.OperationCrossfireServerEvent
 {

@@ -10,7 +10,6 @@ using Exiled.Events.EventArgs.Player;
 using PlayerRoles;
 using UnityEngine;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.Other

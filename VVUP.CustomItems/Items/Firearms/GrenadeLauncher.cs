@@ -15,7 +15,6 @@ using JetBrains.Annotations;
 using MEC;
 using UnityEngine;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using Firearm = Exiled.API.Features.Items.Firearm;
 

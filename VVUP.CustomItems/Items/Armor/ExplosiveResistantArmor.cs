@@ -8,7 +8,6 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using UnityEngine;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerAPI = Exiled.API.Features.Player;
 using PlayerEvent = Exiled.Events.Handlers.Player;

@@ -8,6 +8,8 @@ using Exiled.CustomRoles.API;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Loader;
 using VVUP.CustomRoles.API;
+using VVUP.HuskInfection.EventHandlers;
+using Config = VVUP.HuskInfection.Configs.Config;
 using Player = Exiled.Events.Handlers.Player;
 using Server = Exiled.Events.Handlers.Server;
 
@@ -21,7 +23,7 @@ namespace VVUP.HuskInfection
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.HK";
         public override Version Version { get; } = new Version(3, 4, 0);
-        public override Version RequiredExiledVersion { get; } = new Version(9, 9, 2);
+        public override Version RequiredExiledVersion { get; } = new Version(9, 10, 0);
 
         public HuskInfectionEventHandlers HuskInfectionEventHandlers;
         public SsssEventHandlers SsssEventHandlers;
@@ -63,29 +65,31 @@ namespace VVUP.HuskInfection
                 }
                 if (!existingRoles.Contains(role) && role is ICustomRole custom)
                 {
-                    Log.Debug($"Adding {role.Name} to dictionary..");
-                    StartTeam team;
-                    if (custom.StartTeam.HasFlag(StartTeam.Chaos))
-                        team = StartTeam.Chaos;
-                    else if (custom.StartTeam.HasFlag(StartTeam.Guard))
-                        team = StartTeam.Guard;
-                    else if (custom.StartTeam.HasFlag(StartTeam.Ntf))
-                        team = StartTeam.Ntf;
-                    else if (custom.StartTeam.HasFlag(StartTeam.Scientist))
-                        team = StartTeam.Scientist;
-                    else if (custom.StartTeam.HasFlag(StartTeam.ClassD))
-                        team = StartTeam.ClassD;
-                    else if (custom.StartTeam.HasFlag(StartTeam.Scp))
-                        team = StartTeam.Scp;
-                    else
-                        team = StartTeam.Other;
+                    Log.Debug($"VVUP HK: Adding {role.Name} to dictionary..");
+                    StartTeam team = custom.StartTeam switch
+                    {
+                        var t when t.HasFlag(StartTeam.Chaos) => StartTeam.Chaos,
+                        var t when t.HasFlag(StartTeam.Guard) => StartTeam.Guard,
+                        var t when t.HasFlag(StartTeam.Ntf) => StartTeam.Ntf,
+                        var t when t.HasFlag(StartTeam.Scientist) => StartTeam.Scientist,
+                        var t when t.HasFlag(StartTeam.ClassD) => StartTeam.ClassD,
+                        var t when t.HasFlag(StartTeam.Scp) => StartTeam.Scp,
+                        var t when t.HasFlag(StartTeam.Scp049) => StartTeam.Scp049,
+                        var t when t.HasFlag(StartTeam.Scp079) => StartTeam.Scp079,
+                        var t when t.HasFlag(StartTeam.Scp096) => StartTeam.Scp096,
+                        var t when t.HasFlag(StartTeam.Scp106) => StartTeam.Scp106,
+                        var t when t.HasFlag(StartTeam.Scp173) => StartTeam.Scp173,
+                        var t when t.HasFlag(StartTeam.Scp939) => StartTeam.Scp939,
+                        var t when t.HasFlag(StartTeam.Scp3114) => StartTeam.Scp3114,
+                        _ => StartTeam.Other
+                    };
 
                     if (!CustomRoles.Plugin.Instance.Roles.ContainsKey(team))
                         CustomRoles.Plugin.Instance.Roles.Add(team, new());
 
                     for (int i = 0; i < role.SpawnProperties.Limit; i++)
                         CustomRoles.Plugin.Instance.Roles[team].Add(custom);
-                    Log.Debug($"Roles {team} now has {CustomRoles.Plugin.Instance.Roles[team].Count} elements.");
+                    Log.Debug($"VVUP HK: Roles {team} now has {CustomRoles.Plugin.Instance.Roles[team].Count} elements.");
                 }
             }
             existingRoles.Clear();

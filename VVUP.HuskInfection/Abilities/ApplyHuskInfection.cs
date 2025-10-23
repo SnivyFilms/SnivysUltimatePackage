@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
+using VVUP.HuskInfection.EventHandlers;
 
-namespace VVUP.HuskInfection
+namespace VVUP.HuskInfection.Abilities
 {
     public class ApplyHuskInfection : PassiveAbility
     {
@@ -22,19 +22,16 @@ namespace VVUP.HuskInfection
         public float TextDisplayTime { get; set; } = 10f;
         public uint HuskZombieCustomRoleId { get; set; } = 56;
         public string HuskTakeOverDeathReason { get; set; } = "You have been taken over by a Husk Infection.";
-        public List<Player> PlayersWithApplyHuskInfectionOnHit = new List<Player>();
         
         protected override void AbilityAdded(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: ApplyHuskInfection, Adding ApplyHuskInfection Ability to {player.Nickname}");
-            PlayersWithApplyHuskInfectionOnHit.Add(player);
             Exiled.Events.Handlers.Player.Hurting += OnHurting;
         }
 
         protected override void AbilityRemoved(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: ApplyHuskInfection, Removing ApplyHuskInfection Ability from {player.Nickname}");
-            PlayersWithApplyHuskInfectionOnHit.Remove(player);
             Exiled.Events.Handlers.Player.Hurting -= OnHurting;
         }
 
@@ -42,7 +39,9 @@ namespace VVUP.HuskInfection
         {
             if (ev.Attacker == null || ev.Player == null)
                 return;
-            if (PlayersWithApplyHuskInfectionOnHit.Contains(ev.Attacker) && Base.GetRandomNumber.GetRandomInt(0, 101) < InfectionChance)
+            if (Check(ev.Attacker) == Check(ev.Player))
+                return;
+            if (Check(ev.Attacker) && Base.GetRandomNumber.GetRandomInt(0, 101) < InfectionChance)
             {
                 Log.Debug($"VVUP Custom Abilities: ApplyHuskInfection, {ev.Attacker.Nickname} hit {ev.Player.Nickname}, applying Husk Infection.");
                 HuskInfectionEventHandlers huskInfection = new HuskInfectionEventHandlers(ev.Player, InfectionStageOneDelay, InfectionStageTwoDelay, 

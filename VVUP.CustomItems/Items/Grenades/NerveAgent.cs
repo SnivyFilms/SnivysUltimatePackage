@@ -10,7 +10,6 @@ using Exiled.Events.EventArgs.Map;
 using MEC;
 using UnityEngine;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using PlayerAPI = Exiled.API.Features.Player;
 

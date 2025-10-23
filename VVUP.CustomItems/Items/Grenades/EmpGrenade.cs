@@ -19,7 +19,6 @@ using JetBrains.Annotations;
 using MEC;
 using UnityEngine;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using Attachment = InventorySystem.Items.Firearms.Attachments.Components.Attachment;
 using PlayerAPI = Exiled.API.Features.Player;

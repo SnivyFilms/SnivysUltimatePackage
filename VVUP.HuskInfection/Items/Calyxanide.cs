@@ -7,11 +7,11 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using UnityEngine;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
+using VVUP.HuskInfection.EventHandlers;
 using YamlDotNet.Serialization;
 using Player = Exiled.Events.Handlers.Player;
 
-namespace VVUP.HuskInfection
+namespace VVUP.HuskInfection.Items
 {
     [CustomItem(ItemType.Adrenaline)]
     public class Calyxanide : CustomItem, ICustomItemGlow

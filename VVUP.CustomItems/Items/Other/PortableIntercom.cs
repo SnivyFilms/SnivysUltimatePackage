@@ -13,7 +13,6 @@ using PlayerRoles;
 using PlayerRoles.Voice;
 using UnityEngine;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using IntercomBase = PlayerRoles.Voice.Intercom;
 using IntercomExiled = Exiled.API.Features.Intercom;

@@ -18,7 +18,6 @@ using Mirror;
 using PlayerRoles;
 using UnityEngine;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 using YamlDotNet.Serialization;
 using Item = Exiled.API.Features.Items.Item;
 using PlayerAPI = Exiled.API.Features.Player;

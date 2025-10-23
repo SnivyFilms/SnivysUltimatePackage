@@ -11,7 +11,6 @@ using UnityEngine;
 using MEC;
 using System.ComponentModel;
 using VVUP.Base.API;
-using VVUP.CustomItems.API;
 
 namespace VVUP.CustomItems.Items.Other
 {

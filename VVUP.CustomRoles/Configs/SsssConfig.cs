@@ -1,4 +1,4 @@
-namespace VVUP.CustomRoles
+namespace VVUP.CustomRoles.Configs
 {
     public class SsssConfig
     {

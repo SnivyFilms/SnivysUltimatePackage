@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using Exiled.API.Interfaces;
 
-namespace VVUP.CustomItems
+namespace VVUP.CustomItems.Configs
 {
     public class Config : IConfig
     {

@@ -3,7 +3,7 @@ using CommandSystem;
 using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
 
-namespace VVUP.OperationCrossfireServerEvent
+namespace VVUP.OperationCrossfireServerEvent.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     [CommandHandler(typeof(GameConsoleCommandHandler))]

@@ -2,7 +2,7 @@
 using Exiled.Events.EventArgs.Player;
 using UserSettings.ServerSpecific;
 
-namespace VVUP.HuskInfection
+namespace VVUP.HuskInfection.EventHandlers
 {
     public class SsssEventHandlers
     {
