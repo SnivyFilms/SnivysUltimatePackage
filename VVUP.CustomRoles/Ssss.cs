@@ -55,6 +55,8 @@ namespace VVUP.CustomRoles
                 Dwarf.Get(typeof(Dwarf)),
                 PaperMan.Get(typeof(PaperMan)),
                 QuantumGravityResearcher.Get(typeof(QuantumGravityResearcher)),
+                ClassDDruggy.Get(typeof(ClassDDruggy)),
+                TeslaTechnician.Get(typeof(TeslaTechnician)),
             };
                 
             foreach (var role in customRoles.Where(role => role?.CustomAbilities != null))
