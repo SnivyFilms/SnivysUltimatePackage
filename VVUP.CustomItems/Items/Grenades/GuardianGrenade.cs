@@ -49,6 +49,7 @@ namespace VVUP.CustomItems.Items.Grenades
 
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
+            Limit = 1,
             DynamicSpawnPoints = new List<DynamicSpawnPoint>
             {
                 new()
