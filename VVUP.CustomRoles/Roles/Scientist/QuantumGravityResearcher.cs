@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Exiled.API.Features.Attributes;
+using Exiled.API.Features.Spawn;
 using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
 using VVUP.CustomRoles.API;
@@ -17,6 +18,11 @@ namespace VVUP.CustomRoles.Roles.Scientist
         public override string Description { get; set; } = "A Scientist who researches quantum gravity.";
         public override string CustomInfo { get; set; } = "Quantum Gravity Researcher";
 
+        public override SpawnProperties SpawnProperties { get; set; } = new()
+        {
+            Limit = 1,
+        };
+        
         public override List<string> Inventory { get; set; } = new()
         {
             "<color=#6600CC>Lunar Lob</color>",
@@ -24,7 +30,6 @@ namespace VVUP.CustomRoles.Roles.Scientist
             ItemType.Painkillers.ToString(),
             ItemType.KeycardJanitor.ToString()
         };
-
         public override string AbilityUsage { get; set; } = "You have no custom abilities";
     }
 }

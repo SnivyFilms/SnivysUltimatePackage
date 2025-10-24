@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Exiled.API.Features.Attributes;
+using Exiled.API.Features.Spawn;
 using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
 using VVUP.CustomRoles.Abilities.Passive;
@@ -17,7 +18,11 @@ namespace VVUP.CustomRoles.Roles.Scientist
         public override string Name { get; set; } = "<color=#FFFF7C>Tesla Technician</color>";
         public override string Description { get; set; } = "A Scientist who routinely works on Tesla Gates.";
         public override string CustomInfo { get; set; } = "Tesla Technician";
-
+        
+        public override SpawnProperties SpawnProperties { get; set; } = new()
+        {
+            Limit = 1,
+        };
         public override List<string> Inventory { get; set; } = new()
         {
             ItemType.KeycardScientist.ToString(),
