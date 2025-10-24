@@ -7,7 +7,6 @@ using VVUP.CustomRoles.API;
 
 namespace VVUP.CustomRoles.Roles.Other
 {
-    [CustomRole(RoleTypeId.None)]
     public class BorderPatrol : CustomRole, ICustomRole
     {
         public int Chance { get; set; } = 0;

@@ -9,7 +9,6 @@ using VVUP.CustomRoles.API;
 
 namespace VVUP.CustomRoles.Roles.Chaos
 {
-    [CustomRole(RoleTypeId.ChaosConscript)]
     public class CISpy : CustomRole, ICustomRole
     {
         public int Chance { get; set; } = 0;

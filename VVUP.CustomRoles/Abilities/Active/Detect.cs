@@ -30,6 +30,8 @@ namespace VVUP.CustomRoles.Abilities.Active
         
         public string NoTargets { get; set; } = "There is no detected hostiles near you";
         public bool ShowMissingRoles { get; set; } = true;
+        public bool UseHints { get; set; } = true;
+        public float MessageDuration { get; set; } = 10f;
 
         public Dictionary<RoleTypeId, string> RoleNames { get; set; } = new Dictionary<RoleTypeId, string>()
         {
@@ -63,7 +65,19 @@ namespace VVUP.CustomRoles.Abilities.Active
         protected override void AbilityUsed(Player player)
         {
             ActivateDetect(player);
-            DisplayHint(player);
+            Timing.CallDelayed(0.5f, () =>
+            {
+                if (UseHints)
+                {
+                    Log.Debug($"VVUP Custom Abilities: Showing hint to {player.Nickname}");
+                    player.ShowHint(Message, MessageDuration);
+                }
+                else
+                {
+                    Log.Debug($"VVUP Custom Abilities: Sending broadcast to {player.Nickname}");
+                    player.Broadcast((ushort)MessageDuration, Message);
+                }
+            });
         }
 
         private void ActivateDetect(Player ply)
@@ -119,14 +133,6 @@ namespace VVUP.CustomRoles.Abilities.Active
             {
                 Message = NoTargets;
             }
-        }
-
-        public void DisplayHint(Player pl)
-        {
-            Timing.CallDelayed(0.5f, () =>
-            {
-                pl.ShowHint(Message, 10f);
-            });
         }
     }
 }

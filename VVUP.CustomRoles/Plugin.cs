@@ -76,6 +76,8 @@ namespace VVUP.CustomRoles
             Config.CustomRolesConfig.Dwarfs.Register();
             Config.CustomRolesConfig.PaperMen.Register();
             Config.CustomRolesConfig.QuantumGravityResearchers.Register();
+            Config.CustomRolesConfig.ClassDDruggies.Register();
+            Config.CustomRolesConfig.TeslaTechnicians.Register();
 
             foreach (CustomRole role in CustomRole.Registered)
             {

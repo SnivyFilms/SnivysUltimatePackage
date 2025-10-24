@@ -28,8 +28,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
         protected override void AbilityRemoved(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: Pocket Dimension Escape Chance, Removing from {player.Nickname}");
-            if (PlayersWithPocketDimensionEscapeChance.ContainsKey(player))
-                PlayersWithPocketDimensionEscapeChance.Remove(player);
+            PlayersWithPocketDimensionEscapeChance.Remove(player);
             Exiled.Events.Handlers.Player.EscapingPocketDimension -= OnEscapingPocketSuccess;
             Exiled.Events.Handlers.Player.FailingEscapePocketDimension -= OnEscapingPocketFailure;
         }

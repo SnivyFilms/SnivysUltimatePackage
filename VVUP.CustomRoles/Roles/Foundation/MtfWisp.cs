@@ -10,7 +10,6 @@ using VVUP.CustomRoles.API;
 
 namespace VVUP.CustomRoles.Roles.Foundation
 {
-    [CustomRole(RoleTypeId.NtfSpecialist)]
     public class MtfWisp : CustomRole, ICustomRole
     {
         public int Chance { get; set; } = 15;

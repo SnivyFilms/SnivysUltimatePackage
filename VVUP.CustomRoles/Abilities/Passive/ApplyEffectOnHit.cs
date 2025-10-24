@@ -11,8 +11,6 @@ namespace VVUP.CustomRoles.Abilities.Passive
     {
         public override string Name { get; set; } = "Apply Effect On Hit";
         public override string Description { get; set; } = "Enables Effects to whoever you hit";
-        
-        public List<Player> PlayersWithApplyEffectOnHit = new List<Player>();
         public List<ApplyEffects> EffectsToApply { get; set; } = new List<ApplyEffects>
         {
             new()
@@ -26,14 +24,12 @@ namespace VVUP.CustomRoles.Abilities.Passive
         protected override void AbilityAdded(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: ApplyEffectOnHit, Adding ApplyEffectOnHit Ability to {player.Nickname}");
-            PlayersWithApplyEffectOnHit.Add(player);
             Exiled.Events.Handlers.Player.Hurting += OnHurting;
         }
 
         protected override void AbilityRemoved(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: ApplyEffectOnHit, Removing ApplyEffectOnHit Ability from {player.Nickname}");
-            PlayersWithApplyEffectOnHit.Remove(player);
             Exiled.Events.Handlers.Player.Hurting -= OnHurting;
         }
 
@@ -41,7 +37,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
         {
             if (ev.Attacker == null || ev.Player == null)
                 return;
-            if (PlayersWithApplyEffectOnHit.Contains(ev.Attacker))
+            if (Check(ev.Attacker))
             {
                 if (EffectsToApply.IsEmpty()) 
                     return;

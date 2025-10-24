@@ -9,7 +9,6 @@ using VVUP.CustomRoles.API;
 
 namespace VVUP.CustomRoles.Roles.Other
 {
-    [CustomRole(RoleTypeId.None)]
     public class Flipped : CustomRole, ICustomRole
     {
         public int Chance { get; set; } = 0;

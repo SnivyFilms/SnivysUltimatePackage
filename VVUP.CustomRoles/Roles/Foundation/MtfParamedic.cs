@@ -9,7 +9,6 @@ using VVUP.CustomRoles.API;
 
 namespace VVUP.CustomRoles.Roles.Foundation
 {
-    [CustomRole(RoleTypeId.NtfSpecialist)]
     public class MtfParamedic : CustomRole, ICustomRole
     {
         public int Chance { get; set; } = 15;

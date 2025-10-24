@@ -9,7 +9,6 @@ using VVUP.CustomRoles.API;
 
 namespace VVUP.CustomRoles.Roles.Scientist
 {
-    [CustomRole(RoleTypeId.None)]
     public class Biochemist : CustomRole, ICustomRole
     {
         public int Chance { get; set; } = 15;

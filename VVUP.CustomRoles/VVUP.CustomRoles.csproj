@@ -81,6 +81,7 @@
     <Compile Include="Abilities\Active\SoundBreaker.cs" />
     <Compile Include="Abilities\Active\Teleport.cs" />
     <Compile Include="Abilities\Passive\AbilityRemover.cs" />
+    <Compile Include="Abilities\Passive\Addicted.cs" />
     <Compile Include="Abilities\Passive\ApplyEffectOnHit.cs" />
     <Compile Include="Abilities\Passive\CustomHume.cs" />
     <Compile Include="Abilities\Passive\CustomRoleEscape.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Abilities\Passive\GivingCandyAbility.cs" />
     <Compile Include="Abilities\Passive\GravityAdjuster.cs" />
     <Compile Include="Abilities\Passive\HealOnKill.cs" />
+    <Compile Include="Abilities\Passive\IgnoreTeslas.cs" />
     <Compile Include="Abilities\Passive\InfiniteStamina.cs" />
     <Compile Include="Abilities\Passive\LifeSteal.cs" />
     <Compile Include="Abilities\Passive\Martyrdom.cs" />
@@ -123,6 +125,7 @@
     <Compile Include="Roles\Chaos\Nightfall.cs" />
     <Compile Include="Roles\Chaos\TelepathicChaos.cs" />
     <Compile Include="Roles\ClassD\ClassDAnalyst.cs" />
+    <Compile Include="Roles\ClassD\ClassDDruggy.cs" />
     <Compile Include="Roles\ClassD\ClassDTank.cs" />
     <Compile Include="Roles\ClassD\Dwarf.cs" />
     <Compile Include="Roles\ClassD\LockpickingClassD.cs" />
@@ -138,6 +141,7 @@
     <Compile Include="Roles\Scientist\Biochemist.cs" />
     <Compile Include="Roles\Scientist\ContainmentScientist.cs" />
     <Compile Include="Roles\Scientist\QuantumGravityResearcher.cs" />
+    <Compile Include="Roles\Scientist\TeslaTechnician.cs" />
     <Compile Include="Roles\Scientist\TheoreticalPhysicistScientist.cs" />
     <Compile Include="Roles\Scps\DwarfZombie.cs" />
     <Compile Include="Roles\Scps\ExplosiveZombie.cs" />
@@ -156,7 +160,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-      <PackageReference Include="ExMod.Exiled" Version="9.10.0-rc.1" PrivateAssets="all" />
+      <PackageReference Include="ExMod.Exiled" Version="9.10.0" PrivateAssets="all" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

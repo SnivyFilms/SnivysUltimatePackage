@@ -155,5 +155,15 @@ namespace VVUP.CustomRoles.Configs
         {
             new QuantumGravityResearcher()
         };
+        
+        public List<ClassDDruggy> ClassDDruggies { get; set; } = new()
+        {
+            new ClassDDruggy()
+        };
+        
+        public List<TeslaTechnician> TeslaTechnicians { get; set; } = new()
+        {
+            new TeslaTechnician()
+        };
     }
 }

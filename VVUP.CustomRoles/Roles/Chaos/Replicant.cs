@@ -9,7 +9,6 @@ using VVUP.CustomRoles.API;
 
 namespace VVUP.CustomRoles.Roles.Chaos
 {
-    [CustomRole(RoleTypeId.ChaosRifleman)]
     public class Replicant : CustomRole, ICustomRole
     {
         public int Chance { get; set; } = 5;

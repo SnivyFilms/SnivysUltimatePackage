@@ -122,7 +122,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ExMod.Exiled" Version="9.10.0-rc.1" PrivateAssets="all" />
+    <PackageReference Include="ExMod.Exiled" Version="9.10.0" PrivateAssets="all" />
     <PackageReference Include="Lib.Harmony" Version="2.4.1" PrivateAssets="all" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

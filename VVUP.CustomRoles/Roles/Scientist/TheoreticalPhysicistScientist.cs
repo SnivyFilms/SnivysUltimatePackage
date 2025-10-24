@@ -8,7 +8,6 @@ using VVUP.CustomRoles.API;
 
 namespace VVUP.CustomRoles.Roles.Scientist
 {
-    [CustomRole(RoleTypeId.Scientist)]
     public class TheoreticalPhysicistScientist : CustomRole, ICustomRole
     {
         public int Chance { get; set; } = 15;
