@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Extensions;
 using Exiled.API.Features;
@@ -234,13 +235,10 @@ namespace VVUP.CustomItems.Items.Grenades
 
         private void OnTriggeringTesla(TriggeringTeslaEventArgs ev)
         {
-            foreach (TeslaGate gate in TeslaGate.AllGates)
+            foreach (var gate in TeslaGate.AllGates.Where(gate => Room.FindParentRoom(gate.gameObject) == ev.Player.CurrentRoom && _disabledTeslaGates.Contains(gate)))
             {
-                if (Room.FindParentRoom(gate.gameObject) == ev.Player.CurrentRoom && _disabledTeslaGates.Contains(gate))
-                {
-                    Log.Debug($"VVUP Custom Items: EMP Grenade, {gate} is currently disabled");
-                    ev.IsAllowed = false;
-                }
+                Log.Debug($"VVUP Custom Items: EMP Grenade, {gate} is currently disabled");
+                ev.IsAllowed = false;
             }
         }
     }

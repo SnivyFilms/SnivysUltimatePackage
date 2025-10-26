@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
+using Exiled.Events.EventArgs.Player;
 using MEC;
 using UnityEngine;
 using VVUP.Base.API;
@@ -65,23 +67,35 @@ namespace VVUP.CustomItems.Items.Grenades
         public bool HasCustomItemGlow { get; set; } = true;
         public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 191);
 
+        protected override void SubscribeEvents()
+        {
+            Exiled.Events.Handlers.Player.ChangingRole += OnChangingRole;
+            base.SubscribeEvents();
+        }
+        protected override void UnsubscribeEvents()
+        {
+            Exiled.Events.Handlers.Player.ChangingRole -= OnChangingRole;
+            base.UnsubscribeEvents();
+        }
+
         protected override void OnExploding(ExplodingGrenadeEventArgs ev)
         {
             ev.IsAllowed = false;
 
-            foreach (Player player in Player.List)
+            foreach (Player player in Player.List.Where(p => Vector3.Distance(ev.Position, p.Position) <= Range))
             {
-                if (Vector3.Distance(ev.Position, player.Position) <= Range)
+                Log.Debug($"VVUP Custom Items: Low Gravity Grenade, Applying low gravity {LowGravity} to {player.Nickname}. Waiting {Duration} seconds to revert.");
+                Vector3 previousGravity = PlayerLab.Get(player.NetworkIdentity)!.Gravity;
+                _effectedPlayers[player] = previousGravity;
+                PlayerLab.Get(player.NetworkIdentity)!.Gravity = LowGravity;
+                Timing.CallDelayed(Duration, () =>
                 {
-                    Vector3 previousGravity = PlayerLab.Get(player.NetworkIdentity)!.Gravity;
-                    _effectedPlayers[player] = previousGravity;
-                    PlayerLab.Get(player.NetworkIdentity)!.Gravity = LowGravity;
-                    Timing.CallDelayed(Duration, () =>
-                    {
-                        PlayerLab.Get(ev.Player.NetworkIdentity)!.Gravity = _effectedPlayers[ev.Player];
-                        _effectedPlayers.Remove(ev.Player);
-                    });
-                }
+                    Log.Debug($"VVUP Custom Items: Low Gravity Grenade, Reverting gravity for {player.Nickname} to {previousGravity}");
+                    if (!_effectedPlayers.ContainsKey(player))
+                        return;
+                    PlayerLab.Get(player.NetworkIdentity)!.Gravity = _effectedPlayers[player];
+                    _effectedPlayers.Remove(player);
+                });
             }
         }
 
@@ -89,6 +103,15 @@ namespace VVUP.CustomItems.Items.Grenades
         {
             _effectedPlayers.Clear();
             base.OnWaitingForPlayers();
+        }
+        private void OnChangingRole(ChangingRoleEventArgs ev)
+        {
+            if (_effectedPlayers.ContainsKey(ev.Player))
+            {
+                Log.Debug($"VVUP Custom Items: Low Gravity Grenade, Reverting gravity for {ev.Player.Nickname} to {_effectedPlayers[ev.Player]} due to role change");
+                PlayerLab.Get(ev.Player.NetworkIdentity)!.Gravity = _effectedPlayers[ev.Player];
+                _effectedPlayers.Remove(ev.Player);
+            }
         }
     }
 }

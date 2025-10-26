@@ -82,13 +82,13 @@ namespace VVUP.CustomItems.Items.Firearms
         public bool HasCustomItemGlow { get; set; } = true;
         public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
         
-        private List<ushort> droppedRevolvers = new List<ushort>();
+        //private List<ushort> droppedRevolvers = new List<ushort>();
 
         protected override void SubscribeEvents()
         {
             //Player.ReloadingWeapon += OnReloading;
             Exiled.Events.Handlers.Item.ChangingAttachments += OnChangingAttachments;
-            Exiled.Events.Handlers.Server.RoundEnded += OnRoundEnd;
+            //Exiled.Events.Handlers.Server.RoundEnded += OnRoundEnd;
             base.SubscribeEvents();
         }
 
@@ -96,11 +96,11 @@ namespace VVUP.CustomItems.Items.Firearms
         {
             //Player.ReloadingWeapon -= OnReloading;
             Exiled.Events.Handlers.Item.ChangingAttachments -= OnChangingAttachments;
-            Exiled.Events.Handlers.Server.RoundEnded -= OnRoundEnd;
+            //Exiled.Events.Handlers.Server.RoundEnded -= OnRoundEnd;
             base.UnsubscribeEvents();
         }
 
-        protected override void OnPickingUp(PickingUpItemEventArgs ev)
+        /*protected override void OnPickingUp(PickingUpItemEventArgs ev)
         {
             if (Check(ev.Pickup) && !droppedRevolvers.Contains(ev.Pickup.Serial))
             {
@@ -125,7 +125,7 @@ namespace VVUP.CustomItems.Items.Firearms
         {
             droppedRevolvers.Clear();
             base.OnWaitingForPlayers();
-        }
+        }*/
         
         private void OnChangingAttachments(ChangingAttachmentsEventArgs ev)
         {

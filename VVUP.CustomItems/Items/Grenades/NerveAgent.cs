@@ -107,6 +107,7 @@ namespace VVUP.CustomItems.Items.Grenades
                 {
                     if(Vector3.Distance(player.Position, grenadePosition) <= NerveAgentRadius)
                     {
+                        Log.Debug($"VVUP Custom Items: Nerve Agent, Applying poison to {player.Nickname} and damaging them for {NerveAgentImmediateDamage}");
                         player.EnableEffect(EffectType.Poisoned, NerveAgentPoisonDuration);
                         player.Hurt(NerveAgentImmediateDamage, DamageType.Poison);
                     }
