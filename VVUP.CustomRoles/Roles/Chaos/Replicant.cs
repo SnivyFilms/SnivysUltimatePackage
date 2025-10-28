@@ -6,6 +6,7 @@ using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
 using VVUP.CustomRoles.Abilities.Active;
 using VVUP.CustomRoles.API;
+using YamlDotNet.Serialization;
 
 namespace VVUP.CustomRoles.Roles.Chaos
 {
@@ -60,5 +61,9 @@ namespace VVUP.CustomRoles.Roles.Chaos
         };
         
         public override string AbilityUsage { get; set; } = "Use your Replicator ability with your server keybind (set it in ESC > Settings > Server Settings).";
+        [YamlIgnore] 
+        public override float SpawnChance { get; set; } = 0;
+        [YamlIgnore] 
+        public override bool IgnoreSpawnSystem { get; set; } = true;
     }
 }

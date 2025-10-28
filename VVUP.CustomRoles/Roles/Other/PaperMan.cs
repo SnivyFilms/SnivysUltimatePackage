@@ -3,6 +3,7 @@ using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
 using VVUP.CustomRoles.Abilities.Passive;
 using VVUP.CustomRoles.API;
+using YamlDotNet.Serialization;
 
 namespace VVUP.CustomRoles.Roles.Other
 {
@@ -26,5 +27,9 @@ namespace VVUP.CustomRoles.Roles.Other
                 ScaleForPlayers = new UnityEngine.Vector3(1, 1, 0.1f),
             },
         };
+        [YamlIgnore] 
+        public override float SpawnChance { get; set; } = 0;
+        [YamlIgnore] 
+        public override bool IgnoreSpawnSystem { get; set; } = true;
     }
 }

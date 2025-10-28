@@ -7,6 +7,7 @@ using InventorySystem.Items.Usables.Scp330;
 using PlayerRoles;
 using VVUP.CustomRoles.Abilities.Passive;
 using VVUP.CustomRoles.API;
+using YamlDotNet.Serialization;
 
 namespace VVUP.CustomRoles.Roles.Chaos
 {
@@ -86,5 +87,9 @@ namespace VVUP.CustomRoles.Roles.Chaos
         };
         
         public override string AbilityUsage { get; set; } = "You have passive abilities. This does not require button activation";
+        [YamlIgnore] 
+        public override float SpawnChance { get; set; } = 0;
+        [YamlIgnore] 
+        public override bool IgnoreSpawnSystem { get; set; } = true;
     }
 }

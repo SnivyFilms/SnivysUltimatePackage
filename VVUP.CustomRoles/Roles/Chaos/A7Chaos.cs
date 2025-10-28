@@ -5,6 +5,7 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
 using VVUP.CustomRoles.API;
+using YamlDotNet.Serialization;
 
 namespace VVUP.CustomRoles.Roles.Chaos
 {
@@ -58,5 +59,10 @@ namespace VVUP.CustomRoles.Roles.Chaos
         };
 
         public override string AbilityUsage { get; set; } = "You have no special abilities";
+
+        [YamlIgnore] 
+        public override float SpawnChance { get; set; } = 0;
+        [YamlIgnore] 
+        public override bool IgnoreSpawnSystem { get; set; } = true;
     }
 }

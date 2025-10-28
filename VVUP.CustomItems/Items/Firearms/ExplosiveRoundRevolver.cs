@@ -16,14 +16,13 @@ using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.Firearms
 {
-    [CustomItem(ItemType.GunRevolver)]
+    [CustomItem(ItemType.GunCOM18)]
     public class ExplosiveRoundRevolver : CustomWeapon, ICustomItemGlow
     {
-        [YamlIgnore]
-        public override ItemType Type { get; set; } = ItemType.GunRevolver;
+        public override ItemType Type { get; set; } = ItemType.GunCOM18;
         public override uint Id { get; set; } = 21;
-        public override string Name { get; set; } = "<color=#FF0000>Explosive Round Revolver</color>";
-        public override string Description { get; set; } = "This revolver fires explosive rounds.";
+        public override string Name { get; set; } = "<color=#FF0000>Explosive Round Pistol</color>";
+        public override string Description { get; set; } = "This COM-18 fires explosive rounds.";
         public override float Weight { get; set; } = 1f;
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
@@ -61,14 +60,7 @@ namespace VVUP.CustomItems.Items.Firearms
                 },
             },
         };
-
-        public override AttachmentName[] Attachments { get; set; } = new[]
-        {
-            AttachmentName.CylinderMag5,
-            AttachmentName.ExtendedBarrel,
-            AttachmentName.IronSights,
-        };
-
+        
         public override float Damage { get; set; } = 0;
         public override byte ClipSize { get; set; } = 2;
         public float FuseTime { get; set; } = 2.5f;

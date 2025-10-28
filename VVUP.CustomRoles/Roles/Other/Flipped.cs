@@ -6,6 +6,7 @@ using PlayerRoles;
 using UnityEngine;
 using VVUP.CustomRoles.Abilities.Passive;
 using VVUP.CustomRoles.API;
+using YamlDotNet.Serialization;
 
 namespace VVUP.CustomRoles.Roles.Other
 {
@@ -48,5 +49,9 @@ namespace VVUP.CustomRoles.Roles.Other
                 ScaleForPlayers = new Vector3(1, -1, 1),
             },
         };
+        [YamlIgnore] 
+        public override float SpawnChance { get; set; } = 0;
+        [YamlIgnore] 
+        public override bool IgnoreSpawnSystem { get; set; } = true;
     }
 }

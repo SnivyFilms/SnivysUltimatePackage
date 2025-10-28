@@ -5,7 +5,9 @@ using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
 using PlayerRoles;
 using VVUP.CustomRoles.Abilities.Active;
+using VVUP.CustomRoles.Abilities.Passive;
 using VVUP.CustomRoles.API;
+using YamlDotNet.Serialization;
 
 namespace VVUP.CustomRoles.Roles.Chaos
 {
@@ -54,6 +56,18 @@ namespace VVUP.CustomRoles.Roles.Chaos
         
         public override List<CustomAbility> CustomAbilities { get; set; } = new List<CustomAbility>
         {
+            new RestrictedItems
+            {
+                Name = "Restricted Items [Passive]",
+                Description = "You cannot use SCP-268",
+                RestrictedItemList = new List<ItemType>()
+                {
+                    ItemType.SCP268,
+                },
+                RestrictUsingItems = true,
+                RestrictDroppingItems = true,
+                RestrictPickingUpItems = true,
+            },
             new ActiveCamo
             {
                 Name = "Active Camo [Active]",
@@ -62,23 +76,10 @@ namespace VVUP.CustomRoles.Roles.Chaos
         };
         
         public override string AbilityUsage { get; set; } = "Use your Noclip Button [Left Alt] to swap abilities and to activate. Tap Twice to Swap. Tap Once to activate.";
-
-        protected override void SubscribeEvents()
-        {
-            Exiled.Events.Handlers.Player.PickingUpItem += OnPickingUpItem;
-            base.SubscribeEvents();
-        }
         
-        protected override void UnsubscribeEvents()
-        {
-            Exiled.Events.Handlers.Player.PickingUpItem -= OnPickingUpItem;
-            base.UnsubscribeEvents();
-        }
-
-        private void OnPickingUpItem(PickingUpItemEventArgs ev)
-        {
-            if (Check(ev.Player) && ev.Pickup.Type == ItemType.SCP268)
-                ev.IsAllowed = false;
-        }
+        [YamlIgnore] 
+        public override float SpawnChance { get; set; } = 0;
+        [YamlIgnore] 
+        public override bool IgnoreSpawnSystem { get; set; } = true;
     }
 }

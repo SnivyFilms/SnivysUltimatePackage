@@ -6,6 +6,7 @@ using PlayerRoles;
 using VVUP.CustomRoles.Abilities.Active;
 using VVUP.CustomRoles.Abilities.Passive;
 using VVUP.CustomRoles.API;
+using YamlDotNet.Serialization;
 
 namespace VVUP.CustomRoles.Roles.Scientist
 {
@@ -77,5 +78,10 @@ namespace VVUP.CustomRoles.Roles.Scientist
         };
         
         public override string AbilityUsage { get; set; } = "Use your Noclip Button [Left Alt] to swap abilities and to activate. Tap Twice to Swap. Tap Once to activate.";
+        
+        [YamlIgnore] 
+        public override float SpawnChance { get; set; } = 0;
+        [YamlIgnore] 
+        public override bool IgnoreSpawnSystem { get; set; } = true;
     }
 }
