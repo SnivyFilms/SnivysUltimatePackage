@@ -2,6 +2,7 @@ using Exiled.API.Features.Attributes;
 using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
 using VVUP.CustomRoles.API;
+using YamlDotNet.Serialization;
 
 namespace VVUP.FreeCustomRoles.FreeCustomRoles
 {
@@ -16,5 +17,9 @@ namespace VVUP.FreeCustomRoles.FreeCustomRoles
         public override string Name { get; set; } = "Free Custom Role 5";
         public override string Description { get; set; } = "Free Custom Role";
         public override string CustomInfo { get; set; } = "Free Custom Role";
+        [YamlIgnore] 
+        public override float SpawnChance { get; set; } = 0;
+        [YamlIgnore] 
+        public override bool IgnoreSpawnSystem { get; set; } = true;
     }
 }
