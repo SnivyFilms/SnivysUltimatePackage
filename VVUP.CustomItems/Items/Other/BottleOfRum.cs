@@ -101,16 +101,16 @@ namespace VVUP.CustomItems.Items.Other
 
         protected override void SubscribeEvents()
         {
-            PlayerEvent.UsingItemCompleted += OnUsingItemCompleted;
+            PlayerEvent.UsingItem += OnUsingItem;
             base.SubscribeEvents();
         }
         protected override void UnsubscribeEvents()
         {
-            PlayerEvent.UsingItemCompleted -= OnUsingItemCompleted;
+            PlayerEvent.UsingItem -= OnUsingItem;
             base.UnsubscribeEvents();
         }
 
-        private void OnUsingItemCompleted(UsingItemCompletedEventArgs ev)
+        private void OnUsingItem(UsingItemEventArgs ev)
         {
             if (!Check(ev.Item))
                 return;
