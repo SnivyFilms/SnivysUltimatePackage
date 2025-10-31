@@ -60,7 +60,8 @@ namespace VVUP.CustomItems.Items.MedicalItems
             },
         };
         public bool HasCustomItemGlow { get; set; } = true;
-        public Color CustomItemGlowColor { get; set; } = new Color32(0, 0, 204, 191);
+        public Color CustomItemGlowColor { get; set; } = new Color32(0, 0, 204, 127);
+        public float GlowRange { get; set; } = 0.25f;
         protected override void SubscribeEvents()
         {
             if (KillAfterAnimation)

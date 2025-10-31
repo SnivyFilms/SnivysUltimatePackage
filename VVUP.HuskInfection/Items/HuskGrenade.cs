@@ -75,7 +75,8 @@ namespace VVUP.HuskInfection.Items
         public uint HuskZombieCustomRoleId { get; set; } = 56;
         public string HuskTakeOverDeathReason { get; set; } = "You have been taken over by a Husk Infection.";
         public bool HasCustomItemGlow { get; set; } = true;
-        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 127);
+        public float GlowRange { get; set; } = 0.25f;
 
         protected override void OnExploding(ExplodingGrenadeEventArgs ev)
         {

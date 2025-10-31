@@ -4,6 +4,7 @@ using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
+using MEC;
 using PlayerRoles;
 using Respawning;
 using Respawning.Waves;
@@ -15,15 +16,18 @@ namespace VVUP.ScpChanges
         public Plugin Plugin;
         public ScpChangesEventHandlers(Plugin plugin) => Plugin = plugin;
 
-        public void OnChangingRole(ChangingRoleEventArgs ev)
+        public void OnChangingRole(SpawnedEventArgs ev)
         {
             if (ev.Player == null)
                 return;
-            if (ev.NewRole == RoleTypeId.Scp106 && Plugin.Instance.Config.OldScp106Behavior)
+            if (ev.Player.Role == RoleTypeId.Scp106 && Plugin.Instance.Config.OldScp106Behavior)
             {
-                Log.Debug("VVUP SCP Changes: Old SCP 106 Behavior is enabled, setting health and damage resistance");
-                ev.Player.MaxHealth = Plugin.Instance.Config.Scp106Health;
-                ev.Player.Health = Plugin.Instance.Config.Scp106Health;
+                Timing.CallDelayed(0.1f, () =>
+                {
+                    Log.Debug("VVUP SCP Changes: Old SCP 106 Behavior is enabled, setting health and damage resistance");
+                    ev.Player.MaxHealth = Plugin.Instance.Config.Scp106Health;
+                    ev.Player.Health = Plugin.Instance.Config.Scp106Health;
+                });
             }
         }
 
@@ -35,21 +39,22 @@ namespace VVUP.ScpChanges
                 return;
             if (ev.Player == ev.Attacker)
                 return;
-            if (ev.Player.Role == RoleTypeId.Scp106 && Plugin.Instance.Config.OldScp106Behavior && ev.DamageHandler.Type == DamageType.Firearm)
+            if (ev.Player.Role == RoleTypeId.Scp106 && Plugin.Instance.Config.OldScp106Behavior && ev.DamageHandler.Type is
+                    DamageType.A7 or DamageType.AK or DamageType.Com15 or DamageType.Com18 or DamageType.Com45 or DamageType.Crossvec or
+                    DamageType.E11Sr or DamageType.Frmg0 or DamageType.Fsp9 or DamageType.Revolver or DamageType.Shotgun or DamageType.Logicer or DamageType.Scp127)
             {
                 if (!Plugin.Instance.Config.ResistanceWithHume && ev.Player.HumeShield > 0)
                 {
                     Log.Debug("VVUP SCP Changes: Old SCP 106 Behavior is enabled, but Hume Shield is active, not applying damage resistance");
-                    //Return won't work here since the OneShot possibility is outside of this if statement
-                    //Technically I could invert the if statement with ResistanceWithHume being true, but I want the debug statements just incase things go wrong
                 }
-                else
+                else if (Plugin.Instance.Config.ResistanceWithHume || ev.Player.HumeShield <= 0)
                 {
                     Log.Debug("VVUP SCP Changes: Old SCP 106 Behavior is enabled, setting damage resistance");
                     ev.Amount *= Plugin.Instance.Config.Scp106DamageResistance;
                     Log.Debug($"VVUP SCP Changes: Reduced damage to {ev.Amount}");
                 }
             }
+
             if (ev.Attacker.Role == RoleTypeId.Scp106 && Plugin.Instance.Config.Scp106OneShot)
             {
                 Log.Debug($"VVUP SCP Changes: SCP 106 One Shot is enabled, teleporting {ev.Player.Nickname} to pocket dimension");
@@ -58,7 +63,7 @@ namespace VVUP.ScpChanges
             if (ev.Attacker.Role == RoleTypeId.Scp049 && Plugin.Instance.Config.Scp049OneShot)
             {
                 Log.Debug($"VVUP SCP Changes: SCP 049 One Shot is enabled, killing {ev.Player.Nickname}");
-                ev.Player.Hurt(ev.Attacker, 1000, DamageType.Scp049);
+                ev.Amount = ev.Player.Health + ev.Player.ArtificialHealth + ev.Player.HumeShield + 1;
             }
         }
         public void OnUsingItem(UsedItemEventArgs ev)

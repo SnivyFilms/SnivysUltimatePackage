@@ -14,7 +14,7 @@ namespace VVUP.ScpChanges
         public override string Name { get; } = "VVUP: SCP Changes";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.SC";
-        public override Version Version { get; } = new Version(3, 4, 2);
+        public override Version Version { get; } = new Version(3, 4, 3);
         public override Version RequiredExiledVersion { get; } = new Version(9, 10, 0);
         public ScpChangesEventHandlers ScpChangesEventHandlers;
         
@@ -29,7 +29,7 @@ namespace VVUP.ScpChanges
 
             ScpChangesEventHandlers = new ScpChangesEventHandlers(this);
             Player.UsedItem += ScpChangesEventHandlers.OnUsingItem;
-            Player.ChangingRole += ScpChangesEventHandlers.OnChangingRole;
+            Player.Spawned += ScpChangesEventHandlers.OnChangingRole;
             Player.Hurting += ScpChangesEventHandlers.OnHurting;
             Instance = this;
             Base.Plugin.Instance.VvupSc = true;
@@ -40,7 +40,7 @@ namespace VVUP.ScpChanges
         {
             Base.Plugin.Instance.VvupSc = false;
             Player.UsedItem -= ScpChangesEventHandlers.OnUsingItem;
-            Player.ChangingRole -= ScpChangesEventHandlers.OnChangingRole;
+            Player.Spawned -= ScpChangesEventHandlers.OnChangingRole;
             Player.Hurting -= ScpChangesEventHandlers.OnHurting;
             ScpChangesEventHandlers = null;
             Instance = null;

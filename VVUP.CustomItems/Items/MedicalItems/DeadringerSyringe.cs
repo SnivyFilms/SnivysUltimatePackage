@@ -140,6 +140,7 @@ namespace VVUP.CustomItems.Items.MedicalItems
         };
         public bool HasCustomItemGlow { get; set; } = false;
         public Color CustomItemGlowColor { get; set; } = new Color32(255, 255, 255, 255);
+        public float GlowRange { get; set; } = 0.25f;
         protected override void SubscribeEvents()
         {
             Player.UsingItem += OnUsingItem;

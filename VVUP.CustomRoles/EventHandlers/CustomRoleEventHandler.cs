@@ -114,11 +114,15 @@ namespace VVUP.CustomRoles.EventHandlers
                         break;
                 }
 
-                if (player.GetCustomRoles().Count == 0 && 
+                if (player.GetCustomRoles().Count == 0 &&
                     (Plugin.Instance.Config.SsssConfig.SsssEnabled &&
-                     ServerSpecificSettingsSync.TryGetSettingOfUser<SSTwoButtonsSetting>(player.ReferenceHub, Plugin.Instance.Config.SsssConfig.RoundStartRolesId, out var setting) && 
+                     ServerSpecificSettingsSync.TryGetSettingOfUser<SSTwoButtonsSetting>(player.ReferenceHub,
+                         Plugin.Instance.Config.SsssConfig.RoundStartRolesId, out var setting) &&
                      setting.SyncIsA) || !Plugin.Instance.Config.SsssConfig.SsssEnabled)
+                {
+                    Log.Debug($"VVUP Custom Roles: Selected role {role} for {player.Nickname}");
                     role?.AddRole(player);
+                }
             }
 
             guardRoles.Dispose();
@@ -175,7 +179,10 @@ namespace VVUP.CustomRoles.EventHandlers
                      ServerSpecificSettingsSync.TryGetSettingOfUser<SSTwoButtonsSetting>(player.ReferenceHub,
                          Plugin.Instance.Config.SsssConfig.RespawnWaveRolesId, out var setting) && 
                      setting.SyncIsA) || !Plugin.Instance.Config.SsssConfig.SsssEnabled)
+                {
+                    Log.Debug($"VVUP Custom Roles: Selected role {role} for {player.Nickname}");
                     role?.AddRole(player);
+                }
             }
 
             roles.Dispose();
@@ -204,7 +211,10 @@ namespace VVUP.CustomRoles.EventHandlers
                              ServerSpecificSettingsSync.TryGetSettingOfUser<SSTwoButtonsSetting>(ev.Target.ReferenceHub,
                                  Plugin.Instance.Config.SsssConfig.Scp049ReviveRolesId, out var setting) && 
                              setting.SyncIsA) || !Plugin.Instance.Config.SsssConfig.SsssEnabled) 
+                        {
+                            Log.Debug($"VVUP Custom Roles: Selected role {role} for {ev.Target.Nickname}");
                             role?.AddRole(ev.Target);
+                        }
                     }
                     else
                     {

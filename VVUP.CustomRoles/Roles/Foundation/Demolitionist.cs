@@ -21,7 +21,7 @@ namespace VVUP.CustomRoles.Roles.Foundation
         
         public override List<string> Inventory { get; set; } = new()
         {
-            "<color=#FF0000>Explosive Round Revolver</color>",
+            "<color=#FF0000>ADATS</color>",
             "<color=#FF0000>Explosive Resistant Armor</color>",
             "<color=#FF0000>C4</color>",
             "<color=#FF0000>C4</color>",

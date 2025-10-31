@@ -49,7 +49,7 @@ namespace VVUP.CustomRoles.Roles.Chaos
             $"{ItemType.GrenadeHE}",
             $"{ItemType.GrenadeFlash}",
             $"{ItemType.ArmorHeavy}",
-            "<color=#FF0000>Explosive Round Revolver</color>",
+            "<color=#FF0000>ADATS</color>",
             "<color=#6600CC>Obscurus Veil-5</color>",
         };
         

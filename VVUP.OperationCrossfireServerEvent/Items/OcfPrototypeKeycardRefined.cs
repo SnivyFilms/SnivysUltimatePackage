@@ -74,6 +74,7 @@ namespace VVUP.OperationCrossfireServerEvent.Items
         public Color32 KeycardPermissionsColor => new Color32(KeycardPermissionColorRed, KeycardPermissionColorGreen, KeycardPermissionColorBlue, KeycardPermissionColorAlpha);
         public bool HasCustomItemGlow { get; set; } = false;
         public Color CustomItemGlowColor { get; set; } = new Color32(255, 255, 255, 255);
+        public float GlowRange { get; set; } = 0.25f;
 
         protected override void SubscribeEvents()
         {

@@ -45,6 +45,7 @@ namespace VVUP.CustomItems.Items.MedicalItems
 
         public bool HasCustomItemGlow { get; set ; } = true;
         public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 10);
+        public float GlowRange { get; set; } = 0.25f;
 
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {

@@ -64,5 +64,18 @@ namespace VVUP.Base.API
         /// </para>
         /// </remarks>
         public Color CustomItemGlowColor { get; set; }
+        /// <summary>
+        /// Gets or sets the range (distance) at which the custom glow effect is visible.
+        /// </summary>
+        /// <value>
+        /// A float value representing the glow visibility range in Unity units. Default range varies by implementation.
+        /// </value>
+        /// <remarks>
+        /// <para>
+        /// This value determines how far away players can see the item's glow effect.
+        /// Higher values make the glow visible from greater distances, while lower values limit visibility to nearby players.
+        /// </para>
+        /// </remarks>
+        public float GlowRange { get; set; }
     }
 }

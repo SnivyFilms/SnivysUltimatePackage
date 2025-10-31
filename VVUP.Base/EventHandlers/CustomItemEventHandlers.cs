@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Exiled.API.Features;
 using Exiled.API.Features.Pickups;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
@@ -53,7 +54,8 @@ namespace VVUP.Base.EventHandlers
             {
                 if (ci is ICustomItemGlow { HasCustomItemGlow: true } glowableItem)
                 {
-                    ApplyGlowEffect(pickup, glowableItem.CustomItemGlowColor);
+                    Log.Debug($"VVUP Base: Applying glow effect to pickup {pickup} for custom item {ci.Name} (ID: {ci.Id}) (Native)");
+                    ApplyGlowEffect(pickup, glowableItem.CustomItemGlowColor, glowableItem.GlowRange);
                 }
                 
                 else if (Plugin.Config.EnableCompatibilityGlow)
@@ -62,13 +64,14 @@ namespace VVUP.Base.EventHandlers
                     var configGlow = Plugin.Config.CustomItemGlow.FirstOrDefault(g => g.CustomItemId == ci.Id);
                     if (configGlow != null)
                     {
-                        ApplyGlowEffect(pickup, configGlow.GetColor());
+                        Log.Debug($"VVUP Base: Applying config glow effect to pickup {pickup} for custom item {ci.Name} (ID: {ci.Id}) (Compatibility Glow)");
+                        ApplyGlowEffect(pickup, configGlow.GetColor(), configGlow.GlowRange);
                     }
                 }
             }
         }
 
-        private void ApplyGlowEffect(Pickup pickup, Color glowColor)
+        private void ApplyGlowEffect(Pickup pickup, Color glowColor, float range)
         {
             if (ActiveGlowEffects.ContainsKey(pickup))
             {
@@ -77,10 +80,11 @@ namespace VVUP.Base.EventHandlers
             
             var light = Light.Create(pickup.Position);
             light.Color = glowColor;
-            light.Range = 0.25f;
-            light.ShadowType = LightShadows.None;
+            light.Range = range;
+            light.ShadowType = LightShadows.Soft;
             light.Base.gameObject.transform.SetParent(pickup.Base.gameObject.transform);
             ActiveGlowEffects[pickup] = light;
+            Log.Debug($"VVUP Base: Applied glow effect to pickup {pickup} with color {glowColor} and range {range}");
         }
 
         private void RemoveGlowEffect(Pickup pickup)
@@ -89,6 +93,7 @@ namespace VVUP.Base.EventHandlers
             if (light != null && light.Base != null)
             {
                 NetworkServer.Destroy(light.Base.gameObject);
+                Log.Debug($"VVUP Base: Removed glow effect from pickup {pickup}");
             }
             ActiveGlowEffects.Remove(pickup);
         }
@@ -100,10 +105,12 @@ namespace VVUP.Base.EventHandlers
             {
                 try
                 {
+                    Log.Debug($"VVUP Base: Clearing glow effect {light}.");
                     NetworkServer.Destroy(light.Base.gameObject);
                 }
                 catch
                 {
+                    Log.Debug("VVUP Base: I think I was supposed to catch something here in regards to clearing glow effects...");
                      // You know it would be extremely hilarious if I didn't do anything.
                 }
             }

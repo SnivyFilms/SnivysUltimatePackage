@@ -99,7 +99,8 @@ namespace VVUP.CustomItems.Items.Grenades
         public bool Sticky { get; set; } = true;
         
         public bool HasCustomItemGlow { get; set; } = true;
-        public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 191);
+        public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 127);
+        public float GlowRange { get; set; } = 0.25f;
         
         [YamlIgnore]
         public override bool ExplodeOnCollision { get; set; } = false;

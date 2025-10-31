@@ -64,7 +64,8 @@ namespace VVUP.CustomItems.Items.Other
         public Vector3 TeleportLocation { get; set; } = new(38.464f, 314.112f, -32.689f);
         
         public bool HasCustomItemGlow { get; set; } = true;
-        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 127);
+        public float GlowRange { get; set; } = 0.25f;
         
         private readonly Dictionary<PlayerAPI, Vector3> _playersUsingScp1499 = new();
         

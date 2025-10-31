@@ -32,7 +32,7 @@ namespace VVUP.CustomItems.Items.Armor
         public Vector3 GravityChanges { get; set; } = new Vector3()
         {
             x = 0,
-            y = -12.60f,
+            y = -9.8f,
             z = 0
         };
         
@@ -78,7 +78,8 @@ namespace VVUP.CustomItems.Items.Armor
         };
         
         public bool HasCustomItemGlow { get; set; } = true;
-        public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 191);
+        public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 127);
+        public float GlowRange { get; set; } = 0.25f;
         
         protected override void SubscribeEvents()
         {

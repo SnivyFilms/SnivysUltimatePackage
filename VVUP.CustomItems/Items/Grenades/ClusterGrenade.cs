@@ -71,7 +71,8 @@ namespace VVUP.CustomItems.Items.Grenades
         [Description("Enables a random spread of the cluster grenades, if its off it will spawn all of them on top of the detonation point")]
         public bool ClusterGrenadeRandomSpread { get; set; } = true;
         public bool HasCustomItemGlow { get; set; } = true;
-        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 127);
+        public float GlowRange { get; set; } = 0.25f;
 
         protected override void OnExploding(ExplodingGrenadeEventArgs ev)
         {

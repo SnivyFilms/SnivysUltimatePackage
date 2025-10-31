@@ -110,7 +110,8 @@ namespace VVUP.CustomItems.Items.Firearms
         };
         
         public bool HasCustomItemGlow { get; set; } = true;
-        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 191);
+        public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 127);
+        public float GlowRange { get; set; } = 0.25f;
 
         protected override void OnShot(ShotEventArgs ev)
         {
