@@ -13,8 +13,8 @@ namespace VVUP.Votes
         public override string Name { get; } = "VVUP: Votes";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.V";
-        public override Version Version { get; } = new Version(3, 4, 3);
-        public override Version RequiredExiledVersion { get; } = new Version(9, 10, 0);
+        public override Version Version { get; } = new Version(3, 4, 4);
+        public override Version RequiredExiledVersion { get; } = new Version(9, 10, 1);
 
         public override void OnEnabled()
         {

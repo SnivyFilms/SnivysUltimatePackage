@@ -22,8 +22,8 @@ namespace VVUP.HuskInfection
         public override string Name { get; } = "VVUP: Husk Infection";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.HK";
-        public override Version Version { get; } = new Version(3, 4, 3);
-        public override Version RequiredExiledVersion { get; } = new Version(9, 10, 0);
+        public override Version Version { get; } = new Version(3, 4, 4);
+        public override Version RequiredExiledVersion { get; } = new Version(9, 10, 1);
 
         public HuskInfectionEventHandlers HuskInfectionEventHandlers;
         public SsssEventHandlers SsssEventHandlers;
