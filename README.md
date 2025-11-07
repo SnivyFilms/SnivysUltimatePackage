@@ -8,7 +8,7 @@ Snivy's Ultimate Package contains all of the plugins I have made into one mega p
 
 # Plugin List:
 
-# [Snivy's Custom Roles](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Custom-Roles#custom-roles)
+## [Snivy's Custom Roles](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Custom-Roles#custom-roles)
 
 [Custom Role API](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Custom-Roles#custom-roles-api)
 
@@ -16,28 +16,28 @@ Snivy's Ultimate Package contains all of the plugins I have made into one mega p
 
 [Custom Abilities](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Custom-Roles#custom-abilities)
 
-# [Snivy's Custom Items](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Custom-Items)
+## [Snivy's Custom Items](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Custom-Items)
 
-# [Snivy's Server Events](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Server-Events)
+## [Snivy's Server Events](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Server-Events)
 
-# [Micro Damage Reduction](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Micro-Damage-Reduction)
+## [Micro Damage Reduction](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Micro-Damage-Reduction)
 
-# [Round Start Changes](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Round-Start-Changes)
+## [Round Start Changes](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Round-Start-Changes)
 
-# [Weapon Evaporates Players](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Weapon-Evaporates-Players)
+## [Weapon Evaporates Players](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Weapon-Evaporates-Players)
 
-# [Flamingo Adjustments](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Flamingo-Adjustments)
+## [Flamingo Adjustments](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Flamingo-Adjustments)
 
-# [SCP Changes](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/SCP-Changes)
+## [SCP Changes](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/SCP-Changes)
 
-# [Voting Commands](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Voting-Commands)
+## [Voting Commands](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Voting-Commands)
 
-# Server Specific Settings System
+## Server Specific Settings System
 Adds a simple (and questionably coded) Server Specifics Setting System.
 
-# [Commands](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Commands-List)
+## [Commands](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Commands-List)
 
-# [Credits](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Credits)
+## [Credits](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Credits)
 
-# Support
+## Support
 Support should be sent to the Exiled Discord Server, [this link is the most applicable place to ask](https://discord.com/channels/656673194693885975/1325152635233374259/1325152635233374259), but the support channel is also valid. [Click this for an invite to the Exiled Discord Server](https://discord.gg/PyUkWTg)
