@@ -139,7 +139,7 @@ namespace VVUP.CustomItems.Items.Armor
 
         protected override void OnChanging(ChangingItemEventArgs ev)
         {
-            if (_playersWithArmorOn.ContainsKey(ev.Player) && !ev.Player.Items.Any(item => Check(item)))
+            if (_playersWithArmorOn.ContainsKey(ev.Player) && !ev.Player.Items.Any(Check))
             {
                 PlayerLab.Get(ev.Player.NetworkIdentity)!.Gravity = _playersWithArmorOn[ev.Player];
                 _playersWithArmorOn.Remove(ev.Player);

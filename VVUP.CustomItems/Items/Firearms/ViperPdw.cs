@@ -32,7 +32,7 @@ namespace VVUP.CustomItems.Items.Firearms
         [Description("Due to damage being multiplicative, the damage can get really high really quick, so this divider keeps the damage (mostly) in check. Adjust this to your needs")]
         public int DamageDivider { get; set; } = 20;
 
-        public override byte ClipSize { get; set; } = 10;
+        public override byte ClipSize { get; set; } = 30;
         public bool AllowAttachmentChanging { get; set; } = false;
         public string RestrictedAttachmentChangingMessage { get; set; } =
             "You're not allowed to swap attachments on the Viper";

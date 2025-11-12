@@ -14,7 +14,7 @@ namespace VVUP.WeaponEvaporate
         public override string Name { get; } = "VVUP: Weapon Evaporate";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.WE";
-        public override Version Version { get; } = new Version(3, 4, 4);
+        public override Version Version { get; } = new Version(3, 4, 5);
         public override Version RequiredExiledVersion { get; } = new Version(9, 10, 1);
         public EventHandlers EventHandlers;
         
@@ -28,9 +28,7 @@ namespace VVUP.WeaponEvaporate
             }
 
             EventHandlers = new EventHandlers(this);
-            Player.Shot += EventHandlers.OnShot;
             Player.Dying += EventHandlers.OnDying;
-            Player.Hurt -= EventHandlers.OnHurt;
             Instance = this;
             Base.Plugin.Instance.VvupWe = true;
             base.OnEnabled();
@@ -40,8 +38,6 @@ namespace VVUP.WeaponEvaporate
         {
             Base.Plugin.Instance.VvupWe = false;
             Player.Dying -= EventHandlers.OnDying;
-            Player.Shot -= EventHandlers.OnShot;
-            Player.Hurt -= EventHandlers.OnHurt;
             EventHandlers = null;
             Instance = null;
             base.OnDisabled();

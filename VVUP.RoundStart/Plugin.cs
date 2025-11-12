@@ -14,7 +14,7 @@ namespace VVUP.RoundStart
         public override string Name { get; } = "VVUP: Round Start";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.RS";
-        public override Version Version { get; } = new Version(3, 4, 4);
+        public override Version Version { get; } = new Version(3, 4, 5);
         public override Version RequiredExiledVersion { get; } = new Version(9, 10, 1);
         public EventHandlers EventHandlers;
 

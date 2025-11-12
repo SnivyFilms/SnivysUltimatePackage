@@ -143,12 +143,12 @@ namespace VVUP.CustomItems.Items.Firearms
             {
                 if (firearm.MagazineAmmo > ClipSize && FixOverClipSizeBug)
                 {
-                    Log.Debug("VVUP Custom Items: Grenade Launcher Impact: Fixing ammo count due to over clip size bug");
+                    Log.Debug("VVUP Custom Items: Grenade Launcher: Fixing ammo count due to over clip size bug");
                     firearm.MagazineAmmo = ClipSize;
                 }
                 firearm.MagazineAmmo -= 1;
             }
-            Log.Debug($"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} fired, firing a {GrenadeType}, Is Full Force: {FullForceMode[ev.Player]}, Is Impact: {LaunchTypeMode[ev.Player]}");
+            Log.Debug($"VVUP Custom Items: Grenade Launcher: {ev.Player.Nickname} fired, firing a {GrenadeType}, Is Full Force: {FullForceMode[ev.Player]}, Is Impact: {LaunchTypeMode[ev.Player]}");
             Projectile projectile = GrenadeType switch
             {
                 ProjectileType.None => ev.Player.ThrowGrenade(ProjectileType.FragGrenade, FullForceMode[ev.Player]).Projectile,
@@ -177,7 +177,7 @@ namespace VVUP.CustomItems.Items.Firearms
                 return;
             }
 
-            Log.Debug($"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} reloaded the Grenade Launcher Impact with regular ammo.");
+            Log.Debug($"VVUP Custom Items: Grenade Launcher: {ev.Player.Nickname} reloaded the Grenade Launcher with regular ammo.");
         }
 
         private void OnDryfiringWeapon(DryfiringWeaponEventArgs ev)
@@ -185,16 +185,16 @@ namespace VVUP.CustomItems.Items.Firearms
             if (Check(ev.Player.CurrentItem) && ev.Player.CurrentItem is Firearm { MagazineAmmo: 0 } firearm && UseGrenadesToReload)
             {
                 Log.Debug(
-                    $"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} is reloading the Grenade Launcher Impact with grenades.");
+                    $"VVUP Custom Items: Grenade Launcher: {ev.Player.Nickname} is reloading the Grenade Launcher with grenades.");
                 foreach (Item item in ev.Player.Items.ToList())
                 {
-                    Log.Debug($"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} has {item.Type}");
+                    Log.Debug($"VVUP Custom Items: Grenade Launcher: {ev.Player.Nickname} has {item.Type}");
                     if (item.Type != ItemType.GrenadeHE && item.Type != ItemType.GrenadeFlash &&
                         /*item.Type != ItemType.SCP018 &&*/ item.Type != ItemType.SCP2176
                         && item.Type != ItemType.Coal && item.Type != ItemType.SpecialCoal && item.Type != ItemType.Snowball)
                     {
                         Log.Debug(
-                            $"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} has a {item.Type}, not a grenade, skipping.");
+                            $"VVUP Custom Items: Grenade Launcher: {ev.Player.Nickname} has a {item.Type}, not a grenade, skipping.");
                         continue;
                     }
 
@@ -203,7 +203,7 @@ namespace VVUP.CustomItems.Items.Firearms
                         if (IgnoreCustomGrenades)
                         {
                             Log.Debug(
-                                $"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} has a {item.Type}, but it's a custom grenade, skipping.");
+                                $"VVUP Custom Items: Grenade Launcher: {ev.Player.Nickname} has a {item.Type}, but it's a custom grenade, skipping.");
                             continue;
                         }
 
@@ -211,7 +211,7 @@ namespace VVUP.CustomItems.Items.Firearms
                         {
                             _loadedCustomGrenade = customGrenade;
                             Log.Debug(
-                                $"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} has a {item.Type}, it's a custom grenade, setting it to {_loadedCustomGrenade.Name}");
+                                $"VVUP Custom Items: Grenade Launcher: {ev.Player.Nickname} has a {item.Type}, it's a custom grenade, setting it to {_loadedCustomGrenade.Name}");
                         }
                     }
 
@@ -238,7 +238,7 @@ namespace VVUP.CustomItems.Items.Firearms
                             reloaderModule.ServerTryReload();
                         }
                         Log.Debug(
-                            $"VVUP Custom Items: Grenade Launcher Impact: Server-side reload triggered for {ev.Player.Nickname}");
+                            $"VVUP Custom Items: Grenade Launcher: Server-side reload triggered for {ev.Player.Nickname}");
                     });
                     Timing.CallDelayed(4f, () =>
                     {
@@ -246,14 +246,14 @@ namespace VVUP.CustomItems.Items.Firearms
                         ev.Player.SetAmmo(AmmoType.Nato762, ammo762Amount);
                     });
                     Log.Debug(
-                        $"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} reloaded the Grenade Launcher Impact with a {GrenadeType} grenade.");
+                        $"VVUP Custom Items: Grenade Launcher: {ev.Player.Nickname} reloaded the Grenade Launcher with a {GrenadeType} grenade.");
                     return;
                 }
             }
         }
         protected override void OnReloaded(ReloadedWeaponEventArgs ev)
         {
-            Log.Debug($"VVUP Custom Items: Grenade Launcher Impact: {ev.Player.Nickname} reloaded the Grenade Launcher Impact setting Magazine Ammo to {ClipSize}.");
+            Log.Debug($"VVUP Custom Items: Grenade Launcher: {ev.Player.Nickname} reloaded the Grenade Launcher setting Magazine Ammo to {ClipSize}.");
             ev.Firearm.MagazineAmmo = ClipSize;
         }
     }

@@ -10,10 +10,10 @@ namespace VVUP.WeaponEvaporate
         public bool IsEnabled { get; set; } = true;
         public bool Debug { get; set; } = false;
         
-        [Description("Types are 'Body', 'Headshot', and 'Limb' for HitboxTypes")]
+        [Description("Left is the Damage Type, such as damage coming from a Revolver, or a MicroHID. The Right is the HitboxType required to cause evaporation, Types are 'Body', 'Headshot', 'Limb', and 'Any' for HitboxTypes. Any should be used for non-standard damage types like the MicroHID.")]
         public Dictionary<DamageType, EventHandlers.HitBoxEnums> WeaponHitToEvaporate { get; set; } = new Dictionary<DamageType, EventHandlers.HitBoxEnums>
         {
-            { DamageType.MicroHid, EventHandlers.HitBoxEnums.Body },
+            { DamageType.MicroHid, EventHandlers.HitBoxEnums.Any },
             { DamageType.Revolver, EventHandlers.HitBoxEnums.Headshot },
         };
     }

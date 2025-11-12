@@ -71,7 +71,7 @@ namespace VVUP.Base.EventHandlers
             }
         }
 
-        private void ApplyGlowEffect(Pickup pickup, Color glowColor, float range)
+        private void ApplyGlowEffect(Pickup pickup, Color glowColor, float range = 0.25f)
         {
             if (ActiveGlowEffects.ContainsKey(pickup))
             {

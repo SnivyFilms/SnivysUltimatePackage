@@ -191,12 +191,9 @@ namespace VVUP.CustomItems.Items.Grenades
 
         private void OnDestroying(DestroyingEventArgs ev)
         {
-            foreach (var charge in PlacedCharges.ToList())
+            foreach (var charge in PlacedCharges.ToList().Where(charge => charge.Value == ev.Player))
             {
-                if (charge.Value == ev.Player)
-                {
-                    C4Handler(charge.Key, C4RemoveMethod.Remove, ev.Player);
-                }
+                C4Handler(charge.Key, C4RemoveMethod.Remove, ev.Player);
             }
         }
 
@@ -204,13 +201,10 @@ namespace VVUP.CustomItems.Items.Grenades
         {
             if (ev.Player == null)
                 return;
-            
-            foreach (var charge in PlacedCharges.ToList())
+
+            foreach (var charge in PlacedCharges.ToList().Where(charge => charge.Value == ev.Player))
             {
-                if (charge.Value == ev.Player)
-                {
-                    C4Handler(charge.Key, MethodOnDeath, ev.Player);
-                }
+                C4Handler(charge.Key, MethodOnDeath, ev.Player);
             }
         }
 

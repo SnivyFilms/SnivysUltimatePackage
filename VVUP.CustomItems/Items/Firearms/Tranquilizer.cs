@@ -322,11 +322,8 @@ namespace VVUP.CustomItems.Items.Firearms
 
         private void OnDeniableEvent(IDeniableEvent ev)
         {
-            if (ev is IPlayerEvent evPlayerEvent)
-            {
-                if (_activeTranquilizedPlayers.Contains(evPlayerEvent.Player))
-                    ev.IsAllowed = false;
-            }
+            if (ev is IPlayerEvent evPlayerEvent && _activeTranquilizedPlayers.Contains(evPlayerEvent.Player))
+                ev.IsAllowed = false;
         }
     }
 }
