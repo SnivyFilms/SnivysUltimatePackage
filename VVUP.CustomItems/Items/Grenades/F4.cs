@@ -204,13 +204,10 @@ namespace VVUP.CustomItems.Items.Grenades
         {
             if (ev.Player == null)
                 return;
-            
-            foreach (var charge in PlacedCharges.ToList())
+
+            foreach (var charge in PlacedCharges.ToList().Where(charge => charge.Value == ev.Player))
             {
-                if (charge.Value == ev.Player)
-                {
-                    F4Handler(charge.Key, MethodOnDeath, ev.Player);
-                }
+                F4Handler(charge.Key, MethodOnDeath, ev.Player);
             }
         }
 
