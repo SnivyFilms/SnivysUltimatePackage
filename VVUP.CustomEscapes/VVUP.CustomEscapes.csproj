@@ -5,11 +5,11 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{FB888F6F-175F-423C-9A2A-84E656B26D81}</ProjectGuid>
+        <ProjectGuid>{A237E73C-A2BA-4CB9-91AF-50B12A950448}</ProjectGuid>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>VVUP.HuskInfection</RootNamespace>
-        <AssemblyName>VVUP.HuskInfection</AssemblyName>
+        <RootNamespace>VVUP.CustomEscapes</RootNamespace>
+        <AssemblyName>VVUP.CustomEscapes</AssemblyName>
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <LangVersion>latest</LangVersion>
         <FileAlignment>512</FileAlignment>
@@ -71,34 +71,18 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Abilities\ApplyHuskInfection.cs" />
-        <Compile Include="Configs\Config.cs" />
-        <Compile Include="Configs\CustomItemConfig.cs" />
-        <Compile Include="Configs\CustomRoleConfig.cs" />
-        <Compile Include="EventHandlers\HuskInfectionEventHandlers.cs" />
-        <Compile Include="EventHandlers\SsssEventHandlers.cs" />
-        <Compile Include="Items\Calyxanide.cs" />
-        <Compile Include="Items\HuskGrenade.cs" />
-        <Compile Include="Plugin.cs" />
-        <Compile Include="Roles\HuskZombie.cs" />
-        <Compile Include="Ssss.cs" />
+      <Compile Include="Config.cs" />
+      <Compile Include="EventHandlers.cs" />
+      <Compile Include="Plugin.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="ExMod.Exiled" Version="9.10.2" PrivateAssets="all" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\VVUP.Base\VVUP.Base.csproj">
         <Project>{fb453a80-47ea-499c-bd01-190bd82ed0b1}</Project>
         <Name>VVUP.Base</Name>
       </ProjectReference>
-      <ProjectReference Include="..\VVUP.CustomItems\VVUP.CustomItems.csproj">
-        <Project>{f94e6731-0190-4591-9110-e4257d793c58}</Project>
-        <Name>VVUP.CustomItems</Name>
-      </ProjectReference>
-      <ProjectReference Include="..\VVUP.CustomRoles\VVUP.CustomRoles.csproj">
-        <Project>{cfd5b906-4ca0-4493-b81e-afb1421c6f14}</Project>
-        <Name>VVUP.CustomRoles</Name>
-      </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="ExMod.Exiled" Version="9.10.2" PrivateAssets="all" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -108,7 +92,5 @@
     <Target Name="AfterBuild">
     </Target>
     -->
-    <PropertyGroup>
-        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
-    </PropertyGroup>
+
 </Project>

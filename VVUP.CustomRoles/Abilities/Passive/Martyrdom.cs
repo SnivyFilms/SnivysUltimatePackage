@@ -26,11 +26,13 @@ namespace VVUP.CustomRoles.Abilities.Passive
         {
             Log.Debug($"VVUP Custom Abilities: Explode on Death, Adding Explode on Death to {player.Nickname}");
             Player.Dying += OnDying;
+            base.AbilityAdded(player);
         }
         protected override void AbilityRemoved(Exiled.API.Features.Player player)
         {
             Log.Debug($"VVUP Custom Abilities: Explode on Death, Removing Explode on Death from {player.Nickname}");
             Player.Dying -= OnDying;
+            base.AbilityRemoved(player);
         }
 
         private void OnDying(DyingEventArgs ev)

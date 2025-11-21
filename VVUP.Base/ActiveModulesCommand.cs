@@ -39,6 +39,10 @@ namespace VVUP.Base
                 activeModules += "Votes\n";
             if (Plugin.Instance.VvupCt)
                 activeModules += "Credit Tags\n";
+            if (Plugin.Instance.VvupCe)
+                activeModules += "Custom Escapes\n";
+            if (Plugin.Instance.VvupPne)
+                activeModules += "Post Nuke Enhancements\n";
             if (activeModules == string.Empty)
                 activeModules = "No modules has been loaded";
             response = $"VVUP Active Modules: {activeModules}";

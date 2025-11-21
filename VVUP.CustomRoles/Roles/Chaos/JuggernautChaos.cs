@@ -81,8 +81,6 @@ namespace VVUP.CustomRoles.Roles.Chaos
                 AllowUncuffedCustomRoleChange = false,
                 AllowCuffedCustomRoleChange = true,
                 SaveInventory = true,
-                UseOnSpawnUncuffedEscape = false,
-                UseOnSpawnCuffedEscape = true,
             },
         };
         

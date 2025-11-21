@@ -19,12 +19,14 @@ namespace VVUP.CustomRoles.Abilities.Passive
         {
             Log.Debug($"VVUP Custom Abilities: TeamConvertOnKill, Adding TeamConvertOnKill Ability to {player.Nickname}");
             Exiled.Events.Handlers.Player.Dying += OnDying;
+            base.AbilityAdded(player);
         }
 
         protected override void AbilityRemoved(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: TeamConvertOnKill, Removing TeamConvertOnKill Ability from {player.Nickname}");
             Exiled.Events.Handlers.Player.Dying -= OnDying;
+            base.AbilityRemoved(player);
         }
 
         private void OnDying(DyingEventArgs ev)

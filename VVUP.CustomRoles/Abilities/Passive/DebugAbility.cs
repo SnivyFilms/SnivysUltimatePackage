@@ -28,12 +28,14 @@ namespace VVUP.CustomRoles.Abilities.Passive
                     continue;
                 Log.Warn($"VVUP: {door.Name} - {door.Position} - {door.Zone}");
             }
+            base.AbilityAdded(player);
         }
 
         protected override void AbilityRemoved(Player player)
         {
             Timing.KillCoroutines(_debugCoroutine);
             Exiled.Events.Handlers.Player.InteractingDoor -= OnDoorInteract;
+            base.AbilityRemoved(player);
         }
 
         private static IEnumerator<float> DebugTracking(Player player)

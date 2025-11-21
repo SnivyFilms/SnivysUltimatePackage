@@ -18,7 +18,7 @@ namespace VVUP.CustomRoles.Roles.Chaos
 
         public override uint Id { get; set; } = 35;
 
-        public override RoleTypeId Role { get; set; } = RoleTypeId.ChaosConscript;
+        public override RoleTypeId Role { get; set; } = RoleTypeId.ChaosRifleman;
 
         public override int MaxHealth { get; set; } = 200;
 
@@ -28,19 +28,6 @@ namespace VVUP.CustomRoles.Roles.Chaos
             "A Chaos Insurgent that is special. You figure out the rest.";
 
         public override string CustomInfo { get; set; } = "Nightfall";
-
-        public override SpawnProperties SpawnProperties { get; set; } = new()
-        {
-            Limit = 1,
-            RoleSpawnPoints = new List<RoleSpawnPoint>
-            {
-                new()
-                {
-                    Role = RoleTypeId.ChaosConscript,
-                    Chance = 100,
-                },
-            },
-        };
 
         public override List<string> Inventory { get; set; } = new()
         {
@@ -59,7 +46,7 @@ namespace VVUP.CustomRoles.Roles.Chaos
 
         public override List<CustomAbility>? CustomAbilities { get; set; } = new()
         {
-            new RestrictedItems
+            new RestrictedItems()
             {
                 Name = "Nightfall Ability [Passive]",
                 Description = "Yeah I am not going to tell you what this is",
@@ -76,7 +63,7 @@ namespace VVUP.CustomRoles.Roles.Chaos
                     ItemType.GunAK,
                     ItemType.GunShotgun
                 },
-                RestrictUsingItems = true,
+                RestrictUsingItems = false,
                 RestrictDroppingItems = true,
                 RestrictPickingUpItems = true
             }

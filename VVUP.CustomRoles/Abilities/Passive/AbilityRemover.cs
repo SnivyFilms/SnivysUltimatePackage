@@ -22,6 +22,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 player.DisableAllEffects();
                 player.Scale = Vector3.one;
             });
+            base.AbilityAdded(player);
         }
     }
 }

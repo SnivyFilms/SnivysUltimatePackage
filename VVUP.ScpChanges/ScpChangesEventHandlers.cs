@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
+using Exiled.Events.EventArgs.Warhead;
 using MEC;
 using PlayerRoles;
+using PlayerRoles.PlayableScps.Scp096;
 using Respawning;
 using Respawning.Waves;
+using Scp096Role = Exiled.API.Features.Roles.Scp096Role;
 
 namespace VVUP.ScpChanges
 {
@@ -15,7 +19,7 @@ namespace VVUP.ScpChanges
     {
         public Plugin Plugin;
         public ScpChangesEventHandlers(Plugin plugin) => Plugin = plugin;
-
+        private CoroutineHandle _scp096RageCoroutine;
         public void OnChangingRole(SpawnedEventArgs ev)
         {
             if (ev.Player == null)
@@ -33,8 +37,6 @@ namespace VVUP.ScpChanges
 
         public void OnHurting(HurtingEventArgs ev)
         {
-            if (Plugin.Instance.ScpChangesEventHandlers == null)
-                return;
             if (ev.Player == null || ev.Attacker == null)
                 return;
             if (ev.Player == ev.Attacker)
@@ -68,8 +70,6 @@ namespace VVUP.ScpChanges
         }
         public void OnUsingItem(UsedItemEventArgs ev)
         {
-            if (Plugin.Instance.ScpChangesEventHandlers == null)
-                return;
             if (ev.Item.Type != ItemType.SCP1576)
                 return;
             Log.Debug("VVUP SCP Changes: Item is SCP 1576");
@@ -78,6 +78,42 @@ namespace VVUP.ScpChanges
             ev.Player.ShowHint(Scp1576DisplayText, Plugin.Instance.Config.Scp1576TextDuration);
         }
 
+        public void OnNukeStarted(StartingEventArgs ev)
+        {
+            if (!Plugin.Config.Scp096UnlimitedRageDuringNuke)
+                return;
+            _scp096RageCoroutine = Timing.RunCoroutine(InfiniteRage());
+        }
+        private IEnumerator<float> InfiniteRage()
+        {
+            Log.Debug("VVUP SCP Changes: Starting InfiniteRage coroutine for SCP 096");
+            yield return Timing.WaitForSeconds(1f);
+            for(;;)
+            {
+                foreach (var player in Player.List.Where(p => p.Role.Type == RoleTypeId.Scp096))
+                {
+                    var scp096Role = player.Role as Scp096Role;
+                    if (!Warhead.IsInProgress || Warhead.IsDetonated)
+                    {
+                        if (scp096Role.Targets.Count == 0)
+                        {
+                            Log.Debug($"VVUP SCP Changes: Nuke ended and SCP 096 {player.Nickname} has no targets, calming down.");
+                            scp096Role.Calm();
+                        }
+                        yield break;
+                    }
+                    if (scp096Role.RageState != Scp096RageState.Enraged)
+                    {
+                        Log.Debug($"VVUP SCP Changes: Nuke in progress, setting SCP 096 {player.Nickname} rage to nuke timer");
+                        scp096Role.RageManager.ServerEnrage(Warhead.DetonationTimer);
+                        scp096Role.EnragedTimeLeft = Warhead.DetonationTimer;
+                        scp096Role.TotalEnrageTime = Warhead.DetonationTimer;
+                    }
+                }
+                Log.Debug($"VVUP SCP Changes: Waiting 1 second before next SCP-096 rage update.");
+                yield return Timing.WaitForSeconds(1f);
+            }
+        }
         public string ProcessStringVariables(string raw)
         {
             Log.Debug("VVUP SCP Changes: Processing String Variables");

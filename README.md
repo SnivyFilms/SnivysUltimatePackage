@@ -32,6 +32,10 @@ Snivy's Ultimate Package contains all of the plugins I have made into one mega p
 
 ## [Voting Commands](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Voting-Commands)
 
+## [Custom Escapes](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Custom-Escapes)
+
+## [Post Nuke Enhancements](https://github.com/SnivyFilms/SnivysUltimatePackage/wiki/Post-Nuke-Enhancements)
+
 ## Server Specific Settings System
 Adds a simple (and questionably coded) Server Specifics Setting System.
 

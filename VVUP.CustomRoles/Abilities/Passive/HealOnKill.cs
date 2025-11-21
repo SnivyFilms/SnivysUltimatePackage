@@ -41,6 +41,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
             Exiled.Events.Handlers.Player.Dying += OnDying;
             if (HealOverTime && DamageInterruptsHot)
                 Exiled.Events.Handlers.Player.Hurting += OnHurting;
+            base.AbilityAdded(player);
         }
 
         protected override void AbilityRemoved(Player player)
@@ -48,6 +49,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
             Exiled.Events.Handlers.Player.Dying -= OnDying;
             if (HealOverTime && DamageInterruptsHot) 
                 Exiled.Events.Handlers.Player.Hurting -= OnHurting;
+            base.AbilityRemoved(player);
         }
 
         private void OnDying(DyingEventArgs ev)

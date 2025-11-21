@@ -16,11 +16,13 @@ namespace VVUP.CustomRoles.Abilities.Passive
         {
             Log.Debug($"VVUP Custom Abilities: Unspectatable, Adding Unspectatable Ability to {player.Nickname}");
             player.IsSpectatable = false;
+            base.AbilityAdded(player);
         }
         protected override void AbilityRemoved(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: Unspectatable, Removing Unspectatable Ability from {player.Nickname}");
             player.IsSpectatable = true;
+            base.AbilityRemoved(player);
         }
     }
 }

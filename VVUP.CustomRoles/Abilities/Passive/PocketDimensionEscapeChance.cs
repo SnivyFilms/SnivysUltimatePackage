@@ -24,6 +24,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
             PlayersWithPocketDimensionEscapeChance.Add(player, 0);
             Exiled.Events.Handlers.Player.EscapingPocketDimension += OnEscapingPocketSuccess;
             Exiled.Events.Handlers.Player.FailingEscapePocketDimension += OnEscapingPocketFailure;
+            base.AbilityAdded(player);
         }
         protected override void AbilityRemoved(Player player)
         {
@@ -31,6 +32,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
             PlayersWithPocketDimensionEscapeChance.Remove(player);
             Exiled.Events.Handlers.Player.EscapingPocketDimension -= OnEscapingPocketSuccess;
             Exiled.Events.Handlers.Player.FailingEscapePocketDimension -= OnEscapingPocketFailure;
+            base.AbilityRemoved(player);
         }
 
         private void OnEscapingPocketSuccess(EscapingPocketDimensionEventArgs ev)

@@ -29,10 +29,12 @@ namespace VVUP.CustomRoles.Abilities.Passive
         protected override void AbilityAdded(Player player)
         {
             Exiled.Events.Handlers.Player.Escaping += OnEscaping;
+            base.AbilityAdded(player);
         }
         protected override void AbilityRemoved(Player player)
         {
             Exiled.Events.Handlers.Player.Escaping -= OnEscaping;
+            base.AbilityRemoved(player);
         }
 
         private void OnEscaping(EscapingEventArgs ev)

@@ -49,5 +49,7 @@ namespace VVUP.ScpChanges
         public bool Scp106OneShot { get; set; } = true;
         [Description("Can SCP-049 one shot people?")]
         public bool Scp049OneShot { get; set; } = true;
+        [Description("Does SCP-096 get unlimited rage when the Nuke is detonating?")]
+        public bool Scp096UnlimitedRageDuringNuke { get; set; } = true;
     }
 }

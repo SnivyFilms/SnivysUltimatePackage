@@ -31,6 +31,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
                     player.EnableEffect(effect.EffectType, effect.Intensity, effect.Duration, effect.AddDurationIfActive);
                 }
             });
+            base.AbilityAdded(player);
         }
 
         protected override void AbilityRemoved(Player player)
@@ -40,6 +41,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 Log.Debug($"VVUP Custom Abilities: Removing {effect.EffectType} from {player.Nickname}");
                 player.DisableEffect(effect.EffectType);
             }
+            base.AbilityRemoved(player);
         }
     }
 }

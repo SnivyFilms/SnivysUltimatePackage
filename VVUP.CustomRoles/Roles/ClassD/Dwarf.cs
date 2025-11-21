@@ -67,8 +67,6 @@ namespace VVUP.CustomRoles.Roles.ClassD
                 AllowCuffedCustomRoleChange = true,
                 AllowUncuffedCustomRoleChange = true,
                 SaveInventory = false,
-                UseOnSpawnCuffedEscape = false,
-                UseOnSpawnUncuffedEscape = true,
             },
         };
         

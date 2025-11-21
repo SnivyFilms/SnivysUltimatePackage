@@ -19,17 +19,19 @@ namespace VVUP.CustomRoles.Abilities.Passive
         protected override void AbilityAdded(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: Scale Ability, Adding Scale Ability to {player.Nickname}, Scale: {ScaleForPlayers}");
-            Timing.CallDelayed(2.5f, () =>
+            Timing.CallDelayed(0.5f, () =>
             {
                 player.Scale = ScaleForPlayers;
                 player.SetScale(ScaleForPlayers);
             });
+            base.AbilityAdded(player);
         }
         protected override void AbilityRemoved(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: Scale Ability, Removing Scale Ability from {player.Nickname}");
             player.Scale = Vector3.one;
             player.SetScale(Vector3.one);
+            base.AbilityRemoved(player);
         }
     }
 }

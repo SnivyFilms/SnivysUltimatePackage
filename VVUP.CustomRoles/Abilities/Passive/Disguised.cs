@@ -43,12 +43,14 @@ namespace VVUP.CustomRoles.Abilities.Passive
             Log.Debug($"VVUP Custom Abilities: Disguised, Adding Disguised Ability to {player.Nickname}");
             PlayersWithDisguisedEffect.Add(player, DisguisedTrueTeam);
             Exiled.Events.Handlers.Player.Hurting += OnHurting;
+            base.AbilityAdded(player);
         }
         protected override void AbilityRemoved(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: Disguised, Removing Disguised Ability from {player.Nickname}");
             PlayersWithDisguisedEffect.Remove(player);
             Exiled.Events.Handlers.Player.Hurting -= OnHurting;
+            base.AbilityRemoved(player);
         }
 
         private void OnHurting(HurtingEventArgs ev)

@@ -5,6 +5,7 @@ using Exiled.CustomRoles.API;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Scp049;
 using Exiled.Events.EventArgs.Server;
+using MEC;
 using PlayerRoles;
 using UserSettings.ServerSpecific;
 using VVUP.CustomRoles.API;
@@ -158,14 +159,14 @@ namespace VVUP.CustomRoles.EventHandlers
             {
                 case (Faction)SpawnableFaction.ChaosWave or (Faction)SpawnableFaction.ChaosMiniWave:
                 {
-                    if (Plugin.Roles.TryGetValue(StartTeam.Chaos, out List<ICustomRole> role))
-                        roles = role.GetEnumerator();
+                    if (Plugin.Roles.TryGetValue(StartTeam.Chaos, out List<ICustomRole> ciRole))
+                        roles = ciRole.GetEnumerator();
                     break;
                 }
                 case (Faction)SpawnableFaction.NtfWave or (Faction)SpawnableFaction.NtfMiniWave:
                 {
-                    if (Plugin.Roles.TryGetValue(StartTeam.Ntf, out List<ICustomRole> pluginRole))
-                        roles = pluginRole.GetEnumerator();
+                    if (Plugin.Roles.TryGetValue(StartTeam.Ntf, out List<ICustomRole> mtfRole))
+                        roles = mtfRole.GetEnumerator();
                     break;
                 }
             }
@@ -174,14 +175,26 @@ namespace VVUP.CustomRoles.EventHandlers
             {
                 CustomRole? role = CustomRoleMethods.GetCustomRole(ref roles);
 
-                if (player.GetCustomRoles().Count == 0 && 
+                if (player.GetCustomRoles().Count == 0 &&
                     (Plugin.Instance.Config.SsssConfig.SsssEnabled &&
                      ServerSpecificSettingsSync.TryGetSettingOfUser<SSTwoButtonsSetting>(player.ReferenceHub,
-                         Plugin.Instance.Config.SsssConfig.RespawnWaveRolesId, out var setting) && 
+                         Plugin.Instance.Config.SsssConfig.RespawnWaveRolesId, out var setting) &&
                      setting.SyncIsA) || !Plugin.Instance.Config.SsssConfig.SsssEnabled)
                 {
                     Log.Debug($"VVUP Custom Roles: Selected role {role} for {player.Nickname}");
-                    role?.AddRole(player);
+        
+                    Timing.CallDelayed(0.1f, () =>
+                    {
+                        if (player.GetCustomRoles().Count == 0)
+                        {
+                            Log.Debug($"VVUP Custom Roles: Giving role {role} to {player.Nickname}");
+                            role?.AddRole(player);
+                        }
+                        else
+                        {
+                            Log.Debug($"VVUP Custom Roles: {player.Nickname} already has a custom role, not adding another.");
+                        }
+                    });
                 }
             }
 

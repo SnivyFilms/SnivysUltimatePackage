@@ -20,11 +20,13 @@ namespace VVUP.CustomRoles.Abilities.Passive
         {
             Log.Debug($"VVUP Custom Abilities: LifeSteal, Adding LifeSteal Ability to {player.Nickname}");
             Exiled.Events.Handlers.Player.Hurting += OnHurting;
+            base.AbilityAdded(player);
         }
         protected override void AbilityRemoved(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: LifeSteal, Removing LifeSteal Ability from {player.Nickname}");
             Exiled.Events.Handlers.Player.Hurting -= OnHurting;
+            base.AbilityRemoved(player);
         }
         private void OnHurting(HurtingEventArgs ev)
         {

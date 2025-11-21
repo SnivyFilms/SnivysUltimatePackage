@@ -12,11 +12,13 @@ namespace VVUP.CustomRoles.Abilities.Passive
         {
             Log.Debug($"VVUP Custom Abilities: Infinite Stamina, Adding Infinite Stamina to {player.Nickname}");
             player.IsUsingStamina = false;
+            base.AbilityAdded(player);
         }
         protected override void AbilityRemoved(Player player)
         {
             Log.Debug($"VVUP Custom Abilities: Infinite Stamina, Removing Infinite Stamina from {player.Nickname}");
             player.IsUsingStamina = true;
+            base.AbilityRemoved(player);
         }
     }
 }

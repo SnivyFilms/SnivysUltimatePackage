@@ -30,6 +30,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
                     player.TryAddCandy(candy);
                 }
             });
+            base.AbilityAdded(player);
         }
     }
 }
