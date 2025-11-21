@@ -36,9 +36,9 @@ namespace VVUP.CustomEscapes
                     continue;
                 }
 
-                if (defaultEscapeHandler.ShouldBeCuffed != ev.Player.IsCuffed)
+                if (defaultEscapeHandler.Detained != ev.Player.IsCuffed)
                 {
-                    Log.Debug($"VVUP Custom Escapes: Player {ev.Player.Nickname} cuffed state {ev.Player.IsCuffed} does not match required cuffed state {defaultEscapeHandler.ShouldBeCuffed}");
+                    Log.Debug($"VVUP Custom Escapes: Player {ev.Player.Nickname} cuffed state {ev.Player.IsCuffed} does not match required cuffed state {defaultEscapeHandler.Detained}");
                     continue;
                 }
                 
@@ -83,9 +83,9 @@ namespace VVUP.CustomEscapes
                     continue;
                 }
 
-                if (customEscapeHandlers.ShouldBeCuffed != player.IsCuffed)
+                if (customEscapeHandlers.Detained != player.IsCuffed)
                 {
-                    Log.Debug($"VVUP Custom Escapes: Player {player.Nickname} cuffed state {player.IsCuffed} does not match required cuffed state {customEscapeHandlers.ShouldBeCuffed}");
+                    Log.Debug($"VVUP Custom Escapes: Player {player.Nickname} cuffed state {player.IsCuffed} does not match required cuffed state {customEscapeHandlers.Detained}");
                     continue;
                 }
 

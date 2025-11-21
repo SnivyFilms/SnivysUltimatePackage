@@ -34,25 +34,25 @@ namespace VVUP.CustomEscapes
             {
                 OriginalRole = RoleTypeId.ChaosConscript,
                 NewRole = RoleTypeId.NtfPrivate,
-                ShouldBeCuffed = true
+                Detained = true
             },
             new()
             {
                 OriginalRole = RoleTypeId.ChaosRifleman,
                 NewRole = RoleTypeId.NtfPrivate,
-                ShouldBeCuffed = true
+                Detained = true
             },
             new()
             {
                 OriginalRole = RoleTypeId.ChaosMarauder,
                 NewRole = RoleTypeId.NtfPrivate,
-                ShouldBeCuffed = true
+                Detained = true
             },
             new()
             {
                 OriginalRole = RoleTypeId.ChaosRepressor,
                 NewRole = RoleTypeId.NtfPrivate,
-                ShouldBeCuffed = true
+                Detained = true
             },
             
         };
@@ -73,37 +73,37 @@ namespace VVUP.CustomEscapes
                     {
                         OriginalRole = RoleTypeId.Scientist,
                         NewRole = RoleTypeId.ChaosConscript,
-                        ShouldBeCuffed = true,
+                        Detained = true,
                     },
                     new()
                     {
                         OriginalRole = RoleTypeId.FacilityGuard,
                         NewRole = RoleTypeId.ChaosConscript,
-                        ShouldBeCuffed = true,
+                        Detained = true,
                     },
                     new()
                     {
                         OriginalRole = RoleTypeId.NtfSpecialist,
                         NewRole = RoleTypeId.ChaosConscript,
-                        ShouldBeCuffed = true,
+                        Detained = true,
                     },
                     new()
                     {
                         OriginalRole = RoleTypeId.NtfCaptain,
                         NewRole = RoleTypeId.ChaosConscript,
-                        ShouldBeCuffed = true,
+                        Detained = true,
                     },
                     new()
                     {
                         OriginalRole = RoleTypeId.NtfPrivate,
                         NewRole = RoleTypeId.ChaosConscript,
-                        ShouldBeCuffed = true,
+                        Detained = true,
                     },
                     new()
                     {
                         OriginalRole = RoleTypeId.NtfSergeant,
                         NewRole = RoleTypeId.ChaosConscript,
-                        ShouldBeCuffed = true,
+                        Detained = true,
                     },
                 }
             },
@@ -120,7 +120,7 @@ namespace VVUP.CustomEscapes
     {
         public RoleTypeId OriginalRole { get; set; } = RoleTypeId.None;
         public RoleTypeId NewRole { get; set; } = RoleTypeId.None;
-        public bool ShouldBeCuffed { get; set; } = false;
+        public bool Detained { get; set; } = false;
         public string EscapeMessage { get; set; }
         public bool UseHints { get; set; }
         public float MessageDuration { get; set; }
