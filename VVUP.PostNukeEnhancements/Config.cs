@@ -14,6 +14,8 @@ namespace VVUP.PostNukeEnhancements
         public bool Debug { get; set; } = false;
         [Description("Is radiation enabled after the nuke detonates?")]
         public bool RadiationEnabled { get; set; } = true;
+        [Description("End radiation coroutine if the warhead is somehow set to not detonated (i.e. Admin Command restarting it and then canceling it)")]
+        public bool EnsureWarheadDetonatedForEffects { get; set; } = true;
         [Description("How long is the delay before the radiation starts (in seconds)?")]
         public float RadiationDelay { get; set; } = 300;
         [Description("Radiation damage per damage cycle")]

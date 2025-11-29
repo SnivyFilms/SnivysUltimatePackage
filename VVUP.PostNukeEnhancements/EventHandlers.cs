@@ -114,7 +114,7 @@ namespace VVUP.PostNukeEnhancements
                     Log.Debug($"VVUP Post Nuke Enhancements: Notified {player.Nickname} about radiation start.");
                 }
             }
-            while (Plugin.Config.RadiationEnabled)
+            while (Plugin.Config.RadiationEnabled && (!Plugin.Config.EnsureWarheadDetonatedForEffects || Warhead.IsDetonated))
             {
                 foreach (var player in Player.List)
                 {
