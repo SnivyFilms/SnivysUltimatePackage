@@ -48,16 +48,17 @@ namespace VVUP.HuskInfection.EventHandlers
                 yield break;
             }
 
-            if (useHints)
-            {
-                Log.Debug($"VVUP Husk Infection: {player.Nickname} has reached stage 1 with Husk Infection, showing infection text by hint.");
-                player.ShowHint(infectionText, textDuration);
-            }
-            else
-            {
-                Log.Debug($"VVUP Husk Infection: {player.Nickname} has reached stage 1 with Husk Infection, showing infection text by broadcast.");
-                player.Broadcast((ushort)textDuration, infectionText, shouldClearPrevious: true);
-            }
+            if (!string.IsNullOrWhiteSpace(infectionText))
+                if (useHints)
+                {
+                    Log.Debug($"VVUP Husk Infection: {player.Nickname} has reached stage 1 with Husk Infection, showing infection text by hint.");
+                    player.ShowHint(infectionText, textDuration);
+                }
+                else
+                {
+                    Log.Debug($"VVUP Husk Infection: {player.Nickname} has reached stage 1 with Husk Infection, showing infection text by broadcast.");
+                    player.Broadcast((ushort)textDuration, infectionText, shouldClearPrevious: true);
+                }
             PlayersMutedDueToHuskInfection.Add(player);
             yield return Timing.WaitForSeconds(stageTwoDelay);
             if (!player.IsConnected)

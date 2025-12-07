@@ -103,11 +103,11 @@ namespace VVUP.CustomRoles.Abilities.Passive
             while (player.IsAlive)
             {
                 player.Hurt(WithdrawalAmount);
-                
-                if (UseHints)
-                    player.ShowHint(MessageOnWithdrawal, MessageDuration);
-                else
-                    player.Broadcast((ushort)MessageDuration, MessageOnWithdrawal);
+                if (!string.IsNullOrWhiteSpace(MessageOnWithdrawal))
+                    if (UseHints)
+                        player.ShowHint(MessageOnWithdrawal, MessageDuration);
+                    else
+                        player.Broadcast((ushort)MessageDuration, MessageOnWithdrawal);
                 
                 yield return Timing.WaitForSeconds(WithdrawalInterval);
             }
@@ -129,10 +129,11 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 CoroutineHandle newHandle = Timing.RunCoroutine(WithdrawalCoroutine(player));
                 addictedPlayers[player] = newHandle;
         
-                if (UseHints)
-                    player.ShowHint(MessageOnUse, MessageDuration);
-                else
-                    player.Broadcast((ushort)MessageDuration, MessageOnUse);
+                if (!string.IsNullOrWhiteSpace(MessageOnUse))
+                    if (UseHints)
+                        player.ShowHint(MessageOnUse, MessageDuration);
+                    else
+                        player.Broadcast((ushort)MessageDuration, MessageOnUse);
             }
         }
     }

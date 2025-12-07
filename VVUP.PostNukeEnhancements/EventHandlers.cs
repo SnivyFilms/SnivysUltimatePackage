@@ -107,10 +107,11 @@ namespace VVUP.PostNukeEnhancements
             {
                 foreach (Player player in Player.List.Where(player => !player.IsDead))
                 {
-                    if (Plugin.Config.UseHints)
-                        player.ShowHint(Plugin.Config.RadiationStartMessage, Plugin.Config.RadiationMessageDuration);
-                    else
-                        player.Broadcast((ushort)Plugin.Config.RadiationMessageDuration, Plugin.Config.RadiationStartMessage);
+                    if (!string.IsNullOrWhiteSpace(Plugin.Config.RadiationStartMessage))
+                        if (Plugin.Config.UseHints)
+                            player.ShowHint(Plugin.Config.RadiationStartMessage, Plugin.Config.RadiationMessageDuration);
+                        else
+                            player.Broadcast((ushort)Plugin.Config.RadiationMessageDuration, Plugin.Config.RadiationStartMessage);
                     Log.Debug($"VVUP Post Nuke Enhancements: Notified {player.Nickname} about radiation start.");
                 }
             }

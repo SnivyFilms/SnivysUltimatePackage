@@ -39,7 +39,7 @@ namespace VVUP.CustomItems
                 bool hasC4Charges = Items.Grenades.C4.PlacedCharges.ContainsValue(player);
                 bool hasF4Charges = Items.Grenades.F4.PlacedCharges.ContainsValue(player);
 
-                if (!hasC4Charges && !hasF4Charges)
+                if (!hasC4Charges && !hasF4Charges && !string.IsNullOrWhiteSpace(Plugin.Instance.Config.SsssConfig.SsssNoDeployed))
                 {
                     if (Plugin.Instance.Config.SsssConfig.UseHints)
                         player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssNoDeployed, Plugin.Instance.Config.SsssConfig.TextDisplayDuration);
@@ -54,7 +54,8 @@ namespace VVUP.CustomItems
                 if ((needsC4Detonator || needsF4Detonator) &&
                     (player.CurrentItem is null ||
                      (needsC4Detonator && player.CurrentItem.Type != Items.Grenades.C4.Instance.DetonatorItem) ||
-                     (needsF4Detonator && player.CurrentItem.Type != Items.Grenades.F4.Instance.DetonatorItem)))
+                     (needsF4Detonator && player.CurrentItem.Type != Items.Grenades.F4.Instance.DetonatorItem)) && 
+                    !string.IsNullOrWhiteSpace(Plugin.Instance.Config.SsssConfig.SsssDetonatorNeeded))
                 {
                     if (Plugin.Instance.Config.SsssConfig.UseHints) 
                         player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssDetonatorNeeded, Plugin.Instance.Config.SsssConfig.TextDisplayDuration);
@@ -77,7 +78,7 @@ namespace VVUP.CustomItems
                         Items.Grenades.C4.Instance.C4Handler(charge.Key);
                         anyChargeDetonated = true;
                     }
-                    else
+                    else if (!string.IsNullOrWhiteSpace(Plugin.Instance.Config.SsssConfig.SsssTooFarAway))
                         if (Plugin.Instance.Config.SsssConfig.UseHints)
                             player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssTooFarAway, Plugin.Instance.Config.SsssConfig.TextDisplayDuration);
                         else
@@ -96,14 +97,14 @@ namespace VVUP.CustomItems
                         Items.Grenades.F4.Instance.F4Handler(charge.Key);
                         anyChargeDetonated = true;
                     }
-                    else
+                    else if (!string.IsNullOrWhiteSpace(Plugin.Instance.Config.SsssConfig.SsssTooFarAway))
                         if (Plugin.Instance.Config.SsssConfig.UseHints)
                             player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssTooFarAway, Plugin.Instance.Config.SsssConfig.TextDisplayDuration);
                         else
                             player.Broadcast((ushort)Plugin.Instance.Config.SsssConfig.TextDisplayDuration, Plugin.Instance.Config.SsssConfig.SsssTooFarAway);
                 }
 
-                if (anyChargeDetonated)
+                if (anyChargeDetonated && !string.IsNullOrWhiteSpace(Plugin.Instance.Config.SsssConfig.SsssDetonateActivationMessage))
                     if (Plugin.Instance.Config.SsssConfig.UseHints) 
                         player.ShowHint(Plugin.Instance.Config.SsssConfig.SsssDetonateActivationMessage, Plugin.Instance.Config.SsssConfig.TextDisplayDuration);
                     else

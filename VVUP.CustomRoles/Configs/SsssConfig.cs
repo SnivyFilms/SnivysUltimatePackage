@@ -1,8 +1,12 @@
+using System.ComponentModel;
+
 namespace VVUP.CustomRoles.Configs
 {
     public class SsssConfig
     {
         public bool SsssEnabled { get; set; } = true;
+        [Description("If true, players that activate their abilities through SSSS will receive hints, otherwise it will be a broadcast. **NOTE** this is only for SSSS activation, if they use Left Alt (Noclip) they will ALWAYS receive a hint.")]
+        public bool UseHints { get; set; } = true;
         public string Header { get; set; } = "Vicious Vikki's Custom Roles";
         public int ActiveCamoId { get; set; } = 10101;
         public int ChargeId { get; set; } = 10102;

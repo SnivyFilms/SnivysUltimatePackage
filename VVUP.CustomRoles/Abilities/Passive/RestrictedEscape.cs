@@ -45,28 +45,31 @@ namespace VVUP.CustomRoles.Abilities.Passive
             {
                 ev.IsAllowed = false;
                 Log.Debug($"VVUP Custom Abilities: Restricting Escape of {ev.Player.Nickname}");
-                if (UseHints)
-                    ev.Player.ShowHint(EscapeTextBoth, EscapeTextTime);
-                else
-                    ev.Player.Broadcast((ushort)EscapeTextTime, EscapeTextBoth);
+                if (!string.IsNullOrWhiteSpace(EscapeTextBoth))
+                    if (UseHints)
+                        ev.Player.ShowHint(EscapeTextBoth, EscapeTextTime);
+                    else
+                        ev.Player.Broadcast((ushort)EscapeTextTime, EscapeTextBoth);
             }
             else if (!AllowedCuffedEscape && ev.Player.IsCuffed)
             {
                 ev.IsAllowed = false;
                 Log.Debug($"VVUP Custom Abilities: Restricting Escape of {ev.Player.Nickname} while cuffed");
-                if (UseHints)
-                    ev.Player.ShowHint(EscapeTextCuffed, EscapeTextTime);
-                else
-                    ev.Player.Broadcast((ushort)EscapeTextTime, EscapeTextCuffed);
+                if (!string.IsNullOrWhiteSpace(EscapeTextCuffed))
+                    if (UseHints)
+                        ev.Player.ShowHint(EscapeTextCuffed, EscapeTextTime);
+                    else
+                        ev.Player.Broadcast((ushort)EscapeTextTime, EscapeTextCuffed);
             }
             else if (!AllowedUncuffedEscape && !ev.Player.IsCuffed)
             {
                 ev.IsAllowed = false;
                 Log.Debug($"VVUP Custom Abilities: Restricting Escape of {ev.Player.Nickname} while uncuffed");
-                if (UseHints)
-                    ev.Player.ShowHint(EscapeTextUncuffed, EscapeTextTime);
-                else
-                    ev.Player.Broadcast((ushort)EscapeTextTime, EscapeTextUncuffed);
+                if (!string.IsNullOrWhiteSpace(EscapeTextUncuffed))
+                    if (UseHints)
+                        ev.Player.ShowHint(EscapeTextUncuffed, EscapeTextTime);
+                    else
+                        ev.Player.Broadcast((ushort)EscapeTextTime, EscapeTextUncuffed);
             }
         }
     }

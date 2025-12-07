@@ -59,14 +59,23 @@ namespace VVUP.CustomRoles.EventHandlers
                         ability.UseAbility(player);
             
                         if (abilityInfo.abilityType == typeof(HealingMist))
-                            player.ShowHint(response);
+                            if (Plugin.Instance.Config.SsssConfig.UseHints)
+                                player.ShowHint(response);
+                            else
+                                player.Broadcast(3, response);
                 
                         if (abilityInfo.successMessage != null)
-                            player.ShowHint(abilityInfo.successMessage);
+                            if (Plugin.Instance.Config.SsssConfig.UseHints)
+                                player.ShowHint(abilityInfo.successMessage);
+                            else
+                                player.Broadcast(3, abilityInfo.successMessage);
                     }
                     else
                     {
-                        player.ShowHint(response);
+                        if (Plugin.Instance.Config.SsssConfig.UseHints)
+                            player.ShowHint(response);
+                        else
+                            player.Broadcast(3, response);
                     }
                 }
             }

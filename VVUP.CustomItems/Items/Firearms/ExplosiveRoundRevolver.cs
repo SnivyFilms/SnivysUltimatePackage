@@ -124,18 +124,24 @@ namespace VVUP.CustomItems.Items.Firearms
         {
             if (Check(ev.Player.CurrentItem) && !AllowAttachmentChanging)
             {
-                Log.Debug($"VVUP Custom Items: Explosive Round Revolver, {ev.Player.Nickname} tried changing attachments, but it's disallowed");
+                Log.Debug(
+                    $"VVUP Custom Items: Explosive Round Revolver, {ev.Player.Nickname} tried changing attachments, but it's disallowed");
                 ev.IsAllowed = false;
-                if (UseHints)
-                {
-                    Log.Debug($"VVUP Custom Items: Explosive Round Revolver, showing Restricted Attachment Changing Message Hint to {ev.Player.Nickname} for {RestrictedAttachmentChangeMessageTimeDuration} seconds");
-                    ev.Player.ShowHint(RestrictedAttachmentChangingMessage, RestrictedAttachmentChangeMessageTimeDuration);
-                }
-                else
-                {
-                    Log.Debug($"VVUP Custom Items: Explosive Round Revolver, showing Restricted Attachment Changing Message Broadcast to {ev.Player.Nickname} for {RestrictedAttachmentChangeMessageTimeDuration} seconds");
-                    ev.Player.Broadcast((ushort)RestrictedAttachmentChangeMessageTimeDuration, RestrictedAttachmentChangingMessage);
-                }
+                if (!string.IsNullOrWhiteSpace(RestrictedAttachmentChangingMessage)) 
+                    if (UseHints)
+                    {
+                        Log.Debug(
+                            $"VVUP Custom Items: Explosive Round Revolver, showing Restricted Attachment Changing Message Hint to {ev.Player.Nickname} for {RestrictedAttachmentChangeMessageTimeDuration} seconds");
+                        ev.Player.ShowHint(RestrictedAttachmentChangingMessage,
+                            RestrictedAttachmentChangeMessageTimeDuration);
+                    }
+                    else
+                    {
+                        Log.Debug(
+                            $"VVUP Custom Items: Explosive Round Revolver, showing Restricted Attachment Changing Message Broadcast to {ev.Player.Nickname} for {RestrictedAttachmentChangeMessageTimeDuration} seconds");
+                        ev.Player.Broadcast((ushort)RestrictedAttachmentChangeMessageTimeDuration,
+                            RestrictedAttachmentChangingMessage);
+                    }
             }
         }
        /* private void OnReloading(ReloadingWeaponEventArgs ev)

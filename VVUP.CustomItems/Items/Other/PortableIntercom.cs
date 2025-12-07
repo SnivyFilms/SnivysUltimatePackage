@@ -162,10 +162,11 @@ namespace VVUP.CustomItems.Items.Other
 
             if (FollowActualIntercomParameters && IntercomExiled.State != IntercomState.Ready)
             {
-                if (UseHints)
-                    ev.Player.ShowHint(PortableIntercomFailDueToIntercomCooldownText, 5);
-                else
-                    ev.Player.Broadcast(5, PortableIntercomFailDueToIntercomCooldownText);
+                if (!string.IsNullOrWhiteSpace(PortableIntercomFailDueToIntercomCooldownText))
+                    if (UseHints)
+                        ev.Player.ShowHint(PortableIntercomFailDueToIntercomCooldownText, 5);
+                    else
+                        ev.Player.Broadcast(5, PortableIntercomFailDueToIntercomCooldownText);
                 Log.Debug($"VVUP Custom Items, Portable Intercom: {ev.Player.Nickname} tried to use the portable intercom, but it is on cooldown.");
                 return;
             }
@@ -187,7 +188,8 @@ namespace VVUP.CustomItems.Items.Other
             {
                 if (!_playerWithPortableIntercom.Contains(player))
                 {
-                    Log.Debug($"VVUP Custom Items, Portable Intercom: {player.Nickname} is no longer in the list of players with the portable intercom, ending the intercom.");
+                    Log.Debug(
+                        $"VVUP Custom Items, Portable Intercom: {player.Nickname} is no longer in the list of players with the portable intercom, ending the intercom.");
                     _isPortableIntercomActive = false;
                     IntercomExiled.PlaySound(false);
                     IntercomExiled.DisplayText = string.Empty;
@@ -195,15 +197,21 @@ namespace VVUP.CustomItems.Items.Other
                     IntercomBase.TrySetOverride(player.ReferenceHub, false);
                     yield break;
                 }
+
                 yield return Timing.WaitForSeconds(1f);
                 time--;
-                Log.Debug($"VVUP Custom Items, Portable Intercom: {player.Nickname} portable intercom time remaining: {time}, showing message to {player.Nickname} showing how much time they have remaining. Waiting 1 Second.");
-                string message = ProcessStringVaribles(CountdownTextForPortableIntercom, time);
-                if (UseHints)
-                    player.ShowHint(message, 1);
-                else
-                    player.Broadcast(1, message, shouldClearPrevious:true);
+                Log.Debug(
+                    $"VVUP Custom Items, Portable Intercom: {player.Nickname} portable intercom time remaining: {time}, showing message to {player.Nickname} showing how much time they have remaining. Waiting 1 Second.");
+                if (!string.IsNullOrWhiteSpace(CountdownTextForPortableIntercom))
+                {
+                    string message = ProcessStringVaribles(CountdownTextForPortableIntercom, time);
+                    if (UseHints)
+                        player.ShowHint(message, 1);
+                    else
+                        player.Broadcast(1, message, shouldClearPrevious: true);
+                }
             }
+
             Log.Debug($"VVUP Custom Items, Portable Intercom: {player.Nickname} portable intercom has ended, removing from list and ending the intercom.");
             _isPortableIntercomActive = false;
             IntercomExiled.PlaySound(false);

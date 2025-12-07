@@ -111,18 +111,23 @@ namespace VVUP.CustomItems.Items.Firearms
                 LaunchTypeMode.Add(player, true);
             base.OnAcquired(player, item, displayMessage);
         }
+
         public void ToggleForceMode(Player player)
         {
             if (!FullForceMode.ContainsKey(player))
                 FullForceMode.Add(player, true);
-            
+
             FullForceMode[player] = !FullForceMode[player];
-            Log.Debug($"VVUP Custom Items: Grenade Launcher: {player.Nickname} toggled force mode to {(FullForceMode[player]? "Full Force" : "Half Force")}");
-            if (UseHints)
-                player.ShowHint(FullForceMode[player]? FullForceSetMessage : HalfForceSetMessage, MessageDuration);
-            else
-                player.Broadcast((ushort)MessageDuration, FullForceMode[player]? FullForceSetMessage : HalfForceSetMessage);
+            Log.Debug(
+                $"VVUP Custom Items: Grenade Launcher: {player.Nickname} toggled force mode to {(FullForceMode[player] ? "Full Force" : "Half Force")}");
+            if (!string.IsNullOrWhiteSpace(FullForceSetMessage) || !string.IsNullOrWhiteSpace(HalfForceSetMessage))
+                if (UseHints)
+                    player.ShowHint(FullForceMode[player] ? FullForceSetMessage : HalfForceSetMessage, MessageDuration);
+                else
+                    player.Broadcast((ushort)MessageDuration,
+                        FullForceMode[player] ? FullForceSetMessage : HalfForceSetMessage);
         }
+
         public void ToggleLaunchTypeMode(Player player)
         {
             if (!LaunchTypeMode.ContainsKey(player))
@@ -130,10 +135,13 @@ namespace VVUP.CustomItems.Items.Firearms
             
             LaunchTypeMode[player] = !LaunchTypeMode[player];
             Log.Debug($"VVUP Custom Items: Grenade Launcher: {player.Nickname} toggled launch type mode to {(LaunchTypeMode[player]? "Impact" : "Roller")}");
-            if (UseHints)
-                player.ShowHint(LaunchTypeMode[player]? LaunchTypeImpactSetMessage : LaunchTypeRollerSetMessage, MessageDuration);
-            else
-                player.Broadcast((ushort)MessageDuration, LaunchTypeMode[player]? LaunchTypeImpactSetMessage : LaunchTypeRollerSetMessage);
+            if (!string.IsNullOrWhiteSpace(LaunchTypeImpactSetMessage) || !string.IsNullOrWhiteSpace(LaunchTypeRollerSetMessage))
+                if (UseHints)
+                    player.ShowHint(LaunchTypeMode[player] ? LaunchTypeImpactSetMessage : LaunchTypeRollerSetMessage,
+                        MessageDuration);
+                else
+                    player.Broadcast((ushort)MessageDuration,
+                        LaunchTypeMode[player] ? LaunchTypeImpactSetMessage : LaunchTypeRollerSetMessage);
         }
         protected override void OnShooting(ShootingEventArgs ev)
         {
@@ -169,10 +177,11 @@ namespace VVUP.CustomItems.Items.Firearms
         {
             if (UseGrenadesToReload)
             {
-                if (UseHints)
-                    ev.Player.ShowHint(ReloadMessageDryfire, MessageDuration);
-                else
-                    ev.Player.Broadcast((ushort)MessageDuration, ReloadMessageDryfire);
+                if (!string.IsNullOrWhiteSpace(ReloadMessageDryfire))
+                    if (UseHints)
+                        ev.Player.ShowHint(ReloadMessageDryfire, MessageDuration);
+                    else
+                        ev.Player.Broadcast((ushort)MessageDuration, ReloadMessageDryfire);
                 ev.IsAllowed = false;
                 return;
             }

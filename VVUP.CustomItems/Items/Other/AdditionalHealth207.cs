@@ -86,17 +86,17 @@ namespace VVUP.CustomItems.Items.Other
             {
                 Log.Debug(
                     $"VVUP Custom Items: Additional Health 207, {ev.Player.Nickname} tried using Additional Health 207, but has Anti-207 or 207 active, but allowing to use this is disabled with either effect active");
-                
-                if (UseHints)
-                {
-                    Log.Debug($"VVUP Custom Items: Additional Health 207, displaying use fail hint to {ev.Player.Nickname}");
-                    ev.Player.ShowHint(TextToShowToPlayerOnFailCola, TextDisplayDuration);
-                }
-                else
-                {
-                    Log.Debug($"VVUP Custom Items: Additional Health 207, displaying use fail broadcast to {ev.Player.Nickname}");
-                    ev.Player.Broadcast(TextDisplayDuration, TextToShowToPlayerOnFailCola);
-                }
+                if (!string.IsNullOrWhiteSpace(TextToShowToPlayerOnFailCola))
+                    if (UseHints)
+                    {
+                        Log.Debug($"VVUP Custom Items: Additional Health 207, displaying use fail hint to {ev.Player.Nickname}");
+                        ev.Player.ShowHint(TextToShowToPlayerOnFailCola, TextDisplayDuration);
+                    }
+                    else
+                    {
+                        Log.Debug($"VVUP Custom Items: Additional Health 207, displaying use fail broadcast to {ev.Player.Nickname}");
+                        ev.Player.Broadcast(TextDisplayDuration, TextToShowToPlayerOnFailCola);
+                    }
                 ev.IsAllowed = false;
                 return;
             }
@@ -107,17 +107,17 @@ namespace VVUP.CustomItems.Items.Other
                     $"VVUP Custom Items: Additional Health 207, {ev.Player.Nickname} tried using Additional Health 207, " +
                     $"but has the max health cap, {ev.Player.Nickname} has {ev.Player.MaxHealth} max health, " +
                     $"and the limit is set to {MaxUserHpLimit}");
-                
-                if (UseHints)
-                {
-                    Log.Debug($"VVUP Custom Items: Additional Health 207, displaying use fail hint to {ev.Player.Nickname}");
-                    ev.Player.ShowHint(TextToShowToPlayerOnFailHpLimit, TextDisplayDuration);
-                }
-                else
-                {
-                    Log.Debug($"VVUP Custom Items: Additional Health 207, displaying use fail broadcast to {ev.Player.Nickname}");
-                    ev.Player.Broadcast(TextDisplayDuration, TextToShowToPlayerOnFailHpLimit);
-                }
+                if (!string.IsNullOrWhiteSpace(TextToShowToPlayerOnFailHpLimit))
+                    if (UseHints)
+                    {
+                        Log.Debug($"VVUP Custom Items: Additional Health 207, displaying use fail hint to {ev.Player.Nickname}");
+                        ev.Player.ShowHint(TextToShowToPlayerOnFailHpLimit, TextDisplayDuration);
+                    }
+                    else
+                    {
+                        Log.Debug($"VVUP Custom Items: Additional Health 207, displaying use fail broadcast to {ev.Player.Nickname}");
+                        ev.Player.Broadcast(TextDisplayDuration, TextToShowToPlayerOnFailHpLimit);
+                    }
                 ev.IsAllowed = false;
                 return;
             }

@@ -46,8 +46,7 @@ namespace VVUP.CustomEscapes
                 ev.NewRole = defaultEscapeHandler.NewRole;
                 ev.IsAllowed = ev.NewRole != RoleTypeId.None;
                 
-                if (ev.IsAllowed && !string.IsNullOrEmpty(defaultEscapeHandler.EscapeMessage) &&
-                    !string.IsNullOrWhiteSpace(defaultEscapeHandler.EscapeMessage))
+                if (ev.IsAllowed && !string.IsNullOrWhiteSpace(defaultEscapeHandler.EscapeMessage))
                 {
                     Log.Debug($"VVUP Custom Escapes: Showing escape message to {ev.Player.Nickname}");
                     if (defaultEscapeHandler.UseHints)
@@ -96,8 +95,7 @@ namespace VVUP.CustomEscapes
                 {
                     Log.Debug($"VVUP Custom Escapes: Changing {player.Nickname} role from {player.Role.Type} to {customEscapeHandlers.NewRole} due to escape. Player is NOT a custom role");
                     player.Role.Set(customEscapeHandlers.NewRole, SpawnReason.Escaped);
-                    if (!string.IsNullOrEmpty(customEscapeHandlers.EscapeMessage) &&
-                        !string.IsNullOrWhiteSpace(customEscapeHandlers.EscapeMessage))
+                    if (!string.IsNullOrWhiteSpace(customEscapeHandlers.EscapeMessage))
                     {
                         Log.Debug($"VVUP Custom Escapes: Showing escape message to {player.Nickname}");
                         if (customEscapeHandlers.UseHints)

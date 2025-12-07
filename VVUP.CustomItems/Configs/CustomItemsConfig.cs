@@ -174,5 +174,10 @@ namespace VVUP.CustomItems.Configs
         {
             new AED()
         };
+        
+        public List<Knife> Knives { get; private set; } = new()
+        {
+            new Knife()
+        };
     }
 }

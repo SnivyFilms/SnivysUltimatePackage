@@ -159,10 +159,11 @@ namespace VVUP.CustomItems.Items.MedicalItems
             if (!UsableAfterNuke && Warhead.IsDetonated)
                 return;
             Log.Debug("VVUP Custom Items: Deadringer Syringe, Running methods");
-            if (UseHints)
-                ev.Player.ShowHint(OnUseMessage, OnUseMessageTimeDuration);
-            else
-                ev.Player.Broadcast((ushort)OnUseMessageTimeDuration, OnUseMessage);
+            if (!string.IsNullOrWhiteSpace(OnUseMessage))
+                if (UseHints)
+                    ev.Player.ShowHint(OnUseMessage, OnUseMessageTimeDuration);
+                else
+                    ev.Player.Broadcast((ushort)OnUseMessageTimeDuration, OnUseMessage);
             foreach (var effect in SideEffectsFirst)
             {
                 Log.Debug(

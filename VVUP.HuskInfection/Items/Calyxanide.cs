@@ -77,12 +77,13 @@ namespace VVUP.HuskInfection.Items
             Log.Debug($"VVUP Custom Items: Calyxanide, {ev.Player.Nickname} used Calyxanide. Removing Husk Infection if they have it and displaying text.");
             if (HuskInfectionEventHandlers.PlayersWithHuskInfection.ContainsKey(ev.Player))
             {
-               if (UseHints)
-                   ev.Player.ShowHint(CalyxanideUseText, TextDisplayTime);
-               else
-                   ev.Player.Broadcast((ushort)TextDisplayTime, CalyxanideUseText, shouldClearPrevious: true);
-               HuskInfectionEventHandlers.PlayersWithHuskInfection.Remove(ev.Player);
-               HuskInfectionEventHandlers.PlayersMutedDueToHuskInfection.Remove(ev.Player);
+                if (!string.IsNullOrWhiteSpace(CalyxanideUseText))
+                    if (UseHints)
+                        ev.Player.ShowHint(CalyxanideUseText, TextDisplayTime);
+                    else
+                        ev.Player.Broadcast((ushort)TextDisplayTime, CalyxanideUseText, shouldClearPrevious: true);
+                HuskInfectionEventHandlers.PlayersWithHuskInfection.Remove(ev.Player);
+                HuskInfectionEventHandlers.PlayersMutedDueToHuskInfection.Remove(ev.Player);
             }
         }
     }

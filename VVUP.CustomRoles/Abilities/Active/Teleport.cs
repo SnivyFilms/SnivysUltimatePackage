@@ -45,11 +45,12 @@ namespace VVUP.CustomRoles.Abilities.Active
                 {
                     Timing.CallDelayed(0.5f, () =>
                     {
-                        if (UseHints)
-                            player.ShowHint(TeleportingAcrossZonesMessage, MessageDuration);
-                        else
-                            player.Broadcast((ushort)MessageDuration, TeleportingAcrossZonesMessage,
-                                shouldClearPrevious: true);
+                        if (!string.IsNullOrWhiteSpace(TeleportingAcrossZonesMessage))
+                            if (UseHints)
+                                player.ShowHint(TeleportingAcrossZonesMessage, MessageDuration);
+                            else
+                                player.Broadcast((ushort)MessageDuration, TeleportingAcrossZonesMessage,
+                                    shouldClearPrevious: true);
 
                     });
                     Log.Debug(
@@ -65,10 +66,11 @@ namespace VVUP.CustomRoles.Abilities.Active
                 Cooldown = CooldownAfterTeleporting;
                 Timing.CallDelayed(0.5f, () =>
                 {
-                    if (UseHints)
-                        player.ShowHint(TeleportingMessage, MessageDuration);
-                    else
-                        player.Broadcast((ushort)MessageDuration, TeleportingMessage, shouldClearPrevious: true);
+                    if (!string.IsNullOrWhiteSpace(TeleportingMessage))
+                        if (UseHints)
+                            player.ShowHint(TeleportingMessage, MessageDuration);
+                        else
+                            player.Broadcast((ushort)MessageDuration, TeleportingMessage, shouldClearPrevious: true);
                 });
             }
             else
@@ -78,10 +80,11 @@ namespace VVUP.CustomRoles.Abilities.Active
                 TeleportSpotSet = true;
                 Timing.CallDelayed(0.5f, () =>
                 {
-                    if (UseHints)
-                        player.ShowHint(TeleportSpotSetMessage, MessageDuration);
-                    else
-                        player.Broadcast((ushort)MessageDuration, TeleportSpotSetMessage, shouldClearPrevious: true);
+                    if (!string.IsNullOrWhiteSpace(TeleportSpotSetMessage))
+                        if (UseHints)
+                            player.ShowHint(TeleportSpotSetMessage, MessageDuration);
+                        else
+                            player.Broadcast((ushort)MessageDuration, TeleportSpotSetMessage, shouldClearPrevious: true);
                 });
                 Log.Debug(
                     $"VVUP Custom Abilities: Teleport, Teleport spot set for {player.Nickname} at position {player.Position}, setting cooldown to {CooldownAfterDeployingTeleportSpot} seconds, showing message.");
