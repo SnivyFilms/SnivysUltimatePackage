@@ -17,13 +17,13 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             Log.Debug("VVUP Server Events, Peanut Infection: Adding Player Died Event PIE Handler");
             Player.Died += Plugin.Instance.ServerEventsMainEventHandler.OnKillingPIE;
             _pieStarted = true;
-            Cassie.MessageTranslated(_config.StartEventCassieMessage, _config.StartEventCassieText);
+            LabApi.Features.Wrappers.Cassie.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
         }
 
         public static void EndEvent()
         {
             if (!_pieStarted) return;
-            Cassie.MessageTranslated(_config.EndEventCassieMessage, _config.EndEventCassieText);
+            LabApi.Features.Wrappers.Cassie.Message(_config.EndEventCassieMessage, _config.EndEventCassieText);
             Log.Debug("VVUP Server Events, Peanut Infection: Removing Player Died Event PIE Handler");
             Player.Died -= Plugin.Instance.ServerEventsMainEventHandler.OnKillingPIE;
             _pieStarted = false;

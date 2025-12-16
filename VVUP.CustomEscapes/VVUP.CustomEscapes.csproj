@@ -76,7 +76,7 @@
       <Compile Include="Plugin.cs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="ExMod.Exiled" Version="9.10.2" PrivateAssets="all" />
+        <PackageReference Include="ExMod.Exiled" Version="9.11.0" PrivateAssets="all" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\VVUP.Base\VVUP.Base.csproj">

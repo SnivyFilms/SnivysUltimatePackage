@@ -50,6 +50,7 @@ namespace VVUP.CustomItems.Items.Other
         public bool HasCustomItemGlow { get; set; } = true;
         public Color CustomItemGlowColor { get; set; } = new Color32(0, 255, 0, 127);
         public float GlowRange { get; set; } = 0.2f;
+        public float GlowIntensity { get; set; } = 0.25f;
 
         private readonly Dictionary<Player, float> _lastSwingTime = new();
 

@@ -19,7 +19,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             Player.Dying += Plugin.Instance.ServerEventsMainEventHandler.OnDyingPHE;
             Player.Died += Plugin.Instance.ServerEventsMainEventHandler.OnDiedPHE;
             _pheStarted = true;
-            Cassie.MessageTranslated(Config.StartEventCassieMessage, Config.StartEventCassieText);
+            LabApi.Features.Wrappers.Cassie.Message(Config.StartEventCassieMessage, Config.StartEventCassieText);
         }
         public static void EndEvent()
         {

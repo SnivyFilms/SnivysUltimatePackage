@@ -40,13 +40,13 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                 player.AddItem(_config.BlackoutEventStartingItem);
             }
 
-            Cassie.MessageTranslated(_config.StartEventCassieMessage, _config.StartEventCassieText);
+            LabApi.Features.Wrappers.Cassie.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
         }
 
         public static void EndEvent()
         {
             if (!_boeStarted) return;
-            Cassie.MessageTranslated(_config.EndEventCassieMessage, _config.EndEventCassieText);
+            LabApi.Features.Wrappers.Cassie.Message(_config.EndEventCassieMessage, _config.EndEventCassieText);
             if (_config.GeneratorEndsEvent)
             {
                 Log.Debug("VVUP Server Events, Blackout: Disabling Generator Engaged Event Handler");

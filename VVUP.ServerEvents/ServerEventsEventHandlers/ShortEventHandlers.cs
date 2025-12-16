@@ -29,7 +29,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                 player.Scale = new UnityEngine.Vector3(GetPlayerSize(), GetPlayerSize(), GetPlayerSize());
                 Log.Debug($"VVUP Server Events, Short People: Set {player.Nickname} size to {GetPlayerSize()}");
             }
-            Cassie.MessageTranslated(_config.StartEventCassieMessage, _config.StartEventCassieText);
+            LabApi.Features.Wrappers.Cassie.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
         }
         
         public static float GetPlayerSize()
@@ -46,7 +46,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
         public static void EndEvent()
         {
             if (!_seStarted) return;
-            Cassie.MessageTranslated(_config.EndEventCassieMessage, _config.EndEventCassieText);
+            LabApi.Features.Wrappers.Cassie.Message(_config.EndEventCassieMessage, _config.EndEventCassieText);
             Log.Debug("VVUP Server Events, Short People: Unregistering ChangingRole (SE) Event Handlers");
             Exiled.Events.Handlers.Player.ChangingRole -= Plugin.Instance.ServerEventsMainEventHandler.OnRoleSwapSE;
             _seStarted = false;

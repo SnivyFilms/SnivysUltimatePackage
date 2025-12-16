@@ -73,9 +73,16 @@ namespace VVUP.Base.API
         /// <remarks>
         /// <para>
         /// This value determines how far away players can see the item's glow effect.
-        /// Higher values make the glow visible from greater distances, while lower values limit visibility to nearby players.
+        /// Higher values make the glow larger, lower values makes the glow smaller.
         /// </para>
         /// </remarks>
         public float GlowRange { get; set; }
+        /// <summary>
+        /// Gets or sets the intensity (brightness) of the custom glow effect.
+        /// </summary>
+        /// <value>
+        /// A float value representing the glow intensity. Default is 1.0f.
+        /// </value>
+        public float GlowIntensity { get; set; }
     }
 }

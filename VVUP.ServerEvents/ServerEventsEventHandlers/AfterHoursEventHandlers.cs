@@ -25,7 +25,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             Map.ChangeLightsColor(new Color(0.25f, 0.25f, 0.25f));
             PlayerEvent.TriggeringTesla += Plugin.Instance.ServerEventsMainEventHandler.OnTeslaActivationAh;
             Intercom.SpeechRemainingTime = _config.IntercomTime;
-            Cassie.MessageTranslated(_config.StartEventCassieMessage, _config.StartEventCassieText);
+            LabApi.Features.Wrappers.Cassie.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
             foreach (var player in Player.List)
             {
                 var startingItems = GetStartingItems(_config.StartingItems);

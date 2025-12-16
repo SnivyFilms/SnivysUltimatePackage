@@ -20,7 +20,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             Log.Debug("VVUP Server Events, Name Redacted: Adding On Verified event handler");
             PlayerEvent.Verified += OnVerified;
             _nreStarted = true;
-            Cassie.MessageTranslated(_config.StartEventCassieMessage, _config.StartEventCassieText);
+            LabApi.Features.Wrappers.Cassie.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
             foreach (PlayerAPI player in PlayerAPI.List)
             {
                 Log.Debug($"VVUP Server Events, Name Redacted: Setting {player.Nickname} name to {_config.NameRedactedName}");

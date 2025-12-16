@@ -17,7 +17,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             if (_nspStarted) return;
             _nspStarted = true;
             _config = Plugin.Instance.Config.NoSpectatingPlayersConfig;
-            Cassie.MessageTranslated(_config.StartEventCassieMessage, _config.StartEventCassieText);
+            LabApi.Features.Wrappers.Cassie.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
             foreach (PlayerAPI player in PlayerAPI.List)
             {
                 Log.Debug($"VVUP Server Events, No Spectators: Setting {player.Nickname} to not be spectatable");

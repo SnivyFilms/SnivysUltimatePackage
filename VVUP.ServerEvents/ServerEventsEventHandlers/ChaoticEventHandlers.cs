@@ -47,7 +47,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             _config = Plugin.Instance.Config.ChaoticConfig;
             Plugin.ActiveEvent += 1;
             _ceStarted = true;
-            Cassie.MessageTranslated(_config.StartEventCassieMessage, _config.StartEventCassieText);
+            LabApi.Features.Wrappers.Cassie.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
             _choaticHandle = Timing.RunCoroutine(ChaoticTiming());
         }
 
@@ -682,7 +682,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                             cassieText = cassieText.Replace("{designation}",
                                                 GetNatoName(randomNatoLetter) + " " + randomNatoNumber);
                                         }
-                                        Cassie.MessageTranslated(cassieMessage, cassieText);
+                                        LabApi.Features.Wrappers.Cassie.Message(cassieMessage, cassieText);
                                     }
                                     else if (_config.FakeoutRespawnAnnouncementsMTFFallback)
                                         MtfFakeoutCassie(cassieMessage, cassieText, scpCount);
@@ -691,7 +691,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
 
                                 case 3:
                                     if (_config.FakeoutRespawnAnnouncementsChaosAllow)
-                                        Cassie.MessageTranslated(_config.FakeoutRespawnAnnouncementsChaosCassie,
+                                        LabApi.Features.Wrappers.Cassie.Message(_config.FakeoutRespawnAnnouncementsChaosCassie,
                                             _config.FakeoutRespawnAnnouncementsChaosCassieText);
                                     else if (_config.FakeoutRespawnAnnouncementsMTFFallback)
                                         MtfFakeoutCassie(cassieMessage, cassieText, scpCount);
@@ -700,7 +700,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
 
                                 case 4:
                                     if (_config.FakeoutRespawnAnnouncementsSerpentsAllow)
-                                        Cassie.MessageTranslated(_config.FakeoutRespawnAnnouncementsSerpentsCassie,
+                                        LabApi.Features.Wrappers.Cassie.Message(_config.FakeoutRespawnAnnouncementsSerpentsCassie,
                                             _config.FakeoutRespawnAnnouncementsSerpentsCassieText);
                                     else if (_config.FakeoutRespawnAnnouncementsMTFFallback)
                                         MtfFakeoutCassie(cassieMessage, cassieText, scpCount);
@@ -1355,7 +1355,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                     cassieText = cassieText.Replace("{designation}",
                         GetNatoName(randomNatoLetter) + " " + randomNatoNumber);
                 }
-                Cassie.MessageTranslated(cassieMessage, cassieText);
+                LabApi.Features.Wrappers.Cassie.Message(cassieMessage, cassieText);
             }
         }
 

@@ -52,7 +52,7 @@ namespace VVUP.OperationCrossfireServerEvent
 
             _config = Plugin.Instance.Config;
             
-            Cassie.MessageTranslated(_config.StartEventCassieMessage, _config.StartEventCassieText);
+            LabApi.Features.Wrappers.Cassie.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
 
             foreach (PlayerAPI player in PlayerAPI.List)
             {

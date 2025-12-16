@@ -123,7 +123,7 @@
       </ProjectReference>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="ExMod.Exiled" Version="9.10.2" PrivateAssets="all" />
+        <PackageReference Include="ExMod.Exiled" Version="9.11.0" PrivateAssets="all" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

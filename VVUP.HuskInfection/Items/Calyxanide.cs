@@ -55,6 +55,7 @@ namespace VVUP.HuskInfection.Items
         public bool HasCustomItemGlow { get; set; } = true;
         public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 127);
         public float GlowRange { get; set; } = 0.25f;
+        public float GlowIntensity { get; set; } = 0.25f;
 
         protected override void SubscribeEvents()
         {

@@ -55,7 +55,7 @@ namespace VVUP.Base.EventHandlers
                 if (ci is ICustomItemGlow { HasCustomItemGlow: true } glowableItem)
                 {
                     Log.Debug($"VVUP Base: Applying glow effect to pickup {pickup} for custom item {ci.Name} (ID: {ci.Id}) (Native)");
-                    ApplyGlowEffect(pickup, glowableItem.CustomItemGlowColor, glowableItem.GlowRange);
+                    ApplyGlowEffect(pickup, glowableItem.CustomItemGlowColor, glowableItem.GlowRange, glowableItem.GlowIntensity);
                 }
                 
                 else if (Plugin.Config.EnableCompatibilityGlow)
@@ -65,13 +65,13 @@ namespace VVUP.Base.EventHandlers
                     if (configGlow != null)
                     {
                         Log.Debug($"VVUP Base: Applying config glow effect to pickup {pickup} for custom item {ci.Name} (ID: {ci.Id}) (Compatibility Glow)");
-                        ApplyGlowEffect(pickup, configGlow.GetColor(), configGlow.GlowRange);
+                        ApplyGlowEffect(pickup, configGlow.GetColor(), configGlow.GlowRange, configGlow.Intensity);
                     }
                 }
             }
         }
 
-        private void ApplyGlowEffect(Pickup pickup, Color glowColor, float range = 0.25f)
+        private void ApplyGlowEffect(Pickup pickup, Color glowColor, float range = 0.25f, float intensity = 1f)
         {
             if (ActiveGlowEffects.ContainsKey(pickup))
             {
@@ -80,6 +80,7 @@ namespace VVUP.Base.EventHandlers
             
             var light = Light.Create(pickup.Position);
             light.Color = glowColor;
+            light.Intensity = intensity;
             light.Range = range;
             light.ShadowType = LightShadows.Soft;
             light.Base.gameObject.transform.SetParent(pickup.Base.gameObject.transform);

@@ -68,6 +68,7 @@ namespace VVUP.CustomItems.Items.Grenades
         public bool HasCustomItemGlow { get; set; } = true;
         public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 127);
         public float GlowRange { get; set; } = 0.25f;
+        public float GlowIntensity { get; set; } = 0.25f;
         
         protected override void OnThrownProjectile(ThrownProjectileEventArgs ev)
         {

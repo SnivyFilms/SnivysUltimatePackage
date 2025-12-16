@@ -25,6 +25,7 @@ namespace VVUP.Base
                 B = 0,
                 A = 0,
                 GlowRange = 0.25f,
+                Intensity = 1f,
             },
         };
     }
@@ -37,6 +38,7 @@ namespace VVUP.Base
         public float B { get; set; } = 1;
         public float A { get; set; } = 1;
         public float GlowRange { get; set; } = 0.25f;
+        public float Intensity { get; set; } = 0.25f;
         
         public Color GetColor() => new Color(
             Mathf.Clamp(R, 0f, 1f), 

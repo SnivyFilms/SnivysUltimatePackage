@@ -23,7 +23,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                 PlayerLab.Get(player.NetworkIdentity)!.Gravity = _config.GravityChanges;
                 Log.Debug($"VVUP Server Events, Low Gravity: Set {player.Nickname} size to {_config.GravityChanges}");
             }
-            Cassie.MessageTranslated(_config.StartEventCassieMessage, _config.StartEventCassieText);
+            LabApi.Features.Wrappers.Cassie.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
         }
         
         public static void EndEvent()
