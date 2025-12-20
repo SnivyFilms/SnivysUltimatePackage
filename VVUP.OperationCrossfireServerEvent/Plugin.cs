@@ -14,8 +14,8 @@ namespace VVUP.OperationCrossfireServerEvent
         public override string Name => "VVUP: Operation Crossfire Server Event";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.OFCSE";
-        public override Version Version { get; } = new Version(3, 5, 3);
-        public override Version RequiredExiledVersion { get; } = new Version(9, 11, 2);
+        public override Version Version { get; } = new Version(3, 5, 4);
+        public override Version RequiredExiledVersion { get; } = new Version(9, 11, 3);
 
         public OperationCrossfireEventHandlers OperationCrossfireEventHandlers { get; set; }
 
