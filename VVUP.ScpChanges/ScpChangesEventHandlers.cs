@@ -67,6 +67,18 @@ namespace VVUP.ScpChanges
                 Log.Debug($"VVUP SCP Changes: SCP 049 One Shot is enabled, killing {ev.Player.Nickname}");
                 ev.Amount = ev.Player.Health + ev.Player.ArtificialHealth + ev.Player.HumeShield + 1;
             }
+
+            if (Plugin.Instance.Config.FlamingoAdjustments && ev.Attacker.Role.Type is RoleTypeId.AlphaFlamingo 
+            or RoleTypeId.Flamingo or RoleTypeId.ZombieFlamingo or RoleTypeId.NtfFlamingo or RoleTypeId.ChaosFlamingo)
+            {
+                Log.Debug($"VVUP SCP Changes: Flamingo Adjustments are enabled, adjusting damage from {ev.Attacker.Nickname}");
+                float damageAmount = Plugin.Instance.Config.FlamingoBaseDamage;
+                if (ev.Player.IsScp)
+                    ev.Amount = damageAmount * Plugin.Instance.Config.FlamingoScpDamageMultiplier;
+                else
+                    ev.Amount = damageAmount;
+                Log.Debug($"VVUP SCP Changes: {ev.Attacker.Nickname} dealt {ev.Amount} damage to {ev.Player.Nickname}");
+            }
         }
         public void OnUsingItem(UsedItemEventArgs ev)
         {

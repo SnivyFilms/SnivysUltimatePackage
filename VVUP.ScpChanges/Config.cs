@@ -51,5 +51,11 @@ namespace VVUP.ScpChanges
         public bool Scp049OneShot { get; set; } = true;
         [Description("Does SCP-096 get unlimited rage when the Nuke is detonating?")]
         public bool Scp096UnlimitedRageDuringNuke { get; set; } = true;
+        [Description("Does Flamingos have their adjustments")]
+        public bool FlamingoAdjustments { get; set; } = true;
+        [Description("How much base damage does Flamingo do?")]
+        public float FlamingoBaseDamage { get; set; } = 12f;
+        [Description("What is the damage multiplier for Flamingos against SCPs?")]
+        public float FlamingoScpDamageMultiplier { get; set; } = 1.5f;
     }
 }
