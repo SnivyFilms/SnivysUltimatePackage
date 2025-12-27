@@ -2,10 +2,12 @@
 using System.ComponentModel;
 using System.Linq;
 using Exiled.API.Enums;
+using Exiled.API.Extensions;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Components;
 using Exiled.API.Features.Items;
+using Exiled.API.Features.Pickups;
 using Exiled.API.Features.Pickups.Projectiles;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
@@ -158,20 +160,19 @@ namespace VVUP.CustomItems.Items.Firearms
                 firearm.MagazineAmmo -= 1;
             }
             Log.Debug($"VVUP Custom Items: Grenade Launcher: {ev.Player.Nickname} fired, firing a {GrenadeType}, Is Full Force: {FullForceMode[ev.Player]}, Is Impact: {LaunchTypeMode[ev.Player]}");
-            Projectile projectile = GrenadeType switch
+            switch (GrenadeType)
             {
-                ProjectileType.None => ev.Player.ThrowGrenade(ProjectileType.FragGrenade, FullForceMode[ev.Player]).Projectile,
-                ProjectileType.FragGrenade => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
-                ProjectileType.Flashbang => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
-                //ProjectileType.Scp018 => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
-                ProjectileType.Scp2176 => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
-                ProjectileType.Coal => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
-                ProjectileType.SpecialCoal => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
-                ProjectileType.Snowball => ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile,
-            };
-            
-            if (LaunchTypeMode[ev.Player])
-                projectile.GameObject.AddComponent<CollisionHandler>().Init(ev.Player.GameObject, projectile.Base);
+                case ProjectileType.FragGrenade or ProjectileType.Flashbang or ProjectileType.Scp2176:
+                    Projectile projectile = ev.Player.ThrowGrenade(GrenadeType, FullForceMode[ev.Player]).Projectile;
+                    if (LaunchTypeMode[ev.Player])
+                        projectile.GameObject.AddComponent<CollisionHandler>().Init(ev.Player.GameObject, projectile.Base);
+                    break;
+                
+                case ProjectileType.Scp018 or ProjectileType.Snowball or ProjectileType.Coal or ProjectileType.SpecialCoal:
+                    Throwable throwable = (Throwable)Item.Create(GrenadeType.GetItemType());
+                    ev.Player.ThrowItem(throwable, FullForceMode[ev.Player]);
+                    break;
+            }
         }
 
         protected override void OnReloading(ReloadingWeaponEventArgs ev)
@@ -200,7 +201,7 @@ namespace VVUP.CustomItems.Items.Firearms
                 {
                     Log.Debug($"VVUP Custom Items: Grenade Launcher: {ev.Player.Nickname} has {item.Type}");
                     if (item.Type != ItemType.GrenadeHE && item.Type != ItemType.GrenadeFlash &&
-                        /*item.Type != ItemType.SCP018 &&*/ item.Type != ItemType.SCP2176
+                        item.Type != ItemType.SCP018 && item.Type != ItemType.SCP2176
                         && item.Type != ItemType.Coal && item.Type != ItemType.SpecialCoal && item.Type != ItemType.Snowball)
                     {
                         Log.Debug(
@@ -230,7 +231,7 @@ namespace VVUP.CustomItems.Items.Firearms
                     {
                         ItemType.GrenadeHE => ProjectileType.FragGrenade,
                         ItemType.GrenadeFlash => ProjectileType.Flashbang,
-                        //ItemType.SCP018 => ProjectileType.Scp018,
+                        ItemType.SCP018 => ProjectileType.Scp018,
                         ItemType.SCP2176 => ProjectileType.Scp2176,
                         ItemType.Coal => ProjectileType.Coal,
                         ItemType.SpecialCoal => ProjectileType.SpecialCoal,

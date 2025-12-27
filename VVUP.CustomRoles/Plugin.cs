@@ -24,8 +24,8 @@ namespace VVUP.CustomRoles
         public override string Name { get; } = "VVUP: Custom Roles";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.CR";
-        public override Version Version { get; } = new Version(3, 5, 4);
-        public override Version RequiredExiledVersion { get; } = new Version(9, 12, 0);
+        public override Version Version { get; } = new Version(3, 5, 5);
+        public override Version RequiredExiledVersion { get; } = new Version(9, 12, 1);
         
         public Dictionary<StartTeam, List<ICustomRole>> Roles { get; } = new();
         public CustomRoleEventHandler CustomRoleEventHandler;
