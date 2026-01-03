@@ -77,7 +77,6 @@ namespace VVUP.Base.EventHandlers
             light.Base.gameObject.transform.localPosition = pickup.Transform.localPosition + actualOffset;
             ActiveGlowEffects[pickup] = light;
             Log.Debug($"VVUP Base: Applied glow effect to pickup {pickup} with color {glowColor} and range {range}");
-            Log.Warn(light.Base.gameObject.transform.position);
         }
 
         private void RemoveGlowEffect(Pickup pickup)
