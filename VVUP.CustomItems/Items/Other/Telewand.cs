@@ -68,6 +68,8 @@ namespace VVUP.CustomItems.Items.Other
         public Color CustomItemGlowColor { get; set; } = new Color32(0, 150, 255, 127);
         public float GlowRange { get; set; } = 0.25f;
         public float GlowIntensity { get; set; } = 0.25f;
+        public ICustomItemGlow.GlowShadowType ShadowType { get; set; } = ICustomItemGlow.GlowShadowType.None;
+        public Vector3 GlowOffset { get; set; } = Vector3.zero;
 
         [Description("Translations:")]
         public string PosSaved { get; set; } = "<color=#808080>Position Saved</color>";

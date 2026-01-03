@@ -7,12 +7,8 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Item;
 using Exiled.Events.EventArgs.Player;
-using Exiled.Events.EventArgs.Server;
-using InventorySystem.Items.Firearms.Attachments;
-using MEC;
 using UnityEngine;
 using VVUP.Base.API;
-using YamlDotNet.Serialization;
 
 namespace VVUP.CustomItems.Items.Firearms
 {
@@ -75,6 +71,8 @@ namespace VVUP.CustomItems.Items.Firearms
         public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 127);
         public float GlowRange { get; set; } = 0.25f;
         public float GlowIntensity { get; set; } = 0.25f;
+        public ICustomItemGlow.GlowShadowType ShadowType { get; set; } = ICustomItemGlow.GlowShadowType.None;
+        public Vector3 GlowOffset { get; set; } = Vector3.zero;
         
         //private List<ushort> droppedRevolvers = new List<ushort>();
 

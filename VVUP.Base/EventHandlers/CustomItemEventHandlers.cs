@@ -17,19 +17,14 @@ namespace VVUP.Base.EventHandlers
         public CustomItemEventHandlers(Plugin plugin) => Plugin = plugin;
 
         private static readonly Dictionary<Pickup, Light> ActiveGlowEffects = new Dictionary<Pickup, Light>();
-
+        
         public void OnRoundStarted()
         {
             foreach (Pickup pickup in Pickup.List)
-            {
                 HandleGlowEffect(pickup);
-            }
         }
 
-        public void AddGlow(PickupAddedEventArgs ev)
-        {
-            HandleGlowEffect(ev.Pickup);
-        }
+        public void AddGlow(PickupAddedEventArgs ev) => HandleGlowEffect(ev.Pickup);
 
         public void RemoveGlow(PickupDestroyedEventArgs ev)
         {
@@ -40,10 +35,7 @@ namespace VVUP.Base.EventHandlers
                 RemoveGlowEffect(ev.Pickup);
         }
 
-        public void OnWaitingForPlayers()
-        {
-            ClearAllGlowEffects();
-        }
+        public void OnWaitingForPlayers() => ClearAllGlowEffects();
 
         private void HandleGlowEffect(Pickup pickup)
         {
@@ -55,37 +47,37 @@ namespace VVUP.Base.EventHandlers
                 if (ci is ICustomItemGlow { HasCustomItemGlow: true } glowableItem)
                 {
                     Log.Debug($"VVUP Base: Applying glow effect to pickup {pickup} for custom item {ci.Name} (ID: {ci.Id}) (Native)");
-                    ApplyGlowEffect(pickup, glowableItem.CustomItemGlowColor, glowableItem.GlowRange, glowableItem.GlowIntensity);
+                    ApplyGlowEffect(pickup, glowableItem.CustomItemGlowColor, glowableItem.GlowRange, glowableItem.GlowIntensity, glowableItem.ShadowType, glowableItem.GlowOffset);
                 }
                 
-                else if (Plugin.Config.EnableCompatibilityGlow)
+                else if (Plugin.Config.EnableCompatibilityGlow && 
+                         Plugin.Config.CustomItemGlow.FirstOrDefault(g => g.CustomItemId == ci.Id) is { } configGlow)
                 {
-                    
-                    var configGlow = Plugin.Config.CustomItemGlow.FirstOrDefault(g => g.CustomItemId == ci.Id);
-                    if (configGlow != null)
-                    {
-                        Log.Debug($"VVUP Base: Applying config glow effect to pickup {pickup} for custom item {ci.Name} (ID: {ci.Id}) (Compatibility Glow)");
-                        ApplyGlowEffect(pickup, configGlow.GetColor(), configGlow.GlowRange, configGlow.Intensity);
-                    }
+                    Log.Debug($"VVUP Base: Applying config glow effect to pickup {pickup} for custom item {ci.Name} (ID: {ci.Id}) (Compatibility Glow)");
+                    ApplyGlowEffect(pickup, configGlow.GetColor(), configGlow.GlowRange, configGlow.Intensity, configGlow.ShadowType, configGlow.GetOffset());
                 }
             }
         }
 
-        private void ApplyGlowEffect(Pickup pickup, Color glowColor, float range = 0.25f, float intensity = 1f)
+        private void ApplyGlowEffect(Pickup pickup, Color glowColor, float range = 0.25f, float intensity = 1f, ICustomItemGlow.GlowShadowType shadowType = ICustomItemGlow.GlowShadowType.None, Vector3? offset = null)
         {
             if (ActiveGlowEffects.ContainsKey(pickup))
             {
                 RemoveGlowEffect(pickup);
             }
-            
+            var actualOffset = offset ?? Vector3.zero;
             var light = Light.Create(pickup.Position);
             light.Color = glowColor;
             light.Intensity = intensity;
             light.Range = range;
-            light.ShadowType = LightShadows.Soft;
+            light.ShadowType = (LightShadows)shadowType;
             light.Base.gameObject.transform.SetParent(pickup.Base.gameObject.transform);
+            // WIP
+            light.Base.gameObject.transform.position = pickup.Transform.position + actualOffset;
+            light.Base.gameObject.transform.localPosition = pickup.Transform.localPosition + actualOffset;
             ActiveGlowEffects[pickup] = light;
             Log.Debug($"VVUP Base: Applied glow effect to pickup {pickup} with color {glowColor} and range {range}");
+            Log.Warn(light.Base.gameObject.transform.position);
         }
 
         private void RemoveGlowEffect(Pickup pickup)

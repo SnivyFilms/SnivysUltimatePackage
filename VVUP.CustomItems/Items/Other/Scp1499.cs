@@ -67,6 +67,8 @@ namespace VVUP.CustomItems.Items.Other
         public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 127);
         public float GlowRange { get; set; } = 0.25f;
         public float GlowIntensity { get; set; } = 0.25f;
+        public ICustomItemGlow.GlowShadowType ShadowType { get; set; } = ICustomItemGlow.GlowShadowType.None;
+        public Vector3 GlowOffset { get; set; } = Vector3.zero;
         
         private readonly Dictionary<PlayerAPI, Vector3> _playersUsingScp1499 = new();
         

@@ -130,6 +130,8 @@ namespace VVUP.OperationCrossfireServerEvent.Items
         public Color CustomItemGlowColor { get; set; } = new Color32(255, 255, 255, 255);
         public float GlowRange { get; set; } = 0.25f;
         public float GlowIntensity { get; set; } = 0.25f;
+        public ICustomItemGlow.GlowShadowType ShadowType { get; set; } = ICustomItemGlow.GlowShadowType.None;
+        public Vector3 GlowOffset { get; set; } = Vector3.zero;
         
         protected override void SubscribeEvents()
         {

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using VVUP.Base.EventHandlers;
 
 namespace VVUP.Base.API
 {
@@ -64,6 +65,7 @@ namespace VVUP.Base.API
         /// </para>
         /// </remarks>
         public Color CustomItemGlowColor { get; set; }
+        
         /// <summary>
         /// Gets or sets the range (distance) at which the custom glow effect is visible.
         /// </summary>
@@ -77,6 +79,7 @@ namespace VVUP.Base.API
         /// </para>
         /// </remarks>
         public float GlowRange { get; set; }
+        
         /// <summary>
         /// Gets or sets the intensity (brightness) of the custom glow effect.
         /// </summary>
@@ -84,5 +87,38 @@ namespace VVUP.Base.API
         /// A float value representing the glow intensity. Default is 1.0f.
         /// </value>
         public float GlowIntensity { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the shadow type for the glow light.
+        /// </summary>
+        /// <value>
+        /// A <see cref="CustomItemEventHandlers.GlowShadowType"/> value. Options are:
+        /// <list type="bullet">
+        /// <item><c>None</c></item>
+        /// <item><c>Hard</c></item>
+        /// <item><c>Soft</c></item>
+        /// </list>
+        /// Default is <c>None</c>.
+        /// </value>
+        public GlowShadowType ShadowType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the position offset for the glow effect relative to the item's center.
+        /// </summary>
+        /// <value>
+        /// A <see cref="Vector3"/> representing the offset in world units
+        /// Default is <c>Vector3.zero</c>.
+        /// </value>
+        /// <remarks>
+        /// Use this to adjust the glow position when the item's GameObject center does not align with the visual center of the item.
+        /// </remarks>
+        public Vector3 GlowOffset { get; set; }
+        
+        public enum GlowShadowType
+        {
+            None,
+            Hard,
+            Soft
+        }
     }
 }

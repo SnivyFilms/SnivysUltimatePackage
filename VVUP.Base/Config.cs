@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Exiled.API.Interfaces;
 using UnityEngine;
+using VVUP.Base.API;
+using VVUP.Base.EventHandlers;
 
 namespace VVUP.Base
 {
@@ -39,11 +41,18 @@ namespace VVUP.Base
         public float A { get; set; } = 1;
         public float GlowRange { get; set; } = 0.25f;
         public float Intensity { get; set; } = 0.25f;
-        
+        [Description("The options are None, Soft, and Hard for shadow types.")]
+        public ICustomItemGlow.GlowShadowType ShadowType { get; set; } = ICustomItemGlow.GlowShadowType.None;
+        public float OffsetX { get; set; } = 0f;
+        public float OffsetY { get; set; } = 0f;
+        public float OffsetZ { get; set; } = 0f;
+    
         public Color GetColor() => new Color(
             Mathf.Clamp(R, 0f, 1f), 
             Mathf.Clamp(G, 0f, 1f), 
             Mathf.Clamp(B, 0f, 1f), 
             Mathf.Clamp(A, 0f, 1f));
+    
+        public Vector3 GetOffset() => new Vector3(OffsetX, OffsetY, OffsetZ);
     }
 }

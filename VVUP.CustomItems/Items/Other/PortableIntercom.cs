@@ -90,6 +90,8 @@ namespace VVUP.CustomItems.Items.Other
         public Color CustomItemGlowColor { get; set; } = new Color32(255, 255, 255, 255);
         public float GlowRange { get; set; } = 0.25f;
         public float GlowIntensity { get; set; } = 0.25f;
+        public ICustomItemGlow.GlowShadowType ShadowType { get; set; } = ICustomItemGlow.GlowShadowType.None;
+        public Vector3 GlowOffset { get; set; } = Vector3.zero;
         
         private bool _isPortableIntercomActive = false;
         private static CoroutineHandle _portableIntercomCoroutine;

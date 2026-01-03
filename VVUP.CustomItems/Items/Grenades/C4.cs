@@ -102,6 +102,8 @@ namespace VVUP.CustomItems.Items.Grenades
         public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 127);
         public float GlowRange { get; set; } = 0.25f;
         public float GlowIntensity { get; set; } = 0.25f;
+        public ICustomItemGlow.GlowShadowType ShadowType { get; set; } = ICustomItemGlow.GlowShadowType.None;
+        public Vector3 GlowOffset { get; set; } = Vector3.zero;
         
         [YamlIgnore]
         public override bool ExplodeOnCollision { get; set; } = false;
@@ -194,7 +196,19 @@ namespace VVUP.CustomItems.Items.Grenades
         {
             foreach (var charge in PlacedCharges.ToList().Where(charge => charge.Value == ev.Player))
             {
-                C4Handler(charge.Key, C4RemoveMethod.Remove, ev.Player);
+                try
+                {
+                    if (charge.Key == null || charge.Key.Base == null || charge.Key.Base.gameObject == null)
+                    {
+                        PlacedCharges.Remove(charge.Key!);
+                        continue;
+                    }
+                    C4Handler(charge.Key, C4RemoveMethod.Remove, ev.Player);
+                }
+                catch (System.NullReferenceException)
+                {
+                    PlacedCharges.Remove(charge.Key!);
+                }
             }
         }
 
@@ -205,7 +219,19 @@ namespace VVUP.CustomItems.Items.Grenades
 
             foreach (var charge in PlacedCharges.ToList().Where(charge => charge.Value == ev.Player))
             {
-                C4Handler(charge.Key, MethodOnDeath, ev.Player);
+                try
+                {
+                    if (charge.Key == null || charge.Key.Base == null || charge.Key.Base.gameObject == null)
+                    {
+                        PlacedCharges.Remove(charge.Key!);
+                        continue;
+                    }
+                    C4Handler(charge.Key, C4RemoveMethod.Remove, ev.Player);
+                }
+                catch (System.NullReferenceException)
+                {
+                    PlacedCharges.Remove(charge.Key!);
+                }
             }
         }
 
