@@ -6,6 +6,7 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
 using Mirror;
 using UnityEngine;
+using UnityEngine.Animations;
 using VVUP.Base.API;
 using Light = Exiled.API.Features.Toys.Light;
 
@@ -71,10 +72,18 @@ namespace VVUP.Base.EventHandlers
             light.Intensity = intensity;
             light.Range = range;
             light.ShadowType = (LightShadows)shadowType;
-            light.Base.gameObject.transform.SetParent(pickup.Base.gameObject.transform);
+
             // WIP
-            light.Base.gameObject.transform.position = pickup.Transform.position + actualOffset;
-            light.Base.gameObject.transform.localPosition = pickup.Transform.localPosition + actualOffset;
+            PositionConstraint positionConstraint = light.GameObject.AddComponent<PositionConstraint>();
+
+            ConstraintSource source = new ConstraintSource {sourceTransform = pickup.Transform, weight = 1f};
+
+            positionConstraint.AddSource(source);
+
+            positionConstraint.translationOffset = actualOffset;
+            positionConstraint.constraintActive = true;
+            positionConstraint.locked = true;
+
             ActiveGlowEffects[pickup] = light;
             Log.Debug($"VVUP Base: Applied glow effect to pickup {pickup} with color {glowColor} and range {range}");
         }
