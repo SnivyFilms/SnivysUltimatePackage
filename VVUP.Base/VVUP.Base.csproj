@@ -49,6 +49,11 @@
             <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\Mirror.dll</HintPath>
             <Private>false</Private>
         </Reference>
+        <Reference Include="UnityEngine.AnimationModule">
+            <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\UnityEngine.AnimationModule.dll</HintPath>
+            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\UnityEngine.AnimationModule.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
         <Reference Include="UnityEngine.CoreModule">
             <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
             <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\UnityEngine.CoreModule.dll</HintPath>

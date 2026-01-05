@@ -67,11 +67,12 @@ namespace VVUP.Base.EventHandlers
                 RemoveGlowEffect(pickup);
             }
             var actualOffset = offset ?? Vector3.zero;
-            var light = Light.Create(pickup.Position);
+            var light = Light.Create(pickup.Position, spawn: false);
             light.Color = glowColor;
             light.Intensity = intensity;
             light.Range = range;
             light.ShadowType = (LightShadows)shadowType;
+            light.Spawn();
 
             // WIP
             PositionConstraint positionConstraint = light.GameObject.AddComponent<PositionConstraint>();

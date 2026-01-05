@@ -46,7 +46,7 @@ namespace VVUP.ServerEvents.ServerEventsConfigs
         public ShortConfig ShortConfig { get; set; } = new();
         public VariableLightsConfig VariableLightsConfig { get; set; } = new();
         public AfterHoursConfig AfterHoursConfig { get; set; } = new();
-        //public SnowballsVsScpsConfig SnowballsVsScpsConfig { get; set; } = new();
+        public SnowballsVsScpsConfig SnowballsVsScpsConfig { get; set; } = new();
         public GravityConfig GravityConfig { get; set; } = new();
         public NoSpectatingPlayersConfig NoSpectatingPlayersConfig { get; set; } = new();
     }

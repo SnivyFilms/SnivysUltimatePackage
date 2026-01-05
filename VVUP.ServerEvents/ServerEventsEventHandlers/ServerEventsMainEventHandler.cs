@@ -68,7 +68,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             ChaoticEventHandlers.EndEvent();
             NameRedactedEventHandlers.EndEvent();
             AfterHoursEventHandlers.EndEvent();
-            //SnowballsVsScpsEventHandlers.EndEvent();
+            SnowballsVsScpsEventHandlers.EndEvent();
             GravityEventHandlers.EndEvent();
             ItemRandomizerEventHandlers.EndEvent();
             NoSpectatingPlayersEventHandlers.EndEvent();
@@ -136,10 +136,10 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                         Log.Debug("VVUP Server Events: Activating No Spectating Players Event");
                         var itemRandomizerEventHandlers = new ItemRandomizerEventHandlers();
                         break;
-                    //case "SnowballsVsScps":
-                        //Log.Debug("VVUP Server Events: Activating Snowballs Vs Scps Event");
-                        // var snowballsVsScpsEventHandlers = new SnowballsVsScpsEventHandlers();
-                        //break;
+                    case "SnowballsVsScps":
+                        Log.Debug("VVUP Server Events: Activating Snowballs Vs Scps Event");
+                        var snowballsVsScpsEventHandlers = new SnowballsVsScpsEventHandlers();
+                        break;
                     case "NoSpectatingPlayers":
                         Log.Debug("VVUP Server Events: Activating No Spectating Players Event");
                         var noSpectatingPlayersEventHandlers = new NoSpectatingPlayersEventHandlers();
@@ -382,12 +382,12 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             JumpingPlayers.Add(ev.Player);
         }
 
-        /*public void OnDyingSvs(DyingEventArgs ev)
+        public void OnDyingSvs(DyingEventArgs ev)
         {
             Log.Debug($"VVUP Server Events: Snowballs Vs Scps, Setting {ev.Player.Nickname} to Overwatch because they died");
             Timing.CallDelayed(0.5f, () => ev.Player.Role.Set(RoleTypeId.Overwatch));
             SnowballsVsScpsEventHandlers.PlayersInOverwatchFromEvent.Add(ev.Player);
-        }*/
+        }
         
         public void OnRoleSwapGE(ChangingRoleEventArgs ev)
         {

@@ -205,38 +205,31 @@ namespace VVUP.CustomItems.Items.Firearms
             Item previousItem = player.CurrentItem;
             Vector3 previousScale = player.Scale;
             float newHealth = player.Health - Damage;
-            List<StatusEffectBase> activeEffects = ListPool<StatusEffectBase>.Pool.Get();
             player.CurrentItem = null;
+            player.DropHeldItem();
+            List<StatusEffectBase> activeEffects = ListPool<StatusEffectBase>.Pool.Get();
             Log.Debug($"VVUP Custom Items: Tranquilizer, storing {player.Nickname}'s previous stats");
             if (newHealth <= 0)
                 yield break;
             
             activeEffects.AddRange(player.ActiveEffects.Where(effect => effect.IsEnabled));
             Log.Debug($"VVUP Custom Items: Tranquilizer, saving {player.Nickname}'s previous effects");
-            try
+            if (DropItems)
             {
-                if (DropItems)
+                Log.Debug($"VVUP Custom Items: Tranquilizer, Drop Items are true, checking {player.Nickname}'s inventory for items");
+                if (player.Items.Count > 0)
                 {
-                    Log.Debug($"VVUP Custom Items: Tranquilizer, Drop Items are true, checking {player.Nickname}'s inventory for items");
-                    if (player.Items.Count > 0)
+                    foreach (Item item in player.Items.ToList())
                     {
-                        foreach (Item item in player.Items.ToList())
+                        if (TryGet(item, out CustomItem? customItem))
                         {
-                            if (TryGet(item, out CustomItem? customItem))
-                            {
-                                customItem?.Spawn(player.Position, item, player);
-                                player.RemoveItem(item);
-                            }
+                            customItem?.Spawn(player.Position, item, player);
+                            player.RemoveItem(item);
                         }
-                        Log.Debug($"VVUP Custom Items: Tranquilizer, Dropping {player.Nickname}'s inventory");
-                        player.DropItems();
                     }
+                    Log.Debug($"VVUP Custom Items: Tranquilizer, Dropping {player.Nickname}'s inventory");
+                    player.DropItems();
                 }
-                player.CurrentItem = null;
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"VVUP Custom Items: Tranquilizer, {nameof(DoTranq)}: {ex}");
             }
 
             Ragdoll? ragdoll = null;
