@@ -71,7 +71,7 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="ExMod.Exiled" Version="9.12.2" />
+      <PackageReference Include="ExMod.Exiled" Version="9.12.4" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\VVUP.Base\VVUP.Base.csproj">

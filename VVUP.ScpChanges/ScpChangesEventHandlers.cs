@@ -68,7 +68,7 @@ namespace VVUP.ScpChanges
                 ev.Amount = ev.Player.Health + ev.Player.ArtificialHealth + ev.Player.HumeShield + 1;
             }
 
-            if (Plugin.Instance.Config.FlamingoAdjustments && ev.Attacker.Role.Type is RoleTypeId.AlphaFlamingo 
+            /*if (Plugin.Instance.Config.FlamingoAdjustments && ev.Attacker.Role.Type is RoleTypeId.AlphaFlamingo 
             or RoleTypeId.Flamingo or RoleTypeId.ZombieFlamingo or RoleTypeId.NtfFlamingo or RoleTypeId.ChaosFlamingo)
             {
                 Log.Debug($"VVUP SCP Changes: Flamingo Adjustments are enabled, adjusting damage from {ev.Attacker.Nickname}");
@@ -78,7 +78,7 @@ namespace VVUP.ScpChanges
                 else
                     ev.Amount = damageAmount;
                 Log.Debug($"VVUP SCP Changes: {ev.Attacker.Nickname} dealt {ev.Amount} damage to {ev.Player.Nickname}");
-            }
+            }*/
         }
         public void OnUsingItem(UsedItemEventArgs ev)
         {
