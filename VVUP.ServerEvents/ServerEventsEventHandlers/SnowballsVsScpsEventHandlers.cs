@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿/*using System.Collections.Generic;
 using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Features;
@@ -128,4 +128,4 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             PlayersInOverwatchFromEvent.Clear();
         }
     }
-}
+}*/
