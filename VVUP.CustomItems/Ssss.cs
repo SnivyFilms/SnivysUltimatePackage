@@ -55,6 +55,8 @@ namespace VVUP.CustomItems
                 F4.Get(typeof(F4)),
                 GuardianGrenade.Get(typeof(GuardianGrenade)),
                 AED.Get(typeof(AED)),
+                Knife.Get(typeof(Knife)),
+                Sniper.Get(typeof(Sniper)),
             };
 
             foreach (var items in customItems.Where(itemCollection => itemCollection != null).SelectMany(itemCollection => itemCollection))
