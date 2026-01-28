@@ -80,6 +80,11 @@ namespace VVUP.CustomItems.Configs
             new Scp2818()
         };
 
+        public List<Sniper> Snipers { get; private set; } = new()
+        {
+            new Sniper()
+        };
+
         public List<InfinitePills> InfinitePills { get; private set; } = new()
         {
             new InfinitePills()

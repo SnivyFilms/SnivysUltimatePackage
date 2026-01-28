@@ -85,6 +85,7 @@
     <Compile Include="Items\Firearms\MediGun.cs" />
     <Compile Include="Items\Firearms\Pathfinder.cs" />
     <Compile Include="Items\Firearms\Scp2818.cs" />
+    <Compile Include="Items\Firearms\Sniper.cs" />
     <Compile Include="Items\Firearms\Tranquilizer.cs" />
     <Compile Include="Items\Firearms\ViperPdw.cs" />
     <Compile Include="Items\Grenades\C4.cs" />
