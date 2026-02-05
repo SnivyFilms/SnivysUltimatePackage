@@ -111,6 +111,7 @@
     <Compile Include="Items\Other\PhantomLantern.cs" />
     <Compile Include="Items\Other\PortableIntercom.cs" />
     <Compile Include="Items\Other\Scp1499.cs" />
+    <Compile Include="Items\Other\Scp427.cs" />
     <Compile Include="Items\Other\Telewand.cs" />
     <Compile Include="Patches\StickyGrenade.cs" />
     <Compile Include="Plugin.cs" />

@@ -85,6 +85,12 @@ namespace VVUP.ScpChanges
             if (ev.Item.Type != ItemType.SCP1576)
                 return;
             Log.Debug("VVUP SCP Changes: Item is SCP 1576");
+            if (String.IsNullOrWhiteSpace(Plugin.Instance.Config.Scp1576Text))
+            {
+                Log.Debug("VVUP SCP Changes: No SCP 1576 text configured, not showing hint.");
+                return;
+            }
+
             string Scp1576DisplayText = ProcessStringVariables(Plugin.Instance.Config.Scp1576Text);
             Log.Debug($"VVUP SCP Changes: Showing text to {ev.Player.Nickname}");
             ev.Player.ShowHint(Scp1576DisplayText, Plugin.Instance.Config.Scp1576TextDuration);
@@ -105,6 +111,8 @@ namespace VVUP.ScpChanges
                 foreach (var player in Player.List.Where(p => p.Role.Type == RoleTypeId.Scp096))
                 {
                     var scp096Role = player.Role as Scp096Role;
+                    if (scp096Role == null)
+                        continue;
                     if (!Warhead.IsInProgress || Warhead.IsDetonated)
                     {
                         if (scp096Role.Targets.Count == 0)

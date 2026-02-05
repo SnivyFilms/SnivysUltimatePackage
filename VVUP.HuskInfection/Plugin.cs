@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Features;
@@ -7,7 +6,6 @@ using Exiled.CustomItems.API.Features;
 using Exiled.CustomRoles.API;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Loader;
-using VVUP.CustomRoles.API;
 using VVUP.HuskInfection.EventHandlers;
 using Config = VVUP.HuskInfection.Configs.Config;
 using Player = Exiled.Events.Handlers.Player;
@@ -44,15 +42,10 @@ namespace VVUP.HuskInfection
                 base.OnDisabled();
                 return;
             }
-            if (!Loader.Plugins.Any(plugin => plugin.Prefix == "VVUP.CI"))
-            {
-                Log.Error("VVUP HK: Custom Items Module is not present, disabling module");
-                base.OnDisabled();
-                return;
-            }
-            HashSet<CustomRole> existingRoles = new HashSet<CustomRole>(CustomRole.Registered);
-            HashSet<CustomAbility> existingAbilities = new HashSet<CustomAbility>(CustomAbility.Registered);
+            //HashSet<CustomRole> existingRoles = new HashSet<CustomRole>(CustomRole.Registered);
+            //HashSet<CustomAbility> existingAbilities = new HashSet<CustomAbility>(CustomAbility.Registered);
             Config.CustomRoleConfig.HuskZombies.Register();
+            /*
             foreach (CustomRole role in CustomRole.Registered)
             {
                 if (role.CustomAbilities is not null)
@@ -94,6 +87,7 @@ namespace VVUP.HuskInfection
             }
             existingRoles.Clear();
             existingAbilities.Clear();
+            */
             CustomItem.RegisterItems(overrideClass: Instance.Config.CustomItemConfig);
             HuskInfectionEventHandlers = new HuskInfectionEventHandlers(this);
             Server.WaitingForPlayers += HuskInfectionEventHandlers.OnWaitingForPlayers;

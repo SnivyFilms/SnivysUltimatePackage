@@ -184,5 +184,9 @@ namespace VVUP.CustomItems.Configs
         {
             new Sniper()
         };
+        public List<Scp427> Scp427s { get; private set; } = new()
+        {
+            new Scp427()
+        };
     }
 }

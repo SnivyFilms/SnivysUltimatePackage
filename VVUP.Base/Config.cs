@@ -30,6 +30,8 @@ namespace VVUP.Base
                 Intensity = 1f,
             },
         };
+        [Description("Some people may have errors with items getting glows at round start if they start on the ground, this delay should hopefully mitigate that.")]
+        public float DelayBeforeColorsAppliesToItemsAlreadyOnGroundAtRoundStart { get; set; } = 1f;
     }
 
     public class CustomItemGlowConfig

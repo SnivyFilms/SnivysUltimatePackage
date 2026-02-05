@@ -6,6 +6,7 @@ using Exiled.API.Features;
 using Exiled.CustomRoles.API;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Loader;
+using MEC;
 using UserSettings.ServerSpecific;
 using VVUP.CustomRoles.API;
 using VVUP.CustomRoles.Configs;
@@ -79,45 +80,48 @@ namespace VVUP.CustomRoles
             Config.CustomRolesConfig.ClassDDruggies.Register();
             Config.CustomRolesConfig.TeslaTechnicians.Register();
 
-            foreach (CustomRole role in CustomRole.Registered)
+            Timing.CallDelayed(Config.DelayBeforeRegisteringCustomRolesSpawnConditions, () =>
             {
-                if (role.CustomAbilities is not null)
+                foreach (CustomRole role in CustomRole.Registered)
                 {
-                    foreach (var ability in role.CustomAbilities.Where(ability => !existingAbilities.Contains(ability)))
+                    if (role.CustomAbilities is not null)
                     {
-                        Log.Debug($"VVUP CR: Registering ability {ability.Name}");
-                        ability.Register();
+                        foreach (var ability in role.CustomAbilities.Where(ability => !existingAbilities.Contains(ability)))
+                        {
+                            Log.Debug($"VVUP CR: Registering ability {ability.Name}");
+                            ability.Register();
+                        }
+                    }
+                    if (!existingRoles.Contains(role) && role is ICustomRole custom)
+                    {
+                        Log.Debug($"VVUP CR: Adding {role.Name} to dictionary..");
+                        StartTeam team = custom.StartTeam switch
+                        {
+                            var t when t.HasFlag(StartTeam.Chaos) => StartTeam.Chaos,
+                            var t when t.HasFlag(StartTeam.Guard) => StartTeam.Guard,
+                            var t when t.HasFlag(StartTeam.Ntf) => StartTeam.Ntf,
+                            var t when t.HasFlag(StartTeam.Scientist) => StartTeam.Scientist,
+                            var t when t.HasFlag(StartTeam.ClassD) => StartTeam.ClassD,
+                            var t when t.HasFlag(StartTeam.Scp) => StartTeam.Scp,
+                            var t when t.HasFlag(StartTeam.Scp049) => StartTeam.Scp049,
+                            var t when t.HasFlag(StartTeam.Scp079) => StartTeam.Scp079,
+                            var t when t.HasFlag(StartTeam.Scp096) => StartTeam.Scp096,
+                            var t when t.HasFlag(StartTeam.Scp106) => StartTeam.Scp106,
+                            var t when t.HasFlag(StartTeam.Scp173) => StartTeam.Scp173,
+                            var t when t.HasFlag(StartTeam.Scp939) => StartTeam.Scp939,
+                            var t when t.HasFlag(StartTeam.Scp3114) => StartTeam.Scp3114,
+                            _ => StartTeam.Other
+                        };
+
+                        if (!Roles.ContainsKey(team))
+                            Roles.Add(team, new());
+
+                        for (int i = 0; i < role.SpawnProperties.Limit; i++)
+                            Roles[team].Add(custom);
+                        Log.Debug($"VVUP CR: Roles {team} now has {Roles[team].Count} elements.");
                     }
                 }
-                if (!existingRoles.Contains(role) && role is ICustomRole custom)
-                {
-                    Log.Debug($"VVUP CR: Adding {role.Name} to dictionary..");
-                    StartTeam team = custom.StartTeam switch
-                    {
-                        var t when t.HasFlag(StartTeam.Chaos) => StartTeam.Chaos,
-                        var t when t.HasFlag(StartTeam.Guard) => StartTeam.Guard,
-                        var t when t.HasFlag(StartTeam.Ntf) => StartTeam.Ntf,
-                        var t when t.HasFlag(StartTeam.Scientist) => StartTeam.Scientist,
-                        var t when t.HasFlag(StartTeam.ClassD) => StartTeam.ClassD,
-                        var t when t.HasFlag(StartTeam.Scp) => StartTeam.Scp,
-                        var t when t.HasFlag(StartTeam.Scp049) => StartTeam.Scp049,
-                        var t when t.HasFlag(StartTeam.Scp079) => StartTeam.Scp079,
-                        var t when t.HasFlag(StartTeam.Scp096) => StartTeam.Scp096,
-                        var t when t.HasFlag(StartTeam.Scp106) => StartTeam.Scp106,
-                        var t when t.HasFlag(StartTeam.Scp173) => StartTeam.Scp173,
-                        var t when t.HasFlag(StartTeam.Scp939) => StartTeam.Scp939,
-                        var t when t.HasFlag(StartTeam.Scp3114) => StartTeam.Scp3114,
-                        _ => StartTeam.Other
-                    };
-
-                    if (!Roles.ContainsKey(team))
-                        Roles.Add(team, new());
-
-                    for (int i = 0; i < role.SpawnProperties.Limit; i++)
-                        Roles[team].Add(custom);
-                    Log.Debug($"VVUP CR: Roles {team} now has {Roles[team].Count} elements.");
-                }
-            }
+            });
             // I was trying something with external custom roles, no cigar for now, maybe ill come back in the future to try it again
             /*if (Config.CustomRoleWrapperConfig.EnableCustomRoleCompatibility)
             {

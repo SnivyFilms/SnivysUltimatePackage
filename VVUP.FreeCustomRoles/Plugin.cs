@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Loader;
-using VVUP.CustomRoles.API;
 using Player = Exiled.Events.Handlers.Player;
 
 namespace VVUP.FreeCustomRoles
@@ -37,7 +35,7 @@ namespace VVUP.FreeCustomRoles
                 base.OnDisabled();
                 return;
             }
-            HashSet<CustomRole> existingRoles = new HashSet<CustomRole>(CustomRole.Registered);
+            //HashSet<CustomRole> existingRoles = new HashSet<CustomRole>(CustomRole.Registered);
             Config.FreeCustomRoles1.Register();
             Config.FreeCustomRoles2.Register();
             Config.FreeCustomRoles3.Register();
@@ -59,6 +57,7 @@ namespace VVUP.FreeCustomRoles
             Config.FreeCustomRoles19.Register();
             Config.FreeCustomRoles20.Register();
             
+            /*
             foreach (CustomRole role in CustomRole.Registered)
             {
                 if (!existingRoles.Contains(role) && role is ICustomRole custom)
@@ -90,8 +89,9 @@ namespace VVUP.FreeCustomRoles
                     Log.Debug($"VVUP FCR: Roles {team} now has {CustomRoles.Plugin.Instance.Roles[team].Count} elements.");
                 }
             }
-            Base.Plugin.Instance.VvupFcr = true;
             existingRoles.Clear();
+            */
+            Base.Plugin.Instance.VvupFcr = true;
             SsssEventHandlers = new SsssEventHandlers(this);
             Player.Verified += SsssEventHandlers.OnVerified;
             base.OnEnabled();

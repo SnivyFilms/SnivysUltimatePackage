@@ -5,6 +5,7 @@ using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
+using Exiled.Events.EventArgs.Player;
 using UnityEngine;
 using VVUP.Base.API;
 using YamlDotNet.Serialization;
@@ -27,6 +28,12 @@ namespace VVUP.CustomItems.Items.Other
         public string CooldownMessage { get; set; } = "Knife is on cooldown for {time} more seconds.";
         public float MessageDuration { get; set; } = 5f;
         public bool UseHints { get; set; } = true;
+        [Description("Damage dealt to targets without armor.")]
+        public float NoArmorDamage { get; set; } = 20f;
+        [Description("Damage dealt to targets with light, combat, or heavy armor.")]
+        public float LightArmorDamage { get; set; } = 15f;
+        public float CombatArmorDamage { get; set; } = 12f;
+        public float HeavyArmorDamage { get; set; } = 10f;
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,
@@ -58,12 +65,14 @@ namespace VVUP.CustomItems.Items.Other
 
         protected override void SubscribeEvents()
         {
+            Exiled.Events.Handlers.Player.Hurting += OnHurting;
             Scp1509Event.Resurrecting += On1509Resurrecting;
             Scp1509Event.TriggeringAttack += On1509Attack;
             base.SubscribeEvents();
         }
         protected override void UnsubscribeEvents()
         {
+            Exiled.Events.Handlers.Player.Hurting -= OnHurting;
             Scp1509Event.Resurrecting -= On1509Resurrecting;
             Scp1509Event.TriggeringAttack -= On1509Attack;
             base.UnsubscribeEvents();
@@ -98,18 +107,37 @@ namespace VVUP.CustomItems.Items.Other
                     ev.IsAllowed = false;
                     if (!string.IsNullOrWhiteSpace(CooldownMessage))
                         if (UseHints)
-                            ev.Player.ShowHint(CooldownMessage.Replace("{percent}", cooldownTimeRemaining.ToString()), MessageDuration);
+                            ev.Player.ShowHint(CooldownMessage.Replace("{time}", cooldownTimeRemaining.ToString()), MessageDuration);
                         else
-                            ev.Player.Broadcast((ushort)MessageDuration, CooldownMessage.Replace("{percent}", cooldownTimeRemaining.ToString()));
+                            ev.Player.Broadcast((ushort)MessageDuration, CooldownMessage.Replace("{time}", cooldownTimeRemaining.ToString()));
                     
-                    Log.Debug($"VVUP Custom Items, Knife: Attack by {ev.Player} blocked due to cooldown");
+                    Log.Debug($"VVUP Custom Items, Knife: Attack by {ev.Player.Nickname} blocked due to cooldown");
                     return;
                 }
             }
     
             _lastSwingTime[ev.Player] = currentTime;
-            Log.Debug($"VVUP Custom Items, Knife: Allowed swing by {ev.Player}");
+            Log.Debug($"VVUP Custom Items, Knife: Allowed swing by {ev.Player.Nickname}");
             ev.IsAllowed = true;
+        }
+        private void OnHurting(HurtingEventArgs ev)
+        {
+            if (ev.Attacker == null || ev.Player == null || ev.Attacker == ev.Player)
+                return;
+            if (!Check(ev.Attacker.CurrentItem))
+                return;
+
+            float damageToDeal = NoArmorDamage;
+
+            if (ev.Player.HasItem(ItemType.ArmorHeavy))
+                damageToDeal = HeavyArmorDamage;
+            else if (ev.Player.HasItem(ItemType.ArmorCombat))
+                damageToDeal = CombatArmorDamage;
+            else if (ev.Player.HasItem(ItemType.ArmorLight))
+                damageToDeal = LightArmorDamage;
+            
+            ev.Amount = damageToDeal;
+            Log.Debug($"VVUP Custom Items, Knife: {ev.Attacker.Nickname} dealt {damageToDeal} damage to {ev.Player.Nickname} using Knife.");
         }
     }
 }

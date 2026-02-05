@@ -4,6 +4,7 @@ using Exiled.API.Features;
 using Exiled.API.Features.Pickups;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
+using MEC;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -21,8 +22,11 @@ namespace VVUP.Base.EventHandlers
         
         public void OnRoundStarted()
         {
-            foreach (Pickup pickup in Pickup.List)
-                HandleGlowEffect(pickup);
+            Timing.CallDelayed(Plugin.Config.DelayBeforeColorsAppliesToItemsAlreadyOnGroundAtRoundStart, () =>
+            {
+                foreach (Pickup pickup in Pickup.List)
+                    HandleGlowEffect(pickup);
+            });
         }
 
         public void AddGlow(PickupAddedEventArgs ev) => HandleGlowEffect(ev.Pickup);
