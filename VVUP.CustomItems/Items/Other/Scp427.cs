@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Spawn;
+using Exiled.CustomItems.API.EventArgs;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
@@ -56,6 +57,29 @@ namespace VVUP.CustomItems.Items.Other
             base.UnsubscribeEvents();
         }
         
+        protected override void OnWaitingForPlayers()
+        {
+            exposureTimes.Clear();
+            foreach (var coroutine in activeCoroutines.Values)
+                Timing.KillCoroutines(coroutine);
+            activeCoroutines.Clear();
+            base.OnWaitingForPlayers();
+        }
+
+        protected override void OnOwnerChangingRole(OwnerChangingRoleEventArgs ev)
+        {
+            if (ev.Player == null)
+                return;
+            if (activeCoroutines.ContainsKey(ev.Player))
+            {
+                Timing.KillCoroutines(activeCoroutines[ev.Player]);
+                activeCoroutines.Remove(ev.Player);
+            }
+            if (exposureTimes.ContainsKey(ev.Player))
+                exposureTimes.Remove(ev.Player);
+            base.OnOwnerChangingRole(ev);
+        }
+
         protected override void OnDroppingItem(DroppingItemEventArgs ev)
         {
             if (activeCoroutines.ContainsKey(ev.Player))

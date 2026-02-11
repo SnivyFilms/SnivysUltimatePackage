@@ -42,7 +42,7 @@ namespace VVUP.CustomItems.Items.Grenades
 
         public override bool ExplodeOnCollision { get; set; } = false;
         public override float FuseTime { get; set; } = 10;
-        public float Range { get; set; } = 30;
+        public float Range { get; set; } = 100;
         public float LineVisibleTime { get; set; } = 5;
         
         public bool HasCustomItemGlow { get; set; } = true;
