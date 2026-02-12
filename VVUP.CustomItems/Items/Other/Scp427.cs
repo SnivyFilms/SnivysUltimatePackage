@@ -24,6 +24,8 @@ namespace VVUP.CustomItems.Items.Other
         public override float Weight { get; set; } = 1;
         [Description("How long does it take for the player to die from exposure to the item (in seconds). Set to 0 to disable.")]
         public float TimeToDeath { get; set; } = 300f;
+        [Description("At what exposure time (in seconds) should the warning message be shown.")]
+        public float WarningThreshold { get; set; } = 240f;
         [Description("How much health is regenerated per second.")]
         public float RegenerationPerSecond { get; set; } = 0.25f;
         [Description("Does the player get AHP from the item")]
@@ -32,6 +34,7 @@ namespace VVUP.CustomItems.Items.Other
         public float AhpLimit { get; set; } = 50f;
         public string StartRegenerationMessage { get; set; } = "You feel a warm sensation spreading through your body.";
         public string StopRegenerationMessage { get; set; } = "The warm sensation fades away.";
+        public string WarningMessage { get; set; } = "You start to feel like you're becoming blobular.";
         public string DeathMessage { get; set; } = "You have succumbed to the effects of SCP-427.";
         public float MessageDuration { get; set; } = 5f;
         public bool UseHints { get; set; } = true;
@@ -44,6 +47,7 @@ namespace VVUP.CustomItems.Items.Other
         public Vector3 GlowOffset { get; set; } = Vector3.zero;
         private readonly Dictionary<Player, float> exposureTimes = new();
         private readonly Dictionary<Player, CoroutineHandle> activeCoroutines = new();
+        private readonly Dictionary<Player, bool> warningShown = new();
 
         protected override void SubscribeEvents()
         {
@@ -63,6 +67,7 @@ namespace VVUP.CustomItems.Items.Other
             foreach (var coroutine in activeCoroutines.Values)
                 Timing.KillCoroutines(coroutine);
             activeCoroutines.Clear();
+            warningShown.Clear();
             base.OnWaitingForPlayers();
         }
 
@@ -75,8 +80,8 @@ namespace VVUP.CustomItems.Items.Other
                 Timing.KillCoroutines(activeCoroutines[ev.Player]);
                 activeCoroutines.Remove(ev.Player);
             }
-            if (exposureTimes.ContainsKey(ev.Player))
-                exposureTimes.Remove(ev.Player);
+            exposureTimes.Remove(ev.Player);
+            warningShown.Remove(ev.Player);
             base.OnOwnerChangingRole(ev);
         }
 
@@ -168,6 +173,22 @@ namespace VVUP.CustomItems.Items.Other
                 {
                     player.AddAhp(RegenerationPerSecond, decay: 0);
                     Log.Debug($"VVUP Custom Items, SCP-427: {player.Nickname} AHP increased by {RegenerationPerSecond} to {player.ArtificialHealth}.");
+                }
+                
+                if (WarningThreshold > 0 && exposureTimes[player] >= WarningThreshold && !warningShown.ContainsKey(player))
+                {
+                    warningShown[player] = true;
+                    if (!string.IsNullOrWhiteSpace(WarningMessage))
+                        if (UseHints)
+                        {
+                            player.ShowHint(WarningMessage, MessageDuration);
+                            Log.Debug($"VVUP Custom Items, SCP-427: Showing warning hint to {player.Nickname} for prolonged exposure.");
+                        }
+                        else
+                        {
+                            player.Broadcast((ushort)MessageDuration, WarningMessage);
+                            Log.Debug($"VVUP Custom Items, SCP-427: Showing warning broadcast to {player.Nickname} for prolonged exposure.");
+                        }
                 }
                 
                 if (TimeToDeath > 0 && exposureTimes[player] >= TimeToDeath)
