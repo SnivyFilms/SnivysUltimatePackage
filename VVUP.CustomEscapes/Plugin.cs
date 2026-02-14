@@ -14,7 +14,7 @@ namespace VVUP.CustomEscapes
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.CE";
         public override Version Version { get; } = new Version(3, 6, 0);
-        public override Version RequiredExiledVersion { get; } = new Version(9, 12, 6);
+        public override Version RequiredExiledVersion { get; } = new Version(9, 13, 1);
         public EventHandlers EventHandlers;
 
         public override void OnEnabled()
