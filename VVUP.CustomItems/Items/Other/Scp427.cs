@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Spawn;
@@ -38,7 +39,84 @@ namespace VVUP.CustomItems.Items.Other
         public string DeathMessage { get; set; } = "You have succumbed to the effects of SCP-427.";
         public float MessageDuration { get; set; } = 5f;
         public bool UseHints { get; set; } = true;
-        public override SpawnProperties SpawnProperties { get; set; }
+
+        public override SpawnProperties SpawnProperties { get; set; } = new()
+        {
+            Limit = 1,
+            LockerSpawnPoints = new()
+            {
+                new()
+                {
+                    Chance = 10,
+                    Type = LockerType.Scp018Pedestal,
+                    UseChamber = true,
+                    Offset = Vector3.zero,
+                },
+                new()
+                {
+                    Chance = 10,
+                    Type = LockerType.Scp207Pedestal,
+                    UseChamber = true,
+                    Offset = Vector3.zero,
+                },
+                new()
+                {
+                    Chance = 10,
+                    Type = LockerType.Scp244Pedestal,
+                    UseChamber = true,
+                    Offset = Vector3.zero,
+                },
+                new()
+                {
+                    Chance = 10,
+                    Type = LockerType.Scp268Pedestal,
+                    UseChamber = true,
+                    Offset = Vector3.zero,
+                },
+                new()
+                {
+                    Chance = 10,
+                    Type = LockerType.Scp500Pedestal,
+                    UseChamber = true,
+                    Offset = Vector3.zero,
+                },
+                new()
+                {
+                    Chance = 10,
+                    Type = LockerType.Scp1576Pedestal,
+                    UseChamber = true,
+                    Offset = Vector3.zero,
+                },
+                new()
+                {
+                    Chance = 10,
+                    Type = LockerType.Scp1344Pedestal,
+                    UseChamber = true,
+                    Offset = Vector3.zero,
+                },
+                new()
+                {
+                    Chance = 10,
+                    Type = LockerType.Scp1853Pedestal,
+                    UseChamber = true,
+                    Offset = Vector3.zero,
+                },
+                new()
+                {
+                    Chance = 10,
+                    Type = LockerType.Scp2176Pedestal,
+                    UseChamber = true,
+                    Offset = Vector3.zero,
+                },
+                new()
+                {
+                    Chance = 10,
+                    Type = LockerType.AntiScp207Pedestal,
+                    UseChamber = true,
+                    Offset = Vector3.zero,
+                },
+            },
+        };
         public bool HasCustomItemGlow { get; set; } = true;
         public Color CustomItemGlowColor { get; set; } = new Color32(255, 0, 0, 127);
         public float GlowRange { get; set; } = 0.25f;
