@@ -136,7 +136,9 @@ namespace VVUP.CustomItems.Items.MedicalItems
             RoomType.Lcz173,
             RoomType.Hcz049,
             RoomType.HczNuke,
-            RoomType.EzCollapsedTunnel
+            RoomType.EzCollapsedTunnel,
+            RoomType.EzGateA,
+            RoomType.EzGateB,
         };
         public bool HasCustomItemGlow { get; set; } = false;
         public Color CustomItemGlowColor { get; set; } = new Color32(255, 255, 255, 255);
