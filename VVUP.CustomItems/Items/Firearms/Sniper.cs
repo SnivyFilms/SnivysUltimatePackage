@@ -22,30 +22,30 @@ namespace VVUP.CustomItems.Items.Firearms
         public override string Name { get; set; } = "<color=#009F64>EL-95 Bolt Action Rifle</color>";
         public override string Description { get; set; } = "Bolt action sniper rifle.";
         public override float Weight { get; set; } = 1.5f;
-        public override AttachmentName[] Attachments => [AttachmentName.LowcapMagAP, AttachmentName.ExtendedStock, AttachmentName.RifleBody, AttachmentName.Laser, AttachmentName.Foregrip, AttachmentName.ScopeSight, AttachmentName.SoundSuppressor];
+        public override AttachmentName[] Attachments { get; set; } = {AttachmentName.LowcapMagAP, AttachmentName.ExtendedStock, AttachmentName.RifleBody, AttachmentName.Laser, AttachmentName.Foregrip, AttachmentName.ScopeSight, AttachmentName.SoundSuppressor};
         public override byte ClipSize { get; set; } = 1;
         public override float Damage { get; set; } = 150f;
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,
-            DynamicSpawnPoints =
-            [
+            DynamicSpawnPoints = new List<DynamicSpawnPoint>()
+            {
                 new()
-                {
-                    Chance = 10,
-                    Location = SpawnLocationType.Inside049Armory,
-                },
-                new ()
-                {
-                    Chance = 10,
-                    Location = SpawnLocationType.Inside079Armory,
-                },
-                new ()
                 {
                     Chance = 10,
                     Location = SpawnLocationType.InsideHczArmory,
                 },
-            ],
+                new()
+                {
+                    Chance = 40,
+                    Location = SpawnLocationType.Inside049Armory,
+                },
+                new ()
+                {
+                    Chance = 40,
+                    Location = SpawnLocationType.Inside079Armory,
+                },
+            }
         };
 
         protected override void SubscribeEvents()
