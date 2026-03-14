@@ -25,6 +25,9 @@ namespace VVUP.CustomItems.Items.Firearms
         public override AttachmentName[] Attachments { get; set; } = {AttachmentName.LowcapMagAP, AttachmentName.ExtendedStock, AttachmentName.RifleBody, AttachmentName.Laser, AttachmentName.Foregrip, AttachmentName.ScopeSight, AttachmentName.SoundSuppressor};
         public override byte ClipSize { get; set; } = 1;
         public override float Damage { get; set; } = 150f;
+
+        private readonly Dictionary<ushort, float> _lastShotTimes = new();
+
         public override SpawnProperties SpawnProperties { get; set; } = new()
         {
             Limit = 1,
@@ -48,18 +51,6 @@ namespace VVUP.CustomItems.Items.Firearms
             }
         };
 
-        protected override void SubscribeEvents()
-        {
-            Exiled.Events.Handlers.Player.AimingDownSight += OnAim;
-            base.SubscribeEvents();
-        }
-
-        protected override void UnsubscribeEvents()
-        {
-            Exiled.Events.Handlers.Player.AimingDownSight -= OnAim;
-            base.UnsubscribeEvents();
-        }
-
         [Description("If true changing the attachments will be possible. Default: false")]
         public bool AllowChangingAttachments { get; set; } = false;
         public string RestrictedAttachmentChangingMessage { get; set; } =
@@ -78,12 +69,68 @@ namespace VVUP.CustomItems.Items.Firearms
             },
         };
 
+        [Description(
+            "If its a positive, non-zero number, it will determine how long it would take before being allowed to reload again after firing")]
+        public float TimeBeforeReloadAllowed { get; set; } = 0f;
+        [Description("Use %time% to display the remaining time before being allowed to reload again.")]
+        public string RestrictedReloadMessage { get; set; } = "You need to wait %time% seconds before reloading again";
+
         public bool HasCustomItemGlow { get; set; } = true;
         public Color CustomItemGlowColor { get; set; } = new Color32(0, 150, 100, 127);
         public float GlowRange { get; set; } = 0.25f;
         public float GlowIntensity { get; set; } = 0.25f;
         public ICustomItemGlow.GlowShadowType ShadowType { get; set; } = ICustomItemGlow.GlowShadowType.None;
         public Vector3 GlowOffset { get; set; } = Vector3.zero;
+        
+        protected override void SubscribeEvents()
+        {
+            Exiled.Events.Handlers.Player.AimingDownSight += OnAim;
+            base.SubscribeEvents();
+        }
+
+        protected override void UnsubscribeEvents()
+        {
+            Exiled.Events.Handlers.Player.AimingDownSight -= OnAim;
+            base.UnsubscribeEvents();
+        }
+
+        protected override void OnWaitingForPlayers()
+        {
+            _lastShotTimes.Clear();
+            base.OnWaitingForPlayers();
+        }
+
+        protected override void OnShooting(ShootingEventArgs ev)
+        {
+            if (Check(ev.Player.CurrentItem))
+                _lastShotTimes[ev.Player.CurrentItem.Serial] = Time.time;
+            base.OnShooting(ev);
+        }
+
+        protected override void OnReloading(ReloadingWeaponEventArgs ev)
+        {
+            if (Check(ev.Player.CurrentItem) && TimeBeforeReloadAllowed > 0)
+            {
+                if (_lastShotTimes.TryGetValue(ev.Player.CurrentItem.Serial, out float lastShotTime))
+                {
+                    float remainingTime = TimeBeforeReloadAllowed - (Time.time - lastShotTime);
+                    if (remainingTime > 0)
+                    {
+                        Log.Debug($"VVUP Custom Items, Sniper: Player {ev.Player.Nickname} tried to reload too soon, remaining time: {remainingTime:F1} seconds");
+                        ev.IsAllowed = false;
+                        if (!string.IsNullOrWhiteSpace(RestrictedReloadMessage))
+                        {
+                            string message = RestrictedReloadMessage.Replace("%time%", remainingTime.ToString("F1"));
+                            if (UseHints)
+                                ev.Player.ShowHint(message, RestrictedAttachmentChangeMessageTimeDuration);
+                            else
+                                ev.Player.Broadcast((ushort)RestrictedAttachmentChangeMessageTimeDuration, message);
+                        }
+                    }
+                }
+            }
+            base.OnReloading(ev);
+        }
 
         protected override void OnChangingAttachment(ChangingAttachmentsEventArgs ev)
         {

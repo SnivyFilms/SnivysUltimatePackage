@@ -17,7 +17,7 @@ namespace VVUP.OperationCrossfireServerEvent
         public override string Prefix { get; } = "VVUP.OFCSE";
         public override Version Version { get; } =
             Version.Parse(Assembly.GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.1");
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.2");
         public override Version RequiredExiledVersion { get; } = new Version(9, 13, 1);
 
         public OperationCrossfireEventHandlers OperationCrossfireEventHandlers { get; set; }
