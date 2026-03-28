@@ -20,7 +20,7 @@ namespace VVUP.ServerEvents
         public override Version Version { get; } =
             Version.Parse(Assembly.GetExecutingAssembly()
                 .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.2");
-        public override Version RequiredExiledVersion { get; } = new Version(9, 13, 1);
+        public override Version RequiredExiledVersion { get; } = new Version(9, 13, 3);
 
         public static int ActiveEvent = 0;
         public ServerEventsMainEventHandler ServerEventsMainEventHandler;

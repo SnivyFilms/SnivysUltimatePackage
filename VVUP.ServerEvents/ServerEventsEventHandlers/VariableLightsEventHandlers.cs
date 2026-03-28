@@ -20,7 +20,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             Plugin.ActiveEvent += 1;
             _vleStarted = true;
             Map.ResetLightsColor();
-            LabApi.Features.Wrappers.Cassie.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
+            LabApi.Features.Wrappers.Announcer.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
             _lightChangingHandle = Timing.RunCoroutine(VariableLightsTiming());
         }
 

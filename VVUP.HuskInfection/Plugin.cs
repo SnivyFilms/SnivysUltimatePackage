@@ -24,7 +24,7 @@ namespace VVUP.HuskInfection
         public override Version Version { get; } =
             Version.Parse(Assembly.GetExecutingAssembly()
                 .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.2");
-        public override Version RequiredExiledVersion { get; } = new Version(9, 13, 1);
+        public override Version RequiredExiledVersion { get; } = new Version(9, 13, 3);
 
         public HuskInfectionEventHandlers HuskInfectionEventHandlers;
         public SsssEventHandlers SsssEventHandlers;
