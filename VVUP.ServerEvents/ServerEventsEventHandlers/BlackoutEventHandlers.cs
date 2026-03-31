@@ -2,6 +2,7 @@
 using MEC;
 using VVUP.ServerEvents.ServerEventsConfigs;
 using Maps = Exiled.Events.Handlers.Map;
+using LabApiCassie = LabApi.Features.Wrappers.Announcer;
 
 namespace VVUP.ServerEvents.ServerEventsEventHandlers
 {
@@ -40,13 +41,13 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                 player.AddItem(_config.BlackoutEventStartingItem);
             }
 
-            LabApi.Features.Wrappers.Announcer.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
+            LabApiCassie.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
         }
 
         public static void EndEvent()
         {
             if (!_boeStarted) return;
-            LabApi.Features.Wrappers.Announcer.Message(_config.EndEventCassieMessage, _config.EndEventCassieText);
+            LabApiCassie.Message(_config.EndEventCassieMessage, _config.EndEventCassieText);
             if (_config.GeneratorEndsEvent)
             {
                 Log.Debug("VVUP Server Events, Blackout: Disabling Generator Engaged Event Handler");

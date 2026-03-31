@@ -9,6 +9,7 @@ using MEC;
 using UnityEngine;
 using VVUP.ServerEvents.ServerEventsConfigs;
 using CheckpointDoor = Exiled.API.Features.Doors.CheckpointDoor;
+using LabApiCassie = LabApi.Features.Wrappers.Announcer;
 
 namespace VVUP.ServerEvents.ServerEventsEventHandlers
 {
@@ -26,7 +27,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             _config = Plugin.Instance.Config.FreezingTemperaturesConfig;
             Plugin.ActiveEvent += 1;
             _fteStarted = true;
-            LabApi.Features.Wrappers.Announcer.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
+            LabApiCassie.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
             _previousDecomTime = DecontaminationController.Singleton.RoundStartTime;
             DecontaminationController.Singleton.NetworkRoundStartTime = -1.0;
             _freezingTemperaturesHandle = Timing.RunCoroutine(FreezingTemperaturesTiming());
@@ -50,13 +51,13 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             Log.Debug($"VVUP Server Events, Freezing Temperatures: Waiting {_config.LightTimeWarning} seconds");
             yield return Timing.WaitForSeconds(_config.LightTimeWarning);
             Log.Debug("VVUP Server Events, Freezing Temperatures: Showing Light Half Time Remaining Message");
-            LabApi.Features.Wrappers.Announcer.Message(_config.LightHalfTimeRemainingWarningMessage,
+            LabApiCassie.Message(_config.LightHalfTimeRemainingWarningMessage,
                 _config.LightHalfTimeRemainingWarningText);
 
             Log.Debug($"VVUP Server Events, Freezing Temperatures: Waiting {_config.LightCompleteFreezeTime} seconds");
             yield return Timing.WaitForSeconds(_config.LightCompleteFreezeTime);
             Log.Debug("VVUP Server Events, Freezing Temperatures: Showing Light Frozen Over Message");
-            LabApi.Features.Wrappers.Announcer.Message(_config.LightFrozenOverMessage, _config.LightFrozenOverText);
+            LabApiCassie.Message(_config.LightFrozenOverMessage, _config.LightFrozenOverText);
 
             Log.Debug("VVUP Server Events, Freezing Temperatures: Locking and closing Light Containment Zone Elevators");
             if (!Lift.Get(ElevatorType.LczA).IsLocked)
@@ -99,13 +100,13 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             Log.Debug($"VVUP Server Events, Freezing Temperatures: Waiting {_config.HeavyTimeWarning} seconds");
             yield return Timing.WaitForSeconds(_config.HeavyTimeWarning);
             Log.Debug("VVUP Server Events, Freezing Temperatures: Showing Heavy Half Time Remaining Message");
-            LabApi.Features.Wrappers.Announcer.Message(_config.HeavyHalfTimeRemainingWarningMessage,
+            LabApiCassie.Message(_config.HeavyHalfTimeRemainingWarningMessage,
                 _config.HeavyHalfTimeRemainingWarningText);
 
             Log.Debug($"VVUP Server Events, Freezing Temperatures: Waiting {_config.HeavyCompleteFreezeTime} seconds");
             yield return Timing.WaitForSeconds(_config.HeavyCompleteFreezeTime);
             Log.Debug("VVUP Server Events, Freezing Temperatures: Showing Heavy Frozen over Cassie Message");
-            LabApi.Features.Wrappers.Announcer.Message(_config.HeavyFrozenOverMessage, _config.HeavyFrozenOverText);
+            LabApiCassie.Message(_config.HeavyFrozenOverMessage, _config.HeavyFrozenOverText);
 
             Log.Debug("VVUP Server Events, Freezing Temperatures: Locking Nuke & SCP-049 Elevators");
             if (!Lift.Get(ElevatorType.Nuke).IsLocked)
@@ -153,13 +154,13 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             Log.Debug($"VVUP Server Events, Freezing Temperatures: Waiting {_config.EntranceTimeWarning} seconds");
             yield return Timing.WaitForSeconds(_config.EntranceTimeWarning);
             Log.Debug("VVUP Server Events, Freezing Temperatures: Showing Entrance Half Time Remaining Warning");
-            LabApi.Features.Wrappers.Announcer.Message(_config.EntranceHalfTimeRemainingWarningMessage,
+            LabApiCassie.Message(_config.EntranceHalfTimeRemainingWarningMessage,
                 _config.EntranceHalfTimeRemainingWarningText);
 
             Log.Debug($"VVUP Server Events, Freezing Temperatures: Waiting {_config.EntranceCompleteFreezeTime} seconds");
             yield return Timing.WaitForSeconds(_config.EntranceCompleteFreezeTime);
             Log.Debug("VVUP Server Events, Freezing Temperatures: Showing Entrance Frozen Over Message");
-            LabApi.Features.Wrappers.Announcer.Message(_config.EntranceFrozenOverMessage, _config.EntranceFrozenOverText);
+            LabApiCassie.Message(_config.EntranceFrozenOverMessage, _config.EntranceFrozenOverText);
 
             Log.Debug("VVUP Server Events, Freezing Temperatures: Locking Gate A and B elevators");
             if (!Lift.Get(ElevatorType.GateA).IsLocked)

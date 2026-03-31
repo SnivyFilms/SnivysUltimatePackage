@@ -4,8 +4,6 @@ using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Extensions;
 using Exiled.API.Features;
-using Exiled.API.Features.Doors;
-using Exiled.API.Features.Hazards;
 using Exiled.API.Features.Items;
 using Exiled.CustomItems.API.Features;
 using LightContainmentZoneDecontamination;
@@ -13,11 +11,16 @@ using MEC;
 using PlayerRoles;
 using UnityEngine;
 using VVUP.ServerEvents.ServerEventsConfigs;
-using Cassie = Exiled.API.Features.Cassie;
+using Door = Exiled.API.Features.Doors.Door;
+using ElevatorDoor = Exiled.API.Features.Doors.ElevatorDoor;
+using LabApiCassie = LabApi.Features.Wrappers.Announcer;
 using Item = Exiled.API.Features.Items.Item;
 using Map = Exiled.API.Features.Map;
 using PlayerAPI = Exiled.API.Features.Player;
 using PlayerEvent = Exiled.Events.Handlers.Player;
+using Room = Exiled.API.Features.Room;
+using Round = Exiled.API.Features.Round;
+using TantrumHazard = Exiled.API.Features.Hazards.TantrumHazard;
 using Tesla = Exiled.API.Features.TeslaGate;
 using Warhead = Exiled.API.Features.Warhead;
 
@@ -47,7 +50,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             _config = Plugin.Instance.Config.ChaoticConfig;
             Plugin.ActiveEvent += 1;
             _ceStarted = true;
-            LabApi.Features.Wrappers.Announcer.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
+            LabApiCassie.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
             _choaticHandle = Timing.RunCoroutine(ChaoticTiming());
         }
 
@@ -643,7 +646,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                 case 2:
                                     if (_config.FakeoutRespawnAnnouncementsUIUAllow)
                                     {
-                                        foreach (Player player in Player.List)
+                                        foreach (PlayerAPI player in PlayerAPI.List)
                                         {
                                             if (player.Role.Team == Team.SCPs)
                                                 scpCount++;
@@ -682,7 +685,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                             cassieText = cassieText.Replace("{designation}",
                                                 GetNatoName(randomNatoLetter) + " " + randomNatoNumber);
                                         }
-                                        LabApi.Features.Wrappers.Announcer.Message(cassieMessage, cassieText);
+                                        LabApiCassie.Message(cassieMessage, cassieText);
                                     }
                                     else if (_config.FakeoutRespawnAnnouncementsMTFFallback)
                                         MtfFakeoutCassie(cassieMessage, cassieText, scpCount);
@@ -691,7 +694,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
 
                                 case 3:
                                     if (_config.FakeoutRespawnAnnouncementsChaosAllow)
-                                        LabApi.Features.Wrappers.Announcer.Message(_config.FakeoutRespawnAnnouncementsChaosCassie,
+                                        LabApiCassie.Message(_config.FakeoutRespawnAnnouncementsChaosCassie,
                                             _config.FakeoutRespawnAnnouncementsChaosCassieText);
                                     else if (_config.FakeoutRespawnAnnouncementsMTFFallback)
                                         MtfFakeoutCassie(cassieMessage, cassieText, scpCount);
@@ -700,7 +703,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
 
                                 case 4:
                                     if (_config.FakeoutRespawnAnnouncementsSerpentsAllow)
-                                        LabApi.Features.Wrappers.Announcer.Message(_config.FakeoutRespawnAnnouncementsSerpentsCassie,
+                                        LabApiCassie.Message(_config.FakeoutRespawnAnnouncementsSerpentsCassie,
                                             _config.FakeoutRespawnAnnouncementsSerpentsCassieText);
                                     else if (_config.FakeoutRespawnAnnouncementsMTFFallback)
                                         MtfFakeoutCassie(cassieMessage, cassieText, scpCount);
@@ -1311,7 +1314,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
         private static void MtfFakeoutCassie(string cassieMessage, string cassieText, int scpCount)
         {
             Log.Debug("VVUP Server Events, Chaotic: Running Mtf Fakeout Cassie handle");
-            foreach (Player player in Player.List)
+            foreach (PlayerAPI player in PlayerAPI.List)
             {
                 {
                     if (player.Role.Team == Team.SCPs)
@@ -1355,7 +1358,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                     cassieText = cassieText.Replace("{designation}",
                         GetNatoName(randomNatoLetter) + " " + randomNatoNumber);
                 }
-                LabApi.Features.Wrappers.Announcer.Message(cassieMessage, cassieText);
+                LabApiCassie.Message(cassieMessage, cassieText);
             }
         }
 

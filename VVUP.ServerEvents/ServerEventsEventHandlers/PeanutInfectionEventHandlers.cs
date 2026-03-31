@@ -1,6 +1,7 @@
 ﻿using Exiled.API.Features;
 using VVUP.ServerEvents.ServerEventsConfigs;
 using Player = Exiled.Events.Handlers.Player;
+using LabApiCassie = LabApi.Features.Wrappers.Announcer;
 
 namespace VVUP.ServerEvents.ServerEventsEventHandlers
 {
@@ -17,13 +18,13 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             Log.Debug("VVUP Server Events, Peanut Infection: Adding Player Died Event PIE Handler");
             Player.Died += Plugin.Instance.ServerEventsMainEventHandler.OnKillingPIE;
             _pieStarted = true;
-            LabApi.Features.Wrappers.Announcer.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
+            LabApiCassie.Message(_config.StartEventCassieMessage, _config.StartEventCassieText);
         }
 
         public static void EndEvent()
         {
             if (!_pieStarted) return;
-            LabApi.Features.Wrappers.Announcer.Message(_config.EndEventCassieMessage, _config.EndEventCassieText);
+            LabApiCassie.Message(_config.EndEventCassieMessage, _config.EndEventCassieText);
             Log.Debug("VVUP Server Events, Peanut Infection: Removing Player Died Event PIE Handler");
             Player.Died -= Plugin.Instance.ServerEventsMainEventHandler.OnKillingPIE;
             _pieStarted = false;
