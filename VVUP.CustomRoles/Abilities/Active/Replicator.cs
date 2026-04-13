@@ -17,6 +17,7 @@ namespace VVUP.CustomRoles.Abilities.Active
         public override float Cooldown { get; set; } = 45f;
         public string EndedMessage { get; set; } = "<color=red>Replicator Expired</color>";
         public string KilledDecoy { get; set; } = "Your decoy has been killed!";
+        public bool UseHints { get; set; } = true;
 
         private readonly Dictionary<Player, Npc> decoys = new();
         private readonly Dictionary<Player, Vector3> startPos = new();
@@ -40,10 +41,19 @@ namespace VVUP.CustomRoles.Abilities.Active
         {
             if (decoys.TryGetValue(player, out Npc dummy))
             {
-                player.Position = dummy.Position;
+                if (player.IsAlive)
+                {
+                    player.Position = dummy.Position;
+                    if (!string.IsNullOrWhiteSpace(EndedMessage))
+                        if (UseHints)
+                            player.ShowHint(EndedMessage);
+                        else
+                            player.Broadcast((ushort)Duration, EndedMessage);
+                }
+
                 dummy.Destroy();
             }
-
+            
             decoys.Remove(player);
             startPos.Remove(player);
 
@@ -90,9 +100,17 @@ namespace VVUP.CustomRoles.Abilities.Active
 
         private void OnDummyDying(DyingEventArgs ev)
         {
+            if (decoys.TryGetValue(ev.Player, out Npc ownerDecoy))
+            {
+                ownerDecoy?.Destroy();
+                decoys.Remove(ev.Player);
+                startPos.Remove(ev.Player);
+                return;
+            }
+
             foreach (var kvp in decoys.Where(kvp => kvp.Value != null && kvp.Value.ReferenceHub == ev.Player.ReferenceHub))
             {
-                kvp.Key.Kill(KilledDecoy);
+                kvp.Key.ShowHint(KilledDecoy);
                 EndAbility(kvp.Key);
                 break;
             }

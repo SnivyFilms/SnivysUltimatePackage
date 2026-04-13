@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Exiled.API.Enums;
 using Exiled.API.Features;
@@ -60,15 +61,16 @@ namespace VVUP.CustomRoles.Abilities.Passive
             if (!PlayersWithDisguisedEffect.ContainsKey(ev.Player)) 
                 return;
             
-            if ((PlayersWithDisguisedEffect[ev.Player] == TrueTeamEnum.Ntf || PlayersWithDisguisedEffect[ev.Player] == TrueTeamEnum.Mtf) && ev.Attacker.Role.Side == Side.Mtf || 
-                (PlayersWithDisguisedEffect[ev.Player] == TrueTeamEnum.Ci && ev.Attacker.Role.Side == Side.ChaosInsurgency) ||
-                (PlayersWithDisguisedEffect[ev.Player] == TrueTeamEnum.Scp && ev.Attacker.Role.Side == Side.Scp))
+            if ((PlayersWithDisguisedEffect[ev.Player] == TrueTeamEnum.Ntf || PlayersWithDisguisedEffect[ev.Player] == TrueTeamEnum.Mtf) && ev.Attacker.Role.Side == Side.Mtf && ev.Player.Role.Side == Side.Mtf || 
+                (PlayersWithDisguisedEffect[ev.Player] == TrueTeamEnum.Ci && ev.Attacker.Role.Side == Side.ChaosInsurgency && ev.Player.Role.Side == Side.ChaosInsurgency) ||
+                (PlayersWithDisguisedEffect[ev.Player] == TrueTeamEnum.Scp && ev.Attacker.Role.Side == Side.Scp && ev.Player.Role.Side == Side.Scp))
             {
                 Log.Debug($"VVUP Custom Abilities, Disguised: Preventing accidental friendly fire with disguised from {ev.Attacker.Nickname} (Attacker) and {ev.Player.Nickname} (Target)");
-                if (DisguisedHintDisplay)
-                    ev.Attacker.ShowHint(DisguisedFriendlyFireText, DisguisedTextDisplayTime);
-                else
-                    ev.Attacker.Broadcast((ushort)DisguisedTextDisplayTime, DisguisedFriendlyFireText, shouldClearPrevious: true);
+                if (!String.IsNullOrEmpty(DisguisedFriendlyFireText))
+                    if (DisguisedHintDisplay)
+                        ev.Attacker.ShowHint(DisguisedFriendlyFireText, DisguisedTextDisplayTime);
+                    else
+                        ev.Attacker.Broadcast((ushort)DisguisedTextDisplayTime, DisguisedFriendlyFireText, shouldClearPrevious: true);
                 ev.IsAllowed = false;
             }
         }

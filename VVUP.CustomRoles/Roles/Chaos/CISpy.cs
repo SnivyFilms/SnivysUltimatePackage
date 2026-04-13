@@ -24,7 +24,7 @@ namespace VVUP.CustomRoles.Roles.Chaos
 
         public override string Name { get; set; } = "Chaos Insurgency Spy";
 
-        public override string Description { get; set; } = "A Chaos Insurgent that is disguised as a MTF Member";
+        public override string Description { get; set; } = "A Chaos Insurgent that is disguised as an MTF Member";
 
         public override string CustomInfo { get; set; } = "NTF Sergeant";
 
