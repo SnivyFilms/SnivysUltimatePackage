@@ -35,8 +35,6 @@ namespace VVUP.Base
                 activeModules += "Flamingo Adjustments\n";
             if (Plugin.Instance.VvupHk)
                 activeModules += "Husk Infection\n";
-            if (Plugin.Instance.VvupVo)
-                activeModules += "Votes\n";
             if (Plugin.Instance.VvupCt)
                 activeModules += "Credit Tags\n";
             if (Plugin.Instance.VvupCe)

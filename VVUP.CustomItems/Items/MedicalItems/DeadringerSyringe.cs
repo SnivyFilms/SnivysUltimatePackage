@@ -193,7 +193,7 @@ namespace VVUP.CustomItems.Items.MedicalItems
                      }
                      else
                      {
-                         Room randomRoom = rooms[Base.GetRandomNumber.GetRandomInt(rooms.Count)];
+                         Room randomRoom = rooms[GetRandomNumber.GetRandomInt(rooms.Count)];
                          Vector3 teleportPosition = randomRoom.Position + Vector3.up;
                          ev.Player.Position = teleportPosition;
                      }

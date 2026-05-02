@@ -17,85 +17,7 @@ namespace VVUP.ScpChanges
 {
     public class ScpChangesEventHandlers
     {
-        public Plugin Plugin;
-        public ScpChangesEventHandlers(Plugin plugin) => Plugin = plugin;
-        private CoroutineHandle _scp096RageCoroutine;
-        public void OnChangingRole(SpawnedEventArgs ev)
-        {
-            if (ev.Player == null)
-                return;
-            if (ev.Player.Role == RoleTypeId.Scp106 && Plugin.Instance.Config.OldScp106Behavior)
-            {
-                Timing.CallDelayed(0.1f, () =>
-                {
-                    Log.Debug("VVUP SCP Changes: Old SCP 106 Behavior is enabled, setting health and damage resistance");
-                    ev.Player.MaxHealth = Plugin.Instance.Config.Scp106Health;
-                    ev.Player.Health = Plugin.Instance.Config.Scp106Health;
-                });
-            }
-        }
-
-        public void OnHurting(HurtingEventArgs ev)
-        {
-            if (ev.Player == null || ev.Attacker == null)
-                return;
-            if (ev.Player == ev.Attacker)
-                return;
-            if (ev.Player.Role == RoleTypeId.Scp106 && Plugin.Instance.Config.OldScp106Behavior && ev.DamageHandler.Type is
-                    DamageType.A7 or DamageType.AK or DamageType.Com15 or DamageType.Com18 or DamageType.Com45 or DamageType.Crossvec or
-                    DamageType.E11Sr or DamageType.Frmg0 or DamageType.Fsp9 or DamageType.Revolver or DamageType.Shotgun or DamageType.Logicer or DamageType.Scp127)
-            {
-                if (!Plugin.Instance.Config.ResistanceWithHume && ev.Player.HumeShield > 0)
-                {
-                    Log.Debug("VVUP SCP Changes: Old SCP 106 Behavior is enabled, but Hume Shield is active, not applying damage resistance");
-                }
-                else if (Plugin.Instance.Config.ResistanceWithHume || ev.Player.HumeShield <= 0)
-                {
-                    Log.Debug("VVUP SCP Changes: Old SCP 106 Behavior is enabled, setting damage resistance");
-                    ev.Amount *= Plugin.Instance.Config.Scp106DamageResistance;
-                    Log.Debug($"VVUP SCP Changes: Reduced damage to {ev.Amount}");
-                }
-            }
-
-            if (ev.Attacker.Role == RoleTypeId.Scp106 && Plugin.Instance.Config.Scp106OneShot)
-            {
-                Log.Debug($"VVUP SCP Changes: SCP 106 One Shot is enabled, teleporting {ev.Player.Nickname} to pocket dimension");
-                ev.Player.EnableEffect(EffectType.PocketCorroding);
-            }
-            if (ev.Attacker.Role == RoleTypeId.Scp049 && Plugin.Instance.Config.Scp049OneShot)
-            {
-                Log.Debug($"VVUP SCP Changes: SCP 049 One Shot is enabled, killing {ev.Player.Nickname}");
-                ev.Amount = ev.Player.Health + ev.Player.ArtificialHealth + ev.Player.HumeShield + 1;
-            }
-
-            /*if (Plugin.Instance.Config.FlamingoAdjustments && ev.Attacker.Role.Type is RoleTypeId.AlphaFlamingo 
-            or RoleTypeId.Flamingo or RoleTypeId.ZombieFlamingo or RoleTypeId.NtfFlamingo or RoleTypeId.ChaosFlamingo)
-            {
-                Log.Debug($"VVUP SCP Changes: Flamingo Adjustments are enabled, adjusting damage from {ev.Attacker.Nickname}");
-                float damageAmount = Plugin.Instance.Config.FlamingoBaseDamage;
-                if (ev.Player.IsScp)
-                    ev.Amount = damageAmount * Plugin.Instance.Config.FlamingoScpDamageMultiplier;
-                else
-                    ev.Amount = damageAmount;
-                Log.Debug($"VVUP SCP Changes: {ev.Attacker.Nickname} dealt {ev.Amount} damage to {ev.Player.Nickname}");
-            }*/
-        }
-        public void OnUsingItem(UsedItemEventArgs ev)
-        {
-            if (ev.Item.Type != ItemType.SCP1576)
-                return;
-            Log.Debug("VVUP SCP Changes: Item is SCP 1576");
-            if (String.IsNullOrWhiteSpace(Plugin.Instance.Config.Scp1576Text))
-            {
-                Log.Debug("VVUP SCP Changes: No SCP 1576 text configured, not showing hint.");
-                return;
-            }
-
-            string Scp1576DisplayText = ProcessStringVariables(Plugin.Instance.Config.Scp1576Text);
-            Log.Debug($"VVUP SCP Changes: Showing text to {ev.Player.Nickname}");
-            ev.Player.ShowHint(Scp1576DisplayText, Plugin.Instance.Config.Scp1576TextDuration);
-        }
-
+        /*
         public void OnNukeStarted(StartingEventArgs ev)
         {
             if (!Plugin.Config.Scp096UnlimitedRageDuringNuke)
@@ -133,45 +55,144 @@ namespace VVUP.ScpChanges
                 Log.Debug($"VVUP SCP Changes: Waiting 1 second before next SCP-096 rage update.");
                 yield return Timing.WaitForSeconds(1f);
             }
+        }*/
+        
+        public Plugin Plugin;
+        public ScpChangesEventHandlers(Plugin plugin) => Plugin = plugin;
+        private CoroutineHandle _scp096RageCoroutine;
+        
+        public void OnChangingRole(SpawnedEventArgs ev)
+        {
+            if (ev.Player == null)
+                return;
+           
+            Timing.CallDelayed(0.1f, () =>
+            {
+                if (Plugin.Instance.Config.ScpHealths.Any(s => s.ApplyToCustomRoles && s.Role == ev.Player.Role) 
+                    || Plugin.Instance.Config.ScpHealths.Any(s => !s.ApplyToCustomRoles && s.Role == ev.Player.Role && CustomRole.TryGet(ev.Player, out var roles) && roles.IsEmpty()))
+                {
+                    var scpHealth = Plugin.Instance.Config.ScpHealths.First(s => s.Role == ev.Player.Role);
+                    Log.Debug($"VVUP SCP Changes: Setting health for {ev.Player.Nickname} to {scpHealth.MaxHealth}, setting hume to {scpHealth.HumeShield} and setting hume regen multiplier to {scpHealth.HumeShieldRegenMultiplier}");
+                    ev.Player.MaxHealth = scpHealth.MaxHealth;
+                    ev.Player.Health = scpHealth.MaxHealth;
+                    ev.Player.MaxHumeShield = scpHealth.HumeShield;
+                    ev.Player.HumeShieldRegenerationMultiplier = scpHealth.HumeShieldRegenMultiplier;
+                }
+            });
         }
+
+        public void OnHurting(HurtingEventArgs ev)
+        {
+            if (ev.Player == null || ev.Attacker == null || ev.Player == ev.Attacker)
+                return;
+            
+            var resistance = Plugin.Instance.Config.ScpDamageResistances
+                .FirstOrDefault(s =>
+                    s.Role == ev.Player.Role.Type &&
+                    s.DamageType == ev.DamageHandler.Type);
+
+            if (resistance != null)
+            {
+                if (CustomRole.TryGet(ev.Player, out _) && !resistance.ShouldApplyToCustomRoles)
+                {
+                    Log.Debug(
+                        $"VVUP SC: {ev.Player.Nickname} is a role that would get a damage resistance, but ShouldApplyToCustomRoles is false and they have a custom role, not applying resistance.");
+                    return;
+                }
+                
+                if (!resistance.ShouldResistWithHume && ev.Player.HumeShield > 0)
+                {
+                    Log.Debug($"VVUP SC: {ev.Player.Nickname} is a role that would get a damage resistance, but they have hume shield, not applying damage resistance");
+                    return;
+                }
+                Log.Debug($"VVUP SC: {ev.Player.Nickname} is taking damage of type {ev.DamageHandler.Type} and has a resistance modifier of {resistance.ResistanceModifier}, reducing damage from {ev.Amount} to {ev.Amount * resistance.ResistanceModifier}");
+                ev.Amount *= resistance.ResistanceModifier;
+                return;
+            }
+
+            var damageBonus = Plugin.Instance.Config.ScpSetDamages
+                .FirstOrDefault(s => s.Role == ev.Attacker.Role);
+            if (damageBonus != null)
+            {
+                float damageToApply = damageBonus.Damage;
+                if (!damageBonus.ShouldApplyToCustomRoles && CustomRole.TryGet(ev.Attacker, out _))
+                {
+                    Log.Debug(
+                        $"VVUP SC: {ev.Attacker.Nickname} is a role that would get a damage bonus, but they have a custom role and ShouldApplyToCustomRoles is false, not applying damage bonus.");
+                    return;
+                }
+                
+                if (damageBonus.ShouldOneShotApplyEffects && ev.Attacker.Role == RoleTypeId.Scp106)
+                {
+                    Log.Debug($"VVUP SC: {ev.Attacker.Nickname} is attacking as SCP 106 and ShouldOneShotEffects is true, teleporting {ev.Player.Nickname} to pocket dimension.");
+                    ev.Player.EnableEffect(EffectType.PocketCorroding);
+                }
+
+                if (damageBonus.DamageMultipliersAgainstSpecificRoles != null &&
+                    damageBonus.DamageMultipliersAgainstSpecificRoles.ContainsKey(ev.Player.Role))
+                {
+                    Log.Debug($"VVUP SC: {ev.Attacker.Nickname} is attacking {ev.Player.Nickname} and has a specific damage multiplier against their role, multiplying damage by {damageBonus.DamageMultipliersAgainstSpecificRoles[ev.Player.Role]}");
+                    damageToApply *= damageBonus.DamageMultipliersAgainstSpecificRoles[ev.Player.Role];
+                }
+
+                Log.Debug($"VVUP SC: Applying {damageToApply} to {ev.Player.Nickname}.");
+                ev.Amount = damageToApply;
+            }
+        }
+        public void OnUsingItem(UsedItemEventArgs ev)
+        {
+            if (ev.Item.Type != ItemType.SCP1576)
+                return;
+            Log.Debug("VVUP SCP Changes: Item is SCP 1576");
+            if (String.IsNullOrWhiteSpace(Plugin.Instance.Config.Scp1576Text))
+            {
+                Log.Debug("VVUP SCP Changes: No SCP 1576 text configured, not showing hint.");
+                return;
+            }
+
+            string scp1576DisplayText = ProcessStringVariables(Plugin.Instance.Config.Scp1576Text);
+            Log.Debug($"VVUP SCP Changes: Showing text to {ev.Player.Nickname}");
+            ev.Player.ShowHint(scp1576DisplayText, Plugin.Instance.Config.Scp1576TextDuration);
+        }
+        
         public string ProcessStringVariables(string raw)
         {
             Log.Debug("VVUP SCP Changes: Processing String Variables");
-            
-            float timeBeforeSpawn = float.MaxValue;
-            bool foundActiveWave = false;
-    
-            foreach (var wave in WaveManager.Waves.Cast<TimeBasedWave>().Where(wave => wave.Timer.TimeLeft > 0 && wave.Timer.TimeLeft < timeBeforeSpawn))
-            {
-                timeBeforeSpawn = wave.Timer.TimeLeft;
-                foundActiveWave = true;
-            }
-            if (!foundActiveWave)
-                timeBeforeSpawn = 0;
-            
-            string replacedText = raw 
+
+            float timeBeforeSpawn = WaveManager.Waves
+                .OfType<TimeBasedWave>()
+                .Select(wave => wave.Timer.TimeLeft)
+                .Where(timeLeft => timeLeft > 0)
+                .DefaultIfEmpty(0f)
+                .Min();
+
+            string replacedText = raw
                 .Replace("%spectators%", Player.List.Count(p => p.Role.Type == RoleTypeId.Spectator).ToString())
                 .Replace("%timebeforespawnwave%", Math.Floor(timeBeforeSpawn).ToString())
                 .Replace("%customroles%", GetCustomRolesText())
                 .Replace("%roles%", GetRolesText())
                 .Replace("%teams%", GetTeamsText());
-            
+
             return replacedText;
         }
         
         private string GetCustomRolesText()
         {
-            return (from role in Plugin.Instance.Config.Scp1576CustomRolesAlive let customRole = CustomRole.Get(role.Key) where customRole != null && Player.List.Any(p => customRole.TrackedPlayers.Contains(p)) select role).Aggregate(string.Empty, (current, role) => current + (role.Value + "\n"));
+            return (from role in Plugin.Instance.Config.Scp1576CustomRolesAlive let customRole = CustomRole.Get(role.Key) 
+                where customRole != null && Player.List.Any(p => customRole.TrackedPlayers.Contains(p)) select role)
+                .Aggregate(string.Empty, (current, role) => current + (role.Value + "\n"));
         }
 
         private string GetRolesText()
         {
-            return Plugin.Instance.Config.AliveRoles.Where(role => Player.List.Any(p => p.Role.Type == role.Key)).Aggregate(string.Empty, (current, role) => current + (role.Value + "\n"));
+            return Plugin.Instance.Config.AliveRoles.Where(role => Player.List.Any(p => p.Role.Type == role.Key))
+                .Aggregate(string.Empty, (current, role) => current + (role.Value + "\n"));
         }
 
         private string GetTeamsText()
         {
-            return Plugin.Instance.Config.AliveTeams.Where(team => Player.List.Any(p => p.Role.Team == team.Key)).Aggregate(string.Empty, (current, team) => current + (team.Value + "\n"));
+            return Plugin.Instance.Config.AliveTeams.Where(team => Player.List.Any(p => p.Role.Team == team.Key))
+                .Aggregate(string.Empty, (current, team) => current + (team.Value + "\n"));
         }
     }
 }

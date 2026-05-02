@@ -17,7 +17,7 @@ namespace VVUP.Base
         public override string Prefix { get; } = "VVUP.Base";
         public override Version Version { get; } =
             Version.Parse(Assembly.GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.3");
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "4.0.0");
         public override Version RequiredExiledVersion { get; } = new Version(9, 13, 3);
 
         public bool VvupCi = false; // Custom Items
@@ -30,7 +30,6 @@ namespace VVUP.Base
         public bool VvupSc = false; // SCP Changes
         public bool VvupFa = false; // Flamingo Adjustments
         public bool VvupHk = false; // Husk Infection
-        public bool VvupVo = false; // Votes
         public bool VvupCt = false; // Credit Tags
         public bool VvupCe = false; // Custom Escapes
         public bool VvupPne = false; // Post Nuke Enhancements
@@ -60,7 +59,6 @@ namespace VVUP.Base
             VvupSc = false;
             VvupFa = false;
             VvupHk = false;
-            VvupVo = false;
             VvupCt = false;
             VvupCe = false;
             VvupPne = false;

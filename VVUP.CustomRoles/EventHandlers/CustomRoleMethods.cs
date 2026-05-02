@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
+using VVUP.Base.API;
 using VVUP.CustomRoles.API;
 
 namespace VVUP.CustomRoles.EventHandlers
@@ -23,7 +24,7 @@ namespace VVUP.CustomRoles.EventHandlers
                     Log.Debug(enumerator.Current?.StartTeam);
                     if (enumerator.Current is not null)
                     {
-                        int random = Base.GetRandomNumber.GetRandomInt(101);
+                        int random = GetRandomNumber.GetRandomInt(101);
                         if (enumerator.Current.StartTeam.HasFlag(StartTeam.Other)
                             || (enumerator.Current.StartTeam.HasFlag(StartTeam.Revived) && !checkRevive)
                             || (enumerator.Current.StartTeam.HasFlag(StartTeam.Escape) && !checkEscape)

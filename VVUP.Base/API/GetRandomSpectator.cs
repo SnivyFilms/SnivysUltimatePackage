@@ -3,7 +3,7 @@ using System.Linq;
 using Exiled.API.Features;
 using PlayerRoles;
 
-namespace VVUP.Base
+namespace VVUP.Base.API
 {
     public static class GetRandomSpectator
     {

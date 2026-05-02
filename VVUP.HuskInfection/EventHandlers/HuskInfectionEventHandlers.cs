@@ -6,6 +6,7 @@ using Exiled.Events.EventArgs.Server;
 using MEC;
 using PlayerRoles;
 using UnityEngine;
+using VVUP.Base.API;
 
 namespace VVUP.HuskInfection.EventHandlers
 {
@@ -156,7 +157,7 @@ namespace VVUP.HuskInfection.EventHandlers
 
         private static Player GetHuskPlayerToTakeOver()
         {
-            return Base.GetRandomSpectator.GetSpectator();
+            return GetRandomSpectator.GetSpectator();
         }
     }
 }

@@ -7,6 +7,7 @@ using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
 using VVUP.Base;
+using VVUP.Base.API;
 
 namespace VVUP.CustomRoles.Abilities.Active
 {

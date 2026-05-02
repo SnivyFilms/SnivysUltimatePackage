@@ -4,6 +4,7 @@ using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using MEC;
 using VVUP.Base;
+using VVUP.Base.API;
 
 namespace VVUP.CustomRoles.Abilities.Passive
 {
