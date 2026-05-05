@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Exiled.API.Features;
 using MEC;
 using UnityEngine;
+using VVUP.Base.API;
 using VVUP.ServerEvents.ServerEventsConfigs;
 using PlayerEvent = Exiled.Events.Handlers.Player;
 
@@ -44,7 +45,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
         }
         private static IEnumerator<float> AfterHoursTiming()
         {
-            AhTeslaAllowed = Base.GetRandomNumber.GetRandomInt(101) <= _config.TeslaActivationChance;
+            AhTeslaAllowed = GetRandomNumber.GetRandomInt(101) <= _config.TeslaActivationChance;
             yield return Timing.WaitForSeconds(_config.TeslaActivationChanceCycle);
         }
         

@@ -166,7 +166,7 @@ namespace VVUP.CustomItems.Items.Firearms
 
             if (ev.Player.Role.Team == Team.SCPs)
             {
-                int randomNumber = Base.GetRandomNumber.GetRandomInt(1, 101);
+                int randomNumber = GetRandomNumber.GetRandomInt(1, 101);
                 Log.Debug(
                     $"VVUP Custom Items: Tranquilizer, rolled {randomNumber}, checking if SCP can be tranquilized");
                 if (randomNumber <= ScpResistChance)

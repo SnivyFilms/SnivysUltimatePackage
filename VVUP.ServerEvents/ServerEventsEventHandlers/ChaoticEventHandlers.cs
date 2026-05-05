@@ -10,6 +10,7 @@ using LightContainmentZoneDecontamination;
 using MEC;
 using PlayerRoles;
 using UnityEngine;
+using VVUP.Base.API;
 using VVUP.ServerEvents.ServerEventsConfigs;
 using Door = Exiled.API.Features.Doors.Door;
 using ElevatorDoor = Exiled.API.Features.Doors.ElevatorDoor;
@@ -61,7 +62,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             for (;;)
             {
                 float chaoticEventCycle = _config.TimeForChaosEvent;
-                int chaosRandomNumber = Base.GetRandomNumber.GetRandomInt(1, 27);
+                int chaosRandomNumber = GetRandomNumber.GetRandomInt(1, 27);
                 Log.Debug(chaosRandomNumber);
                 if (_config.ChaosEventEndsOtherEvents)
                 {
@@ -116,7 +117,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                 Log.Debug("VVUP Server Events, Chaotic: Checking if players aren't a SCP or is dead");
                                 if (player.Role.Team != Team.SCPs || player.Role.Team != Team.Dead)
                                 {
-                                    int randomItemGiveRng = Base.GetRandomNumber.GetRandomInt(0, 2);
+                                    int randomItemGiveRng = GetRandomNumber.GetRandomInt(0, 2);
                                     Log.Debug($"VVUP Server Events, Chaotic: Deciding if {player.Nickname} gets a Custom Item or a Regular Item");
                                     if (_config.GiveRandomItemCustomitems)
                                     {
@@ -124,13 +125,13 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                         {
                                             case 1:
                                                 CustomItem randomCustomItem =
-                                                    customItems[Base.GetRandomNumber.GetRandomInt(customItems.Count)];
+                                                    customItems[GetRandomNumber.GetRandomInt(customItems.Count)];
                                                 randomCustomItem.Give(player);
                                                 Log.Debug($"VVUP Server Events, Chaotic: {player.Nickname} has received custom item id {randomCustomItem}");
                                                 break;
                                             case 2:
                                                 ItemType randomStandardItem =
-                                                    standardItems[Base.GetRandomNumber.GetRandomInt(standardItems.Length)];
+                                                    standardItems[GetRandomNumber.GetRandomInt(standardItems.Length)];
                                                 player.AddItem(randomStandardItem);
                                                 Log.Debug($"VVUP Server Events, Chaotic: {player.Nickname} has received item id {randomStandardItem}");
                                                 break;
@@ -140,7 +141,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                     else
                                     {
                                         ItemType randomStandardItem =
-                                            standardItems[Base.GetRandomNumber.GetRandomInt(standardItems.Length)];
+                                            standardItems[GetRandomNumber.GetRandomInt(standardItems.Length)];
                                         player.AddItem(randomStandardItem);
                                     }
 
@@ -280,7 +281,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                 if (player.Role.Team != Team.SCPs || player.Role.Team != Team.Dead)
                                 {
                                     Log.Debug($"VVUP Server Events, Chaotic: Checking if {player.Nickname} is able to get a random weapon");
-                                    ItemType randomWeapon = WeaponTypes[Base.GetRandomNumber.GetRandomInt(WeaponTypes.Count)];
+                                    ItemType randomWeapon = WeaponTypes[GetRandomNumber.GetRandomInt(WeaponTypes.Count)];
                                     if (_config.GiveRandomWeaponsToUnarmedPlayers)
                                     {
                                         foreach (var item in player.Items)
@@ -313,7 +314,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                                     Log.Debug($"VVUP Server Events, Chaotic: Giving {player.Nickname} a predefined weapon");
                                                     player.AddItem(
                                                         _config.GiveRandomWeaponsDefined[
-                                                            Base.GetRandomNumber.GetRandomInt(_config.GiveRandomWeaponsDefined.Count)]);
+                                                            GetRandomNumber.GetRandomInt(_config.GiveRandomWeaponsDefined.Count)]);
                                                 }
 
                                                 player.Broadcast((ushort)_config.BroadcastDisplayTime,
@@ -351,7 +352,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                                 Log.Debug($"VVUP Server Events, Chaotic: Giving {player.Nickname} a predefined weapon");
                                                 player.AddItem(
                                                     _config.GiveRandomWeaponsDefined[
-                                                        Base.GetRandomNumber.GetRandomInt(_config.GiveRandomWeaponsDefined.Count)]);
+                                                        GetRandomNumber.GetRandomInt(_config.GiveRandomWeaponsDefined.Count)]);
                                             }
 
                                             player.Broadcast((ushort)_config.BroadcastDisplayTime,
@@ -545,14 +546,14 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                 player.Broadcast((ushort)_config.BroadcastDisplayTime, _config.GrenadeFeetText);
                             }
 
-                            yield return Timing.WaitForSeconds(Base.GetRandomNumber.GetRandomFloat(1, 50));
+                            yield return Timing.WaitForSeconds(GetRandomNumber.GetRandomFloat(1, 50));
 
                             foreach (PlayerAPI player in PlayerAPI.List)
                             {
                                 Log.Debug($"VVUP Server Events, Chaotic: Spawning a grenade on {player.Nickname}");
                                 ExplosiveGrenade grenade = (ExplosiveGrenade)Item.Create(ItemType.GrenadeHE);
                                 if (_config.GrenadeFeetRandomFuse)
-                                    grenade.FuseTime = Base.GetRandomNumber.GetRandomFloat(1, 50);
+                                    grenade.FuseTime = GetRandomNumber.GetRandomFloat(1, 50);
                                 else
                                     grenade.FuseTime = _config.GrenadeFeetFuse;
                                 grenade.SpawnActive(player.Position);
@@ -586,7 +587,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                             }
 
                             if (_config.UnsafeMedicalItemsUseRandomTime)
-                                yield return Timing.WaitForSeconds(Base.GetRandomNumber.GetRandomFloat(1, 50));
+                                yield return Timing.WaitForSeconds(GetRandomNumber.GetRandomFloat(1, 50));
                             else
                                 yield return Timing.WaitForSeconds(_config.UnsafeMedicalItemsFixedTime);
                             Log.Debug("VVUP Server Events, Chaotic: Disabling Event Handlers for on using medical item events");
@@ -631,7 +632,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                         if (_config.FakeoutRespawnAnnouncementsEvent)
                         {
                             Log.Debug("VVUP Server Events, Chaotic: Fakeout Respawn Announcements active, running code");
-                            int fakeoutRespawnRandom = Base.GetRandomNumber.GetRandomInt(1, 5);
+                            int fakeoutRespawnRandom = GetRandomNumber.GetRandomInt(1, 5);
                             string cassieMessage = string.Empty;
                             string cassieText = string.Empty;
                             int scpCount = 0;
@@ -651,8 +652,8 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                             if (player.Role.Team == Team.SCPs)
                                                 scpCount++;
                                         }
-                                        int randomNatoLetter = Base.GetRandomNumber.GetRandomInt(1, 27);
-                                        int randomNatoNumber = Base.GetRandomNumber.GetRandomInt(2, 21);
+                                        int randomNatoLetter = GetRandomNumber.GetRandomInt(1, 27);
+                                        int randomNatoNumber = GetRandomNumber.GetRandomInt(2, 21);
                                         if (scpCount == 0)
                                         {
                                             cassieMessage = _config.FakeoutRespawnAnnouncementsUIUSCPSDeadCassie;
@@ -878,7 +879,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                                 List<PlayerAPI> allies = players.Where(p => p.Role.Team == player.Role.Team && !teleportedPlayers.Contains(p) && p != player).ToList();
                                 if (allies.Count == 0)
                                     continue;
-                                PlayerAPI ally = allies[Base.GetRandomNumber.GetRandomInt(allies.Count)];
+                                PlayerAPI ally = allies[GetRandomNumber.GetRandomInt(allies.Count)];
                                 Log.Debug($"VVUP Server Events, Chaotic: Teleporting {player.Nickname} to {ally.Nickname}");
                                 player.Position = ally.Position;
                                 teleportedPlayers.Add(player);
@@ -1236,7 +1237,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                 p.Role != (RoleTypeId)Team.Dead).ToList();
             if (fbiOpenUpPossibleTargets.Count == 0)
                 return null;
-            int index = Base.GetRandomNumber.GetRandomInt(fbiOpenUpPossibleTargets.Count);
+            int index = GetRandomNumber.GetRandomInt(fbiOpenUpPossibleTargets.Count);
             return fbiOpenUpPossibleTargets[index];
         }
 
@@ -1325,8 +1326,8 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                 {
                     cassieMessage = _config.FakeoutRespawnAnnouncementsMTFSCPSDeadCassie;
                     cassieText = _config.FakeoutRespawnAnnouncementsMTFSCPSDeadCassieText;
-                    int randomNatoLetter = Base.GetRandomNumber.GetRandomInt(1, 26);
-                    int randomNatoNumber = Base.GetRandomNumber.GetRandomInt(2, 20);
+                    int randomNatoLetter = GetRandomNumber.GetRandomInt(1, 26);
+                    int randomNatoNumber = GetRandomNumber.GetRandomInt(2, 20);
                     cassieMessage = cassieMessage.Replace("{designation}",
                         $"nato_{GetNatoLetter(randomNatoLetter)} {randomNatoNumber}");
                     cassieText = cassieText.Replace("{designation}",
@@ -1351,8 +1352,8 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                         cassieText = cassieText.Replace("SCP subject", "SCP subjects");
                     }
 
-                    int randomNatoLetter = Base.GetRandomNumber.GetRandomInt(1,  27);
-                    int randomNatoNumber = Base.GetRandomNumber.GetRandomInt(2, 21);
+                    int randomNatoLetter = GetRandomNumber.GetRandomInt(1,  27);
+                    int randomNatoNumber = GetRandomNumber.GetRandomInt(2, 21);
                     cassieMessage = cassieMessage.Replace("{designation}",
                         $"nato_{GetNatoLetter(randomNatoLetter)} {randomNatoNumber}");
                     cassieText = cassieText.Replace("{designation}",

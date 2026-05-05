@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using Exiled.API.Enums;
 using Exiled.API.Interfaces;
 using PlayerRoles;
 
@@ -38,24 +39,76 @@ namespace VVUP.ScpChanges
             { Team.ClassD, "<size=30>D-Class</size>" },
             { Team.SCPs, "<size=30>SCPs</size>" },
         };
-        [Description("Old SCP 106 Behavior means that SCP 106 will only have lower health, but a damage resistance to bullets.")]
-        public bool OldScp106Behavior { get; set; } = true;
-        public int Scp106Health { get; set; } = 600;
-        [Description("0.1 = 90% resistance, 0.2 = 80% resistance, etc.")]
-        public float Scp106DamageResistance { get; set; } = 0.1f;
-        [Description("If SCP-106 has a damage resistance, should its Hume Shield be affected by the resistance as well")]
-        public bool ResistanceWithHume { get; set; } = false;
-        [Description("Can SCP-106 one shot people to the pocket dimension? This is separate from the old behavior setting.")]
-        public bool Scp106OneShot { get; set; } = true;
-        [Description("Can SCP-049 one shot people?")]
-        public bool Scp049OneShot { get; set; } = true;
+        /*
         [Description("Does SCP-096 get unlimited rage when the Nuke is detonating?")]
         public bool Scp096UnlimitedRageDuringNuke { get; set; } = true;
-        [Description("Does Flamingos have their adjustments")]
-        public bool FlamingoAdjustments { get; set; } = true;
-        [Description("How much base damage does Flamingo do?")]
-        public float FlamingoBaseDamage { get; set; } = 12f;
-        [Description("What is the damage multiplier for Flamingos against SCPs?")]
-        public float FlamingoScpDamageMultiplier { get; set; } = 1.5f;
+        */
+
+        public List<ScpHealth> ScpHealths { get; set; } = new()
+        {
+            new ScpHealth()
+            {
+                Role = RoleTypeId.Scp106,
+                MaxHealth = 600,
+                HumeShield = 500,
+                ApplyToCustomRoles = false,
+            },
+        };
+
+        public List<ScpDamageResistance> ScpDamageResistances { get; set; } = new()
+        {
+            new ScpDamageResistance()
+            {
+                Role = RoleTypeId.Scp106,
+                DamageType = DamageType.Firearm,
+                ResistanceModifier = 0.1f,
+                ShouldResistWithHume = false,
+                ShouldApplyToCustomRoles = false,
+            }
+        };
+        [Description("Scp Set Damages allow you to set specific damage values for specific roles and damage types, this will override any other damage modifications. ShouldOneShot will do what would normally need multiple hits to apply instantly, such as a player being sent to the 106 pocket dimention")]
+        public List<ScpSetDamage> ScpSetDamages { get; set; } = new()
+        {
+            new ScpSetDamage()
+            {
+                Role = RoleTypeId.Scp106,
+                Damage = 12f,
+                ShouldOneShotApplyEffects = true,
+                ShouldApplyToCustomRoles = false,
+            },
+            new ScpSetDamage()
+            {
+                Role = RoleTypeId.Scp049,
+                Damage = 9999,
+                ShouldOneShotApplyEffects = false,
+            }
+        };
+    }
+
+    public class ScpHealth
+    {
+        public RoleTypeId Role { get; set; }
+        public int MaxHealth { get; set; }
+        public int HumeShield { get; set; }
+        public float HumeShieldRegenMultiplier { get; set; }
+        public bool ApplyToCustomRoles { get; set; } = false;
+    }
+
+    public class ScpDamageResistance
+    {
+        public RoleTypeId Role { get; set; }
+        public float ResistanceModifier { get; set; }
+        public DamageType DamageType { get; set; }
+        public bool ShouldResistWithHume { get; set; } = false;
+        public bool ShouldApplyToCustomRoles { get; set; } = false;
+    }
+    
+    public class ScpSetDamage
+    {
+        public RoleTypeId Role { get; set; }
+        public float Damage { get; set; }
+        public bool ShouldOneShotApplyEffects { get; set; } = false;
+        public Dictionary<RoleTypeId, float> DamageMultipliersAgainstSpecificRoles { get; set; }
+        public bool ShouldApplyToCustomRoles { get; set; } = false;
     }
 }

@@ -12,6 +12,7 @@ using Exiled.Events.EventArgs.Server;
 using MEC;
 using PlayerRoles;
 using UnityEngine;
+using VVUP.Base.API;
 using PlayerLab = LabApi.Features.Wrappers.Player;
 
 // ReSharper disable InconsistentNaming
@@ -81,14 +82,14 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             Log.Debug("VVUP Server Events: Checking if Random Events config is set to true");
             if (!Plugin.Instance.Config.RandomlyStartingEvents) return;
             
-            int chance = Base.GetRandomNumber.GetRandomInt(101);
+            int chance = GetRandomNumber.GetRandomInt(101);
             Log.Debug($"VVUP Server Events: Chance is {chance}, comparing to the chance to the defined chance {Plugin.Instance.Config.RandomlyStartingEvents}");
             if (chance < Plugin.Instance.Config.RandomEventStartingChance)
             {
                 Log.Debug("VVUP Server Events: Getting the list of events that are able to be randomly started");
                 List<string> events = Plugin.Instance.Config.RandomEventsAllowedToStart;
                 Log.Debug("VVUP Server Events: Getting a random event that is defined");
-                string selectedEvent = events[Base.GetRandomNumber.GetRandomInt(events.Count)];
+                string selectedEvent = events[GetRandomNumber.GetRandomInt(events.Count)];
                 Log.Debug($"VVUP Server Events: Random event selected: {selectedEvent}");
                 switch (selectedEvent)
                 {
@@ -206,7 +207,7 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             ev.Player.Scale.Set(_PHEScale, _PHEScale, _PHEScale);
             //Get a random spectator and set them as a duplicate 173
             Log.Debug("VVUP Server Events: Getting a random spectator and set them as a duplicate 173");
-            Player newPlayer = Base.GetRandomSpectator.GetSpectator();
+            Player newPlayer = GetRandomSpectator.GetSpectator();
             switch (newPlayer)
             {
                 case null when PeanutHydraEventHandlers.Config.UseAttackersIfNeeded:
@@ -235,132 +236,132 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
             if (ev.Usable.Type is ItemType.Adrenaline or ItemType.Painkillers or ItemType.Medkit or ItemType.SCP500)
             {
                 Log.Debug("VVUP Server Events: Doing a half half chance to see if an effect should be applied");
-                int chance = Base.GetRandomNumber.GetRandomInt(0, 2);
+                int chance = GetRandomNumber.GetRandomInt(0, 2);
                 if (chance == 1)
                     return;
                 Log.Debug("VVUP Server Events: Chance passed, getting a random effect");
-                chance = Base.GetRandomNumber.GetRandomInt(1, 42);
+                chance = GetRandomNumber.GetRandomInt(1, 42);
                 switch (chance)
                 {
                     case 1:
                         break;
                     case 2:
-                        ev.Player.EnableEffect(EffectType.Asphyxiated, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Asphyxiated, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 3:
-                        ev.Player.EnableEffect(EffectType.Bleeding, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Bleeding, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 4:
-                        ev.Player.EnableEffect(EffectType.Blinded, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Blinded, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 5:
-                        ev.Player.EnableEffect(EffectType.Burned, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Burned, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 6:
-                        ev.Player.EnableEffect(EffectType.Concussed, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Concussed, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 7:
-                        ev.Player.EnableEffect(EffectType.Corroding, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Corroding, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 8:
-                        ev.Player.EnableEffect(EffectType.Deafened, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Deafened, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 9:
-                        ev.Player.EnableEffect(EffectType.Decontaminating, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Decontaminating, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 10:
-                        ev.Player.EnableEffect(EffectType.Disabled, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Disabled, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 11:
-                        ev.Player.EnableEffect(EffectType.Ensnared, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Ensnared, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 12:
-                        ev.Player.EnableEffect(EffectType.Exhausted, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Exhausted, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 13:
-                        ev.Player.EnableEffect(EffectType.Flashed, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Flashed, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 14:
-                        ev.Player.EnableEffect(EffectType.Ghostly, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Ghostly, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 15:
-                        ev.Player.EnableEffect(EffectType.Hemorrhage, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Hemorrhage, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 16:
-                        ev.Player.EnableEffect(EffectType.Hypothermia, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Hypothermia, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 17:
-                        ev.Player.EnableEffect(EffectType.Invigorated, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Invigorated, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 18:
-                        ev.Player.EnableEffect(EffectType.Invisible, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Invisible, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 19:
-                        ev.Player.EnableEffect(EffectType.Poisoned, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Poisoned, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 20:
-                        ev.Player.EnableEffect(EffectType.Scp207, (byte)Base.GetRandomNumber.GetRandomInt(1, 4), Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Scp207, (byte)GetRandomNumber.GetRandomInt(1, 4), GetRandomNumber.GetRandomFloat());
                         break;
                     case 21:
-                        ev.Player.EnableEffect(EffectType.Scp1853, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Scp1853, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 22:
-                        ev.Player.EnableEffect(EffectType.Slowness, (byte)Base.GetRandomNumber.GetRandomInt(1, 255), Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Slowness, (byte)GetRandomNumber.GetRandomInt(1, 255), GetRandomNumber.GetRandomFloat());
                         break;
                     case 23:
-                        ev.Player.EnableEffect(EffectType.Stained, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Stained, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 24:
-                        ev.Player.EnableEffect(EffectType.Traumatized, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Traumatized, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 25:
-                        ev.Player.EnableEffect(EffectType.Vitality, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.Vitality, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 26:
-                        ev.Player.EnableEffect(EffectType.AmnesiaItems, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.AmnesiaItems, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 27:
-                        ev.Player.EnableEffect(EffectType.AmnesiaVision, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.AmnesiaVision, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 28:
-                        ev.Player.EnableEffect(EffectType.AntiScp207, (byte)Base.GetRandomNumber.GetRandomInt(1, 4), Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.AntiScp207, (byte)GetRandomNumber.GetRandomInt(1, 4), GetRandomNumber.GetRandomFloat());
                         break;
                     case 29:
-                        ev.Player.EnableEffect(EffectType.BodyshotReduction, (byte)Base.GetRandomNumber.GetRandomInt(1, 5), Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.BodyshotReduction, (byte)GetRandomNumber.GetRandomInt(1, 5), GetRandomNumber.GetRandomFloat());
                         break;
                     case 30:
-                        ev.Player.EnableEffect(EffectType.CardiacArrest, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.CardiacArrest, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 31:
-                        ev.Player.EnableEffect(EffectType.DamageReduction, (byte)Base.GetRandomNumber.GetRandomInt(1, 256), Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.DamageReduction, (byte)GetRandomNumber.GetRandomInt(1, 256), GetRandomNumber.GetRandomFloat());
                         break;
                     case 32:
-                        ev.Player.EnableEffect(EffectType.FogControl, (byte)Base.GetRandomNumber.GetRandomInt(0, 8), Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.FogControl, (byte)GetRandomNumber.GetRandomInt(0, 8), GetRandomNumber.GetRandomFloat());
                         break;
                     case 33:
-                        ev.Player.EnableEffect(EffectType.MovementBoost, (byte)Base.GetRandomNumber.GetRandomInt(1, 256), Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.MovementBoost, (byte)GetRandomNumber.GetRandomInt(1, 256), GetRandomNumber.GetRandomFloat());
                         break;
                     case 34:
-                        ev.Player.EnableEffect(EffectType.PocketCorroding, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.PocketCorroding, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 35:
-                        ev.Player.EnableEffect(EffectType.RainbowTaste, (byte)Base.GetRandomNumber.GetRandomInt(1, 4), Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.RainbowTaste, (byte)GetRandomNumber.GetRandomInt(1, 4), GetRandomNumber.GetRandomFloat());
                         break;
                     case 36:
-                        ev.Player.EnableEffect(EffectType.SeveredHands, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.SeveredHands, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 37:
-                        ev.Player.EnableEffect(EffectType.SilentWalk, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.SilentWalk, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 38:
-                        ev.Player.EnableEffect(EffectType.SinkHole, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.SinkHole, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 39:
-                        ev.Player.EnableEffect(EffectType.SpawnProtected, 1, Base.GetRandomNumber.GetRandomFloat());
+                        ev.Player.EnableEffect(EffectType.SpawnProtected, 1, GetRandomNumber.GetRandomFloat());
                         break;
                     case 40:
                         ExplosiveGrenade grenade = (ExplosiveGrenade)Item.Create(ItemType.GrenadeHE);
-                        grenade.FuseTime = Base.GetRandomNumber.GetRandomFloat();
+                        grenade.FuseTime = GetRandomNumber.GetRandomFloat();
                         grenade.SpawnActive(ev.Player.Position);
                         break;
                     case 41:
@@ -440,13 +441,13 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
         private ItemType GetRandomBaseItem()
         {
             Array itemTypes = Enum.GetValues(typeof(ItemType));
-            int index = Base.GetRandomNumber.GetRandomInt(itemTypes.Length);
+            int index = GetRandomNumber.GetRandomInt(itemTypes.Length);
             return (ItemType)itemTypes.GetValue(index);
         }
         private CustomItem GetRandomCustomItem()
         {
             List<CustomItem> customItems = CustomItem.Registered.ToList();
-            return customItems[Base.GetRandomNumber.GetRandomInt(customItems.Count)];
+            return customItems[GetRandomNumber.GetRandomInt(customItems.Count)];
         }
     }
 }

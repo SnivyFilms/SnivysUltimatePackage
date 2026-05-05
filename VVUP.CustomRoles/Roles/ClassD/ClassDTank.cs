@@ -5,6 +5,7 @@ using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
 using UnityEngine;
 using VVUP.Base;
+using VVUP.Base.API;
 using VVUP.CustomRoles.Abilities.Passive;
 using VVUP.CustomRoles.API;
 using YamlDotNet.Serialization;

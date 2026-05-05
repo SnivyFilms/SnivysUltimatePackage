@@ -1,6 +1,6 @@
 ﻿using Exiled.API.Enums;
 
-namespace VVUP.Base
+namespace VVUP.Base.API
 {
     public class ApplyEffects
     {

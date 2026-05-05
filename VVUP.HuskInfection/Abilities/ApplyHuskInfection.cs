@@ -2,6 +2,7 @@
 using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
+using VVUP.Base.API;
 using VVUP.HuskInfection.EventHandlers;
 
 namespace VVUP.HuskInfection.Abilities
@@ -41,7 +42,7 @@ namespace VVUP.HuskInfection.Abilities
                 return;
             if (Check(ev.Attacker) == Check(ev.Player))
                 return;
-            if (Check(ev.Attacker) && Base.GetRandomNumber.GetRandomInt(0, 101) < InfectionChance)
+            if (Check(ev.Attacker) && GetRandomNumber.GetRandomInt(0, 101) < InfectionChance)
             {
                 Log.Debug($"VVUP Custom Abilities: ApplyHuskInfection, {ev.Attacker.Nickname} hit {ev.Player.Nickname}, applying Husk Infection.");
                 HuskInfectionEventHandlers huskInfection = new HuskInfectionEventHandlers(ev.Player, InfectionStageOneDelay, InfectionStageTwoDelay, 

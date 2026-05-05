@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace VVUP.Base
+namespace VVUP.Base.API
 {
     public static class GetRandomNumber
     {

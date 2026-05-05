@@ -9,6 +9,7 @@ using Exiled.Events.EventArgs.Player;
 using LightContainmentZoneDecontamination;
 using MEC;
 using PlayerRoles;
+using VVUP.Base.API;
 using PlayerAPI = Exiled.API.Features.Player;
 using PlayerEvent = Exiled.Events.Handlers.Player;
 using Map = Exiled.API.Features.Map;
@@ -96,7 +97,7 @@ namespace VVUP.OperationCrossfireServerEvent
             if (customKeycardBasic != null && customKeycardBasic.SpawnProperties != null)
             {
                 var spawnPoints = customKeycardBasic.SpawnProperties.DynamicSpawnPoints;
-                var selected = spawnPoints[Base.GetRandomNumber.GetRandomInt(spawnPoints.Count)];
+                var selected = spawnPoints[GetRandomNumber.GetRandomInt(spawnPoints.Count)];
                 var position = selected.Location.GetPosition();
                 customKeycardBasic.Spawn(position);
                 Log.Debug(
@@ -142,7 +143,7 @@ namespace VVUP.OperationCrossfireServerEvent
                     shuffledPlayers[assignedPlayers].AddAmmo(AmmoType.Nato762, 40);
                     shuffledPlayers[assignedPlayers].AddItem(_config.ClassDKeycard);
                     shuffledPlayers[assignedPlayers]
-                        .AddItem(_config.ClassDFirearms[Base.GetRandomNumber.GetRandomInt(_config.ClassDFirearms.Count)]);
+                        .AddItem(_config.ClassDFirearms[GetRandomNumber.GetRandomInt(_config.ClassDFirearms.Count)]);
                 }
                 
                 // Start the Routine Proper

@@ -2,6 +2,7 @@
 using Exiled.API.Features;
 using MEC;
 using UnityEngine;
+using VVUP.Base.API;
 using VVUP.ServerEvents.ServerEventsConfigs;
 
 namespace VVUP.ServerEvents.ServerEventsEventHandlers
@@ -44,13 +45,13 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                     {
                         Log.Debug("VVUP Server Events, Variable Lights: Different lights per room is enabled, changing brightness");
                         foreach (Room room in Room.List)
-                            room.Color = new Color(room.Color.r, room.Color.g, room.Color.b, Base.GetRandomNumber.GetRandomFloat(1));
+                            room.Color = new Color(room.Color.r, room.Color.g, room.Color.b, GetRandomNumber.GetRandomFloat(1));
                     }
                     else
                     {
                         Log.Debug(
                             "VVUP Server Events, Variable Lights: Different lights per room is disabled, setting brightness to be the same across rooms");
-                            Map.ChangeLightsColor(new Color(1, 1, 1, Base.GetRandomNumber.GetRandomFloat(1)));
+                            Map.ChangeLightsColor(new Color(1, 1, 1, GetRandomNumber.GetRandomFloat(1)));
                     }
                 }
                 else
@@ -60,17 +61,17 @@ namespace VVUP.ServerEvents.ServerEventsEventHandlers
                     {
                         Log.Debug("VVUP Server Events, Variable Lights: Different room lights is enabled, setting different lights per room");
                         foreach (Room room in Room.List)
-                            room.Color = new Color(Base.GetRandomNumber.GetRandomFloat(1), Base.GetRandomNumber.GetRandomFloat(1),
-                                Base.GetRandomNumber.GetRandomFloat(1), Base.GetRandomNumber.GetRandomFloat(1));
+                            room.Color = new Color(GetRandomNumber.GetRandomFloat(1), GetRandomNumber.GetRandomFloat(1),
+                                GetRandomNumber.GetRandomFloat(1), GetRandomNumber.GetRandomFloat(1));
                     }
                     else
                     {
                         Log.Debug("VVUP Server Events, Variable Lights: Different room lights is disabled, setting the same lights per room");
                         Map.ChangeLightsColor(new Color(
-                            Base.GetRandomNumber.GetRandomFloat(1), 
-                            Base.GetRandomNumber.GetRandomFloat(1),
-                            Base.GetRandomNumber.GetRandomFloat(1), 
-                            Base.GetRandomNumber.GetRandomFloat(1)));
+                            GetRandomNumber.GetRandomFloat(1), 
+                            GetRandomNumber.GetRandomFloat(1),
+                            GetRandomNumber.GetRandomFloat(1), 
+                            GetRandomNumber.GetRandomFloat(1)));
                     }
                 }
 
