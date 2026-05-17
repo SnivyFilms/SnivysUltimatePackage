@@ -1,7 +1,11 @@
 ﻿<Project>
     <Import Project="ReferencePath.props.user" Condition="Exists('ReferencePath.props.user')" />
     <PropertyGroup>
-        <ReferencePath Condition="$(ReferencePath) == ''">$(SL_REFERENCES)</ReferencePath>
+        <!-- Windows -->
+        <WindowsSLRefs Condition=" '$(OS)' == 'Windows_NT' ">$(SL_REFERENCES)</WindowsSLRefs>
+        <!-- Linux/Mac -->
+        <LinuxSLRefs Condition=" '$(OS)' != 'Windows_NT' ">$(SL_REFERENCES)</LinuxSLRefs>
+        <ReferencePath Condition="$(ReferencePath) == ''">$(WindowsSLRefs);$(LinuxSLRefs)</ReferencePath>
         <AssemblySearchPaths>$(ReferencePath);$(AssemblySearchPaths)</AssemblySearchPaths>
     </PropertyGroup>
 

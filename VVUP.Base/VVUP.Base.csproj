@@ -19,19 +19,20 @@
         <CodeAnalysisRuleSet>../stylecop.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
-    <ItemGroup>
-        <Reference Include="Assembly-CSharp-firstpass" HintPath="$(SL_REFERENCES)\Assembly-CSharp-firstpass.dll" Private="false"/>
-        <Reference Include="UnityEngine.AnimationModule" HintPath="$(SL_REFERENCES)\UnityEngine.AnimationModule.dll" Private="false"/>
-    </ItemGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DebugSymbols>true</DebugSymbols>
+      <DebugType>embedded</DebugType>
+      <DocumentationFile>bin\Release\net48\VVUP.Base.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DependencyPath>$(MSBuildThisFileDirectory)../bin/dependencies/</DependencyPath>
+    </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Lib.Harmony"/>
         <PackageReference Include="ExMod.Exiled"/>
     </ItemGroup>
-
-    <PropertyGroup>
-        <DependencyPath>$(MSBuildThisFileDirectory)..\bin\dependencies\</DependencyPath>
-    </PropertyGroup>
 
     <Target Name="CopyDependencies" AfterTargets="Build">
         <ItemGroup>

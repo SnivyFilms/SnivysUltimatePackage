@@ -1,7 +1,8 @@
 ﻿<Project>
+    <Import Project="ReferencePath.props.user" Condition="Exists('ReferencePath.props.user')" />
     <PropertyGroup>
         <GenerateAssemblyInformationVersionAttribute>false</GenerateAssemblyInformationVersionAttribute>
-        <SharedBinPath>$(MSBuildThisFileDirectory)bin\</SharedBinPath>
+        <SharedBinPath>$(MSBuildThisFileDirectory)bin/</SharedBinPath>
         <NoWarn>MSB3277</NoWarn>
     </PropertyGroup>
 
@@ -18,18 +19,20 @@
 
     <ItemGroup>
         <Reference Include="Assembly-CSharp" Publicize="true"/>
+        <Reference Include="Assembly-CSharp-firstpass"/>
         <Reference Include="CommandSystem.Core"/>
+        <Reference Include="mscorlib"/>
         <Reference Include="Mirror" Publicize="true"/>
+        <Reference Include="NorthwoodLib"/>
+        <Reference Include="Unity.TextMeshPro"/>
         <Reference Include="UnityEngine"/>
+        <Reference Include="UnityEngine.AnimationModule"/>
         <Reference Include="UnityEngine.CoreModule"/>
         <Reference Include="UnityEngine.PhysicsModule"/>
-        <Reference Include="NorthwoodLib"/>
-        <Reference Include="mscorlib"/>
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="ExMod.Exiled"/>
-        <PackageReference Include="RueI"/>
         <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" PrivateAssets="all" ExcludeAssets="runtime" ReferenceOutputAssembly="false" Private="true"/>
     </ItemGroup>
 </Project>
