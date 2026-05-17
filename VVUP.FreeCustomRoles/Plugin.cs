@@ -17,9 +17,7 @@ namespace VVUP.FreeCustomRoles
         public override string Name { get; } = "VVUP: Free Custom Roles";
         public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.FCR";
-        public override Version Version { get; } =
-            Version.Parse(Assembly.GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "4.0.0");
+        public override Version Version => GetType().Assembly.GetName().Version;
         public override Version RequiredExiledVersion { get; } = new Version(9, 13, 3);
 
         public SsssEventHandlers SsssEventHandlers;

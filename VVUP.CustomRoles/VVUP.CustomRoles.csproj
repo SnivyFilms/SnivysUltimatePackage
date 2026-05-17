@@ -1,180 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CFD5B906-4CA0-4493-B81E-AFB1421C6F14}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VVUP.CustomRoles</RootNamespace>
-    <AssemblyName>VVUP.CustomRoles</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFramework>net48</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
     <LangVersion>latest</LangVersion>
-    <FileAlignment>512</FileAlignment>
-    <Version>4.0.0</Version>
-    <AssemblyVersion>4.0.0.0</AssemblyVersion>
-    <FileVersion>4.0.0.0</FileVersion>
-    <InformationalVersion>4.0.0</InformationalVersion>
+    <PlatformTarget>x64</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>embedded</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>$(SolutionDir)Build\$(Configuration)\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
+
   <ItemGroup>
-      <Reference Include="Assembly-CSharp-firstpass">
-          <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
-          <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\Assembly-CSharp-firstpass.dll</HintPath>
-          <Private>false</Private>
-      </Reference>
-      <Reference Include="Mirror">
-          <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\Mirror.dll</HintPath>
-          <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\Mirror.dll</HintPath>
-          <Private>false</Private>
-      </Reference>
-      <Reference Include="Unity.TextMeshPro">
-          <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\Unity.TextMeshPro.dll</HintPath>
-          <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\Unity.TextMeshPro.dll</HintPath>
-          <Private>false</Private>
-      </Reference>
-      <Reference Include="UnityEngine">
-          <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\UnityEngine.dll</HintPath>
-          <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\UnityEngine.dll</HintPath>
-          <Private>false</Private>
-      </Reference>
-      <Reference Include="UnityEngine.CoreModule">
-          <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
-          <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\UnityEngine.CoreModule.dll</HintPath>
-          <Private>false</Private>
-      </Reference>
-      <Reference Include="UnityEngine.PhysicsModule">
-          <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)/UnityEngine.PhysicsModule.dll</HintPath>
-          <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\UnityEngine.PhysicsModule.dll</HintPath>
-          <Private>false</Private>
-      </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\VVUP.Base\VVUP.Base.csproj"/>
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Abilities\Active\ActiveCamo.cs" />
-    <Compile Include="Abilities\Active\ChargeAbility.cs" />
-    <Compile Include="Abilities\Active\Detect.cs" />
-    <Compile Include="Abilities\Active\DoorPicking.cs" />
-    <Compile Include="Abilities\Active\HealingMist.cs" />
-    <Compile Include="Abilities\Active\RemoveDisguise.cs" />
-    <Compile Include="Abilities\Active\RevivingMist.cs" />
-    <Compile Include="Abilities\Active\Replicator.cs" />
-    <Compile Include="Abilities\Active\SoundBreaker.cs" />
-    <Compile Include="Abilities\Active\Teleport.cs" />
-    <Compile Include="Abilities\Passive\AbilityRemover.cs" />
-    <Compile Include="Abilities\Passive\Addicted.cs" />
-    <Compile Include="Abilities\Passive\ApplyEffectOnHit.cs" />
-    <Compile Include="Abilities\Passive\CustomHume.cs" />
-    <Compile Include="Abilities\Passive\CustomRoleEscape.cs" />
-    <Compile Include="Abilities\Passive\DebugAbility.cs" />
-    <Compile Include="Abilities\Passive\Disguised.cs" />
-    <Compile Include="Abilities\Passive\EffectEnabler.cs" />
-    <Compile Include="Abilities\Passive\GivingCandyAbility.cs" />
-    <Compile Include="Abilities\Passive\GravityAdjuster.cs" />
-    <Compile Include="Abilities\Passive\HealOnKill.cs" />
-    <Compile Include="Abilities\Passive\IgnoreTeslas.cs" />
-    <Compile Include="Abilities\Passive\InfiniteStamina.cs" />
-    <Compile Include="Abilities\Passive\LifeSteal.cs" />
-    <Compile Include="Abilities\Passive\Martyrdom.cs" />
-    <Compile Include="Abilities\Passive\PocketDimensionEscapeChance.cs" />
-    <Compile Include="Abilities\Passive\ReactiveHume.cs" />
-    <Compile Include="Abilities\Passive\RestrictedEscape.cs" />
-    <Compile Include="Abilities\Passive\RestrictedItems.cs" />
-    <Compile Include="Abilities\Passive\ScaleAbility.cs" />
-    <Compile Include="Abilities\Passive\SpeedOnKill.cs" />
-    <Compile Include="Abilities\Passive\TeamConvertOnKill.cs" />
-    <Compile Include="Abilities\Passive\Unspectatable.cs" />
-    <Compile Include="API\ExternalTeams\CustomTeamAPI.cs" />
-    <Compile Include="API\ExternalTeams\ExternalTeamChecker.cs" />
-    <Compile Include="API\ExternalTeams\SerpentsHandCheck.cs" />
-    <Compile Include="API\ExternalTeams\UiuCheck.cs" />
-    <Compile Include="API\ICustomRole.cs" />
-    <Compile Include="API\StartTeam.cs" />
-    <Compile Include="Configs\Config.cs" />
-    <Compile Include="Configs\CustomRolesConfig.cs" />
-    <Compile Include="Configs\CustomRoleWrapperConfig.cs" />
-    <Compile Include="Configs\SsssConfig.cs" />
-    <Compile Include="EventHandlers\CustomRoleEventHandler.cs" />
-    <Compile Include="EventHandlers\CustomRoleMethods.cs" />
-    <Compile Include="EventHandlers\SsssEventHandlers.cs" />
-    <Compile Include="Plugin.cs" />
-    <Compile Include="Roles\Chaos\A7Chaos.cs" />
-    <Compile Include="Roles\Chaos\CiPhantom.cs" />
-    <Compile Include="Roles\Chaos\Replicant.cs" />
-    <Compile Include="Roles\Chaos\CISpy.cs" />
-    <Compile Include="Roles\Chaos\JuggernautChaos.cs" />
-    <Compile Include="Roles\Chaos\Nightfall.cs" />
-    <Compile Include="Roles\Chaos\TelepathicChaos.cs" />
-    <Compile Include="Roles\ClassD\ClassDAnalyst.cs" />
-    <Compile Include="Roles\ClassD\ClassDDruggy.cs" />
-    <Compile Include="Roles\ClassD\ClassDTank.cs" />
-    <Compile Include="Roles\ClassD\Dwarf.cs" />
-    <Compile Include="Roles\ClassD\LockpickingClassD.cs" />
-    <Compile Include="Roles\Foundation\ContainmentGuard.cs" />
-    <Compile Include="Roles\Foundation\Demolitionist.cs" />
-    <Compile Include="Roles\Foundation\LightGuard.cs" />
-    <Compile Include="Roles\Foundation\MtfParamedic.cs" />
-    <Compile Include="Roles\Foundation\MtfWisp.cs" />
-    <Compile Include="Roles\Foundation\Vanguard.cs" />
-    <Compile Include="Roles\Other\BorderPatrol.cs" />
-    <Compile Include="Roles\Other\Flipped.cs" />
-    <Compile Include="Roles\Other\PaperMan.cs" />
-    <Compile Include="Roles\Scientist\Biochemist.cs" />
-    <Compile Include="Roles\Scientist\ContainmentScientist.cs" />
-    <Compile Include="Roles\Scientist\QuantumGravityResearcher.cs" />
-    <Compile Include="Roles\Scientist\TeslaTechnician.cs" />
-    <Compile Include="Roles\Scientist\TheoreticalPhysicistScientist.cs" />
-    <Compile Include="Roles\Scps\DwarfZombie.cs" />
-    <Compile Include="Roles\Scps\ExplosiveZombie.cs" />
-    <Compile Include="Roles\Scps\InfectedZombie.cs" />
-    <Compile Include="Roles\Scps\MedicZombie.cs" />
-    <Compile Include="Roles\Scps\PoisonousZombie.cs" />
-    <Compile Include="Roles\Scps\SoundBreaker173.cs" />
-    <Compile Include="Roles\Scps\SpeedsterZombie.cs" />
-    <Compile Include="Roles\Scps\TeleportZombie.cs" />
-    <Compile Include="Ssss.cs" />
+    <Reference Include="Assembly-CSharp-firstpass" HintPath="$(SL_REFERENCES)\Assembly-CSharp-firstpass.dll" Private="false"/>
+    <Reference Include="Unity.TextMeshPro" HintPath="$(SL_REFERENCES)\Unity.TextMeshPro.dll" Private="false"/>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\VVUP.Base\VVUP.Base.csproj">
-      <Project>{fb453a80-47ea-499c-bd01-190bd82ed0b1}</Project>
-      <Name>VVUP.Base</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-      <PackageReference Include="ExMod.Exiled" Version="9.13.3" PrivateAssets="all" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-         Other similar extension points exist, see Microsoft.Common.targets.
-    <Target Name="BeforeBuild">
-    </Target>
-    <Target Name="AfterBuild">
-    </Target>
-    -->
-    <PropertyGroup>
-        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
-    </PropertyGroup>
 </Project>
