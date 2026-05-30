@@ -16,8 +16,8 @@ namespace VVUP.CustomEscapes
         public override string Prefix { get; } = "VVUP.CE";
         public override Version Version { get; } =
             Version.Parse(Assembly.GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.3");
-        public override Version RequiredExiledVersion { get; } = new Version(9, 13, 3);
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.4");
+        public override Version RequiredExiledVersion { get; } = new Version(9, 14, 0);
         public EventHandlers EventHandlers;
 
         public override void OnEnabled()

@@ -13,10 +13,10 @@
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <LangVersion>latest</LangVersion>
         <FileAlignment>512</FileAlignment>
-        <Version>3.6.3</Version>
-        <AssemblyVersion>3.6.3.0</AssemblyVersion>
-        <FileVersion>3.6.3.0</FileVersion>
-        <InformationalVersion>3.6.3</InformationalVersion>
+        <Version>3.6.4</Version>
+        <AssemblyVersion>3.6.4.0</AssemblyVersion>
+        <FileVersion>3.6.4.0</FileVersion>
+        <InformationalVersion>3.6.4</InformationalVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -41,7 +41,7 @@
     <ItemGroup>
         <Reference Include="Assembly-CSharp-firstpass">
             <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
-            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\Assembly-CSharp-firstpass.dll</HintPath>
+            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\Assembly-CSharp-firstpass.dll</HintPath>
             <Private>false</Private>
         </Reference>
         <Reference Include="System"/>
@@ -50,17 +50,17 @@
         <Reference Include="System.Xml"/>
         <Reference Include="Mirror">
             <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\Mirror.dll</HintPath>
-            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\Mirror.dll</HintPath>
+            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\Mirror.dll</HintPath>
             <Private>false</Private>
         </Reference>
         <Reference Include="UnityEngine.AnimationModule">
             <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\UnityEngine.AnimationModule.dll</HintPath>
-            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\UnityEngine.AnimationModule.dll</HintPath>
+            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\UnityEngine.AnimationModule.dll</HintPath>
             <Private>false</Private>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
             <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
-            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\Exiled_Resources\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\UnityEngine.CoreModule.dll</HintPath>
             <Private>false</Private>
         </Reference>
     </ItemGroup>
@@ -75,7 +75,7 @@
         <Compile Include="Plugin.cs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="ExMod.Exiled" Version="9.13.3" PrivateAssets="all" />
+        <PackageReference Include="ExMod.Exiled" Version="9.14.0" PrivateAssets="all" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

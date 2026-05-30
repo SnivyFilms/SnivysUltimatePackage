@@ -17,8 +17,8 @@ namespace VVUP.MicroDamageReduction
         public override string Prefix { get; } = "VVUP.MDR";
         public override Version Version { get; } =
             Version.Parse(Assembly.GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.3");
-        public override Version RequiredExiledVersion { get; } = new Version(9, 13, 3);
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.4");
+        public override Version RequiredExiledVersion { get; } = new Version(9, 14, 0);
         public MicroDamageReductionEventHandler MicroDamageReductionEventHandler;
         
         public override void OnEnabled()
