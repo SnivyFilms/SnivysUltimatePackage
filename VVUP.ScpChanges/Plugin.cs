@@ -17,7 +17,7 @@ namespace VVUP.ScpChanges
         public override string Prefix { get; } = "VVUP.SC";
         public override Version Version { get; } =
             Version.Parse(Assembly.GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.4");
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.5");
         public override Version RequiredExiledVersion { get; } = new Version(9, 14, 0);
         public ScpChangesEventHandlers ScpChangesEventHandlers;
         

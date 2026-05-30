@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Exiled.API.Features;
-using Exiled.API.Features.Pickups;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
+using LabApi.Features.Wrappers;
 using MEC;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Animations;
 using VVUP.Base.API;
-using Light = Exiled.API.Features.Toys.Light;
+using Light = LabApi.Features.Wrappers.AdminToy;
+using Pickup = Exiled.API.Features.Pickups.Pickup;
 
 namespace VVUP.Base.EventHandlers
 {
@@ -71,7 +72,8 @@ namespace VVUP.Base.EventHandlers
                 RemoveGlowEffect(pickup);
             }
             var actualOffset = offset ?? Vector3.zero;
-            var light = Light.Create(pickup.Position, spawn: false);
+            var light = LightSourceToy.Create(pickup.Position);
+            //var light = Light.Create(pickup.Position, spawn: false);
             light.Color = glowColor;
             light.Intensity = intensity;
             light.Range = range;
