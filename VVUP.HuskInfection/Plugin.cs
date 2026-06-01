@@ -23,8 +23,8 @@ namespace VVUP.HuskInfection
         public override string Prefix { get; } = "VVUP.HK";
         public override Version Version { get; } =
             Version.Parse(Assembly.GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.5");
-        public override Version RequiredExiledVersion { get; } = new Version(9, 14, 0);
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.6");
+        public override Version RequiredExiledVersion { get; } = new Version(9, 14, 2);
 
         public HuskInfectionEventHandlers HuskInfectionEventHandlers;
         public SsssEventHandlers SsssEventHandlers;

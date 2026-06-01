@@ -12,10 +12,10 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <LangVersion>latest</LangVersion>
     <FileAlignment>512</FileAlignment>
-    <Version>3.6.5</Version>
-    <AssemblyVersion>3.6.5.0</AssemblyVersion>
-    <FileVersion>3.6.5.0</FileVersion>
-    <InformationalVersion>3.6.5</InformationalVersion>
+    <Version>3.6.6</Version>
+    <AssemblyVersion>3.6.6.0</AssemblyVersion>
+    <FileVersion>3.6.6.0</FileVersion>
+    <InformationalVersion>3.6.6</InformationalVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -164,7 +164,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-      <PackageReference Include="ExMod.Exiled" Version="9.14.0" PrivateAssets="all" />
+      <PackageReference Include="ExMod.Exiled" Version="9.14.2" PrivateAssets="all" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
