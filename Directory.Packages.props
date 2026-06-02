@@ -1,12 +1,11 @@
 ﻿<Project>
-    <PropertyGroup>
-        <!-- Enable central package management, https://learn.microsoft.com/en-us/nuget/consume-packages/Central-Package-Management -->
-        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    </PropertyGroup>
-    
-    <ItemGroup>
-        <PackageVersion Include="ExMod.Exiled" Version="9.13.3" />
-        <PackageVersion Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.2" />
-        <PackageVersion Include="Lib.Harmony" Version="2.2.2" />
-    </ItemGroup>
+  <PropertyGroup>
+    <!-- Enable central package management, https://learn.microsoft.com/en-us/nuget/consume-packages/Central-Package-Management -->
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="ExMod.Exiled" Version="9.14.2" />
+    <PackageVersion Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.2" />
+    <PackageVersion Include="Lib.Harmony" Version="2.2.2" />
+  </ItemGroup>
 </Project>
