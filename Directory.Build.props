@@ -1,5 +1,4 @@
 ﻿<Project>
-    <Import Project="ReferencePath.props.user" Condition="Exists('ReferencePath.props.user')" />
     <PropertyGroup>
         <GenerateAssemblyInformationVersionAttribute>false</GenerateAssemblyInformationVersionAttribute>
         <SharedBinPath>$(MSBuildThisFileDirectory)bin/</SharedBinPath>
