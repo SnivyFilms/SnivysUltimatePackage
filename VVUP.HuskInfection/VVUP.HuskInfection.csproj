@@ -16,9 +16,4 @@
         <ProjectReference Include="../VVUP.Base/VVUP.Base.csproj"/>
         <ProjectReference Include="../VVUP.CustomRoles/VVUP.CustomRoles.csproj"/>
     </ItemGroup>
-
-
-    <ItemGroup>
-      <PackageReference Remove="RueI" />
-    </ItemGroup>
 </Project>

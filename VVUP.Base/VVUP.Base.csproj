@@ -10,19 +10,14 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>VVUP.Base</Title>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <CodeAnalysisRuleSet>../stylecop.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <DebugSymbols>true</DebugSymbols>
       <DebugType>embedded</DebugType>
-      <DocumentationFile>bin\Release\net48\VVUP.Base.xml</DocumentationFile>
     </PropertyGroup>
 
     <PropertyGroup>

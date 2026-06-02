@@ -15,9 +15,4 @@
   <ItemGroup>
     <ProjectReference Include="../VVUP.Base/VVUP.Base.csproj"/>
   </ItemGroup>
-
-
-  <ItemGroup>
-    <PackageReference Remove="RueI" />
-  </ItemGroup>
 </Project>
