@@ -72,8 +72,7 @@ namespace VVUP.Base.EventHandlers
                 RemoveGlowEffect(pickup);
             }
             var actualOffset = offset ?? Vector3.zero;
-            var light = LightSourceToy.Create(pickup.Position);
-            //var light = Light.Create(pickup.Position, spawn: false);
+            var light = LightSourceToy.Create(pickup.Position, networkSpawn: false);
             light.Color = glowColor;
             light.Intensity = intensity;
             light.Range = range;

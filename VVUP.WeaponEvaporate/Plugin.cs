@@ -17,7 +17,7 @@ namespace VVUP.WeaponEvaporate
         public override string Prefix { get; } = "VVUP.WE";
         public override Version Version { get; } =
             Version.Parse(Assembly.GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.6");
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.7");
         public override Version RequiredExiledVersion { get; } = new Version(9, 14, 2);
         public EventHandlers EventHandlers;
         
