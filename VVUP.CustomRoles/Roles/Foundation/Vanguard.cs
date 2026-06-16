@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Exiled.API.Enums;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomRoles.API.Features;

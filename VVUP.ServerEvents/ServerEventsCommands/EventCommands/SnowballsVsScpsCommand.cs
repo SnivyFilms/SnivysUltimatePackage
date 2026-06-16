@@ -1,5 +1,4 @@
-﻿using System;
-using CommandSystem;
+﻿using CommandSystem;
 
 namespace VVUP.ServerEvents.ServerEventsCommands.EventCommands
 {

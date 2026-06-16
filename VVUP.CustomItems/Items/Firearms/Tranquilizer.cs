@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using CustomPlayerEffects;
 using Exiled.API.Enums;
 using Exiled.API.Features;

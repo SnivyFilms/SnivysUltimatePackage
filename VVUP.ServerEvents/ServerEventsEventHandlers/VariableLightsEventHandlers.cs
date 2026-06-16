@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Exiled.API.Features;
+﻿using Exiled.API.Features;
 using MEC;
 using UnityEngine;
 using VVUP.Base.API;

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Exiled.API.Features;
+﻿using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using VVUP.Base.API;
 using VVUP.CustomRoles.API;

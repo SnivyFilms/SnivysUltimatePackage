@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using MEC;

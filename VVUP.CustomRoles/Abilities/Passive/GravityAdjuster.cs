@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Exiled.API.Features;
+﻿using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using UnityEngine;
 using PlayerLab = LabApi.Features.Wrappers.Player;

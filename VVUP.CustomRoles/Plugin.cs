@@ -1,8 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Linq;
-using Exiled.API.Enums;
+﻿using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API;
 using Exiled.CustomRoles.API.Features;
@@ -10,7 +6,6 @@ using Exiled.Loader;
 using MEC;
 using UserSettings.ServerSpecific;
 using VVUP.CustomRoles.API;
-using VVUP.CustomRoles.Configs;
 using VVUP.CustomRoles.EventHandlers;
 using Config = VVUP.CustomRoles.Configs.Config;
 using Server = Exiled.Events.Handlers.Server;

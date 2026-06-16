@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using VVUP.CustomItems.Items.Armor;
+﻿using VVUP.CustomItems.Items.Armor;
 using VVUP.CustomItems.Items.Firearms;
 using VVUP.CustomItems.Items.Grenades;
 //using VVUP.CustomItems.Items.Keycards;

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Exiled.API.Features.Spawn;
+﻿using Exiled.API.Features.Spawn;
 using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
 using VVUP.CustomRoles.API;

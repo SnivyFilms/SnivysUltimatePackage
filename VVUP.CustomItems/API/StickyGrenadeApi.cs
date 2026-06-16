@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Exiled.API.Features.Pickups;
+﻿using Exiled.API.Features.Pickups;
 
 namespace VVUP.CustomItems.API
 {

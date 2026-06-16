@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using AdminToys;
 using Exiled.API.Enums;
 using Exiled.API.Features;

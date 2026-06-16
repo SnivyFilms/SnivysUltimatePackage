@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Exiled.API.Features;
+﻿using Exiled.API.Features;
 using VVUP.ServerEvents.ServerEventsConfigs;
 using LabApiCassie = LabApi.Features.Wrappers.Announcer;
 

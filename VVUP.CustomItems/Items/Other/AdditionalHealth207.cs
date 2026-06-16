@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.ComponentModel;
 using CustomPlayerEffects;
 using Exiled.API.Enums;

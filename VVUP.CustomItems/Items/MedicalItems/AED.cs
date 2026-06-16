@@ -8,7 +8,6 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using PlayerRoles;
-using System.Collections.Generic;
 using UnityEngine;
 using VVUP.Base.API;
 using YamlDotNet.Serialization;

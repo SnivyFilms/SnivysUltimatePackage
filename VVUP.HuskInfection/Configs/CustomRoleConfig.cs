@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using VVUP.HuskInfection.Roles;
+﻿using VVUP.HuskInfection.Roles;
 
 namespace VVUP.HuskInfection.Configs
 {
