@@ -26,7 +26,6 @@ namespace VVUP.Base
         public bool VvupWe = false; // Weapon Evaporate
         public bool VvupRs = false; // Round Start
         public bool VvupSc = false; // SCP Changes
-        public bool VvupFa = false; // Flamingo Adjustments
         public bool VvupHk = false; // Husk Infection
         public bool VvupCt = false; // Credit Tags
         public bool VvupCe = false; // Custom Escapes
@@ -55,7 +54,6 @@ namespace VVUP.Base
             VvupWe = false;
             VvupRs = false;
             VvupSc = false;
-            VvupFa = false;
             VvupHk = false;
             VvupCt = false;
             VvupCe = false;

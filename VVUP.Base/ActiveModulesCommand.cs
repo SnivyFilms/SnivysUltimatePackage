@@ -31,8 +31,6 @@ namespace VVUP.Base
                 activeModules += "Round Start\n";
             if (Plugin.Instance.VvupSc)
                 activeModules += "SCP Changes\n";
-            if (Plugin.Instance.VvupFa)
-                activeModules += "Flamingo Adjustments\n";
             if (Plugin.Instance.VvupHk)
                 activeModules += "Husk Infection\n";
             if (Plugin.Instance.VvupCt)
