@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using System.Linq;
 using Exiled.API.Enums;
@@ -13,10 +13,19 @@ namespace VVUP.MicroDamageReduction
         public override PluginPriority Priority { get; } = PluginPriority.Low;
         public static Plugin Instance;
         public override string Name { get; } = "VVUP: Micro Damage Reduction";
-        public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.MDR";
-        public override Version Version => GetType().Assembly.GetName().Version;
-        public override Version RequiredExiledVersion { get; } = new Version(9, 13, 3);
+        public override string Author =>
+            Assembly.GetExecutingAssembly()
+                .GetCustomAttribute<AssemblyCompanyAttribute>()?
+                .Company ?? "Unknown";
+        public override Version Version =>
+            Assembly.GetExecutingAssembly().GetName().Version;
+        public override Version RequiredExiledVersion =>
+            Version.Parse(
+                Assembly.GetExecutingAssembly()
+                    .GetCustomAttributes<AssemblyMetadataAttribute>()
+                    .First(x => x.Key == "RequiredExiledVersion")
+                    .Value);
         public MicroDamageReductionEventHandler MicroDamageReductionEventHandler;
         
         public override void OnEnabled()

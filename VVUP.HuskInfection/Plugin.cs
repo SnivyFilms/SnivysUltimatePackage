@@ -1,3 +1,4 @@
+using System.Reflection;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.CustomItems.API.Features;
@@ -15,12 +16,20 @@ namespace VVUP.HuskInfection
     {
         public override PluginPriority Priority { get; } = PluginPriority.Lower;
         public static Plugin Instance;
-        public override string Name { get; } = "VVUP: Husk Infection";
-        public override string Author { get; } = "Vicious Vikki";
+        public override string Name { get; } = "VVUP: Husk Infection"; 
         public override string Prefix { get; } = "VVUP.HK";
-        public override Version Version => GetType().Assembly.GetName().Version;
-        public override Version RequiredExiledVersion { get; } = new Version(9, 13, 3);
-
+        public override string Author =>
+            Assembly.GetExecutingAssembly()
+                .GetCustomAttribute<AssemblyCompanyAttribute>()?
+                .Company ?? "Unknown";
+        public override Version Version =>
+            Assembly.GetExecutingAssembly().GetName().Version;
+        public override Version RequiredExiledVersion =>
+            Version.Parse(
+                Assembly.GetExecutingAssembly()
+                    .GetCustomAttributes<AssemblyMetadataAttribute>()
+                    .First(x => x.Key == "RequiredExiledVersion")
+                    .Value);
         public HuskInfectionEventHandlers HuskInfectionEventHandlers;
         public SsssEventHandlers SsssEventHandlers;
         

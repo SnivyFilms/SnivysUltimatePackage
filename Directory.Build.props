@@ -13,8 +13,14 @@
 
     <PropertyGroup>
         <Authors>Vicious Vikki</Authors>
+        <Company>$(Authors)</Company>
         <Version Condition="$(Version) == ''">4.0.0</Version>
+        <RequiredExiledVersion>9.14.2</RequiredExiledVersion>
     </PropertyGroup>
+
+    <ItemGroup>
+        <AssemblyMetadata Include="RequiredExiledVersion" Value="$(RequiredExiledVersion)"/>
+    </ItemGroup>
 
     <ItemGroup>
         <Reference Include="Assembly-CSharp" Publicize="true"/>

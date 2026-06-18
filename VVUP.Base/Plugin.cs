@@ -1,4 +1,6 @@
-﻿using Exiled.API.Enums;
+using System;
+using System.Reflection;
+using Exiled.API.Enums;
 using Exiled.API.Features;
 using VVUP.Base.EventHandlers;
 using Map = Exiled.Events.Handlers.Map;
@@ -11,10 +13,19 @@ namespace VVUP.Base
         public override PluginPriority Priority { get; } = PluginPriority.Default;
         public static Plugin Instance;
         public override string Name { get; } = "VVUP: Base";
-        public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.Base";
-        public override Version Version => GetType().Assembly.GetName().Version;
-        public override Version RequiredExiledVersion { get; } = new Version(9, 13, 3);
+        public override string Author =>
+            Assembly.GetExecutingAssembly()
+                .GetCustomAttribute<AssemblyCompanyAttribute>()?
+                .Company ?? "Unknown";
+        public override Version Version =>
+            Assembly.GetExecutingAssembly().GetName().Version;
+        public override Version RequiredExiledVersion =>
+            Version.Parse(
+                Assembly.GetExecutingAssembly()
+                    .GetCustomAttributes<AssemblyMetadataAttribute>()
+                    .First(x => x.Key == "RequiredExiledVersion")
+                    .Value);
 
         public bool VvupCi = false; // Custom Items
         public bool VvupCr = false; // Custom Roles
@@ -65,5 +76,6 @@ namespace VVUP.Base
             Instance = null;
             base.OnDisabled();
         }
+
     }
 }

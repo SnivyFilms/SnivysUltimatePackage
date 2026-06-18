@@ -1,4 +1,5 @@
-﻿using Exiled.API.Enums;
+using System.Reflection;
+using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API;
 using Exiled.CustomRoles.API.Features;
@@ -19,11 +20,19 @@ namespace VVUP.CustomRoles
         public override PluginPriority Priority { get; } = PluginPriority.Low;
         public static Plugin Instance;
         public override string Name { get; } = "VVUP: Custom Roles";
-        public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.CR";
-        public override Version Version => GetType().Assembly.GetName().Version;
-        public override Version RequiredExiledVersion { get; } = new Version(9, 13, 3);
-        
+        public override string Author =>
+            Assembly.GetExecutingAssembly()
+                .GetCustomAttribute<AssemblyCompanyAttribute>()?
+                .Company ?? "Unknown";
+        public override Version Version =>
+            Assembly.GetExecutingAssembly().GetName().Version;
+        public override Version RequiredExiledVersion =>
+            Version.Parse(
+                Assembly.GetExecutingAssembly()
+                    .GetCustomAttributes<AssemblyMetadataAttribute>()
+                    .First(x => x.Key == "RequiredExiledVersion")
+                    .Value);        
         public Dictionary<StartTeam, List<ICustomRole>> Roles { get; } = new();
         public CustomRoleEventHandler CustomRoleEventHandler;
         public SsssEventHandlers SsssEventHandlers;

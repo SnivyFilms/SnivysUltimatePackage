@@ -1,3 +1,4 @@
+using System.Reflection;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.Loader;
@@ -10,10 +11,12 @@ namespace VVUP.ScpChanges
         public override PluginPriority Priority { get; } = PluginPriority.Low;
         public static Plugin Instance;
         public override string Name { get; } = "VVUP: SCP Changes";
-        public override string Author { get; } = "Vicious Vikki";
+        public override string Author { get; } = typeof(Plugin).Assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company
+            ?? throw new InvalidOperationException("Missing assembly company metadata.");
         public override string Prefix { get; } = "VVUP.SC";
         public override Version Version => GetType().Assembly.GetName().Version;
-        public override Version RequiredExiledVersion { get; } = new Version(9, 13, 3);
+        public override Version RequiredExiledVersion { get; } = global::System.Version.Parse(
+            typeof(Plugin).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>().First(a => a.Key == "RequiredExiledVersion").Value);
         public ScpChangesEventHandlers ScpChangesEventHandlers;
         
         public override void OnEnabled()
