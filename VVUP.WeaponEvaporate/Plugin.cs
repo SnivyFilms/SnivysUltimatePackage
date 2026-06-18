@@ -23,7 +23,8 @@ namespace VVUP.WeaponEvaporate
                 Assembly.GetExecutingAssembly()
                     .GetCustomAttributes<AssemblyMetadataAttribute>()
                     .First(x => x.Key == "RequiredExiledVersion")
-                    .Value);        public EventHandlers EventHandlers;
+                    .Value);        
+        public EventHandlers EventHandlers;
         
         public override void OnEnabled()
         {
