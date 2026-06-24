@@ -1,12 +1,15 @@
+using System.ComponentModel;
 using AdminToys;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
+using Exiled.API.Features.Roles;
 using Exiled.API.Features.Spawn;
 using Exiled.API.Features.Toys;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
 using MEC;
+using PlayerRoles;
 using UnityEngine;
 using VVUP.Base.API;
 using YamlDotNet.Serialization;
@@ -43,7 +46,30 @@ namespace VVUP.CustomItems.Items.Grenades
         public override float FuseTime { get; set; } = 10;
         public float Range { get; set; } = 100;
         public float LineVisibleTime { get; set; } = 5;
-        
+
+        public List<SideColor> SideColorBeam = new()
+        {
+            new SideColor()
+            {
+                Role = RoleTypeId.NtfCaptain,
+                R = 0,
+                G = 0.39f,
+                B = 1,
+                A = 1,
+            },
+            new SideColor()
+            {
+                Side = Side.ChaosInsurgency,
+                R = 0,
+                G = 0.51f,
+                B = 0,
+                A = 1,
+            },
+            new SideColor()
+            {
+                
+            }
+        };
         public bool HasCustomItemGlow { get; set; } = true;
         public Color CustomItemGlowColor { get; set; } = new Color32(102, 0, 204, 127);
         public float GlowRange { get; set; } = 0.25f;
@@ -104,6 +130,25 @@ namespace VVUP.CustomItems.Items.Grenades
             }
             
             return (red, green, blue);
+        }
+        public class SideColor
+        {
+            public bool IsCustomRole { get; set; } = false;
+
+            [Description("If IsCustomRole is false, it will use a base game role and CustomRoleId will be ignored")]
+            public RoleTypeId Role { get; set; } = RoleTypeId.None;
+            [Description("If IsCustomRole is true, it will use a custom role id and base game roles will be ignored")]
+            public uint CustomRoleId { get; set; } = 0;
+            [Description("RGBA is 0-1")]
+            public float R { get; set; } = 1;
+            public float G { get; set; } = 1;
+            public float B { get; set; } = 1;
+            public float A { get; set; } = 1;
+            public Color GetColor() => new Color(
+                Mathf.Clamp(R, 0f, 1f), 
+                Mathf.Clamp(G, 0f, 1f), 
+                Mathf.Clamp(B, 0f, 1f), 
+                Mathf.Clamp(A, 0f, 1f));
         }
     }
 }
