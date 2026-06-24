@@ -89,7 +89,7 @@ namespace VVUP.CustomItems.Items.Other
             base.UnsubscribeEvents();
         }
 
-        protected override void OnDropping(DroppingItemEventArgs ev)
+        protected override void OnDroppingItem(DroppingItemEventArgs ev)
         {
             if (_playersUsingScp1499.ContainsKey(ev.Player) && Check(ev.Item))
             {
