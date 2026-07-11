@@ -106,6 +106,7 @@
     <Compile Include="Items\MedicalItems\AED.cs" />
     <Compile Include="Items\MedicalItems\AntiScp096Pills.cs" />
     <Compile Include="Items\MedicalItems\DeadringerSyringe.cs" />
+    <Compile Include="Items\MedicalItems\ExperimentalStim.cs" />
     <Compile Include="Items\MedicalItems\InfinitePills.cs" />
     <Compile Include="Items\MedicalItems\KySyringe.cs" />
     <Compile Include="Items\Other\AdditionalHealth207.cs" />
