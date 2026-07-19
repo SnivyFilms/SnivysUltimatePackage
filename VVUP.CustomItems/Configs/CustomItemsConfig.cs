@@ -183,9 +183,15 @@ namespace VVUP.CustomItems.Configs
         {
             new Sniper()
         };
+        
         public List<Scp427> Scp427s { get; private set; } = new()
         {
             new Scp427()
+        };
+        
+        public List<ExperimentalStim> ExperimentalStims { get; private set; } = new()
+        {
+            new ExperimentalStim()
         };
     }
 }
