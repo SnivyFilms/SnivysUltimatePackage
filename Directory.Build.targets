@@ -1,0 +1,25 @@
+﻿<Project>
+    <PropertyGroup>
+        <!-- Windows -->
+        <WindowsSLRefs Condition=" '$(OS)' == 'Windows_NT' ">$(SL_REFERENCES)</WindowsSLRefs>
+        <!-- Linux/Mac -->
+        <LinuxSLRefs Condition=" '$(OS)' != 'Windows_NT' ">$(SL_REFERENCES)</LinuxSLRefs>
+        <ReferencePath Condition="$(ReferencePath) == ''">$(WindowsSLRefs);$(LinuxSLRefs)</ReferencePath>
+        <AssemblySearchPaths>$(ReferencePath);$(AssemblySearchPaths)</AssemblySearchPaths>
+    </PropertyGroup>
+
+    <Target Name="NotifyIncompleteSetup" BeforeTargets="PrepareForBuild" Condition="$(ReferencePath) == ''">
+        <PropertyGroup>
+            <Props>$(MSBuildThisFileDirectory)ReferencePath.props.user</Props>
+            <Template><![CDATA[
+<Project>
+    <PropertyGroup>
+        <ReferencePath></ReferencePath>
+    </PropertyGroup>
+</Project>
+            ]]></Template>
+        </PropertyGroup>
+        <WriteLinesToFile File="$(Props)" Lines="$(Template)" Condition="!Exists($(Props))" />
+        <Error Text="The ReferencePath property is not specified! Make sure to set the property in the ReferencePath.props.user file." />
+    </Target>
+</Project>

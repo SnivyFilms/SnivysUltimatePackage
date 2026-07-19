@@ -1,5 +1,4 @@
-﻿using System;
-using CommandSystem;
+﻿using CommandSystem;
 using Exiled.API.Features;
 using Exiled.CustomItems.API.Features;
 using VVUP.CustomItems.Items.Firearms;

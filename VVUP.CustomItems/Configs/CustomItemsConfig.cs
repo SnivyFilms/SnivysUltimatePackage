@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using VVUP.CustomItems.Items.Armor;
+﻿using VVUP.CustomItems.Items.Armor;
 using VVUP.CustomItems.Items.Firearms;
 using VVUP.CustomItems.Items.Grenades;
 //using VVUP.CustomItems.Items.Keycards;
@@ -189,7 +188,7 @@ namespace VVUP.CustomItems.Configs
         {
             new Scp427()
         };
-
+        
         public List<ExperimentalStim> ExperimentalStims { get; private set; } = new()
         {
             new ExperimentalStim()

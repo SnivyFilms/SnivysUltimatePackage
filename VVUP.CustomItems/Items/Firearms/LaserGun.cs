@@ -8,11 +8,9 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using InventorySystem.Items.Firearms.Extensions;
 using MEC;
-using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UserSettings.ServerSpecific;
-using VVUP.Base;
 using VVUP.Base.API;
 
 namespace VVUP.CustomItems.Items.Firearms

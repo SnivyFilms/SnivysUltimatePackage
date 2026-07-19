@@ -1,5 +1,4 @@
-﻿using System;
-using CommandSystem;
+﻿using CommandSystem;
 using Exiled.API.Features;
 
 namespace VVUP.CreditTags

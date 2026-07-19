@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Exiled.API.Enums;
-using Exiled.API.Features.Attributes;
-using Exiled.API.Features.Spawn;
+﻿using Exiled.API.Enums;
 using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
 using VVUP.CustomRoles.Abilities.Passive;

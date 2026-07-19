@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Exiled.API.Enums;
+﻿using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Spawn;
@@ -8,7 +7,6 @@ using Exiled.Events.EventArgs.Player;
 using MEC;
 using PlayerRoles;
 using UnityEngine;
-using VVUP.Base;
 using VVUP.Base.API;
 using YamlDotNet.Serialization;
 using PlayerAPI = Exiled.API.Features.Player;

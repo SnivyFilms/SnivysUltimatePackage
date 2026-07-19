@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using System.ComponentModel;
 using Exiled.API.Interfaces;
 using UnityEngine;
 using VVUP.Base.API;
-using VVUP.Base.EventHandlers;
 
 namespace VVUP.Base
 {

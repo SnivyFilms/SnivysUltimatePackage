@@ -1,127 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
-            Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{5A358376-2F4B-42D8-B830-BAD2D827F603}</ProjectGuid>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>VVUP.FreeCustomRoles</RootNamespace>
-        <AssemblyName>VVUP.FreeCustomRoles</AssemblyName>
-        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+        <TargetFramework>net48</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
         <LangVersion>latest</LangVersion>
-        <FileAlignment>512</FileAlignment>
-        <Version>3.6.7</Version>
-        <AssemblyVersion>3.6.7.0</AssemblyVersion>
-        <FileVersion>3.6.7.0</FileVersion>
-        <InformationalVersion>3.6.7</InformationalVersion>
+        <PlatformTarget>x64</PlatformTarget>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Debug\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DebugSymbols>true</DebugSymbols>
+      <DebugType>embedded</DebugType>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugType>embedded</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>$(SolutionDir)Build\$(Configuration)\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <DebugSymbols>true</DebugSymbols>
-    </PropertyGroup>
+
     <ItemGroup>
-        <Reference Include="Assembly-CSharp-firstpass">
-            <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
-            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\Assembly-CSharp-firstpass.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="Mirror">
-            <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\Mirror.dll</HintPath>
-            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\Mirror.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="Unity.TextMeshPro">
-            <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\Unity.TextMeshPro.dll</HintPath>
-            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\Unity.TextMeshPro.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="UnityEngine">
-            <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\UnityEngine.dll</HintPath>
-            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\UnityEngine.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="UnityEngine.CoreModule">
-            <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
-            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\UnityEngine.CoreModule.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="UnityEngine.PhysicsModule">
-            <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)/UnityEngine.PhysicsModule.dll</HintPath>
-            <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\UnityEngine.PhysicsModule.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="System"/>
-        <Reference Include="System.Core"/>
-        <Reference Include="System.Data"/>
-        <Reference Include="System.Xml"/>
+        <ProjectReference Include="../VVUP.Base/VVUP.Base.csproj"/>
+        <ProjectReference Include="../VVUP.CustomRoles/VVUP.CustomRoles.csproj"/>
     </ItemGroup>
-    <ItemGroup>
-        <Compile Include="MasterConfig.cs" />
-        <Compile Include="Plugin.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole1.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole10.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole11.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole12.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole13.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole14.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole15.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole16.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole17.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole18.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole19.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole2.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole20.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole3.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole4.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole5.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole6.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole7.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole8.cs" />
-        <Compile Include="FreeCustomRoles\FreeCustomRole9.cs" />
-        <Compile Include="Ssss.cs" />
-        <Compile Include="SsssEventHandlers.cs" />
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\VVUP.Base\VVUP.Base.csproj">
-        <Project>{fb453a80-47ea-499c-bd01-190bd82ed0b1}</Project>
-        <Name>VVUP.Base</Name>
-      </ProjectReference>
-      <ProjectReference Include="..\VVUP.CustomRoles\VVUP.CustomRoles.csproj">
-        <Project>{cfd5b906-4ca0-4493-b81e-afb1421c6f14}</Project>
-        <Name>VVUP.CustomRoles</Name>
-      </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="ExMod.Exiled" Version="9.14.2" PrivateAssets="all" />
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-         Other similar extension points exist, see Microsoft.Common.targets.
-    <Target Name="BeforeBuild">
-    </Target>
-    <Target Name="AfterBuild">
-    </Target>
-    -->
-    <PropertyGroup>
-        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
-    </PropertyGroup>
 </Project>

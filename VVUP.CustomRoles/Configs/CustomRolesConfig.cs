@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using VVUP.CustomRoles.Roles.Chaos;
+﻿using VVUP.CustomRoles.Roles.Chaos;
 using VVUP.CustomRoles.Roles.ClassD;
 using VVUP.CustomRoles.Roles.Foundation;
 using VVUP.CustomRoles.Roles.Other;

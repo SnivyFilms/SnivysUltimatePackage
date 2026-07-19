@@ -1,6 +1,4 @@
-﻿using System;
 using System.Reflection;
-using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.Loader;
@@ -15,13 +13,19 @@ namespace VVUP.ServerEvents
         public override PluginPriority Priority { get; } = PluginPriority.Low;
         public static Plugin Instance;
         public override string Name { get; } = "VVUP: Server Events";
-        public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.SE";
-        public override Version Version { get; } =
-            Version.Parse(Assembly.GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.7");
-        public override Version RequiredExiledVersion { get; } = new Version(9, 14, 2);
-
+        public override string Author =>
+            Assembly.GetExecutingAssembly()
+                .GetCustomAttribute<AssemblyCompanyAttribute>()?
+                .Company ?? "Unknown";
+        public override Version Version =>
+            Assembly.GetExecutingAssembly().GetName().Version;
+        public override Version RequiredExiledVersion =>
+            Version.Parse(
+                Assembly.GetExecutingAssembly()
+                    .GetCustomAttributes<AssemblyMetadataAttribute>()
+                    .First(x => x.Key == "RequiredExiledVersion")
+                    .Value);
         public static int ActiveEvent = 0;
         public ServerEventsMainEventHandler ServerEventsMainEventHandler;
 

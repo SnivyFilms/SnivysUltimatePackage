@@ -1,6 +1,4 @@
-using System;
 using System.Reflection;
-using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.Loader;
@@ -13,12 +11,12 @@ namespace VVUP.ScpChanges
         public override PluginPriority Priority { get; } = PluginPriority.Low;
         public static Plugin Instance;
         public override string Name { get; } = "VVUP: SCP Changes";
-        public override string Author { get; } = "Vicious Vikki";
+        public override string Author { get; } = typeof(Plugin).Assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company
+            ?? throw new InvalidOperationException("Missing assembly company metadata.");
         public override string Prefix { get; } = "VVUP.SC";
-        public override Version Version { get; } =
-            Version.Parse(Assembly.GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.7");
-        public override Version RequiredExiledVersion { get; } = new Version(9, 14, 2);
+        public override Version Version => GetType().Assembly.GetName().Version;
+        public override Version RequiredExiledVersion { get; } = global::System.Version.Parse(
+            typeof(Plugin).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>().First(a => a.Key == "RequiredExiledVersion").Value);
         public ScpChangesEventHandlers ScpChangesEventHandlers;
         
         public override void OnEnabled()
@@ -34,7 +32,9 @@ namespace VVUP.ScpChanges
             Player.UsedItem += ScpChangesEventHandlers.OnUsingItem;
             Player.Spawned += ScpChangesEventHandlers.OnChangingRole;
             Player.Hurting += ScpChangesEventHandlers.OnHurting;
-            Exiled.Events.Handlers.Warhead.Starting += ScpChangesEventHandlers.OnNukeStarted;
+            
+            // TODO: reimplement
+            // Exiled.Events.Handlers.Warhead.Starting += ScpChangesEventHandlers.OnNukeStarted;
             Instance = this;
             Base.Plugin.Instance.VvupSc = true;
             base.OnEnabled();
@@ -46,7 +46,9 @@ namespace VVUP.ScpChanges
             Player.UsedItem -= ScpChangesEventHandlers.OnUsingItem;
             Player.Spawned -= ScpChangesEventHandlers.OnChangingRole;
             Player.Hurting -= ScpChangesEventHandlers.OnHurting;
-            Exiled.Events.Handlers.Warhead.Starting -= ScpChangesEventHandlers.OnNukeStarted;
+            
+            // TODO: reimplement
+            // Exiled.Events.Handlers.Warhead.Starting -= ScpChangesEventHandlers.OnNukeStarted;
             ScpChangesEventHandlers = null;
             Instance = null;
             base.OnDisabled();

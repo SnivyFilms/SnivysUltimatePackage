@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using Exiled.API.Enums;
 using Exiled.API.Extensions;
 using Exiled.API.Features;
@@ -11,7 +8,6 @@ using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
 using UnityEngine;
-using VVUP.Base;
 using VVUP.Base.API;
 using YamlDotNet.Serialization;
 using Player = Exiled.Events.Handlers.Player;
@@ -193,7 +189,7 @@ namespace VVUP.CustomItems.Items.MedicalItems
                      }
                      else
                      {
-                         Room randomRoom = rooms[Base.GetRandomNumber.GetRandomInt(rooms.Count)];
+                         Room randomRoom = rooms[GetRandomNumber.GetRandomInt(rooms.Count)];
                          Vector3 teleportPosition = randomRoom.Position + Vector3.up;
                          ev.Player.Position = teleportPosition;
                      }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace VVUP.CustomRoles.API
+﻿namespace VVUP.CustomRoles.API
 {
     /// <summary>
     /// Defines the starting team or faction that a player spawns as in SCP: Secret Laboratory.

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.ComponentModel;
 using Exiled.API.Enums;
 using Exiled.API.Features;
@@ -105,8 +104,8 @@ namespace VVUP.CustomItems.Items.Grenades
 
         private static Vector3 GrenadeOffset(Vector3 position)
         {
-            return new Vector3(position.x - 1 + Base.GetRandomNumber.GetRandomFloat(3), 
-                position.y, position.z - 1 + Base.GetRandomNumber.GetRandomFloat(3));
+            return new Vector3(position.x - 1 + GetRandomNumber.GetRandomFloat(3), 
+                position.y, position.z - 1 + GetRandomNumber.GetRandomFloat(3));
         }
     }
 }

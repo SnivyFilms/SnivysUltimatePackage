@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using VVUP.HuskInfection.Items;
+﻿using VVUP.HuskInfection.Items;
 
 namespace VVUP.HuskInfection.Configs
 {

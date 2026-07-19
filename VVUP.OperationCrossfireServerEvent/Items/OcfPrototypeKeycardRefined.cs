@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;

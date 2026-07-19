@@ -1,147 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F94E6731-0190-4591-9110-E4257D793C58}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VVUP.CustomItems</RootNamespace>
-    <AssemblyName>VVUP.CustomItems</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <LangVersion>latestmajor</LangVersion>
-    <FileAlignment>512</FileAlignment>
-    <Version>3.6.7</Version>
-    <AssemblyVersion>3.6.7.0</AssemblyVersion>
-    <FileVersion>3.6.7.0</FileVersion>
-    <InformationalVersion>3.6.7</InformationalVersion>
+    <TargetFramework>net48</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <PlatformTarget>x64</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>embedded</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>$(SolutionDir)Build\$(Configuration)\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
-      <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\Assembly-CSharp-firstpass.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Mirror">
-      <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\Mirror.dll</HintPath>
-      <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\Mirror.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\Unity.TextMeshPro.dll</HintPath>
-      <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\Unity.TextMeshPro.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\UnityEngine.dll</HintPath>
-      <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\UnityEngine.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
-      <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\UnityEngine.CoreModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath Condition="'$(OS)' == 'Windows_NT'">$(EXILED_REFERENCES)/UnityEngine.PhysicsModule.dll</HintPath>
-      <HintPath Condition="'$(OS)' != 'Windows_NT'">..\..\..\SL_REFERENCES\UnityEngine.PhysicsModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="../VVUP.Base/VVUP.Base.csproj"/>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="API\StickyGrenadeApi.cs" />
-    <Compile Include="Commands\C4Detonate.cs" />
-    <Compile Include="Commands\GrenadeLauncherCollider.cs" />
-    <Compile Include="Commands\GrenadeLauncherForce.cs" />
-    <Compile Include="Configs\Config.cs" />
-    <Compile Include="Configs\CustomItemsConfig.cs" />
-    <Compile Include="Configs\SsssConfig.cs" />
-    <Compile Include="Items\Armor\ExplosiveResistantArmor.cs" />
-    <Compile Include="Items\Armor\LowGravityArmor.cs" />
-    <Compile Include="Items\Firearms\ExplosiveRoundRevolver.cs" />
-    <Compile Include="Items\Firearms\GrenadeLauncher.cs" />
-    <Compile Include="Items\Firearms\LaserGun.cs" />
-    <Compile Include="Items\Firearms\MediGun.cs" />
-    <Compile Include="Items\Firearms\Pathfinder.cs" />
-    <Compile Include="Items\Firearms\Scp2818.cs" />
-    <Compile Include="Items\Firearms\Sniper.cs" />
-    <Compile Include="Items\Firearms\Tranquilizer.cs" />
-    <Compile Include="Items\Firearms\ViperPdw.cs" />
-    <Compile Include="Items\Grenades\C4.cs" />
-    <Compile Include="Items\Grenades\ClusterGrenade.cs" />
-    <Compile Include="Items\Grenades\EmpGrenade.cs" />
-    <Compile Include="Items\Grenades\F4.cs" />
-    <Compile Include="Items\Grenades\GuardianGrenade.cs" />
-    <Compile Include="Items\Grenades\LowGravityGrenade.cs" />
-    <Compile Include="Items\Grenades\MultiFlash.cs" />
-    <Compile Include="Items\Grenades\NerveAgent.cs" />
-    <Compile Include="Items\Grenades\ProxyBang.cs" />
-    <Compile Include="Items\Grenades\SmokeGrenade.cs" />
-    <Compile Include="Items\Keycards\ContainmentScientistKeycard.cs" />
-    <Compile Include="Items\MedicalItems\AED.cs" />
-    <Compile Include="Items\MedicalItems\AntiScp096Pills.cs" />
-    <Compile Include="Items\MedicalItems\DeadringerSyringe.cs" />
-    <Compile Include="Items\MedicalItems\ExperimentalStim.cs" />
-    <Compile Include="Items\MedicalItems\InfinitePills.cs" />
-    <Compile Include="Items\MedicalItems\KySyringe.cs" />
-    <Compile Include="Items\Other\AdditionalHealth207.cs" />
-    <Compile Include="Items\Other\BottleOfRum.cs" />
-    <Compile Include="Items\Other\CognitohazardCharm.cs" />
-    <Compile Include="Items\Other\Knife.cs" />
-    <Compile Include="Items\Other\PhantomLantern.cs" />
-    <Compile Include="Items\Other\PortableIntercom.cs" />
-    <Compile Include="Items\Other\Scp1499.cs" />
-    <Compile Include="Items\Other\Scp427.cs" />
-    <Compile Include="Items\Other\Telewand.cs" />
-    <Compile Include="Patches\StickyGrenade.cs" />
-    <Compile Include="Plugin.cs" />
-    <Compile Include="Ssss.cs" />
-    <Compile Include="SsssEventHandlers.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\VVUP.Base\VVUP.Base.csproj">
-      <Project>{fb453a80-47ea-499c-bd01-190bd82ed0b1}</Project>
-      <Name>VVUP.Base</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="ExMod.Exiled" Version="9.14.2" PrivateAssets="all" />
-    <PackageReference Include="Lib.Harmony" Version="2.4.2" PrivateAssets="all" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-         Other similar extension points exist, see Microsoft.Common.targets.
-    <Target Name="BeforeBuild">
-    </Target>
-    <Target Name="AfterBuild">
-    </Target>
-    -->
-  <PropertyGroup>
-    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
-  </PropertyGroup>
 </Project>

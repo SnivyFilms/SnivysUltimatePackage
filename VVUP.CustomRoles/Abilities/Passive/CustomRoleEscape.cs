@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using Exiled.API.Enums;
-using Exiled.API.Features;
+﻿using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Items;
 using Exiled.CustomRoles.API.Features;
@@ -49,16 +44,19 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 return;
             Log.Debug($"VVUP Custom Abilities: Processing {ev.Player.Nickname} custom escape");
             storedInventory = ev.Player.Items.ToList();
+            CustomRole.TryGet(ev.Player, out IReadOnlyCollection<CustomRole> currentCustomRole);
             
             if (ev.Player.IsCuffed && AllowCuffedCustomRoleChange && CuffedEscapeCustomRole != String.Empty)
             {
                 ev.IsAllowed = false;
+                currentCustomRole?.FirstOrDefault()?.RemoveRole(ev.Player);
                 CustomRole.Get(CuffedEscapeCustomRole)?.AddRole(ev.Player);
                 storedInventory.Clear();
             }
             else if (AllowUncuffedCustomRoleChange && UncuffedEscapeCustomRole != String.Empty)
             {
                 ev.IsAllowed = false;
+                currentCustomRole?.FirstOrDefault()?.RemoveRole(ev.Player);
                 CustomRole.Get(UncuffedEscapeCustomRole)?.AddRole(ev.Player);
                 if (SaveInventory)
                 {
@@ -77,6 +75,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
             else if (EscapeToRegularRole)
             {
                 ev.IsAllowed = false;
+                currentCustomRole?.FirstOrDefault()?.RemoveRole(ev.Player);
                 ev.Player.Role.Set(RegularRole);
                 if (SaveInventory)
                 {

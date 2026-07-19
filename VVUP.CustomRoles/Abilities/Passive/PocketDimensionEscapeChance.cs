@@ -1,10 +1,10 @@
-using System.Collections.Generic;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
 using UnityEngine;
+using VVUP.Base.API;
 
 namespace VVUP.CustomRoles.Abilities.Passive
 {
@@ -46,7 +46,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 ev.Player.Kill(CustomDeathReason);
                 ev.IsAllowed = false;
             }
-            else if (EscapeChance >= Base.GetRandomNumber.GetRandomInt(101))
+            else if (EscapeChance >= GetRandomNumber.GetRandomInt(101))
             {
                 Log.Debug(
                     $"VVUP Custom Abilities: Pocket Dimension Escape Chance, {ev.Player.Nickname} has gotten an escape chance, teleporting them to 106's room");
@@ -69,7 +69,7 @@ namespace VVUP.CustomRoles.Abilities.Passive
                 ev.Player.Kill(CustomDeathReason);
                 ev.IsAllowed = true;
             }
-            else if (EscapeChance >= Base.GetRandomNumber.GetRandomInt(101))
+            else if (EscapeChance >= GetRandomNumber.GetRandomInt(101))
             {
                 Log.Debug(
                     $"VVUP Custom Abilities: Pocket Dimension Escape Chance, {ev.Player.Nickname} has gotten an escape chance, teleporting them to 106's room");

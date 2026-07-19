@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using Exiled.API.Enums;
 using Exiled.API.Features;
@@ -13,12 +13,19 @@ namespace VVUP.Base
         public override PluginPriority Priority { get; } = PluginPriority.Default;
         public static Plugin Instance;
         public override string Name { get; } = "VVUP: Base";
-        public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.Base";
-        public override Version Version { get; } =
-            Version.Parse(Assembly.GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.7");
-        public override Version RequiredExiledVersion { get; } = new Version(9, 14, 2);
+        public override string Author =>
+            Assembly.GetExecutingAssembly()
+                .GetCustomAttribute<AssemblyCompanyAttribute>()?
+                .Company ?? "Unknown";
+        public override Version Version =>
+            Assembly.GetExecutingAssembly().GetName().Version;
+        public override Version RequiredExiledVersion =>
+            Version.Parse(
+                Assembly.GetExecutingAssembly()
+                    .GetCustomAttributes<AssemblyMetadataAttribute>()
+                    .First(x => x.Key == "RequiredExiledVersion")
+                    .Value);
 
         public bool VvupCi = false; // Custom Items
         public bool VvupCr = false; // Custom Roles
@@ -29,7 +36,6 @@ namespace VVUP.Base
         public bool VvupRs = false; // Round Start
         public bool VvupSc = false; // SCP Changes
         public bool VvupHk = false; // Husk Infection
-        public bool VvupVo = false; // Votes
         public bool VvupCt = false; // Credit Tags
         public bool VvupCe = false; // Custom Escapes
         public bool VvupPne = false; // Post Nuke Enhancements
@@ -58,7 +64,6 @@ namespace VVUP.Base
             VvupRs = false;
             VvupSc = false;
             VvupHk = false;
-            VvupVo = false;
             VvupCt = false;
             VvupCe = false;
             VvupPne = false;
@@ -71,5 +76,6 @@ namespace VVUP.Base
             Instance = null;
             base.OnDisabled();
         }
+
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Exiled.API.Features;
+﻿using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Roles;
 using Exiled.CustomRoles.API.Features;

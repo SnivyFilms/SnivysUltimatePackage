@@ -1,7 +1,4 @@
-﻿using System;
 using System.Reflection;
-using System.Collections.Generic;
-using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API;
@@ -10,7 +7,6 @@ using Exiled.Loader;
 using MEC;
 using UserSettings.ServerSpecific;
 using VVUP.CustomRoles.API;
-using VVUP.CustomRoles.Configs;
 using VVUP.CustomRoles.EventHandlers;
 using Config = VVUP.CustomRoles.Configs.Config;
 using Server = Exiled.Events.Handlers.Server;
@@ -24,13 +20,19 @@ namespace VVUP.CustomRoles
         public override PluginPriority Priority { get; } = PluginPriority.Low;
         public static Plugin Instance;
         public override string Name { get; } = "VVUP: Custom Roles";
-        public override string Author { get; } = "Vicious Vikki";
         public override string Prefix { get; } = "VVUP.CR";
-        public override Version Version { get; } =
-            Version.Parse(Assembly.GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.7");
-        public override Version RequiredExiledVersion { get; } = new Version(9, 14, 2);
-        
+        public override string Author =>
+            Assembly.GetExecutingAssembly()
+                .GetCustomAttribute<AssemblyCompanyAttribute>()?
+                .Company ?? "Unknown";
+        public override Version Version =>
+            Assembly.GetExecutingAssembly().GetName().Version;
+        public override Version RequiredExiledVersion =>
+            Version.Parse(
+                Assembly.GetExecutingAssembly()
+                    .GetCustomAttributes<AssemblyMetadataAttribute>()
+                    .First(x => x.Key == "RequiredExiledVersion")
+                    .Value);        
         public Dictionary<StartTeam, List<ICustomRole>> Roles { get; } = new();
         public CustomRoleEventHandler CustomRoleEventHandler;
         public SsssEventHandlers SsssEventHandlers;
