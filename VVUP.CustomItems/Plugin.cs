@@ -21,8 +21,8 @@ namespace VVUP.CustomItems
         public override string Prefix { get; } = "VVUP.CI";
         public override Version Version { get; } =
             Version.Parse(Assembly.GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.7");
-        public override Version RequiredExiledVersion { get; } = new Version(9, 14, 2);
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.8");
+        public override Version RequiredExiledVersion { get; } = new Version(9, 15, 2);
         public SsssEventHandlers SsssEventHandlers;
         private Harmony _harmony;
 
