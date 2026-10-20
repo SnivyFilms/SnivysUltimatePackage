@@ -13,10 +13,10 @@
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <LangVersion>latest</LangVersion>
         <FileAlignment>512</FileAlignment>
-        <Version>3.6.8</Version>
-        <AssemblyVersion>3.6.8.0</AssemblyVersion>
-        <FileVersion>3.6.8.0</FileVersion>
-        <InformationalVersion>3.6.8</InformationalVersion>
+        <Version>3.6.9</Version>
+        <AssemblyVersion>3.6.9.0</AssemblyVersion>
+        <FileVersion>3.6.9.0</FileVersion>
+        <InformationalVersion>3.6.9</InformationalVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>

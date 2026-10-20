@@ -23,7 +23,7 @@ namespace VVUP.CustomRoles.EventHandlers
                     Log.Debug(enumerator.Current?.StartTeam);
                     if (enumerator.Current is not null)
                     {
-                        int random = Base.GetRandomNumber.GetRandomInt(101);
+                        int random = Base.GetRandomNumber.GetRandomInt(1, 101);
                         if (enumerator.Current.StartTeam.HasFlag(StartTeam.Other)
                             || (enumerator.Current.StartTeam.HasFlag(StartTeam.Revived) && !checkRevive)
                             || (enumerator.Current.StartTeam.HasFlag(StartTeam.Escape) && !checkEscape)

@@ -16,7 +16,7 @@ namespace VVUP.Votes
         public override string Prefix { get; } = "VVUP.V";
         public override Version Version { get; } =
             Version.Parse(Assembly.GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.8");
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "3.6.9");
         public override Version RequiredExiledVersion { get; } = new Version(9, 15, 2);
 
         public override void OnEnabled()
